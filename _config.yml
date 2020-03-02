@@ -63,6 +63,8 @@ menu:
     url:               https://hydejack.com/docs/
   - title:             Kaggle ➦
     url:               https://www.kaggle.com/tonychenxyz/
+  - title:             Projects
+    url:               /projects/
   - title:             Photography
     url:               /photography/
   - title:             Filmmaking
