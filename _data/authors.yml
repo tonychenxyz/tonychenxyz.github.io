@@ -3,8 +3,8 @@
 # You can change `author1` to your shortname.
 author1:
   # Replace <...> with your own (remove the < >)
-  name:              <firstname> <lastname>
-  email:             <mail@domain.tld>
+  name:              Haozhe Chen
+  email:             tonychenxyz@gmail.com
 
   # Used at the bottom of each page and at the top of the `about` layout
   # Markdown enabled, can use multiple paragraphs (enabled by `|`)
@@ -16,18 +16,19 @@ author1:
     Open `_data/authors.yml` to edit this text.
 
   # This photo will be used in the about section.
-  picture:
-    path:            https://placehold.it/128x128
-    # srcset is optional, but can be used to provide higher res versions for retina displays
-    srcset:
-      1x:            https://placehold.it/128x128
-      2x:            https://placehold.it/256x256
+  picture:  /assets/img/cartoon.jpg
+    # path:            /assets/img/cartoon.jpg
+    # # srcset is optional, but can be used to provide higher res versions for retina displays
+    # srcset:
+    #   1x:            https://placehold.it/128x128
+    #   2x:            https://placehold.it/256x256
 
   # Social media icons in sidebar.
   # Comment/uncommet to show/hide. Rearrange to change the order in which they appear.
   social:
-    twitter:         jekyllrb
-    github:          qwtel/hydejack
+    email: tonychenxyz@gmail.com
+    linkedin: https://www.linkedin.com/in/haozhe-chen-1b73861a2/
+    github: https://github.com/tonychenxyz
     # download:        <url>
     # email:           <mail@domain.tld>
     # rss:             https://<url>/feed.xml

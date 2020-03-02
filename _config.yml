@@ -30,8 +30,7 @@ description:           >
 
 # A shorter description for the sidebar.
 tagline:               >
-  "Best Jekyll Theme by a Mile".
-  Open `_config.yml` to edit this text.
+  Student @ Stevenson School, CA
 
 # A list of keywords for your blog
 keywords:              []
@@ -39,25 +38,35 @@ keywords:              []
 # A (square) logo for your site.
 # If provided, it will be shown at the top of the sidebar.
 # It also used by the `jekyll-seo-tag` plugin.
-logo:                  /assets/icons/icon.png
+logo:                  /assets/img/cartoon_cropped.png
 
 # This should be the same author as first entry in `_data/authors.yml`.
 author:
-  picture:
-    path:   /assets/img/cartoon.jpeg
   name:                Haozhe Chen
   email:               tonychenxyz@gmail.com
+  picture: /assets/img/cartoon.jpg
   # Used by `jekyll-seo-tag`:
   # twitter:             <username>
+  # social:
+  # name:                Haozhe Chen
+  email: tonychenxyz@gmail.com
+  # links:
+  #   - https://www.linkedin.com/in/haozhe-chen-1b73861a2/
+  #   - https://github.com/tonychenxyz
+
 
 # Add links to the sidebar.
 menu:
-  - title:             Example
-    url:               /example/
-  - title:             Documentation
-    url:               https://hydejack.com/docs/
   - title:             About
     url:               /about/
+  - title:             Resume ➦
+    url:               https://hydejack.com/docs/
+  - title:             Kaggle ➦
+    url:               https://www.kaggle.com/tonychenxyz/
+  - title:             Photography
+    url:               /photography/
+  - title:             Filmmaking
+    url:               /filmmaking/
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
@@ -82,7 +91,7 @@ paginate_path:         /page-:num/
 # ========================================================================================
 
 # Sidebar image and theme color of the site.
-accent_image:          /assets/img/bridge_light.jpeg
+accent_image:          /assets/img/circle_bridge.jpg
 accent_color:          rgb(79,177,186)
 
 # This is used for the `theme-color` meta tag,
@@ -100,7 +109,7 @@ font:                  Noto Sans, Helvetica, Arial, sans-serif
 
 # The font used for headings. Expects a string that is a valid CSS font-family value.
 # To change font-weight, see _sass/variables.scss
-font_heading:          Roboto Slab, Helvetica, Arial, sans-serif
+font_heading:          Optima, Roboto Slab, Helvetica, Arial, sans-serif
 
 defaults:
   # `jekyll-seo-tag` will mark collection outputs as `BlogPosting`,
@@ -299,11 +308,11 @@ remote_theme: qwtel/hydejack@v8.5.1
 
 # Used on index and about sites
 # social:
-#   name:                <firstname> <lastname>
+#   name:                Haozhe Chen
+#   email: tonychenxyz@gmail.com
 #   links:
-#     - https://twitter.com/<username>
-#     - https://github.com/<username>
-
+#     - https://www.linkedin.com/in/haozhe-chen-1b73861a2/
+#     - https://github.com/tonychenxyz
 
 # Other Plugins
 # ---------------------------------------------------------------------------------------
