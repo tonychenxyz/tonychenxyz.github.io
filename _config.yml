@@ -43,8 +43,10 @@ logo:                  /assets/icons/icon.png
 
 # This should be the same author as first entry in `_data/authors.yml`.
 author:
-  name:                <firstname> <lastname>
-  email:               <mail@domain.tld>
+  picture:
+    path:   /assets/img/cartoon.jpeg
+  name:                Haozhe Chen
+  email:               tonychenxyz@gmail.com
   # Used by `jekyll-seo-tag`:
   # twitter:             <username>
 
@@ -80,7 +82,7 @@ paginate_path:         /page-:num/
 # ========================================================================================
 
 # Sidebar image and theme color of the site.
-accent_image:          /assets/img/kid_boat.jpg
+accent_image:          /assets/img/bridge_light.jpeg
 accent_color:          rgb(79,177,186)
 
 # This is used for the `theme-color` meta tag,
