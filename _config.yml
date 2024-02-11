@@ -66,13 +66,13 @@ og_image: # The site-wide (default for all links) Open Graph preview image
 # Social integration
 # -----------------------------------------------------------------------------
 
-github_username: tonychenxyz# your GitHub user name
+github_username: tonychenxyz
 gitlab_username: # your GitLab user name
-x_username: tonychenxyz# your X handle
+x_username: tonychenxyz
 mastodon_username: # your mastodon instance+username in the format instance.tld/@username
-linkedin_username: haozhe-chen# your LinkedIn user name
+linkedin_username: haozhe-chen
 telegram_username: # your Telegram user name
-scholar_userid: qIy1aRQAAAAJ&hl# your Google Scholar ID
+scholar_userid: qIy1aRQAAAAJ&hl
 semanticscholar_id: # your Semantic Scholar ID
 whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
 orcid_id: # your ORCID ID
@@ -90,12 +90,12 @@ wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
 dblp_url: # your DBLP profile url
 stackoverflow_id: # your stackoverflow id
-kaggle_id: tonychenxyz # your kaggle id
+kaggle_id: tonychenxyz
 lastfm_id: # your lastfm id
 spotify_id: # your spotify id
 pinterest_id: # your pinterest id
 unsplash_id: # your unsplash id
-instagram_id: bark.bark.bark.bark.bark.bark # your instagram id
+instagram_id: bark.bark.bark.bark.bark.bar
 facebook_id: # your facebook id
 youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 discord_id: # your discord id (18-digit unique numerical identifier)
