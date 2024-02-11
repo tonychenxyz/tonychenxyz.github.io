@@ -12,7 +12,7 @@ layout: default
       <p class="desc">{{ page.subtitle }}</p>
     </div>
     {% if page.profile %}
-    <div class="profile" style="flex-shrink: 0;">
+    <div class="profile" style="flex-shrink: 0">
       {% if page.profile.image %}
         {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
         {% if page.profile.image_circular %}
