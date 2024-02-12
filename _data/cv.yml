@@ -9,11 +9,9 @@
 - title: Education
   type: time_table
   contents:
-    - title: Bachelor of Science
+    - title: B.S. in Computer Science
       institution: Columbia University, New York, NY
       year: 2025
-      description:
-        - Computer Science
 
 - title: Research Experience
   type: time_table
