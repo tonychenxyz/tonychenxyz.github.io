@@ -12,7 +12,7 @@
 
 "chen":
   - firstname: ["Run"]
-    
+
 "kulkarni":
   - firstname: ["Anushka"]
 
@@ -27,4 +27,5 @@
 
 "hirschberg":
   - firstname: ["Julia"]
-  url: https://www.cs.columbia.edu/~julia/slpg.htm
+    url: https://www.cs.columbia.edu/~julia/slpg.htm
+
