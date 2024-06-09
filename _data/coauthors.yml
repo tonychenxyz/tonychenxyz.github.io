@@ -9,3 +9,22 @@
 "vondrick":
   - firstname: ["Carl"]
     url: http://www.cs.columbia.edu/~vondrick/
+
+"chen":
+  - firstname: ["Run"]
+    
+"kulkarni":
+  - firstname: ["Anushka"]
+
+"lin":
+  - firstname: ["Eleanor"]
+
+"pang":
+  - firstname: ["Linda"]
+
+"tadimeti":
+  - firstname: ["Divya"]
+
+"hirschberg":
+  - firstname: ["Julia"]
+  url: https://www.cs.columbia.edu/~julia/slpg.htm
