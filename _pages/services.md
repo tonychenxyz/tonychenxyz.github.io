@@ -16,19 +16,15 @@ services:
       - Teaching Assistant: COMS 3261 Computer Science Theory
 ---
 
-<h2>Debug Information</h2>
-<p>Number of services: {{ page.services | size }}</p>
+**Reviewing**
 
-{% if page.services %}
-  <p>Services are defined</p>
-{% else %}
-  <p>Services are not defined</p>
-{% endif %}
+- NeurIPS 2024
+- ICLR 2025
+- AISTATS 2025
 
-<h2>Services</h2>
+**Teaching**
+
+- Teaching Assistant: B9153 Generative AI: Technical and Social (PhD Elective)
+- Teaching Assistant: COMS 3261 Computer Science Theory
+
 {% include services.liquid %}
-
-<h2>Raw Services Data</h2>
-<pre>
-{{ page.services | jsonify }}
-</pre>
