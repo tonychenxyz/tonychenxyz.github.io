@@ -34,8 +34,7 @@ At Columbia, I have the fortunate opportunities to work with [Tianyi Peng](https
 I am also a research intern at [Together AI](https://www.together.ai/) working on accelerating inference.
 
 
-**Looking for Fall 2025 PhD opportunities!**
-I am looking for Fall 2025 PhD opportunities. Please feel free to contact me via [haozhe.chen@columbia.edu](mailto:haozhe.chen@columbia.edu)!
+**I'm Looking for Fall 2025 PhD opportunities!** Please feel free to contact me via [haozhe.chen@columbia.edu](mailto:haozhe.chen@columbia.edu)!
 
 
 
