@@ -18,5 +18,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           source_repo_path: alshedivat/al-folio
           upstream_branch: master
-permissions:
-  actions: write
+  permissions:
+      contents: write
+      pull-requests: write
