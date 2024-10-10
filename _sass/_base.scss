@@ -215,9 +215,9 @@ ul.task-list input[type="checkbox"] {
   margin-right: 1rem;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 1px) {
   .profile {
-    width: 30%;
+    width: 25%;
 
     .address {
       p {
@@ -308,7 +308,7 @@ ul.task-list input[type="checkbox"] {
   .navbar-brand.social {
     padding-bottom: 0;
     padding-top: 0;
-    font-size: 1.7rem;
+    font-size: 1rem;
 
     a {
       i::before {
@@ -383,7 +383,7 @@ ul.task-list input[type="checkbox"] {
   text-align: center;
 
   .contact-icons {
-    font-size: 4rem;
+    font-size: 2rem;
 
     a {
       i::before {
@@ -1052,7 +1052,7 @@ nav[data-toggle="toc"] {
 }
 
 /* small screens */
-@media (max-width: 576px) {
+@media (max-width: 1px) {
   /* override stickyness so that the navigation does not follow scrolling */
   nav[data-toggle="toc"] {
     visibility: hidden;
@@ -1303,4 +1303,16 @@ ninja-keys::part(ninja-input-wrapper) {
 ::highlight(search) {
   background-color: var(--global-theme-color);
   color: var(--global-text-color);
+}
+
+// Add this at the end of the file
+.cv-icon {
+  margin-left: 0.5rem;
+  font-size: 0.8em;
+  color: var(--global-text-color);
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--global-theme-color);
+  }
 }

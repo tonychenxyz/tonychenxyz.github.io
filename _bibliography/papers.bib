@@ -1,115 +1,85 @@
 ---
 ---
 
-@string{aps = {American Physical Society,}}
 
-@book{einstein1920relativity,
-  title={Relativity: the Special and General Theory},
-  author={Einstein, Albert},
-  year={1920},
-  publisher={Methuen & Co Ltd},
-  html={relativity.html}
-}
 
-@book{einstein1956investigations,
-  bibtex_show={true},
-  title={Investigations on the Theory of the Brownian Movement},
-  author={Einstein, Albert},
-  year={1956},
-  publisher={Courier Corporation},
-  preview={brownian-motion.gif}
-}
-
-@article{einstein1950meaning,
-  abbr={AJP},
-  bibtex_show={true},
-  title={The meaning of relativity},
-  author={Einstein, Albert and Taub, AH},
-  journal={American Journal of Physics},
-  volume={18},
-  number={6},
-  pages={403--404},
-  year={1950},
-  publisher={American Association of Physics Teachers}
-}
-
-@article{PhysRev.47.777,
-  abbr={PhysRev},
-  title={Can Quantum-Mechanical Description of Physical Reality Be Considered Complete?},
-  author={Einstein*†, A. and Podolsky*, B. and Rosen*, N.},
-  abstract={In a complete theory there is an element corresponding to each element of reality. A sufficient condition for the reality of a physical quantity is the possibility of predicting it with certainty, without disturbing the system. In quantum mechanics in the case of two physical quantities described by non-commuting operators, the knowledge of one precludes the knowledge of the other. Then either (1) the description of reality given by the wave function in quantum mechanics is not complete or (2) these two quantities cannot have simultaneous reality. Consideration of the problem of making predictions concerning a system on the basis of measurements made on another system that had previously interacted with it leads to the result that if (1) is false then (2) is also false. One is thus led to conclude that the description of reality as given by a wave function is not complete.},
-  journal={Phys. Rev.},
-  location={New Jersey},
-  volume={47},
-  issue={10},
-  pages={777--780},
-  numpages={0},
-  year={1935},
-  month={May},
-  publisher=aps,
-  doi={10.1103/PhysRev.47.777},
-  url={http://link.aps.org/doi/10.1103/PhysRev.47.777},
-  html={https://journals.aps.org/pr/abstract/10.1103/PhysRev.47.777},
-  pdf={example_pdf.pdf},
-  altmetric={248277},
+@article{qgym,
+  abbr={NeurIPS},
+  title={QGym: Scalable Simulation and Benchmarking of Queuing Network Controllers},
+  author={Chen, Haozhe and Li, Ang and Che, Ethan and Peng, Tianyi and Dong, Jing and Namkoong, Hongseok},
+  equal_contrib={1,2,3},
+  abstract={Queuing network control determines the allocation of scarce resources to manage congestion, a fundamental problem in manufacturing, communications, and healthcare. Compared to standard RL problems, queueing problems are distinguished by unique challenges: i) a system operating in continuous time, ii) high stochasticity, and iii) long horizons over which the system can become unstable (exploding delays). To spur methodological progress tackling these challenges, we present an open-sourced queueing simulation framework, QGym, that benchmark queueing policies across realistic problem instances. Our modular framework allows the researchers to build on our initial instances, which provide a wide range of of environments including parallel servers, criss-cross, tandem, and re-entrant networks, as well as a realistically calibrated hospital queuing system. QGym makes it easy to compare multiple policies, including both model-free RL methods and classical queuing policies. Our testbed complements the traditional focus on evaluating algorithms based on mathematical guarantees in idealized settings, and significantly expands the scope of empirical benchmarking in prior work. QGym code is open-sourced at https://github.com/namkoong-lab/QGym.},
+  journal={NeurIPS 2024 Datasets and Benchmarks},
+  year={2024},
+  month={Oct},
   dimensions={true},
-  google_scholar_id={qyhmnyLat1gC},
-  video={https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ},
-  additional_info={. *More Information* can be [found here](https://github.com/alshedivat/al-folio/)},
-  annotation={* Example use of superscripts<br>† Albert Einstein},
   selected={true},
-  inspirehep_id = {3255}
+  preview={qgym.png},
+  code={https://github.com/namkoong-lab/QGym},
+  arxiv={2410.06170}
 }
 
-@article{einstein1905molekularkinetischen,
-  title={{\"U}ber die von der molekularkinetischen Theorie der W{\"a}rme geforderte Bewegung von in ruhenden Fl{\"u}ssigkeiten suspendierten Teilchen},
-  author={Einstein, A.},
-  journal={Annalen der physik},
-  volume={322},
-  number={8},
-  pages={549--560},
-  year={1905},
-  publisher={Wiley Online Library}
+
+@article{emoknob,
+  abbr={EMNLP},
+  title={🎛️ EmoKnob: Enhance Voice Cloning with Fine-Grained Emotion Control},
+  author={Chen, Haozhe and Chen, Run and Hirschberg, Julia},
+  abstract={While recent advances in Text-to-Speech (TTS) technology produce natural and expressive speech, they lack the option for users to select emotion and control intensity. We propose EmoKnob, a framework that allows fine-grained emotion control in speech synthesis with few-shot demonstrative samples of arbitrary emotion. Our framework leverages the expressive speaker representation space made possible by recent advances in foundation voice cloning models. Based on the few-shot capability of our emotion control framework, we propose two methods to apply emotion control on emotions described by open-ended text, enabling an intuitive interface for controlling a diverse array of nuanced emotions. To facilitate a more systematic emotional speech synthesis field, we introduce a set of evaluation metrics designed to rigorously assess the faithfulness and recognizability of emotion control frameworks. Through objective and subjective evaluations, we show that our emotion control framework effectively embeds emotions into speech and surpasses emotion expressiveness of commercial TTS services.},
+  journal={EMNLP 2024 Main},
+  year={2024},
+  month={Oct},
+  dimensions={true},
+  selected={true},
+  preview={emoknob.png},
+  website={https://emoknob.cs.columbia.edu/},
+  code={https://github.com/tonychenxyz/emoknob},
+  demo={https://huggingface.co/spaces/tonychenxyz/emo-knob},
+  arxiv={2410.00316}
 }
 
-@article{einstein1905movement,
-  abbr={Ann. Phys.},
-  title={Un the movement of small particles suspended in statiunary liquids required by the molecular-kinetic theory 0f heat},
-  author={Einstein, A.},
-  journal={Ann. Phys.},
-  volume={17},
-  pages={549--560},
-  year={1905}
+@article{detecting-empathy,
+  abbr={INTERSPEECH},
+  title={Detecting Empathy in Speech},
+  author={Chen, Run and Chen, Haozhe and Kulkarni, Anushka and Lin, Eleanor and Pang, Linda and Tadimeti, Divya and Hirschberg, Julia},
+  abstract={Empathy is the ability to understand another’s feelings as if we were having those feelings ourselves. It has been shown to in- crease to people’s trust and likability. Much research has been done on creating empathetic responses in text in conversational systems, yet little work has been done to identify the acoustic- prosodic speech features that can create an empathetic-sounding voice. Our contributions include 1) collection of a new empathy speech dataset, 2) identifying interpretable acoustic-prosodic features that contribute to empathy expression and 3) bench- marking the empathy detection task.},
+  journal={INTERSPEECH 2024},
+  year={2024},
+  month={Jun},
+  dimensions={true},
+  selected={true},
+  preview={hug.png},
+  pdf={https://www.cs.columbia.edu/speech/PaperFiles/2024/interspeech24_empathy_paper.pdf},
+  poaster={https://www.cs.columbia.edu/speech/PaperFiles/2024/interspeech24_empathy_poster.pdf}
 }
 
-@article{einstein1905electrodynamics,
-  title={On the electrodynamics of moving bodies},
-  author={Einstein, A.},
-  year={1905}
+
+@article{vit-interpret-control,
+  abbr={ICLR},
+  title={INViTE: INterpret and Control Vision Transformer with Text Explanations},
+  author={Chen, Haozhe and Yang, Junfeng and Vondrick, Carl and Mao, Chengzhi},
+  abstract={Large-scale pre-trained vision foundation models, such as CLIP, have become de facto backbones for various vision tasks. However, due to their black-box nature, understanding the underlying rules behind these models’ predictions and controlling model behaviors have remained open challenges. We present INViTE: a framework for INterpreting Vision Transformer’s latent tokens with Text Explanations. Given a latent token, INViTE retains its semantic information to the final layer using transformer’s local operations and retrieves the closest text for explanation. INViTE enables understanding of model visual reasoning procedure without needing additional model training or data collection. Based on the obtained interpretations, INViTE allows for model editing that controls model reasoning behaviors and improves model robustness against biases and spurious correlations.},
+  journal={In the 12th International Conference on Learning Representations, 2024.},
+  year={2024},
+  month={Jan},
+  dimensions={true},
+  selected={true},
+  arxiv={2310.10591},
+  preview={textexplain.gif}
 }
 
-@Article{einstein1905photoelectriceffect,
-  bibtex_show={true},
-  abbr={Ann. Phys.},
-  title="{{\"U}ber einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt}",
-  author={Albert Einstein},
-  abstract={This is the abstract text.},
-  journal={Ann. Phys.},
-  volume={322},
-  number={6},
-  pages={132--148},
-  year={1905},
-  doi={10.1002/andp.19053220607},
-  award={Albert Einstein receveid the **Nobel Prize in Physics** 1921 *for his services to Theoretical Physics, and especially for his discovery of the law of the photoelectric effect*},
-  award_name={Nobel Prize}
+@article{selfie,
+  abbr={ICML},
+  title={🤳SelfIE: Self-Interpretation of Large Language Model Embeddings},
+  author={Chen, Haozhe and Vondrick, Carl and Mao, Chengzhi},
+  abstract={The expanding impacts of Large Language Models (LLMs) increasingly require the answer to: How do LLMs obtain their answers? The ability to explain and control an LLM's reasoning process is key for reliability, transparency, and future model developments. We propose SelfIE (Self-Interpretation of Embeddings) that enables LLMs to interpret their own embeddings in natural language by leveraging their ability to respond inquiry about a given passage. Capable of interpreting open-world concepts in the hidden embeddings, SelfIE reveals LLM internal reasoning in cases such as making ethical decisions, internalizing prompt injection, and recalling harmful knowledge. SelfIE's text descriptions on hidden embeddings also open up new avenues to control LLM reasoning. We propose Supervised Control, which allows editing open-ended concepts while only requiring gradient computation of individual layer. We extend RLHF to hidden embeddings and propose Reinforcement Control that erases harmful knowledge in LLM without supervision targets. },
+  journal={In the 41st International Conference on Machine Learning, 2024.},
+  year={2024},
+  month={Mar},
+  dimensions={true},
+  selected={true},
+  arxiv={2403.10949},
+  preview={selfie.png},
+  website={https://selfie.cs.columbia.edu},
+  code={https://github.com/tonychenxyz/selfie},
 }
 
-@book{przibram1967letters,
-  bibtex_show={true},
-  title={Letters on wave mechanics},
-  author={Einstein, Albert and Schrödinger, Erwin and Planck, Max and Lorentz, Hendrik Antoon and Przibram, Karl},
-  year={1967},
-  publisher={Vision},
-  preview={wave-mechanics.gif},
-  abbr={Vision}
-}

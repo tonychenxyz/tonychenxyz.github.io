@@ -23,3 +23,13 @@ $max-content-width: {{ site.max_width }};
   "tabler-icons/tabler-icons-filled.scss",
   "tabler-icons/tabler-icons-outline.scss"
 ;
+
+.thumbnail {
+  // Remove or comment out the following lines:
+  // box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
+  // -moz-box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
+  // -webkit-box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
+  
+  // Add this line if you want a simple border instead:
+  border: 1px solid #ddd;
+}
