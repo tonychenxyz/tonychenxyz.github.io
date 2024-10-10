@@ -20,6 +20,7 @@ profile:
 news: true # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
+services: true
 ---
 
 **Research**: I am interested shaping AI ecosystem as it becomes an increasingly pervasive part of our life and society. Currently, I am working on:
