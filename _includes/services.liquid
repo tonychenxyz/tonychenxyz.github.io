@@ -1,16 +1,22 @@
-
 <div class="services">
-{% for service in page.services %}
-    <div class="service-item">
-    {% if service.title %}
-        <h3 class="service-title">{{ service.title }}</h3>
-    {% endif %}
-    {% if service.description %}
-        <p class="service-description">{{ service.description }}</p>
-    {% endif %}
-    {% if service.link %}
-        <a href="{{ service.link }}" class="service-link" target="_blank" rel="noopener noreferrer">Learn more</a>
-    {% endif %}
-    </div>
-{% endfor %}
+  <p>Debug: Inside services.liquid</p>
+  {% if page.services %}
+    <p>Services are available in the template</p>
+    {% for service in page.services %}
+      <div class="service-item">
+        <p>Debug: Processing service {{ forloop.index }}</p>
+        {% if service.title %}
+          <h3 class="service-title">{{ service.title }}</h3>
+        {% endif %}
+        {% if service.description %}
+          <div class="service-description">{{ service.description | markdownify }}</div>
+        {% endif %}
+        {% if service.link %}
+          <a href="{{ service.link }}" class="service-link" target="_blank" rel="noopener noreferrer">Learn more</a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No services found</p>
+  {% endif %}
 </div>
