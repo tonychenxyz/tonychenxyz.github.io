@@ -1,5 +1,6 @@
 <header>
   <!-- Nav Bar -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
       {% if page.permalink != '/' %}
@@ -17,6 +18,11 @@
             {% endif %}
             {% if site.last_name %}
               {{- site.last_name -}}
+            {% endif %}
+            {% if site.cv_pdf %}
+              <a href="{{ site.cv_pdf | prepend: site.baseurl }}" target="_blank" title="Download CV" class="cv-icon">
+                <i class="fas fa-file-pdf"></i>
+              </a>
             {% endif %}
           {% else %}
             {{- site.title -}}

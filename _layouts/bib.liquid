@@ -92,16 +92,25 @@
           <em>
             {{- author.first }}
             {{ author.last -}}
+            {% if author.equal_contrib %}
+              <sup>*</sup>
+            {% endif %}
           </em>
         {% else %}
           {% if coauthor_url %}
             <a href="{{coauthor_url}}">
               {{- author.first }}
               {{ author.last -}}
+              {% if author.equal_contrib %}
+                <sup>*</sup>
+              {% endif %}
             </a>
           {% else %}
             {{ author.first }}
             {{ author.last }}
+            {% if author.equal_contrib %}
+              <sup>*</sup>
+            {% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -141,6 +150,11 @@
       {% endif %}
     </div>
 
+    <!-- Add this after the author list -->
+    {% if entry.equal_contrib %}
+      <br><small>* Equal contribution</small>
+    {% endif %}
+
     <!-- Journal/Book title and date -->
     {% assign proceedings = 'inproceedings,incollection' | split: ',' %}
     {% assign thesis = 'thesis,mastersthesis,phdthesis' | split: ',' %}
@@ -175,6 +189,9 @@
       {% endif %}
       {% if entry.arxiv %}
         <a href="http://arxiv.org/abs/{{ entry.arxiv }}" class="btn btn-sm z-depth-0" role="button">arXiv</a>
+      {% endif %}
+      {% if entry.demo %}
+        <a href="{{ entry.demo }}" class="btn btn-sm z-depth-0" role="button">Demo</a>
       {% endif %}
       {% if entry.bibtex_show %}
         <a class="bibtex btn btn-sm z-depth-0" role="button">Bib</a>

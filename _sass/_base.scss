@@ -1102,3 +1102,15 @@ swiper-container {
   --swiper-pagination-color: var(--global-theme-color);
   --swiper-pagination-bullet-inactive-color: var(--global-text-color);
 }
+
+// Add this at the end of the file
+.cv-icon {
+  margin-left: 0.5rem;
+  font-size: 0.8em;
+  color: var(--global-text-color);
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: var(--global-theme-color);
+  }
+}
