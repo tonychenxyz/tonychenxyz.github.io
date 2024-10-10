@@ -5,7 +5,13 @@ permalink: /
 subtitle: |+
   <strong>Undergraduate Student</strong>,<br>
   Department of Computer Science, <br>
-  <a href="https://www.cs.columbia.edu/">Columbia University</a>  <br><br>
+  <a href="https://www.cs.columbia.edu/">Columbia University</a> <br>
+  [X](https://x.com/tonychenxyz) | [Google Scholar](https://scholar.google.com/citations?user=qIy1aRQAAAAJ&hl=en).  <br>
+  
+  <a href="/assets/pdf/cv.pdf" target="_blank" title="Download CV" class="cv-icon">
+    <i class="fas fa-file-pdf"></i> Download CV
+  </a>
+  <br><br>
 
 profile:
   image: profile.jpg
@@ -25,13 +31,14 @@ Currently, I am working on:
 - Personalized, adaptive evaluation of foundation models
 - Interpretibility of large models
 
-At Columbia, I have the fortunate opportunities to work with [Chengzhi Mao](http://www.cs.columbia.edu/~mcz/), [Carl Vondrick](https://www.cs.columbia.edu/~vondrick/), [Hongseok Namkoong](https://hsnamkoong.github.io/), and [Julia Hirschberg](http://www.cs.columbia.edu/~julia/).
+At Columbia, I have the fortunate opportunities to work with [Tianyi Peng](https://tianyipeng.github.io/), [Chengzhi Mao](http://www.cs.columbia.edu/~mcz/), [Carl Vondrick](https://www.cs.columbia.edu/~vondrick/), [Hongseok Namkoong](https://hsnamkoong.github.io/), and [Julia Hirschberg](http://www.cs.columbia.edu/~julia/).
 
 I am also a research intern at [Together AI](https://www.together.ai/) working on accelerating inference.
 
+
+**Looking for Fall 2025 PhD opportunities!**
 I am looking for Fall 2025 PhD opportunities. Please feel free to contact me via [haozhe.chen@columbia.edu](mailto:haozhe.chen@columbia.edu)!
 
-Find me on [X](https://x.com/tonychenxyz) and [Google Scholar](https://scholar.google.com/citations?user=qIy1aRQAAAAJ&hl=en).
 
 
 **Previously**: I was a quantitative research intern at [Voloridge](https://www.voloridge.com/), a quantitative hedge fund in Florida. I also enjoyed [Kaggle competitions](https://www.kaggle.com/tonychenxyz) for a while.

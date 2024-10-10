@@ -17,11 +17,13 @@
             {% if site.last_name %}
               {{- site.last_name -}}
             {% endif %}
+            {% comment %}
             {% if site.cv_pdf %}
               <a href="{{ site.cv_pdf | prepend: site.baseurl }}" target="_blank" title="Download CV" class="cv-icon">
                 <i class="fas fa-file-pdf"></i>
               </a>
             {% endif %}
+            {% endcomment %}
           {% else %}
             {{- site.title -}}
           {% endif %}
