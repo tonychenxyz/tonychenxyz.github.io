@@ -6,8 +6,7 @@ subtitle: |+
   <strong>Undergraduate Student</strong>,<br>
   Department of Computer Science, <br>
   <a href="https://www.cs.columbia.edu/">Columbia University</a> <br>
-  [X](https://x.com/tonychenxyz) | [Google Scholar](https://scholar.google.com/citations?user=qIy1aRQAAAAJ&hl=en).  <br>
-  
+
   <a href="/assets/pdf/cv.pdf" target="_blank" title="Download CV" class="cv-icon">
     <i class="fas fa-file-pdf"></i> Download CV
   </a>
@@ -23,9 +22,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-**Research**: I am interested shaping AI ecosystem as it becomes an increasingly pervasive part of our life and society. 
-
-Currently, I am working on:
+**Research**: I am interested shaping AI ecosystem as it becomes an increasingly pervasive part of our life and society. Currently, I am working on:
 - Efficient inference and serving of foundation models
 - Human-friendly, emotion-intelligent AI
 - Personalized, adaptive evaluation of foundation models

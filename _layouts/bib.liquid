@@ -5,14 +5,14 @@
     <div class="col-sm-2 {% if entry.preview %}preview abbr{% endif %}">
       {% if entry.preview %}
         {% if entry.preview contains '://' %}
-          <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
+          <img class="preview rounded" src="{{ entry.preview }}">
         {% else %}
           {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
           {%
             include figure.liquid
             path=entry_path
             sizes = "200px"
-            class="preview z-depth-1 rounded"
+            class="preview rounded"
             zoomable=false
             alt=entry.preview
           %}
@@ -60,23 +60,31 @@
     <div class="author">
       {% assign author_array_size = entry.author_array | size %}
 
-      {% assign author_array_limit = author_array_size %}
-      {% if site.max_author_limit and author_array_size > site.max_author_limit %}
-        {% assign author_array_limit = site.max_author_limit %}
-      {% endif %}
+      {% assign author_array_limit = site.max_author_limit | default: 3 %}
+      {% assign author_array_limit_exceeded = entry.author_array | size | plus: 0 > author_array_limit %}
+      {% assign equal_contrib_exists = false %}
 
       {% for author in entry.author_array limit: author_array_limit %}
+        {% if forloop.length > 1 %}
+          {% if forloop.first == false %}
+            {% if forloop.last == true %}
+              {% if author_array_limit_exceeded %} and {% else %}, and {% endif %}
+            {% else %}
+              ,
+            {% endif %}
+          {% endif %}
+        {% endif %}
+
         {% assign author_is_self = false %}
-        {% assign author_last_name = author.last | remove: '¶' | remove: '&' | remove: '*' | remove: '†' | remove: '^' %}
-        {% if site.scholar.last_name contains author_last_name %}
+        {% if author.last == site.scholar.last_name %}
           {% if site.scholar.first_name contains author.first %}
             {% assign author_is_self = true %}
           {% endif %}
         {% endif %}
-        {% assign coauthor_url = null %}
-        {% assign clean_last_name = author_last_name | downcase | remove_accents %}
-        {% if site.data.coauthors[clean_last_name] %}
-          {% for coauthor in site.data.coauthors[clean_last_name] %}
+
+        {% assign coauthor_url = nil %}
+        {% if site.data.coauthors[author.last] %}
+          {% for coauthor in site.data.coauthors[author.last] %}
             {% if coauthor.firstname contains author.first %}
               {% assign coauthor_url = coauthor.url %}
               {% break %}
@@ -84,33 +92,17 @@
           {% endfor %}
         {% endif %}
 
-        {% if forloop.length > 1 %}
-          {% if forloop.first == false %},&nbsp;{% endif %}
-          {% if forloop.last and author_array_limit == author_array_size %}and&nbsp;{% endif %}
+        {% if author.equal_contrib %}
+          {% assign equal_contrib_exists = true %}
         {% endif %}
+
         {% if author_is_self %}
-          <em>
-            {{- author.first }}
-            {{ author.last -}}
-            {% if author.equal_contrib %}
-              <sup>*</sup>
-            {% endif %}
-          </em>
+          <em>{{author.first}} {{author.last}}{% if author.equal_contrib %}*{% endif %}</em>
         {% else %}
           {% if coauthor_url %}
-            <a href="{{coauthor_url}}">
-              {{- author.first }}
-              {{ author.last -}}
-              {% if author.equal_contrib %}
-                <sup>*</sup>
-              {% endif %}
-            </a>
+            <a href="{{coauthor_url}}">{{author.first}} {{author.last}}{% if author.equal_contrib %}*{% endif %}</a>
           {% else %}
-            {{ author.first }}
-            {{ author.last }}
-            {% if author.equal_contrib %}
-              <sup>*</sup>
-            {% endif %}
+            {{ author.first }} {{ author.last }}{% if author.equal_contrib %}*{% endif %}
           {% endif %}
         {% endif %}
       {% endfor %}
@@ -151,9 +143,6 @@
     </div>
 
     <!-- Add this after the author list -->
-    {% if entry.equal_contrib %}
-      <br><small>* Equal contribution</small>
-    {% endif %}
 
     <!-- Journal/Book title and date -->
     {% assign proceedings = 'inproceedings,incollection' | split: ',' %}
