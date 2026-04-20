@@ -3,12 +3,19 @@
   contents:
     - name: Full Name
       value: Haozhe Chen
+    - name: Current Role
+      value: PhD Student at Princeton in Computer science
+    - name: Affiliation
+      value: Parttime Researcher at <a href="https://scopehealth.com">Scope Health</a>
     - name: Languages
       value: Chinese, English
 
 - title: Education
   type: time_table
   contents:
+    - title: PhD in Computer Science
+      institution: Princeton University, Princeton, NJ
+      year: 2025-
     - title: B.S. in Computer Science
       institution: Columbia University, New York, NY
       year: 2025
@@ -28,7 +35,7 @@
       year: 2022-now
       description:
         - Researched vision and language foundation model interpretibility
-        - Advised by <a href="http://www.cs.columbia.edu/~mcz/">Chengzhi Mao</a> and <a href="https://www.cs.columbia.edu/~vondrick/">Carl Vondrick</a>
+        - Advised by <a href="http://www.cs.columbia.edu/~mcz/">Chengzhi Mao</a>, <a href="https://www.cs.columbia.edu/~vondrick/">Carl Vondrick</a>, and <a href="https://liuzhuang13.github.io/">Zhuang Liu</a>
 
     - title: Undergraduate Researcher
       institution: Spoken Language Processing Group, Columbia University
@@ -36,6 +43,21 @@
       description:
         - Researched analysis and synthesis of empathetic speech
         - Advised by <a href="http://www.cs.columbia.edu/~julia/">Julia Hirschberg</a>
+
+    - title: Research Intern
+      institution: <a href="https://www.together.ai/">Together AI</a>
+      year: 2024-now
+      description:
+        - Working on accelerating inference
+
+- title: Industry and Research
+  type: time_table
+  contents:
+    - title: Parttime Researcher
+      institution: <a href="https://scopehealth.com">Scope Health</a>
+      year: 2025-now
+      description:
+        - Working on AI systems for healthcare
 
     - title: Research Intern
       institution: Sen Lab, UC Santa Barbara
