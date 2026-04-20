@@ -5,12 +5,11 @@ permalink: /
 subtitle: |+
   <strong>PhD Student in Computer Science</strong><br>
   <a href="https://www.cs.princeton.edu/">Princeton University</a><br>
-  Advisor: <a href="https://liuzhuang13.github.io/">Zhuang Liu</a><br>
-
+  Advisor: <a href="https://liuzhuang13.github.io/">Zhuang Liu</a>
+  <br>
   <a href="/assets/pdf/cv.pdf" target="_blank" title="Download CV" class="cv-icon">
     <i class="fas fa-file-pdf"></i> Download CV
   </a>
-  <br><br>
 
 profile:
   image: profile.jpg
