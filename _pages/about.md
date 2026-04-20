@@ -29,6 +29,10 @@ services: true
 
 **Previously:**
 
-- At Columbia, I have the fortunate opportunities to work with [Tianyi Peng](https://tianyipeng.github.io/), [Chengzhi Mao](http://www.cs.columbia.edu/~mcz/), [Carl Vondrick](https://www.cs.columbia.edu/~vondrick/), [Hongseok Namkoong](https://hsnamkoong.github.io/), and [Julia Hirschberg](http://www.cs.columbia.edu/~julia/).
-- I am also a research intern at [Together AI](https://www.together.ai/) working on accelerating inference.
-- Even farther back: I was a quantitative research intern at [Voloridge](https://www.voloridge.com/), a quantitative hedge fund in Florida. I also enjoyed [Kaggle competitions](https://www.kaggle.com/tonychenxyz) for a while.
+- Undergrad @ Columbia. I had the fortunate opportunities to work with [Tianyi Peng](https://tianyipeng.github.io/), [Chengzhi Mao](http://www.cs.columbia.edu/~mcz/), [Carl Vondrick](https://www.cs.columbia.edu/~vondrick/), [Hongseok Namkoong](https://hsnamkoong.github.io/), and [Julia Hirschberg](http://www.cs.columbia.edu/~julia/).
+- Research Intern @ [Together AI](https://www.together.ai/) working on accelerating inference.
+
+**Farther back:**
+
+- Quantitative research intern @ [Voloridge](https://www.voloridge.com/), a quantitative hedge fund in Florida.
+- Enjoyed [Kaggle competitions](https://www.kaggle.com/tonychenxyz) for a while.
