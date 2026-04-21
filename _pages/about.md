@@ -25,7 +25,7 @@ services: true
 **Research Interests:**
 - Automate scientific discovery
 - Automate organizational intelligence
-- Make AI understand complex human feelings and preferencs
+- Make AI understand complex human feelings and preferences
 
 **Previously:**
 
