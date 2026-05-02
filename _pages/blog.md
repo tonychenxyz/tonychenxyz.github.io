@@ -18,6 +18,14 @@ pagination:
 
 <div class="post">
 
+<section class="panel">
+  <div class="panel-header">
+    <span class="panel-icon"><i class="fa-regular fa-comment"></i></span>
+    <span class="panel-title">blog</span>
+    <span class="panel-meta">posts &amp; notes</span>
+  </div>
+  <div class="panel-body">
+
 {% assign blog_name_size = site.blog_name | size %}
 {% assign blog_description_size = site.blog_description | size %}
 
@@ -193,4 +201,6 @@ pagination:
 {% include pagination.liquid %}
 {% endif %}
 
+  </div>
+</section>
 </div>
