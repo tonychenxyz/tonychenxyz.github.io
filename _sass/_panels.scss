@@ -313,9 +313,8 @@ img.z-depth-1,
       img.preview {
         display: block;
         width: 100%;
-        height: 80px;
-        max-height: 80px;
-        object-fit: cover;
+        max-width: 110px;
+        height: auto;
         border-radius: 4px;
         border: 0;
         background: transparent;
@@ -469,25 +468,34 @@ img.z-depth-1,
     padding: 0.75rem 0.85rem;
   }
 
-  // Hero — stack with photo above the text, but keep photo a sensible size
+  // Hero — keep photo on the right (small) next to name/bio
   .panel.hero-panel > .panel-body {
-    flex-direction: column-reverse;
+    flex-direction: row;
     align-items: flex-start;
     gap: 0.85rem;
-    padding: 0.85rem 0.85rem;
+    padding: 0.85rem;
+    flex-wrap: nowrap;
+  }
+  .panel.hero-panel .hero-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    order: 0;
   }
   .panel.hero-panel .hero-photo {
+    flex: 0 0 auto;
     width: 96px;
+    order: 1;
     align-self: flex-start;
   }
   .panel.hero-panel .hero-photo img {
     height: auto;
   }
   .panel.hero-panel .hero-text h1.post-title {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
+    line-height: 1.2;
   }
   .hero-cn {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin-left: 0.25rem;
   }
 
@@ -507,16 +515,16 @@ img.z-depth-1,
   }
   .panel .publications ol.bibliography > li figure.preview,
   .panel .publications ol.bibliography > li .preview {
-    width: 88px;
-    max-width: 88px;
+    width: 80px;
+    max-width: 80px;
     margin: 0;
   }
   .panel .publications ol.bibliography > li figure.preview picture,
   .panel .publications ol.bibliography > li figure.preview img,
   .panel .publications ol.bibliography > li img.preview {
-    width: 88px;
-    height: 64px;
-    max-height: 64px;
+    width: 80px;
+    max-width: 80px;
+    height: auto;
   }
   .panel .publications ol.bibliography > li .abbr {
     margin: 0;
@@ -543,6 +551,9 @@ img.z-depth-1,
 @media (max-width: 480px) {
   .panel.hero-panel .hero-photo {
     width: 84px;
+  }
+  .panel.hero-panel .hero-text h1.post-title {
+    font-size: 1.2rem;
   }
 
   // Smaller link buttons inside publications so 5 buttons don't blow up
