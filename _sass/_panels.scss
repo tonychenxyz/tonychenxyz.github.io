@@ -455,13 +455,99 @@ img.z-depth-1,
 }
 
 // =================== Responsive ===================
-@media (max-width: 575px) {
+@media (max-width: 767px) {
+  .panel {
+    margin-bottom: 12px;
+  }
+
+  .panel > .panel-header {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .panel > .panel-body {
+    padding: 0.75rem 0.85rem;
+  }
+
+  // Hero — stack with photo above the text, but keep photo a sensible size
   .panel.hero-panel > .panel-body {
     flex-direction: column-reverse;
-    align-items: stretch;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0.85rem 0.85rem;
   }
   .panel.hero-panel .hero-photo {
-    width: 110px;
+    width: 96px;
     align-self: flex-start;
+  }
+  .panel.hero-panel .hero-photo img {
+    height: auto;
+  }
+  .panel.hero-panel .hero-text h1.post-title {
+    font-size: 1.4rem;
+  }
+  .hero-cn {
+    font-size: 1rem;
+    margin-left: 0.25rem;
+  }
+
+  // Publications — stack image on top of metadata block
+  .panel .publications ol.bibliography > li {
+    flex-direction: column;
+    gap: 0;
+    padding: 0.85rem 0.85rem;
+  }
+  .panel .publications ol.bibliography > li > .col-sm-2 {
+    flex: 0 0 auto;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.55rem;
+  }
+  .panel .publications ol.bibliography > li figure.preview,
+  .panel .publications ol.bibliography > li .preview {
+    width: 88px;
+    max-width: 88px;
+    margin: 0;
+  }
+  .panel .publications ol.bibliography > li figure.preview picture,
+  .panel .publications ol.bibliography > li figure.preview img,
+  .panel .publications ol.bibliography > li img.preview {
+    width: 88px;
+    height: 64px;
+    max-height: 64px;
+  }
+  .panel .publications ol.bibliography > li .abbr {
+    margin: 0;
+  }
+
+  // Social row — give icons a touch-target sized hit area
+  .panel .social .contact-icons a {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.05rem;
+  }
+
+  // News table — let content take the full width and keep dates compact
+  .panel .news table.table tr th {
+    width: 38%;
+    font-size: 0.7rem;
+    padding-right: 0.5rem;
+  }
+  .panel .news table.table tr td {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel.hero-panel .hero-photo {
+    width: 84px;
+  }
+
+  // Smaller link buttons inside publications so 5 buttons don't blow up
+  .panel .publications ol.bibliography > li .links a.btn {
+    font-size: 0.66rem;
+    padding: 0.08rem 0.42rem !important;
   }
 }
