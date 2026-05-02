@@ -5,29 +5,36 @@
 
 @use "sass:color";
 
-// Colors
-$red-color: #ff3636 !default;
-$red-color-dark: #b71c1c !default;
-$orange-color: #f29105 !default;
-$blue-color: #0076df !default;
-$blue-color-dark: #00369f !default;
+// Colors — dashboard-inspired palette
+$red-color: #e1483a !default;
+$red-color-dark: #b03127 !default;
+$orange-color: #d97a2c !default;
+$orange-color-soft: #f4ddc2 !default;
+$blue-color: #2b6fb5 !default;
+$blue-color-dark: #1f4f86 !default;
+$blue-color-soft: #d6e4f4 !default;
 $cyan-color: #2698ba !default;
 $light-cyan-color: color.adjust($cyan-color, $lightness: 25%);
-$green-color: #00ab37 !default;
-$green-color-lime: #b7d12a !default;
-$green-color-dark: #009f06 !default;
-$green-color-light: #ddffdd !default;
-$green-color-bright: #11d68b !default;
-$purple-color: #b509ac !default;
+$green-color: #2f9e6b !default;
+$green-color-lime: #9bbf3a !default;
+$green-color-dark: #246d4d !default;
+$green-color-soft: #d5ead9 !default;
+$green-color-bright: #46b97f !default;
+$purple-color: #6b50a6 !default;
 $light-purple-color: color.adjust($purple-color, $lightness: 25%);
-$pink-color: #f92080 !default;
+$pink-color: #d6437d !default;
 $pink-color-light: #ffdddd !default;
-$yellow-color: #efcc00 !default;
+$yellow-color: #d9a93a !default;
 
-$grey-color: #828282 !default;
-$grey-color-light: color.adjust($grey-color, $lightness: 40%);
+$grey-color: #6b7177 !default;
+$grey-color-light: #eef0f3;
+$grey-color-mid: #d8dde2;
+$grey-color-border: #e2e5ea;
 $grey-color-dark: #1c1c1d;
 $grey-900: #212529;
+$grey-page-bg: #fbfbf8;
+$panel-bg: #ffffff;
+$panel-header-bg: #f6f7f9;
 
 $white-color: #ffffff !default;
 $black-color: #000000 !default;

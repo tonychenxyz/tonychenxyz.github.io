@@ -1,0 +1,491 @@
+/******************************************************************************
+ * Dashboard-style panels (inspired by structured-card visual reference)
+ *****************************************************************************/
+
+.panel {
+  background-color: var(--global-panel-bg);
+  border: 1px solid var(--global-panel-border-color);
+  border-radius: 12px;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(15, 18, 23, 0.02);
+
+  > .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 1rem;
+    background-color: var(--global-panel-header-bg);
+    border-bottom: 1px solid var(--global-panel-border-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--global-text-color);
+    letter-spacing: 0.005em;
+
+    .panel-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 6px;
+      background-color: var(--global-bg-color);
+      border: 1px solid var(--global-panel-border-color);
+      color: var(--global-text-color-light);
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      flex-grow: 1;
+      color: var(--global-text-color);
+    }
+
+    .panel-meta {
+      color: var(--global-text-color-light);
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+  }
+
+  > .panel-body {
+    padding: 1rem 1.15rem 1.1rem 1.15rem;
+    color: var(--global-text-color);
+
+    > p:last-child,
+    > ul:last-child,
+    > ol:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.panel-flush > .panel-body {
+    padding: 0;
+  }
+}
+
+// Profile / hero panel
+.panel.hero-panel {
+  > .panel-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-text {
+    flex: 1 1 320px;
+    min-width: 0;
+
+    h1.post-title {
+      font-size: 1.85rem;
+      line-height: 1.2;
+      margin-bottom: 0.45rem;
+      font-weight: 600;
+      color: var(--global-text-color);
+
+      .font-weight-bold {
+        font-weight: 700;
+      }
+    }
+
+    p.desc {
+      color: var(--global-text-color-light);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin-bottom: 0.4rem;
+
+      strong {
+        color: var(--global-text-color);
+      }
+    }
+  }
+
+  .hero-photo {
+    flex: 0 0 auto;
+    width: 165px;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid var(--global-panel-border-color);
+    }
+  }
+}
+
+// Grid for panels (memo-card grid)
+.memo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+
+  .memo-card {
+    background-color: var(--global-bg-color);
+    border: 1px solid var(--global-panel-border-color);
+    border-radius: 8px;
+    padding: 0.75rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+
+    .memo-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .memo-tag {
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      background: var(--memo-learning-bg);
+      color: var(--memo-learning-color);
+    }
+
+    .memo-date {
+      color: var(--global-text-color-muted);
+      font-weight: 600;
+    }
+
+    .memo-body {
+      color: var(--global-text-color);
+      line-height: 1.5;
+
+      strong {
+        color: var(--global-text-color);
+        font-weight: 600;
+      }
+    }
+
+    &.memo-decision .memo-tag {
+      background: var(--memo-decision-bg);
+      color: var(--memo-decision-color);
+    }
+    &.memo-planning .memo-tag {
+      background: var(--memo-planning-bg);
+      color: var(--memo-planning-color);
+    }
+  }
+}
+
+// Pill-style tags for category badges in lists
+.tag-pill {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--memo-learning-bg);
+  color: var(--memo-learning-color);
+  vertical-align: middle;
+  text-decoration: none;
+
+  &.tag-decision {
+    background: var(--memo-decision-bg);
+    color: var(--memo-decision-color);
+  }
+  &.tag-planning {
+    background: var(--memo-planning-bg);
+    color: var(--memo-planning-color);
+  }
+}
+
+// Generic dashboard meta row (small caption strip)
+.panel-caption {
+  padding: 0.5rem 1rem;
+  background-color: var(--global-panel-header-bg);
+  border-top: 1px solid var(--global-panel-border-color);
+  color: var(--global-text-color-light);
+  font-size: 0.78rem;
+  font-family: "JetBrains Mono", "SFMono-Regular", "Menlo", monospace;
+}
+
+// Adjust news/posts list inside a panel
+.panel .panel-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0.65rem 1.15rem;
+    border-bottom: 1px solid var(--global-panel-border-color);
+    font-size: 0.92rem;
+    line-height: 1.5;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .panel-list-date {
+      flex: 0 0 110px;
+      color: var(--global-text-color-muted);
+      font-family: "JetBrains Mono", "SFMono-Regular", "Menlo", monospace;
+      font-size: 0.8rem;
+      padding-top: 0.05rem;
+    }
+
+    .panel-list-content {
+      flex: 1 1 auto;
+      min-width: 0;
+      color: var(--global-text-color);
+
+      a {
+        color: var(--global-text-color);
+        text-decoration: none;
+        border-bottom: 1px dashed var(--global-panel-border-color);
+
+        &:hover {
+          color: var(--global-theme-color);
+          border-bottom-color: var(--global-theme-color);
+        }
+      }
+    }
+  }
+}
+
+// Publications list inside a panel
+.panel .publications {
+  margin-top: 0;
+
+  ol.bibliography {
+    > li {
+      padding: 0.85rem 1.15rem;
+      border-bottom: 1px solid var(--global-panel-border-color);
+      margin-bottom: 0;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      .title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--global-text-color);
+      }
+
+      .author,
+      .periodical {
+        font-size: 0.88rem;
+        color: var(--global-text-color-light);
+      }
+
+      .links {
+        margin-top: 0.4rem;
+
+        a.btn {
+          font-size: 0.75rem;
+          padding: 0.15rem 0.55rem !important;
+          border-radius: 4px !important;
+          margin-right: 0.25rem !important;
+          margin-bottom: 0.25rem;
+          background-color: var(--global-bg-color);
+          color: var(--global-text-color) !important;
+          border: 1px solid var(--global-panel-border-color) !important;
+          text-transform: none;
+          letter-spacing: 0;
+
+          &:hover {
+            color: var(--global-theme-color) !important;
+            border-color: var(--global-theme-color) !important;
+          }
+        }
+      }
+
+      .abbr {
+        margin-bottom: 0.4rem;
+
+        abbr {
+          background-color: var(--memo-learning-bg) !important;
+          color: var(--memo-learning-color) !important;
+          font-size: 0.7rem !important;
+          font-weight: 600 !important;
+          letter-spacing: 0.04em;
+          padding: 0.1rem 0.5rem !important;
+          border-radius: 4px !important;
+          text-transform: uppercase;
+
+          a {
+            color: var(--memo-learning-color) !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Code block style ("Example action" panels in reference)
+.panel.code-panel > .panel-body {
+  padding: 0;
+
+  pre,
+  figure.highlight {
+    margin: 0;
+    border-radius: 0;
+    background-color: var(--global-code-bg-color) !important;
+    color: var(--global-text-color) !important;
+    border: 0;
+    padding: 0.95rem 1.15rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    overflow-x: auto;
+  }
+}
+
+// Hero chinese name (smaller and lighter)
+.hero-cn {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 1.25rem;
+  color: var(--global-text-color-light);
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+
+// Social row in panel body
+.panel .social {
+  text-align: left;
+
+  .contact-icons {
+    font-size: 1.25rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.1rem;
+      height: 2.1rem;
+      margin-right: 0.3rem;
+      margin-bottom: 0.3rem;
+      border: 1px solid var(--global-panel-border-color);
+      border-radius: 6px;
+      background-color: var(--global-bg-color);
+      transition: all 0.15s ease;
+
+      i::before {
+        color: var(--global-text-color);
+      }
+
+      &:hover {
+        border-color: var(--global-theme-color);
+        background-color: var(--global-panel-header-bg);
+
+        i::before {
+          color: var(--global-theme-color);
+        }
+      }
+    }
+  }
+
+  .contact-note {
+    margin-top: 0.5rem;
+    color: var(--global-text-color-light);
+    font-size: 0.8rem;
+  }
+}
+
+// News table inside panels — make it list-like with rows
+.panel .news {
+  table.table {
+    margin-bottom: 0;
+    background: transparent;
+
+    tr {
+      th,
+      td {
+        font-size: 0.92rem;
+        color: var(--global-text-color);
+        padding: 0.5rem 0.75rem 0.5rem 0;
+        border-color: var(--global-panel-border-color);
+      }
+
+      th {
+        font-family:
+          "JetBrains Mono",
+          "SFMono-Regular",
+          "Menlo",
+          monospace;
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: var(--global-text-color-muted);
+        white-space: nowrap;
+      }
+
+      td a {
+        color: var(--global-text-color);
+        text-decoration: none;
+        border-bottom: 1px dashed var(--global-panel-border-color);
+
+        &:hover {
+          color: var(--global-theme-color);
+          border-bottom-color: var(--global-theme-color);
+        }
+      }
+    }
+  }
+}
+
+// About page research notes
+.panel .panel-body {
+  > p,
+  > ul,
+  > ol {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  > p > strong:only-child,
+  > p:has(> strong:only-child) {
+    color: var(--global-text-color);
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    margin-top: 0.85rem;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.25rem;
+
+    li {
+      margin-bottom: 0.25rem;
+    }
+  }
+}
+
+// Charts / inline visual elements (sparkline-like)
+.panel-spark {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  height: 60px;
+  padding: 0.85rem 1.15rem 1rem;
+
+  .bar {
+    flex: 1;
+    background: var(--global-warning-color);
+    opacity: 0.85;
+    border-radius: 1px;
+  }
+}
+
+// Responsive: hero panel stacks on small
+@media (max-width: 575px) {
+  .panel.hero-panel > .panel-body {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .panel.hero-panel .hero-photo {
+    width: 130px;
+    align-self: flex-start;
+  }
+}

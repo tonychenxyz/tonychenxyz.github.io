@@ -5,23 +5,36 @@
 @use "sass:color";
 
 :root {
-  --global-bg-color: #{$white-color};
-  --global-code-bg-color: #{$code-bg-color-light};
-  --global-text-color: #{$black-color};
-  --global-text-color-light: #{$grey-color};
-  --global-theme-color: #{$purple-color};
-  --global-hover-color: #{$purple-color};
+  --global-bg-color: #{$grey-page-bg};
+  --global-panel-bg: #{$panel-bg};
+  --global-panel-header-bg: #{$panel-header-bg};
+  --global-panel-border-color: #{$grey-color-border};
+  --global-code-bg-color: #f4f6f8;
+  --global-text-color: #1f2933;
+  --global-text-color-light: #6b7177;
+  --global-text-color-muted: #8a9099;
+  --global-theme-color: #{$blue-color};
+  --global-accent-color: #{$green-color};
+  --global-warning-color: #{$orange-color};
+  --global-hover-color: #{$blue-color-dark};
   --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-dark};
   --global-footer-text-color: #{$grey-color-light};
   --global-footer-link-color: #{$white-color};
   --global-distill-app-color: #{$grey-color};
-  --global-divider-color: rgba(0, 0, 0, 0.1);
-  --global-card-bg-color: #{$white-color};
+  --global-divider-color: #{$grey-color-border};
+  --global-card-bg-color: #{$panel-bg};
   --global-highlight-color: #{$red-color-dark};
   --global-back-to-top-text-color: #{$white-color};
   --global-newsletter-bg-color: #{$white-color};
   --global-newsletter-text-color: #{$black-color};
+
+  --memo-learning-bg: #{$blue-color-soft};
+  --memo-learning-color: #{$blue-color-dark};
+  --memo-decision-bg: #{$green-color-soft};
+  --memo-decision-color: #{$green-color-dark};
+  --memo-planning-bg: #{$orange-color-soft};
+  --memo-planning-color: #9c5b22;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
@@ -69,22 +82,35 @@
 }
 
 html[data-theme="dark"] {
-  --global-bg-color: #{$grey-color-dark};
-  --global-code-bg-color: #{$code-bg-color-dark};
-  --global-text-color: #{$grey-color-light};
-  --global-text-color-light: #{$grey-color};
-  --global-theme-color: #{$cyan-color};
-  --global-hover-color: #{$cyan-color};
+  --global-bg-color: #15181c;
+  --global-panel-bg: #1c2026;
+  --global-panel-header-bg: #20242b;
+  --global-panel-border-color: #2c313a;
+  --global-code-bg-color: #20242b;
+  --global-text-color: #d9dde3;
+  --global-text-color-light: #9ba1aa;
+  --global-text-color-muted: #6b7177;
+  --global-theme-color: #6ea7e0;
+  --global-accent-color: #46b97f;
+  --global-warning-color: #e6a162;
+  --global-hover-color: #9bc2ec;
   --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-light};
   --global-footer-text-color: #{$grey-color-dark};
   --global-footer-link-color: #{$black-color};
   --global-distill-app-color: #{$grey-color-light};
-  --global-divider-color: #424246;
-  --global-card-bg-color: #{$grey-900};
+  --global-divider-color: #2c313a;
+  --global-card-bg-color: #1c2026;
   --global-back-to-top-text-color: #{$black-color};
   --global-newsletter-bg-color: #{$grey-color-light};
   --global-newsletter-text-color: #{$grey-color-dark};
+
+  --memo-learning-bg: #1d3050;
+  --memo-learning-color: #b9d3f3;
+  --memo-decision-bg: #1d3a2a;
+  --memo-decision-color: #b3e0c2;
+  --memo-planning-bg: #3a2c1a;
+  --memo-planning-color: #ecc8a3;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
