@@ -9,10 +9,10 @@
   --global-panel-bg: #{$panel-bg};
   --global-panel-header-bg: #{$panel-header-bg};
   --global-panel-border-color: #{$grey-color-border};
-  --global-code-bg-color: #f4f6f8;
-  --global-text-color: #1f2933;
-  --global-text-color-light: #6b7177;
-  --global-text-color-muted: #8a9099;
+  --global-code-bg-color: #f4f1ea;
+  --global-text-color: #2b2a26;
+  --global-text-color-light: #6b6963;
+  --global-text-color-muted: #8c8a83;
   --global-theme-color: #{$blue-color};
   --global-accent-color: #{$green-color};
   --global-warning-color: #{$orange-color};
@@ -29,12 +29,12 @@
   --global-newsletter-bg-color: #{$white-color};
   --global-newsletter-text-color: #{$black-color};
 
-  --memo-learning-bg: #{$blue-color-soft};
-  --memo-learning-color: #{$blue-color-dark};
-  --memo-decision-bg: #{$green-color-soft};
-  --memo-decision-color: #{$green-color-dark};
-  --memo-planning-bg: #{$orange-color-soft};
-  --memo-planning-color: #9c5b22;
+  --memo-learning-bg: #c7d8ec;
+  --memo-learning-color: #1f4f86;
+  --memo-decision-bg: #cae0d2;
+  --memo-decision-color: #246d4d;
+  --memo-planning-bg: #ecd0a8;
+  --memo-planning-color: #8a4a16;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
