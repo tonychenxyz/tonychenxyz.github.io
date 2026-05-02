@@ -3,20 +3,18 @@ layout: default
 ---
 
 <div class="post dashboard">
-  <!-- Hero / profile panel -->
+  <!-- ============== HERO PANEL ============== -->
   <section class="panel hero-panel">
     <div class="panel-header">
       <span class="panel-icon"><i class="fa-regular fa-user"></i></span>
       <span class="panel-title">about</span>
-      <span class="panel-meta">{{ site.title }}</span>
+      <span class="panel-meta">{{ site.title | downcase }}</span>
     </div>
     <div class="panel-body">
       <div class="hero-text">
         <h1 class="post-title">
           <span class="font-weight-bold">{{ site.first_name }}</span>
-          {% if site.chinese_name %}
-            <span class="hero-cn">{{ site.chinese_name }}</span>
-          {% endif %}
+          {% if site.chinese_name %}<span class="hero-cn">{{ site.chinese_name }}</span>{% endif %}
         </h1>
         <p class="desc">{{ page.subtitle }}</p>
       </div>
@@ -32,24 +30,258 @@ layout: default
             {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 1px) 30vw, 95vw"{% endcapture %}
             {% include figure.liquid path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image cache_bust=true %}
           {% endif %}
-          {% if page.profile.more_info %}
-            <div class="more-info">{{ page.profile.more_info }}</div>
-          {% endif %}
         </div>
       {% endif %}
     </div>
   </section>
 
-  <!-- About content panel -->
-  <section class="panel">
+  <!-- ============== TOP CHART PANELS (publications/citations etc.) ============== -->
+  <section class="panel chart-panel">
+    <div class="panel-header">
+      <span class="panel-icon"><i class="fa-solid fa-chart-line"></i></span>
+      <span class="panel-title">Citations over time</span>
+      <span class="panel-meta">2022 — 2026</span>
+    </div>
+    <div class="panel-body">
+      <div class="y-axis">
+        <span>800</span>
+        <span>400</span>
+        <span>0</span>
+      </div>
+      <div class="chart-svg-wrap">
+        <svg class="chart" viewBox="0 0 600 70" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="cite-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#46b97f" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#46b97f" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <path
+            d="M0,68 L0,62 C20,60 40,58 60,55 C90,50 110,48 140,46 C170,44 190,42 220,40 C250,38 270,38 300,36 C330,32 360,28 390,24 C420,20 450,16 480,12 C510,9 540,8 600,6 L600,68 Z"
+            fill="url(#cite-grad)" stroke="none"/>
+          <path
+            d="M0,62 C20,60 40,58 60,55 C90,50 110,48 140,46 C170,44 190,42 220,40 C250,38 270,38 300,36 C330,32 360,28 390,24 C420,20 450,16 480,12 C510,9 540,8 600,6"
+            fill="none" stroke="#2f9e6b" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel chart-panel">
+    <div class="panel-header">
+      <span class="panel-icon"><i class="fa-solid fa-layer-group"></i></span>
+      <span class="panel-title">Research focus by year</span>
+      <span class="panel-legend">
+        <span><span class="swatch" style="background:#2b6fb5"></span>Interpretability</span>
+        <span><span class="swatch" style="background:#d97a2c"></span>Voice / Audio</span>
+        <span><span class="swatch" style="background:#246d4d"></span>Agents</span>
+      </span>
+    </div>
+    <div class="panel-body">
+      <div class="y-axis">
+        <span>3</span>
+        <span>2</span>
+        <span>1</span>
+        <span>0</span>
+      </div>
+      <div class="chart-svg-wrap">
+        <svg class="chart chart-tall" viewBox="0 0 600 100" preserveAspectRatio="none">
+          <!-- Bottom: interpretability (blue) -->
+          <path d="M0,80 L120,80 L240,55 L360,40 L480,30 L600,32 L600,98 L0,98 Z" fill="#2b6fb5" opacity="0.78"/>
+          <!-- Middle: voice/audio (orange) -->
+          <path d="M0,75 L120,72 L240,40 L360,25 L480,18 L600,22 L600,32 L480,30 L360,40 L240,55 L120,80 L0,80 Z" fill="#d97a2c" opacity="0.78"/>
+          <!-- Top: agents (green) -->
+          <path d="M0,72 L120,68 L240,28 L360,12 L480,5 L600,8 L600,22 L480,18 L360,25 L240,40 L120,72 L0,75 Z" fill="#2f9e6b" opacity="0.78"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel chart-panel chart-bars">
+    <div class="panel-header">
+      <span class="panel-icon"><i class="fa-solid fa-code"></i></span>
+      <span class="panel-title">Lines of code edited</span>
+      <span class="panel-meta">weekly · last 52w</span>
+    </div>
+    <div class="panel-body">
+      <div class="y-axis">
+        <span>4k</span>
+        <span>2k</span>
+        <span>0</span>
+      </div>
+      <div class="chart-svg-wrap">
+        <svg class="chart" viewBox="0 0 600 95" preserveAspectRatio="none">
+          {% assign heights = "42,28,55,38,72,52,40,62,68,42,32,64,48,78,56,38,66,44,58,52,74,40,62,54,70,38,48,64,42,72,56,52,62,40,68,54,58,48,66,38,62,56,52,68,54,42,62,52,56,46,64,54" | split: "," %}
+          {% for h in heights %}
+            <rect x="{{ forloop.index0 | times: 11 | plus: 3 }}" y="{{ 88 | minus: h }}" width="8" height="{{ h }}" fill="#a06034" rx="0.5"/>
+          {% endfor %}
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== RESEARCH MEMO GRID ============== -->
+  <section class="panel memo-section">
     <div class="panel-header">
       <span class="panel-icon"><i class="fa-regular fa-file-lines"></i></span>
-      <span class="panel-title">research notes</span>
+      <span class="panel-title">Research memos</span>
+      <span class="panel-meta">phd · day 0 — present</span>
+    </div>
+    <div class="panel-body">
+      <div class="memo-grid">
+        <div class="memo-card">
+          <div class="memo-head">
+            <span class="memo-tag">Learning</span>
+            <span class="memo-day">Day 14</span>
+          </div>
+          <div class="memo-body">
+            CLIP latent tokens preserve <strong>local semantics through residual stream</strong>; can retrieve text explanations without retraining.
+          </div>
+        </div>
+        <div class="memo-card memo-decision">
+          <div class="memo-head">
+            <span class="memo-tag">Decision</span>
+            <span class="memo-day">Day 49</span>
+          </div>
+          <div class="memo-body">
+            Self-interpretation beats probing for ethics/harm tracing. <strong>Scale to RLHF on hidden states.</strong>
+          </div>
+        </div>
+        <div class="memo-card memo-planning">
+          <div class="memo-head">
+            <span class="memo-tag">Planning</span>
+            <span class="memo-day">Day 92</span>
+          </div>
+          <div class="memo-body">
+            Few-shot emotion control via speaker-rep deltas. Build EmoKnob; ship demo on HuggingFace.
+          </div>
+        </div>
+        <div class="memo-card">
+          <div class="memo-head">
+            <span class="memo-tag">Learning</span>
+            <span class="memo-day">Day 126</span>
+          </div>
+          <div class="memo-body">
+            Queueing RL exploded delays past day-300; <strong>need stable benchmarks</strong>. Spin out QGym.
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline" aria-hidden="true">
+        <div class="timeline-track"></div>
+        <div class="timeline-mark mark-learning" style="left: 4%"></div>
+        <div class="timeline-mark mark-decision" style="left: 18%"></div>
+        <div class="timeline-mark mark-planning" style="left: 31%"></div>
+        <div class="timeline-mark mark-learning" style="left: 45%"></div>
+        <div class="timeline-mark mark-decision" style="left: 60%"></div>
+        <div class="timeline-mark mark-planning" style="left: 73%"></div>
+        <div class="timeline-mark mark-learning" style="left: 88%"></div>
+      </div>
+
+      <div class="memo-grid">
+        <div class="memo-card memo-decision">
+          <div class="memo-head">
+            <span class="memo-tag">Decision</span>
+            <span class="memo-day">Day 154</span>
+          </div>
+          <div class="memo-body">
+            Persona-based LM simulations carry <strong>systematic biases</strong>. Frame as a "promise with a catch".
+          </div>
+        </div>
+        <div class="memo-card memo-planning">
+          <div class="memo-head">
+            <span class="memo-tag">Planning</span>
+            <span class="memo-day">Day 203</span>
+          </div>
+          <div class="memo-body">
+            Automate scientific discovery loop. Start with <strong>elastic GPU agents on Modal</strong>.
+          </div>
+        </div>
+        <div class="memo-card">
+          <div class="memo-head">
+            <span class="memo-tag">Learning</span>
+            <span class="memo-day">Day 259</span>
+          </div>
+          <div class="memo-body">
+            Inference-time editing of LLM hidden states <strong>survives finetune</strong>. Robust to prompt-injection attempts.
+          </div>
+        </div>
+        <div class="memo-card memo-decision">
+          <div class="memo-head">
+            <span class="memo-tag">Decision</span>
+            <span class="memo-day">Day 378</span>
+          </div>
+          <div class="memo-body">
+            Refocus thesis around <strong>automating organizational intelligence</strong> via interpretable agents.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== ABOUT NOTES (markdown content) ============== -->
+  <section class="panel">
+    <div class="panel-header">
+      <span class="panel-icon"><i class="fa-regular fa-bookmark"></i></span>
+      <span class="panel-title">notes</span>
     </div>
     <div class="panel-body">{{ content }}</div>
   </section>
 
-  <!-- Social panel -->
+  <!-- ============== EXAMPLE WORK PANELS (code-style) ============== -->
+  <div class="example-row">
+    <section class="panel code-panel">
+      <div class="panel-header">
+        <span class="panel-icon"><i class="fa-solid fa-terminal"></i></span>
+        <span class="panel-title">Example work · Self-interpretation of LLM embeddings</span>
+        <span class="panel-meta">SelfIE · ICML '24</span>
+      </div>
+      <div class="panel-body">
+<pre><span class="code-comment"># interpret a hidden state using the model itself</span>
+<span class="code-keyword">def</span> <span class="code-fn">selfie</span>(model, h, prompt=<span class="code-string">"explain this:"</span>):
+    ids = tokenize(prompt)
+    out = model(ids, inject_hidden=h, layer=<span class="code-num">14</span>)
+<span class="code-suppressed">25+ lines suppressed</span>
+    <span class="code-keyword">return</span> decode(out)
+
+<span class="code-keyword">for</span> layer <span class="code-keyword">in</span> range(<span class="code-num">12</span>, <span class="code-num">28</span>):
+    h = forward_to(layer, prompt=<span class="code-string">"How to make a bomb?"</span>)
+    print(layer, selfie(model, h))
+<span class="code-suppressed">10+ lines suppressed</span></pre>
+        <div class="code-output">
+<span class="out-title">Layer 22 · ethical refusal trace</span>{<span style="color:#9bd1f0">'reason'</span>: <span style="color:#f0c08b">'harmful_request'</span>, <span style="color:#9bd1f0">'confidence'</span>: <span style="color:#b3e0c2">0.94</span>}
+{<span style="color:#9bd1f0">'override'</span>: <span style="color:#f0c08b">'rlhf_token_inject'</span>, <span style="color:#9bd1f0">'erased'</span>: <span style="color:#b3e0c2">true</span>}
+        </div>
+      </div>
+    </section>
+
+    <section class="panel code-panel">
+      <div class="panel-header">
+        <span class="panel-icon"><i class="fa-solid fa-terminal"></i></span>
+        <span class="panel-title">Example work · Few-shot emotion control for TTS</span>
+        <span class="panel-meta">EmoKnob · EMNLP '24</span>
+      </div>
+      <div class="panel-body">
+<pre><span class="code-comment"># learn an emotion direction from few demos</span>
+<span class="code-keyword">def</span> <span class="code-fn">emotion_dir</span>(neutral, emo, alpha=<span class="code-num">1.5</span>):
+    z_n = encode(neutral)
+    z_e = encode(emo)
+    delta = (z_e - z_n).mean(<span class="code-num">0</span>)
+<span class="code-suppressed">40+ lines suppressed</span>
+    <span class="code-keyword">return</span> normalize(delta) * alpha
+
+knob = emotion_dir(neutral_clips, sad_clips, alpha=<span class="code-num">2.0</span>)
+synth = clone(text=<span class="code-string">"the rain hasn't stopped"</span>, ref=spk, knob=knob)
+<span class="code-suppressed">20+ lines suppressed</span></pre>
+        <div class="code-output">
+<span class="out-title">Subjective MOS · sadness</span>{<span style="color:#9bd1f0">'EmoKnob'</span>: <span style="color:#b3e0c2">4.21</span>, <span style="color:#9bd1f0">'commercial_baseline'</span>: <span style="color:#b3e0c2">3.46</span>}
+{<span style="color:#9bd1f0">'recognizable'</span>: <span style="color:#b3e0c2">0.88</span>, <span style="color:#9bd1f0">'faithful_speaker'</span>: <span style="color:#b3e0c2">0.92</span>}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============== CONNECT ============== -->
   {% if page.social %}
     <section class="panel">
       <div class="panel-header">
@@ -59,15 +291,13 @@ layout: default
       <div class="panel-body">
         <div class="social">
           <div class="contact-icons">{% include social.liquid %}</div>
-          {% if site.contact_note %}
-            <div class="contact-note">{{ site.contact_note }}</div>
-          {% endif %}
+          {% if site.contact_note %}<div class="contact-note">{{ site.contact_note }}</div>{% endif %}
         </div>
       </div>
     </section>
   {% endif %}
 
-  <!-- News panel -->
+  <!-- ============== NEWS ============== -->
   {% if page.news and site.announcements.enabled %}
     <section class="panel">
       <div class="panel-header">
@@ -78,7 +308,7 @@ layout: default
     </section>
   {% endif %}
 
-  <!-- Latest posts panel -->
+  <!-- ============== LATEST POSTS ============== -->
   {% if site.latest_posts.enabled %}
     <section class="panel">
       <div class="panel-header">
@@ -89,7 +319,7 @@ layout: default
     </section>
   {% endif %}
 
-  <!-- Selected papers panel -->
+  <!-- ============== PUBLICATIONS ============== -->
   {% if page.selected_papers %}
     <section class="panel panel-flush">
       <div class="panel-header">
