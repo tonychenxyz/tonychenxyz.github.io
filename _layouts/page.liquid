@@ -9,21 +9,27 @@ layout: default
 {% endif %}
 
 <div class="post">
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <p class="post-description">{{ page.description }}</p>
-  </header>
-
-  <article>
-    {{ content }}
-  </article>
-
-  {% if page.related_publications %}
-    <h2>References</h2>
-    <div class="publications">
-      {% bibliography --cited_in_order %}
+  <section class="panel">
+    <div class="panel-header">
+      <span class="panel-icon"><i class="fa-regular fa-file-lines"></i></span>
+      <span class="panel-title">{{ page.title }}</span>
+      {% if page.description %}
+        <span class="panel-meta">{{ page.description }}</span>
+      {% endif %}
     </div>
-  {% endif %}
+    <div class="panel-body">
+      <article>
+        {{ content }}
+      </article>
+
+      {% if page.related_publications %}
+        <h2>References</h2>
+        <div class="publications">
+          {% bibliography --cited_in_order %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
 
   {% if site.giscus and page.giscus_comments %}
     {% include giscus.liquid %}

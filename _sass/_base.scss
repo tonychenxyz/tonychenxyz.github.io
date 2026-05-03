@@ -3,6 +3,31 @@
  ******************************************************************************/
 
 // Typography
+html,
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  font-feature-settings: "ss01", "cv11";
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family:
+    "JetBrains Mono",
+    "SFMono-Regular",
+    "Menlo",
+    "Consolas",
+    monospace;
+}
 
 p,
 h1,
@@ -17,6 +42,16 @@ li,
 span,
 strong {
   color: var(--global-text-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
 hr {
@@ -247,7 +282,19 @@ ul.task-list input[type="checkbox"] {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
   background-color: var(--global-bg-color);
-  opacity: 0.95;
+  opacity: 1;
+  font-size: 0.95rem;
+
+  .navbar-brand {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .navbar-nav .nav-item .nav-link {
+    font-weight: 500;
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
 }
 
 .navbar .dropdown-menu {

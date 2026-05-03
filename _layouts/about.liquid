@@ -1,80 +1,101 @@
 ---
 layout: default
 ---
-<div class="post">
-<header class="post-header">
-  <div class="header-content" style="display: flex; align-items: center; justify-content: space-between;">
-    <div class="title-and-subtitle">
-      <h1 class="post-title">
-          <span class="font-weight-bold">{{ site.first_name }}</span> <br>
-          {{ site.chinese_name }}
-      </h1>
-      <p class="desc">{{ page.subtitle }}</p>
+
+<div class="post dashboard">
+  <!-- Hero / profile panel -->
+  <section class="panel hero-panel">
+    <div class="panel-header">
+      <span class="panel-icon"><i class="fa-regular fa-user"></i></span>
+      <span class="panel-title">about</span>
+      <span class="panel-meta">{{ site.title | downcase }}</span>
     </div>
-    {% if page.profile %}
-    <div class="profile" style="flex-shrink: 0">
-      {% if page.profile.image %}
-        {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-        {% if page.profile.image_circular %}
-          {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
-        {% else %}
-          {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
-        {% endif %}
-        {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 1px)
-        30vw, 95vw"{% endcapture %}
-        {%
-          include figure.liquid path = profile_image_path class = profile_image_class sizes = sizes alt = page.profile.image
-          cache_bust = true
-        %}
-      {% endif %}
-      {% if page.profile.more_info %}
-        <div class="more-info">{{ page.profile.more_info }}</div>
-      {% endif %}
-    </div>
-    {% endif %}
-  </div>
-</header>
-
-
-  <article>
-
-    <div class="clearfix">{{ content }}</div>
-       <!-- Social -->
-    {% if page.social %}
-      <div class="social">
-        <div class="contact-icons">{% include social.liquid %}</div>
-
-        <div class="contact-note">{{ site.contact_note }}</div>
+    <div class="panel-body">
+      <div class="hero-text">
+        <h1 class="post-title">
+          <span class="font-weight-bold">{{ site.first_name }}</span>
+          {% if site.chinese_name %}<span class="hero-cn">{{ site.chinese_name }}</span>{% endif %}
+        </h1>
+        <p class="desc">{{ page.subtitle }}</p>
       </div>
-    {% endif %}
-    <!-- News -->
-    {% if page.news and site.announcements.enabled %}
-      <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
-      </h2>
-      {% include news.liquid limit=true %}
-    {% endif %}
+      {% if page.profile %}
+        <div class="hero-photo">
+          {% if page.profile.image %}
+            {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
+            {% if page.profile.image_circular %}
+              {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
+            {% else %}
+              {% assign profile_image_class = 'img-fluid z-depth-1 rounded' %}
+            {% endif %}
+            {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 1px) 30vw, 95vw"{% endcapture %}
+            {% include figure.liquid path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image cache_bust=true %}
+          {% endif %}
+          {% if page.profile.more_info %}<div class="more-info">{{ page.profile.more_info }}</div>{% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
 
-    <!-- Latest posts -->
-    {% if site.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
+  <!-- Markdown content -->
+  <section class="panel">
+    <div class="panel-header">
+      <span class="panel-icon"><i class="fa-regular fa-file-lines"></i></span>
+      <span class="panel-title">research notes</span>
+    </div>
+    <div class="panel-body">{{ content }}</div>
+  </section>
 
-    <!-- Selected papers -->
-    {% if page.selected_papers %}
-      <h2>
-        publications
-      </h2>
-      {% include selected_papers.liquid %}
-    {% endif %}
+  <!-- Connect -->
+  {% if page.social %}
+    <section class="panel">
+      <div class="panel-header">
+        <span class="panel-icon"><i class="fa-regular fa-compass"></i></span>
+        <span class="panel-title">connect</span>
+      </div>
+      <div class="panel-body">
+        <div class="social">
+          <div class="contact-icons">{% include social.liquid %}</div>
+          {% if site.contact_note %}<div class="contact-note">{{ site.contact_note }}</div>{% endif %}
+        </div>
+      </div>
+    </section>
+  {% endif %}
 
-  
+  <!-- News -->
+  {% if page.news and site.announcements.enabled %}
+    <section class="panel">
+      <div class="panel-header">
+        <span class="panel-icon"><i class="fa-regular fa-newspaper"></i></span>
+        <span class="panel-title"><a href="{{ '/news/' | relative_url }}" style="color: inherit; text-decoration: none">news</a></span>
+      </div>
+      <div class="panel-body">{% include news.liquid limit=true %}</div>
+    </section>
+  {% endif %}
 
-    {% if site.newsletter.enabled and site.footer_fixed %}
-      {% include scripts/newsletter.liquid center=true %}
-    {% endif %}
-  </article>
+  <!-- Latest posts -->
+  {% if site.latest_posts.enabled %}
+    <section class="panel">
+      <div class="panel-header">
+        <span class="panel-icon"><i class="fa-regular fa-comment"></i></span>
+        <span class="panel-title"><a href="{{ '/blog/' | relative_url }}" style="color: inherit; text-decoration: none">latest posts</a></span>
+      </div>
+      <div class="panel-body">{% include latest_posts.liquid %}</div>
+    </section>
+  {% endif %}
+
+  <!-- Publications -->
+  {% if page.selected_papers %}
+    <section class="panel panel-flush">
+      <div class="panel-header">
+        <span class="panel-icon"><i class="fa-regular fa-bookmark"></i></span>
+        <span class="panel-title">publications</span>
+        <span class="panel-meta">selected</span>
+      </div>
+      <div class="panel-body">{% include selected_papers.liquid %}</div>
+    </section>
+  {% endif %}
+
+  {% if site.newsletter.enabled and site.footer_fixed %}
+    {% include scripts/newsletter.liquid center=true %}
+  {% endif %}
 </div>

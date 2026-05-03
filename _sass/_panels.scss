@@ -1,0 +1,564 @@
+/******************************************************************************
+ * Dashboard-style visual chrome (border, shape, color, font)
+ * Structure stays the same as the original al-folio about/page/post layouts.
+ *****************************************************************************/
+
+body {
+  background-color: var(--global-bg-color);
+}
+
+// Kill Bootstrap/MDB drop shadows globally — reference is shadow-free
+.z-depth-0,
+.z-depth-1,
+.z-depth-2,
+.z-depth-3,
+.z-depth-4,
+.z-depth-5,
+.card,
+.card.hoverable,
+.btn,
+.btn-sm,
+.shadow,
+.shadow-sm,
+.shadow-lg,
+img.z-depth-1,
+.rounded.z-depth-1 {
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
+
+.panel {
+  background-color: var(--global-panel-bg);
+  border: 2px solid var(--global-panel-border-color);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  box-shadow: none;
+
+  > .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    background-color: var(--global-panel-header-bg);
+    border-bottom: 2px solid var(--global-panel-border-color);
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--global-text-color);
+    letter-spacing: 0;
+
+    .panel-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.1rem;
+      height: 1.1rem;
+      color: var(--global-text-color-light);
+      font-size: 0.92rem;
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      flex-grow: 1;
+      color: var(--global-text-color);
+      font-weight: 600;
+    }
+
+    .panel-meta {
+      color: var(--global-text-color-light);
+      font-size: 0.78rem;
+      font-weight: 400;
+      font-family: "JetBrains Mono", "SFMono-Regular", "Menlo", monospace;
+    }
+  }
+
+  > .panel-body {
+    padding: 0.85rem 1rem 0.95rem 1rem;
+    color: var(--global-text-color);
+
+    > p:last-child,
+    > ul:last-child,
+    > ol:last-child {
+      margin-bottom: 0;
+    }
+
+    > p,
+    > ul,
+    > ol {
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.15rem;
+
+      li {
+        margin-bottom: 0.2rem;
+      }
+    }
+  }
+
+  &.panel-flush > .panel-body {
+    padding: 0;
+  }
+}
+
+// =================== Hero / profile panel ===================
+.panel.hero-panel {
+  > .panel-body {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+    padding: 0.95rem 1rem;
+  }
+
+  .hero-text {
+    flex: 1 1 320px;
+    min-width: 0;
+
+    h1.post-title {
+      font-size: 1.75rem;
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+      font-weight: 700;
+      color: var(--global-text-color);
+      letter-spacing: -0.01em;
+
+      .font-weight-bold {
+        font-weight: 700;
+      }
+    }
+
+    p.desc {
+      color: var(--global-text-color-light);
+      font-size: 0.93rem;
+      line-height: 1.55;
+      margin-bottom: 0.4rem;
+
+      strong {
+        color: var(--global-text-color);
+      }
+    }
+  }
+
+  .hero-photo {
+    flex: 0 0 auto;
+    width: 130px;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid var(--global-panel-border-color);
+    }
+  }
+}
+
+.hero-cn {
+  display: inline-block;
+  font-weight: 400;
+  font-size: 1.15rem;
+  color: var(--global-text-color-light);
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+// =================== Pill tag (used for venue badges) ===================
+.tag-pill {
+  display: inline-block;
+  padding: 0.05rem 0.45rem;
+  border-radius: 3px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--memo-learning-bg);
+  color: var(--memo-learning-color);
+  vertical-align: middle;
+  text-decoration: none;
+
+  &.tag-decision {
+    background: var(--memo-decision-bg);
+    color: var(--memo-decision-color);
+  }
+  &.tag-planning {
+    background: var(--memo-planning-bg);
+    color: var(--memo-planning-color);
+  }
+}
+
+// =================== Social row inside panel ===================
+.panel .social {
+  text-align: left;
+
+  .contact-icons {
+    font-size: 1.1rem;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.9rem;
+      height: 1.9rem;
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+      border: 1px solid var(--global-panel-border-color);
+      border-radius: 5px;
+      background-color: var(--global-panel-bg);
+      transition: all 0.15s ease;
+
+      i::before {
+        color: var(--global-text-color);
+      }
+
+      &:hover {
+        border-color: var(--global-theme-color);
+        background-color: var(--global-panel-header-bg);
+
+        i::before {
+          color: var(--global-theme-color);
+        }
+      }
+    }
+  }
+
+  .contact-note {
+    margin-top: 0.5rem;
+    color: var(--global-text-color-light);
+    font-size: 0.78rem;
+  }
+}
+
+// =================== News table inside panel ===================
+.panel .news {
+  table.table {
+    margin-bottom: 0;
+    background: transparent;
+
+    tr {
+      th,
+      td {
+        font-size: 0.88rem;
+        color: var(--global-text-color);
+        padding: 0.42rem 0.6rem 0.42rem 0;
+        border-color: var(--global-panel-inner-border-color);
+        line-height: 1.45;
+      }
+
+      th {
+        font-family: "JetBrains Mono", "SFMono-Regular", "Menlo", monospace;
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: var(--global-text-color-muted);
+        white-space: nowrap;
+      }
+
+      td a {
+        color: var(--global-text-color);
+        text-decoration: none;
+        border-bottom: 1px dashed var(--global-panel-border-color);
+
+        &:hover {
+          color: var(--global-theme-color);
+          border-bottom-color: var(--global-theme-color);
+        }
+      }
+    }
+  }
+}
+
+// =================== Publications inside panel ===================
+.panel .publications {
+  margin-top: 0;
+
+  > h1,
+  > h2.bibliography {
+    display: none;
+  }
+
+  ol.bibliography {
+    > li {
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--global-panel-inner-border-color);
+      margin-bottom: 0;
+      display: flex;
+      gap: 0.85rem;
+      align-items: flex-start;
+
+      > .col-sm-2 {
+        flex: 0 0 110px;
+        max-width: 110px;
+        padding: 0;
+      }
+
+      > .col-sm-8,
+      > .col-sm-10 {
+        flex: 1 1 auto;
+        max-width: none;
+        padding: 0;
+        font-size: 0.88rem;
+      }
+
+      figure.preview,
+      .preview {
+        width: 100%;
+        max-width: 110px;
+        margin: 0 0 0.45rem 0;
+      }
+
+      figure.preview picture,
+      figure.preview img,
+      img.preview {
+        display: block;
+        width: 100%;
+        max-width: 110px;
+        height: auto;
+        border-radius: 4px;
+        border: 0;
+        background: transparent;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      .title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--global-text-color);
+        line-height: 1.35;
+      }
+
+      .author,
+      .periodical {
+        font-size: 0.82rem;
+        color: var(--global-text-color-light);
+      }
+
+      .links {
+        margin-top: 0.35rem;
+
+        a.btn {
+          font-size: 0.7rem;
+          padding: 0.1rem 0.5rem !important;
+          border-radius: 3px !important;
+          margin-right: 0.2rem !important;
+          margin-bottom: 0.2rem;
+          background-color: var(--global-bg-color);
+          color: var(--global-text-color) !important;
+          border: 1px solid var(--global-panel-border-color) !important;
+          text-transform: none;
+          letter-spacing: 0;
+          font-weight: 500;
+          line-height: 1.4;
+
+          &:hover {
+            color: var(--global-theme-color) !important;
+            border-color: var(--global-theme-color) !important;
+          }
+        }
+      }
+
+      .abbr {
+        margin-top: 0.3rem;
+        margin-bottom: 0.2rem;
+
+        abbr {
+          background-color: var(--memo-learning-bg) !important;
+          color: var(--memo-learning-color) !important;
+          font-size: 0.62rem !important;
+          font-weight: 700 !important;
+          letter-spacing: 0.06em;
+          padding: 0.05rem 0.45rem !important;
+          border-radius: 3px !important;
+          text-transform: uppercase;
+
+          a {
+            color: var(--memo-learning-color) !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+// =================== Blog post-list inside panel ===================
+.panel .post-list {
+  margin-bottom: 0;
+
+  > li {
+    border-bottom: 1px solid var(--global-panel-inner-border-color);
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+
+    &:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      font-size: 0.86rem;
+      color: var(--global-text-color-light);
+      margin-bottom: 0.3rem;
+    }
+
+    .post-meta,
+    .post-tags {
+      font-size: 0.74rem;
+      color: var(--global-text-color-muted);
+    }
+  }
+}
+
+.panel .header-bar {
+  border-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0.65rem;
+  text-align: left;
+
+  h1 {
+    font-size: 1.05rem;
+    color: var(--global-text-color);
+    font-weight: 600;
+  }
+  h2 {
+    font-size: 0.88rem;
+    color: var(--global-text-color-light);
+    margin: 0;
+  }
+}
+
+// =================== Inline code inside panels (post bodies) ===================
+.panel pre,
+.panel figure.highlight {
+  background-color: var(--global-code-bg-color);
+  border: 1px solid var(--global-panel-border-color);
+  border-radius: 6px;
+  padding: 0.7rem 0.95rem;
+  font-family: "JetBrains Mono", "SFMono-Regular", "Menlo", monospace;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--global-text-color);
+}
+
+// =================== Responsive ===================
+@media (max-width: 767px) {
+  .panel {
+    margin-bottom: 12px;
+  }
+
+  .panel > .panel-header {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.85rem;
+  }
+
+  .panel > .panel-body {
+    padding: 0.75rem 0.85rem;
+  }
+
+  // Hero — keep photo on the right (small) next to name/bio
+  .panel.hero-panel > .panel-body {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 0.85rem;
+    flex-wrap: nowrap;
+  }
+  .panel.hero-panel .hero-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    order: 0;
+  }
+  .panel.hero-panel .hero-photo {
+    flex: 0 0 auto;
+    width: 96px;
+    order: 1;
+    align-self: flex-start;
+  }
+  .panel.hero-panel .hero-photo img {
+    height: auto;
+  }
+  .panel.hero-panel .hero-text h1.post-title {
+    font-size: 1.35rem;
+    line-height: 1.2;
+  }
+  .hero-cn {
+    font-size: 0.95rem;
+    margin-left: 0.25rem;
+  }
+
+  // Publications — stack image on top of metadata block
+  .panel .publications ol.bibliography > li {
+    flex-direction: column;
+    gap: 0;
+    padding: 0.85rem 0.85rem;
+  }
+  .panel .publications ol.bibliography > li > .col-sm-2 {
+    flex: 0 0 auto;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 0.55rem;
+  }
+  .panel .publications ol.bibliography > li figure.preview,
+  .panel .publications ol.bibliography > li .preview {
+    width: 80px;
+    max-width: 80px;
+    margin: 0;
+  }
+  .panel .publications ol.bibliography > li figure.preview picture,
+  .panel .publications ol.bibliography > li figure.preview img,
+  .panel .publications ol.bibliography > li img.preview {
+    width: 80px;
+    max-width: 80px;
+    height: auto;
+  }
+  .panel .publications ol.bibliography > li .abbr {
+    margin: 0;
+  }
+
+  // Social row — give icons a touch-target sized hit area
+  .panel .social .contact-icons a {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.05rem;
+  }
+
+  // News table — let content take the full width and keep dates compact
+  .panel .news table.table tr th {
+    width: 38%;
+    font-size: 0.7rem;
+    padding-right: 0.5rem;
+  }
+  .panel .news table.table tr td {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel.hero-panel .hero-photo {
+    width: 84px;
+  }
+  .panel.hero-panel .hero-text h1.post-title {
+    font-size: 1.2rem;
+  }
+
+  // Smaller link buttons inside publications so 5 buttons don't blow up
+  .panel .publications ol.bibliography > li .links a.btn {
+    font-size: 0.66rem;
+    padding: 0.08rem 0.42rem !important;
+  }
+}
