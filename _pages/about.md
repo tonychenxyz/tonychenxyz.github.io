@@ -22,17 +22,12 @@ social: true  # includes social icons at the bottom of the page
 services: true
 ---
 
-**Research Interests:**
-- Automate scientific discovery
-- Automate organizational intelligence
-- Make AI understand complex human feelings and preferences
+I try to make AI do everything it can't do.
 
-**Previously:**
+<p><strong>Also currently:</strong><br>
+Part-time researcher @ <a href="https://penrose.com/">Penrose</a>.</p>
+
+<p class="previously-label"><strong>Previously:</strong></p>
 
 - Undergrad @ Columbia. I had the fortunate opportunities to work with [Tianyi Peng](https://tianyipeng.github.io/), [Chengzhi Mao](http://www.cs.columbia.edu/~mcz/), [Carl Vondrick](https://www.cs.columbia.edu/~vondrick/), [Hongseok Namkoong](https://hsnamkoong.github.io/), and [Julia Hirschberg](http://www.cs.columbia.edu/~julia/).
 - Research Intern @ [Together AI](https://www.together.ai/) working on accelerating inference.
-
-**Farther back:**
-
-- Quantitative research intern @ [Voloridge](https://www.voloridge.com/), a quantitative hedge fund in Florida.
-- Enjoyed [Kaggle competitions](https://www.kaggle.com/tonychenxyz) for a while.

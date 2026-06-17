@@ -34,3 +34,27 @@ $max-content-width: {{ site.max_width }};
   // Add this line if you want a simple border instead:
   border: 1px solid #ddd;
 }
+
+a,
+table.table a {
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+  color: var(--global-theme-color);
+  text-decoration: none !important;
+}
+
+a:hover,
+table.table a:hover {
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+  color: var(--global-hover-color);
+  text-decoration: none !important;
+}
+
+.publications ol.bibliography .author > em {
+  border-bottom: 0 !important;
+  font-style: normal;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
