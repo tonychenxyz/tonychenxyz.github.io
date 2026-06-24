@@ -21,9 +21,6 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 services: true
 ---
-
-I try to make AI do everything it can't do.
-
 <p><strong>Also currently:</strong><br>
 Part-time researcher @ <a href="https://penrose.com/">Penrose</a>.</p>
 
