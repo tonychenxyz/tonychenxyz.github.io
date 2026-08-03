@@ -6,6 +6,10 @@ subtitle: |+
   <strong>PhD Student in Computer Science</strong><br>
   <a href="https://www.cs.princeton.edu/">Princeton University</a><br>
   Advisor: <a href="https://liuzhuang13.github.io/">Zhuang Liu</a>
+  <br>
+  <a href="/assets/pdf/cv.pdf" target="_blank" title="Download CV" class="cv-icon">
+    <i class="fas fa-file-pdf"></i> Download CV
+  </a>
 
 profile:
   image: profile.jpg
@@ -17,6 +21,8 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 services: true
 ---
+I try to make AI do everything it can’t do.
+
 <p><strong>Also currently:</strong><br>
 Part-time researcher @ <a href="https://penrose.com/">Penrose</a>.</p>
 
