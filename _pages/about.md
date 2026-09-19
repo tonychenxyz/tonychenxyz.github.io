@@ -5,7 +5,7 @@ permalink: /
 subtitle: |+
   <strong>PhD Student in Computer Science</strong><br>
   <a href="https://www.cs.princeton.edu/">Princeton University</a><br>
-  Advisor: <a href="https://liuzhuang13.github.io/">Zhuang Liu</a>
+  Advisors: <a href="https://liuzhuang13.github.io/">Zhuang Liu</a> and <a href="https://www.cs.princeton.edu/~karthikn/">Karthik Narasimhan</a>
   <br>
   <a href="/assets/pdf/cv.pdf" target="_blank" title="Download CV" class="cv-icon">
     <i class="fas fa-file-pdf"></i> Download CV
@@ -22,9 +22,6 @@ social: true  # includes social icons at the bottom of the page
 services: true
 ---
 I try to make AI do everything it can’t do.
-
-<p><strong>Also currently:</strong><br>
-Part-time researcher @ <a href="https://penrose.com/">Penrose</a>.</p>
 
 <p class="previously-label"><strong>Previously:</strong></p>
 

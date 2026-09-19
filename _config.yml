@@ -7,7 +7,7 @@ first_name: Haozhe (Tony) Chen
 chinese_name: 陈昊哲
 email: tonychenxyz@gmail.com
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  PhD Student in Computer Science at Princeton University. Advised by Zhuang Liu.
+  PhD Student in Computer Science at Princeton University. Advised by Zhuang Liu and Karthik Narasimhan.
 footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
