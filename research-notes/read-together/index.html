@@ -74,7 +74,7 @@ sitemap: false
   <ul class="brief">
     <li><b>Idea:</b> link pieces of text that spark a new thought when read together, not pieces that look alike.</li>
     <li><b>Method:</b> ask a cheap model one yes/no question about a small random sample of pairs, and infer the rest from chains.</li>
-    <li><b>Result:</b> on a week of earnings calls, 78% of JEV's top 100 edges hold a real insight, against 28% for embedding similarity.</li>
+    <li><b>Result:</b> on a week of earnings calls, 78% of JEV's top 100 edges hold a real insight, against 28% for embedding similarity and 29% for TF-IDF.</li>
   </ul>
 
   <h2>1. The idea</h2>
@@ -153,17 +153,17 @@ sitemap: false
   </ul>
   <p>That is roughly 4.6 times more, and it assumes Luna does no step-by-step reasoning, which would be billed as extra output. Luna also answers in words, so it would not directly give the probability of “yes” that JEV uses as an edge's weight.</p>
 
-  <h2>3. JEV versus embedding similarity</h2>
-  <p>We took the JEV edges between different companies (107,214 pairs) and ranked them two ways: by JEV's weight, and by embedding similarity (Qwen3-Embedding-4B). A separate model, GPT-5.6-Luna, then scored each method's top 100 pairs from 1 to 5: does reading the two together give a specific, non-obvious insight? (Luna's question is close to JEV's own, so this test leans in JEV's favour.)</p>
+  <h2>3. JEV versus similarity search</h2>
+  <p>We took the JEV edges between different companies (107,214 pairs) and ranked them three ways: by JEV's weight; by embedding similarity (Qwen3-Embedding-4B), which matches meaning; and by TF-IDF, which matches words, counting rare words more. A separate model, GPT-5.6-Luna, then scored each method's top 100 pairs from 1 to 5: does reading the two together give a specific, non-obvious insight? (Luna's question is close to JEV's own, so this test leans in JEV's favour.)</p>
 
   <figure class="rn-panel">
     <div class="ptitle">Figure 5. Insight scores of each method's top 100 pairs, by GPT-5.6-Luna</div>
-    <svg id="dist" viewBox="0 0 640 100" width="100%" role="img" aria-label="Insight scores of each method's top 100 pairs"></svg>
+    <svg id="dist" viewBox="0 0 640 144" width="100%" role="img" aria-label="Insight scores of each method's top 100 pairs"></svg>
     <div class="legend" id="distLegend"></div>
-    <p class="pnote">Scoring 4 or 5: JEV 78%, embedding similarity 28%.</p>
+    <p class="pnote">Scoring 4 or 5: JEV 78%, embedding similarity 28%, TF-IDF 29%.</p>
   </figure>
 
-  <p>Here are the top five pairs of each list. Embedding similarity ranks call sign-offs first, since they sound the same everywhere. JEV ranks first pairs that share a real issue.</p>
+  <p>Here are the top five pairs of each list. Both similarity methods rank call sign-offs first, since every call ends with the same polite words. JEV ranks first pairs that share a real issue.</p>
 
   <h3>Embedding similarity's top five</h3>
 
@@ -259,6 +259,54 @@ sitemap: false
       <div class="ex"><div class="co">Antero Midstream</div>Looking ahead over the next two years as LNG export capacity increases by nearly six BCF per day, in addition to an expected rise in NYMEX pricing, we expect Antero sales points to be priced at even higher premiums than NYMEX <mark>as these LNG facilities compete for supply<sup>3</sup></mark>. An example of this is the pricing along the TGP 500L pool in the summer of 2025 and 2026. <mark>We've watched those summer premiums increase to $0.40 above Henry Hub<sup>4</sup></mark> on financial basis alone in anticipation of Venture Global's Plaquemines facility startup in the next few months. Just last year, those same implied summer premiums were only $0.03 above NYMEX. Venture Global received FERC approval this week to begin immediately introducing gas into the feeder Gator Express pipeline that brings supply from the TGP 500L pool to the Plaquemine LNG facility. This initial feed gas requirement will potentially lead to higher demand and pricing in the TGP 500 region, as well as NYMEX Henry Hub prices this summer. According to Market Intelligence, the Tennessee Gas Pipeline Phase 1 Evangeline Pass project that feeds the Plaquemine LNG facility is expected to be online by July 1, 2024, with capacity of $900 million per day. As a reminder, Ontario owns $570 million per day of the fern delivery to the 500L pool, or 63% of the supply that will feed the phase one project capacity.</div>
     </div>
     <div class="why"><p><b>Why they connect</b> (written by Opus 5.5): Two new buyers want the same Appalachian gas: export terminals on the Gulf Coast <span class="ref">1</span><span class="ref">3</span><span class="ref">4</span> and power plants for data centers <span class="ref">2</span>. Together: more demand for the same gas means higher prices for producers there.</p></div>
+  </div>
+
+  <h3>TF-IDF's top five</h3>
+
+  <div class="case rn-panel">
+    <div class="ptitle">1. Graco ↔ FTAI Aviation</div>
+    <div class="stats">TF-IDF 0.56 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Graco</div>All right, well, thank you very much for participating today. That concludes the call, and have a good rest of your day. Thank you. This concludes our conference for today. Thank you all for participating, and have a nice day.</div>
+      <div class="ex"><div class="co">FTAI Aviation</div>Thank you, Shannon. And thank you all for participating in today's conference call. We look forward to updating you after Q2. This concludes today's conference call. Thank you for your participation.</div>
+    </div>
+    <div class="why"><p><b>What they share</b> (written by Opus 5.5): Nothing. A paint-sprayer maker and a jet-engine leasing firm saying goodbye with the same words: thank, participating, concludes.</p></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">2. Pentair ↔ Hasbro</div>
+    <div class="stats">TF-IDF 0.55 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Pentair</div>Third, we are pleased with our progress on our transformation initiatives, which we expect to continue to drive strong margin expansion. And finally, we expect to continue to deliver value creation beyond the 2024 fiscal year. Thank you, everyone, and have a great day. Thank you for your participation. You may now disconnect your lines. Thank you for your participation.</div>
+      <div class="ex"><div class="co">Hasbro</div>We thank you for your interest and participation.</div>
+    </div>
+    <div class="why"><p><b>What they share</b> (written by Opus 5.5): Nothing. A water-equipment maker's last lines and a toy maker's one-sentence goodbye share “thank you for your participation”.</p></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">3. Graco ↔ HCA Healthcare</div>
+    <div class="stats">TF-IDF 0.50 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Graco</div>All right, well, thank you very much for participating today. That concludes the call, and have a good rest of your day. Thank you. This concludes our conference for today. Thank you all for participating, and have a nice day.</div>
+      <div class="ex"><div class="co">HCA Healthcare</div>Paul, I thank you for your help today, and thanks for everyone for joining our call. We hope you have a nice weekend. I'm around this afternoon. If you have additional questions, give us a call. Have a good day. This concludes today's conference call. Enjoy the rest of your day. You may now disconnect. Give us a call. Have a good day.</div>
+    </div>
+    <div class="why"><p><b>What they share</b> (written by Opus 5.5): Nothing. The same pair embedding similarity ranks first.</p></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">4. Virtus ↔ Hub Group</div>
+    <div class="stats">TF-IDF 0.46 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Virtus Investment Partners</div>Great. Thank you so much. And I just want to thank everyone today for joining us. And obviously, as always, we encourage you to reach out if you have any other further questions. Thank you.</div>
+      <div class="ex"><div class="co">Hub Group</div>Thank you.</div>
+    </div>
+    <div class="why"><p><b>What they share</b> (written by Opus 5.5): Nothing. An asset manager's goodbye, matched with a paragraph that is only “Thank you.”</p></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">5. Chemed ↔ Kirby</div>
+    <div class="stats">TF-IDF 0.44 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Chemed</div>Thank you. I just wanted to thank everybody for your kind attention. And we've got some things to work on, but as we've indicated, I think matters are well in hand. Thank you. Thank you for your participation in today's conference. This does conclude the program.</div>
+      <div class="ex"><div class="co">Kirby</div>Thank you, Amber, and thank you, everyone, for joining us today. Should you have any follow-up questions, please feel free to reach out to me. Thank you for your participation in today's conference. This does conclude the program.</div>
+    </div>
+    <div class="why"><p><b>What they share</b> (written by Opus 5.5): Nothing. Also in embedding similarity's top five: two goodbyes ending in the same sentence.</p></div>
   </div>
 
   <h2>4. More links JEV found</h2>
@@ -380,7 +428,7 @@ const C = { theme: "#286ee0", orange: "#eb6834", text: "#1f2328", text2: "#57606
 // Figure 5: insight-score distributions of each method's top 100 (v2/runs/compare_raw/ratings.jsonl)
 (function () {
   const svg = document.getElementById("dist"), X = 180, Wd = 450;
-  const rows = [["Embedding similarity", [20, 20, 32, 22, 6]], ["JEV", [0, 6, 16, 58, 20]]];
+  const rows = [["Embedding similarity", [20, 20, 32, 22, 6]], ["TF-IDF", [30, 4, 37, 28, 1]], ["JEV", [0, 6, 16, 58, 20]]];
   rows.forEach(([name, c], i) => {
     const y = 12 + i * 44, n = c.reduce((a, b) => a + b, 0);
     txt(svg, X - 12, y + 18, name, { "text-anchor": "end", "font-size": 13.5, "font-weight": 500 });
