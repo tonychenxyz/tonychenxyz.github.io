@@ -1,0 +1,337 @@
+---
+layout: research-note
+title: "Read together: a week of my activity notes"
+description: The read-together graph on a different kind of text, a week of AI-written summaries of my computer activity. JEV judged every pair.
+date: 2026-09-30
+permalink: /research-notes/activity-notes/
+research_note: true
+listed: true
+sitemap: false
+---
+{% raw %}
+<style>
+
+
+
+.rn { --text: #1f2328; --text-2: #57606a; --border: #e5e7eb; --line: #edf0f3; --theme: #286ee0; --hl: #fff1b8; max-width: 760px; margin: 0 auto; padding: 64px 24px 120px; font-size: 16.5px; line-height: 1.72; }
+.rn a { color: var(--theme); text-decoration: none; }
+.rn .meta { font-size: 14px; color: var(--text-2); margin-bottom: 14px; }
+.rn h1 { font-size: 36px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 650; margin: 0 0 14px; }
+.rn h2 { font-size: 27px; line-height: 1.3; letter-spacing: -0.01em; font-weight: 650; margin: 60px 0 12px; }
+.rn h3 { font-size: 19px; font-weight: 600; margin: 40px 0 10px; }
+.rn p { margin: 0 0 16px; }
+.rn b { font-weight: 600; }
+.rn ul { padding-left: 20px; margin: 0 0 16px; }
+.rn .rn-panel { background: #f4f6f8; border-radius: 10px; padding: 20px 24px 22px; margin: 28px calc(50% - min(550px, 50vw - 24px)) 34px; }
+.rn .rn-panel.col { margin-left: 0; margin-right: 0; }
+.rn .ptitle { font-weight: 650; font-size: 16.5px; line-height: 1.4; margin: 0 0 12px; }
+.rn .pnote { font-size: 14px; margin: 10px 0 0; }
+.rn .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; margin-top: 6px; }
+.rn .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.rn .sw { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+.rn .case { margin-top: 18px; margin-bottom: 22px; }
+.rn .case .ptitle { font-size: 17px; margin: 0; }
+.rn .stats { font-size: 14px; margin: 2px 0 12px; }
+.rn .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 700px) { .rn .pair { grid-template-columns: 1fr; } }
+.rn .ex { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; font-size: 14px; line-height: 1.6; min-width: 0; overflow-wrap: anywhere; }
+.rn .ex .co { font-weight: 600; }
+.rn .ex .when { font-size: 13px; color: var(--text-2); margin-bottom: 6px; }
+.rn .ex .body { white-space: pre-wrap; }
+.rn .gap { color: var(--text-2); }
+.rn mark { background: var(--hl); color: inherit; padding: 1px 2px; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.rn mark sup, .rn .ref { font-size: 10px; font-weight: 600; background: var(--text); color: #fff; border-radius: 7px; padding: 1px 5px; margin-left: 3px; vertical-align: 2px; line-height: 1; }
+.rn .why { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #dfe3e8; }
+@media (max-width: 700px) {
+  .rn { padding: 36px 16px 80px; font-size: 16px; }
+  .rn h1 { font-size: 28px; }
+  .rn h2 { font-size: 22px; margin-top: 44px; }
+  .rn .rn-panel { padding: 14px 12px 16px; border-radius: 8px; margin-left: -4px; margin-right: -4px; }
+  .rn .case .ptitle { font-size: 16px; }
+  .rn .ex { font-size: 14px; }
+}
+.rn .why .whead { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+.rn .why .whead b { font-size: 16px; }
+.rn .why .whead .by { font-size: 13px; color: var(--text-2); }
+.rn .why .wrow { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 14px; padding: 9px 0; border-top: 1px solid #e5e9ee; }
+.rn .why .wrow:first-of-type { border-top: 0; padding-top: 2px; }
+.rn .why .wlab { font-size: 13.5px; font-weight: 600; padding-top: 2px; }
+.rn .why .wtxt { max-width: 780px; font-size: 15.5px; line-height: 1.65; }
+.rn .why .take .wtxt { font-weight: 600; }
+.rn .why .act { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin: 6px -12px 0; }
+.rn .why .act + .wrow, .rn .why .wrow + .act { border-top: 1px solid var(--border); }
+@media (max-width: 700px) {
+  .rn .why .wrow { grid-template-columns: 1fr; gap: 2px; }
+  .rn .why .wtxt { font-size: 15px; }
+  .rn .why .act { margin-left: -8px; margin-right: -8px; padding: 9px 8px; }
+}
+.rn .cta { display: inline-block; background: var(--theme); color: #fff; font-weight: 600; padding: 10px 18px; border-radius: 8px; }
+.rn svg text { font-family: 'Inter', sans-serif; }
+</style>
+<article class="rn">
+  <div class="meta">Tony Chen · September 2026</div>
+  <h1>Read together: a week of my activity notes</h1>
+  <p>The <a href="../read-together/">earnings-call post</a> built a graph linking text worth reading together. Here is the same experiment on a different kind of text: the short summaries an AI assistant writes of my computer activity, every ten minutes and every six hours. The pile is 422 summary files from Sep 23–30, 2026 (399 ten-minute summaries and 23 six-hour summaries). Each file is one snippet: its title, description and summary text (the app list and the file-path citations are left out).</p>
+  <ul>
+    <li><b>JEV:</b> the pile is small, so instead of sampling we asked JEV about <b>every one of the 88,831 pairs</b>, for $2.04. Same question as the post.</li>
+    <li><b>Embedding similarity:</b> Qwen3-Embedding-4B, cosine.</li>
+    <li><b>TF-IDF:</b> scikit-learn, English stop words removed, cosine.</li>
+  </ul>
+  
+
+  <h2>1. Which method finds real insights?</h2>
+  <p>Each method ranked every pair, except the 335 pairs where a six-hour summary sits next to one of its own ten-minute parts (trivially related). GPT-5.6-Luna then scored each method's top 100 from 1 to 5, with the post's question reworded for activity notes: does reading the two together give a specific, non-obvious insight, such as a link between separate projects, a shared cause, a contradiction or a forgotten follow-up?</p>
+  <figure class="rn-panel col">
+    <div class="ptitle">Figure 1. Insight scores of each method's top 100 pairs, by GPT-5.6-Luna</div>
+    <svg id="dist" viewBox="0 0 640 144" width="100%" role="img" aria-label="Insight scores"></svg>
+    <div class="legend" id="distLegend"></div>
+    <p class="pnote">Scoring 4 or 5: JEV 96 of 100, Embedding similarity 60 of 100, TF-IDF 58 of 100.</p>
+  </figure>
+
+  <h2>2. How JEV's answers look here</h2>
+  <p>JEV says “yes” to 97% of all pairs; the middle 80% of weights sit between 0.54 and 0.79 (median 0.67). That is expected: every note is from the same person's week, so almost any two can be read together usefully. So the ranking matters more than the raw numbers. Over all pairs, JEV's ranking correlates with the similarity methods (Spearman rank correlation: TF-IDF 0.71, Embedding similarity 0.68), but their very tops differ: JEV's top 100 shares 2 pairs with Embedding similarity's; JEV's top 100 shares 0 pairs with TF-IDF's.</p>
+  <figure class="rn-panel col">
+    <div class="ptitle">Figure 2. How many pairs get each JEV weight (all 88,831 pairs)</div>
+    <svg id="hist" viewBox="0 0 640 220" width="100%" role="img" aria-label="Histogram of JEV weights"></svg>
+  </figure>
+
+  <h2>3. Each method's top pairs</h2>
+  <p>Each pair with the relevant parts of both notes (cuts marked […]; people's names replaced by [roles]; the notes call me “the user”, the explanations “the author”). Highlights mark the phrases that make the link; the explanation under each pair refers to them by number, and for JEV's pairs ends with one action an assistant could take.</p>
+  <h3>JEV's top five</h3>
+  <div class="case rn-panel">
+    <div class="ptitle">1. Animation request drafting ↔ Sampling, benchmark, and course-work review</div>
+    
+    <div class="stats">JEV 0.88 · embedding 0.68 · TF-IDF 0.25 · Luna: 5 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Animation request drafting</div><div class="when">10-minute summary · Sep 23, 15:30 UTC</div><div class="body"><span class="gap">[…]</span>
+The draft requested a Manim visualization of the expected best of \(N\) IID normal samples, with sampling cost on the x-axis through 200 and a baseline curve using unit-cost samples with mean 0 and standard deviation 1. <mark>The comparison curve’s variable-mean specification remained incomplete<sup>1</sup></mark> and the request was not submitted during this window.
+<span class="gap">[…]</span>
+- Paseo workspace titled “<mark>do clustering to number of team clusters on each task's team<sup>2</sup></mark>”: the active workspace where the unfinished Manim request was being composed.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Sampling, benchmark, and course-work review</div><div class="when">6-hour summary · Sep 23, 18:00 UTC</div><div class="body"><span class="gap">[…]</span>
+They refined expected-best-of-\(N\) derivations and <mark>produced a visual explainer<sup>3</sup></mark>, then developed benchmark comparisons involving team clustering, common-case normalization, costs, pass rates, trajectory coverage, and missing usage records.
+<span class="gap">[…]</span>
+The team-clustering work evolved toward displaying <mark>team-versus-solo expected-best gains at matched budgets<sup>4</sup></mark>.
+<span class="gap">[…]</span>
+Late in the window, the user corrected the comparison baseline: <mark>team mean and standard deviation should be compared with individual solo-agent distributions<sup>5</sup></mark>, while best-of-budget calculations belong to the sampling-payoff analysis.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow bg"><div class="wlab">Background</div><div class="wtxt">The author researches whether AI agents do better alone or in teams, using “best-of-N” (run an agent N times, keep the best result).</div></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">Here they start an explainer animation comparing two ways to spend a fixed budget, but leave the second curve undefined <span class="ref">1</span>, while working in their team-analysis workspace <span class="ref">2</span>. Later that day the animation is done <span class="ref">3</span> and the real question has appeared: at the same budget, do teams beat solo agents <span class="ref">4</span>, judged by average score and spread <span class="ref">5</span>?</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">The undefined curve is a team, so the animation and the benchmark analysis are one argument.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll draft the animation's missing second curve as a team: take the smallest team size with data from the benchmark, fill in its mean and spread, and send that spec to the animation workspace for you to approve.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">2. Animation request drafting ↔ Benchmark rerun and sampling-threshold report</div>
+    
+    <div class="stats">JEV 0.87 · embedding 0.56 · TF-IDF 0.16 · Luna: 5 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Animation request drafting</div><div class="when">10-minute summary · Sep 23, 15:30 UTC</div><div class="body"><span class="gap">[…]</span>
+The draft requested a Manim visualization of the expected best of \(N\) IID normal samples, with sampling cost on the x-axis through 200 and <mark>a baseline curve using unit-cost samples with mean 0 and standard deviation 1<sup>1</sup></mark>. <mark>The comparison curve’s variable-mean specification remained incomplete<sup>2</sup></mark> and the request was not submitted during this window.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Benchmark rerun and sampling-threshold report</div><div class="when">10-minute summary · Sep 23, 16:50 UTC</div><div class="body"><span class="gap">[…]</span>
+Paseo presented a normal-distribution approximation for <mark>the minimum mean gain required to justify a cost multiplier under a fixed budget<sup>3</sup></mark>. The result noted that the threshold becomes easier to meet at larger budgets, <mark>depends on score spread<sup>4</sup></mark>, assumes independent normal scores and reliable best-sample selection, and cannot be inferred from only mean and cost for arbitrary distributions.
+<span class="gap">[…]</span>
+<mark>The user then asked for the meanings of \(a_{n_0}\) and \(a_{n_1}\)<sup>5</sup></mark>; the response remained in progress.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">Same project, eighty minutes apart. The animation compares cheap samples <span class="ref">1</span> with costlier, better ones whose average was never fixed <span class="ref">2</span>. A separate report then answers exactly that: how much better a costlier sample must be to be worth it at a fixed budget <span class="ref">3</span>, which depends on how much scores vary <span class="ref">4</span>.</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">The report supplies the missing number for the animation, and one notation question <span class="ref">5</span> is all that is left.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll pull the a_{n_0} and a_{n_1} definitions from the threshold report, write them into the animation request as the second curve's parameters, and check with you before it renders.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">3. Parallel-agent paper review ↔ Manuscript revision and feedback cycle</div>
+    
+    <div class="stats">JEV 0.87 · embedding 0.65 · TF-IDF 0.27 · Luna: 4 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Parallel-agent paper review</div><div class="when">10-minute summary · Sep 24, 04:10 UTC</div><div class="body"><span class="gap">[…]</span>
+The local writing outline framed an argument that <mark>isolated collaborating teams may improve test-time compute scaling relative to solo parallel sampling and longer-running agents<sup>1</sup></mark>; the user then inspected an Overleaf manuscript and a separate statistical-expectation discussion. <mark>No edits, compilation, or finalized decision were visible during this window.<sup>2</sup></mark>
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Manuscript revision and feedback cycle</div><div class="when">6-hour summary · Sep 25, 06:00 UTC</div><div class="body"><span class="gap">[…]</span>
+<mark>A second ICLR manuscript about decentralized multi-agent autoresearch was compiled, exported, and shared with a collaborator for feedback<sup>3</sup></mark>; remaining Sweeper-Bench work included ablation data and tables with means and standard deviations.
+<span class="gap">[…]</span>
+Near the end of the observed activity, the user created a short Apple Notes TODO identifying results-presentation work: <mark>parallel-team material and tables containing means and standard deviations<sup>4</sup></mark>.</div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow bg"><div class="wlab">Background</div><div class="wtxt">The author is writing a paper arguing that teams of AI agents scale better than running a single agent many times.</div></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">In the first note the draft is only being read, not edited <span class="ref">1</span><span class="ref">2</span>. A day later it is compiled and sent to a collaborator for feedback <span class="ref">3</span>, while a to-do note still lists missing team results and tables <span class="ref">4</span>.</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">The draft went out for feedback before its results were finished.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll build the missing results table (means and standard deviations for the parallel-team runs) now, so an updated draft can follow the one already sent for feedback.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">4. Paper title feedback and coordination ↔ Parallel-agent and Sweeper Bench paper development</div>
+    
+    <div class="stats">JEV 0.87 · embedding 0.62 · TF-IDF 0.21 · Luna: 5 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Paper title feedback and coordination</div><div class="when">10-minute summary · Sep 24, 20:00 UTC</div><div class="body"><span class="gap">[…]</span>
+The user focused on communication around an ICLR paper manuscript titled “SWEeper-Bench: Can Agents Discover Bugs?” They requested title feedback from [collaborator A] and [collaborator B], noting concern that <mark>the title might be too simple or underspecified<sup>1</sup></mark> despite fitting on one ICLR-template line. In parallel, the user discussed an evaluation idea with [collaborator C]: compare Grok on 40 samples with and without UI, and <mark>use error analysis to expose behaviors not visible through code review or browser-only inspection<sup>2</sup></mark>.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Parallel-agent and Sweeper Bench paper development</div><div class="when">6-hour summary · Sep 25, 00:00 UTC</div><div class="body"><span class="gap">[…]</span>
+<mark>The paper title was edited to foreground interactive software.<sup>3</sup></mark> Near the end, the user reviewed <mark>trade-off text about exploration depth, breadth, product interaction, and code-level analysis<sup>4</sup></mark>,
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow bg"><div class="wlab">Background</div><div class="wtxt">SWEeper-Bench is the author's benchmark and paper on whether AI agents can find bugs by using software.</div></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">First they worry that its title, “SWEeper-Bench: Can Agents Discover Bugs?”, is too plain <span class="ref">1</span>, and separately argue that its analysis should show what reading the code alone would miss <span class="ref">2</span>. Hours later the title is changed to put interactive software up front <span class="ref">3</span>, and the paper weighs using the product against reading code <span class="ref">4</span>.</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">The title worry was solved by the same idea as the evaluation point.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll write three title options that lead with interactive software and send them to the two collaborators you asked about the title.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">5. Parallel-agent-teams manuscript planning ↔ Parallel-agent manuscript revision pass</div>
+    
+    <div class="stats">JEV 0.87 · embedding 0.88 · TF-IDF 0.34 · Luna: 5 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Parallel-agent-teams manuscript planning</div><div class="when">10-minute summary · Sep 25, 00:50 UTC</div><div class="body"><span class="gap">[…]</span>
+The draft outline grouped material into background, <mark>a best-of-N premise, parallel teams, empirical results, theory explaining team benefits<sup>1</sup></mark>, and comparisons with other sampling approaches.
+<span class="gap">[…]</span>
+- <mark>a statistical explanation of the distributional benefits of teams and team-size selection<sup>2</sup></mark>; and
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Parallel-agent manuscript revision pass</div><div class="when">6-hour summary · Sep 26, 00:00 UTC</div><div class="body"><span class="gap">[…]</span>
+The central paper argument was revised around three approaches to inference-time compute: best-of-\(N\) sampling, one larger multi-agent team, and parallel sampling of smaller teams. The intended claim was that <mark>parallel small teams combine collaboration with selection and can outperform either baseline at equal compute<sup>3</sup></mark>.
+<span class="gap">[…]</span>
+The narrative was refined repeatedly to <mark>avoid unsupported claims about why a larger team’s mean performance improves<sup>4</sup></mark>.
+<span class="gap">[…]</span>
+Figure 8 was established as a theoretical illustration rather than experimental evidence. <mark>Its presentation risked being read as an empirical fit<sup>5</sup></mark>, leaving clearer framing, replacement, or removal as an open editorial consideration.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow bg"><div class="wlab">Background</div><div class="wtxt">The same agent-teams paper.</div></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">The first note is its outline: the best-of-N idea, then teams, then theory for why teams help <span class="ref">1</span><span class="ref">2</span>. A day later the claim is sharpened: several small teams beat both alternatives at the same compute <span class="ref">3</span>. But the theory is where the revision struggles: it avoids saying why bigger teams do better <span class="ref">4</span> and worries that a theory figure looks like real data <span class="ref">5</span>.</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">The planned theory is the paper's weakest part.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll list every sentence in the theory section that explains why larger teams do better, mark which ones the experiments support, and propose relabeling Figure 8 as an illustration, for you to review before any edit.</div></div></div>
+  </div><h3>Embedding similarity's top three</h3>
+  <div class="case rn-panel">
+    <div class="ptitle">1. Finder navigation ↔ Finder navigation</div>
+    
+    <div class="stats">JEV 0.68 · embedding 0.96 · TF-IDF 0.79 · Luna: 1 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Finder navigation</div><div class="when">10-minute summary · Sep 28, 17:30 UTC</div><div class="body"><span class="gap">[…]</span>
+You briefly used Finder with an “output” window open and <mark>repeatedly selected the Desktop sidebar item<sup>1</sup></mark>. No substantive file operation or task outcome was captured.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Finder navigation</div><div class="when">10-minute summary · Sep 28, 17:40 UTC</div><div class="body"><span class="gap">[…]</span>
+You remained in Finder’s “output” window and <mark>repeatedly selected the Desktop sidebar item<sup>2</sup></mark>. No substantive file operation or task progress was captured.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>What they share</b><span class="by">written by Opus 5.5</span></div><div class="wrow "><div class="wlab">What they share</div><div class="wtxt">Nothing new: two back-to-back ten-minute windows of the same idle Finder window <span class="ref">1</span><span class="ref">2</span>. They are near-copies, which is why both similarity methods rank them first.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">2. Login window activity ↔ Login window activity</div>
+    
+    <div class="stats">JEV 0.51 · embedding 0.95 · TF-IDF 0.74 · Luna: 1 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Login window activity</div><div class="when">10-minute summary · Sep 25, 19:30 UTC</div><div class="body"><span class="gap">[…]</span>
+You had no substantive recorded activity in this window. The recording only captured a switch to <mark>the system login window<sup>1</sup></mark>.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Login window activity</div><div class="when">10-minute summary · Sep 29, 03:20 UTC</div><div class="body"><span class="gap">[…]</span>
+You briefly reached <mark>the macOS login window<sup>2</sup></mark> during this recording window. No substantive work activity was captured.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>What they share</b><span class="by">written by Opus 5.5</span></div><div class="wrow "><div class="wlab">What they share</div><div class="wtxt">Nothing: two different days on which the computer sat at the login screen <span class="ref">1</span><span class="ref">2</span>.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">3. No captured activity ↔ No substantive activity recorded</div>
+    
+    <div class="stats">JEV 0.45 · embedding 0.95 · TF-IDF 0.55 · Luna: 1 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">No captured activity</div><div class="when">10-minute summary · Sep 23, 17:10 UTC</div><div class="body"><span class="gap">[…]</span>
+No substantive activity was captured in this window; the event stream <mark>records only a window change<sup>1</sup></mark>.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">No substantive activity recorded</div><div class="when">10-minute summary · Sep 27, 03:20 UTC</div><div class="body"><span class="gap">[…]</span>
+You had no substantive recorded activity in this window; the event stream <mark>captured only a window change<sup>2</sup></mark>.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>What they share</b><span class="by">written by Opus 5.5</span></div><div class="wrow "><div class="wlab">What they share</div><div class="wtxt">Nothing: two empty recordings, four days apart <span class="ref">1</span><span class="ref">2</span>.</div></div></div>
+  </div><h3>TF-IDF's top three</h3>
+  <div class="case rn-panel">
+    <div class="ptitle">1. Finder navigation ↔ Finder navigation</div>
+    
+    <div class="stats">JEV 0.68 · embedding 0.96 · TF-IDF 0.79 · Luna: 1 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Finder navigation</div><div class="when">10-minute summary · Sep 28, 17:30 UTC</div><div class="body"><span class="gap">[…]</span>
+You briefly used Finder with an “output” window open and <mark>repeatedly selected the Desktop sidebar item<sup>1</sup></mark>. No substantive file operation or task outcome was captured.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Finder navigation</div><div class="when">10-minute summary · Sep 28, 17:40 UTC</div><div class="body"><span class="gap">[…]</span>
+You remained in Finder’s “output” window and <mark>repeatedly selected the Desktop sidebar item<sup>2</sup></mark>. No substantive file operation or task progress was captured.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>What they share</b><span class="by">written by Opus 5.5</span></div><div class="wrow "><div class="wlab">What they share</div><div class="wtxt">Nothing new: two back-to-back ten-minute windows of the same idle Finder window <span class="ref">1</span><span class="ref">2</span>. They are near-copies, which is why both similarity methods rank them first.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">2. Login window activity ↔ Login window activity</div>
+    
+    <div class="stats">JEV 0.51 · embedding 0.95 · TF-IDF 0.74 · Luna: 1 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Login window activity</div><div class="when">10-minute summary · Sep 25, 19:30 UTC</div><div class="body"><span class="gap">[…]</span>
+You had no substantive recorded activity in this window. The recording only captured a switch to <mark>the system login window<sup>1</sup></mark>.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Login window activity</div><div class="when">10-minute summary · Sep 29, 03:20 UTC</div><div class="body"><span class="gap">[…]</span>
+You briefly reached <mark>the macOS login window<sup>2</sup></mark> during this recording window. No substantive work activity was captured.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>What they share</b><span class="by">written by Opus 5.5</span></div><div class="wrow "><div class="wlab">What they share</div><div class="wtxt">Nothing: two different days on which the computer sat at the login screen <span class="ref">1</span><span class="ref">2</span>.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">3. Login-window activity ↔ macOS login screen</div>
+    
+    <div class="stats">JEV 0.52 · embedding 0.94 · TF-IDF 0.72 · Luna: 1 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Login-window activity</div><div class="when">10-minute summary · Sep 27, 01:40 UTC</div><div class="body"><span class="gap">[…]</span>
+You had no substantive recorded interaction in this window; the only captured event was <mark>a macOS login window<sup>1</sup></mark>.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">macOS login screen</div><div class="when">10-minute summary · Sep 29, 23:40 UTC</div><div class="body"><span class="gap">[…]</span>
+You were at <mark>the macOS login screen<sup>2</sup></mark> during this window. No active task or further interaction was recorded.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>What they share</b><span class="by">written by Opus 5.5</span></div><div class="wrow "><div class="wlab">What they share</div><div class="wtxt">Nothing: two more nights at the login screen <span class="ref">1</span><span class="ref">2</span>.</div></div></div>
+  </div>
+
+  <h2>4. More links JEV found</h2>
+  <p>Beyond JEV's top five: pairs of notes at least three days apart that JEV still links strongly (its top pairs at that distance). We picked four that Luna scored 5 and that each point to something worth doing.</p>
+  
+  <div class="case rn-panel">
+    <div class="ptitle">An accepted benchmark paper, and an open question about whether the benchmark can be gamed</div>
+    <div class="stats">Research, travel, and purchase exploration ↔ Blog comparison and benchmark review · 3 days apart</div>
+    <div class="stats">JEV 0.81 · embedding 0.53 · TF-IDF 0.10 · Luna: 5 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Research, travel, and purchase exploration</div><div class="when">6-hour summary · Sep 26, 18:00 UTC</div><div class="body"><span class="gap">[…]</span>
+- NeurIPS 2026: the user <mark>confirmed an accepted poster for CEO-Bench<sup>1</sup></mark> and began considering travel to Sydney.
+<span class="gap">[…]</span>
+They then explored potential <mark>early-December New York-to-Sydney flights<sup>2</sup></mark>.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Blog comparison and benchmark review</div><div class="when">10-minute summary · Sep 30, 02:10 UTC</div><div class="body"><span class="gap">[…]</span>
+In parallel, the user launched an investigation into <mark>whether a recent CEO benchmark agent run exploited any benchmark defect<sup>3</sup></mark>; no final integrity conclusion was visible.
+<span class="gap">[…]</span>
+The user initiated a separate agent task to inspect a recent benchmark trajectory for exploitation or defects. They also reviewed public benchmark material, asked about task types and grading, and posted a brief reply in the relevant team Slack channel. <mark>The investigation was active without a recorded verdict.<sup>4</sup></mark>
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow bg"><div class="wlab">Background</div><div class="wtxt">CEO-Bench is a benchmark the author built to test AI agents on long tasks.</div></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">On Sep 26 its paper is accepted as a NeurIPS poster <span class="ref">1</span>, and flights to the conference in early December are being checked <span class="ref">2</span>. Four days later the author is investigating whether an agent exploited a defect in the benchmark, with no verdict yet <span class="ref">3</span><span class="ref">4</span>.</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">If agents can game the benchmark, the accepted paper's results may need fixing before the final version and the December poster.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll look up the NeurIPS camera-ready deadline, schedule the integrity investigation to finish before it, and draft a list of the paper's results that a confirmed exploit would affect.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">A paper read on Thursday is the template for Monday's to-do</div>
+    <div class="stats">Agent research reading and course video ↔ Video review and task planning · 4 days apart</div>
+    <div class="stats">JEV 0.81 · embedding 0.66 · TF-IDF 0.19 · Luna: 5 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Agent research reading and course video</div><div class="when">10-minute summary · Sep 24, 17:20 UTC</div><div class="body"><span class="gap">[…]</span>
+The user reviewed a research paper in Chrome concerning <mark>software-engineering agents, including their action patterns and failure modes<sup>1</sup></mark>.
+<span class="gap">[…]</span>
+At the start of the window, Chrome displayed page 8 of the research PDF. The visible material concerned SWE-agent action frequencies and <mark>a distribution of unresolved-task failure modes<sup>2</sup></mark>.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Video review and task planning</div><div class="when">10-minute summary · Sep 28, 19:20 UTC</div><div class="body"><span class="gap">[…]</span>
+They also added a Harness conversation with [colleague] and a Ceobench task describing evaluation repair, <mark>reruns across models, and investigation of behavioral conclusions<sup>3</sup></mark>.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow bg"><div class="wlab">Background</div><div class="wtxt">The paper is SWE-agent (arXiv 2405.15793), which studies how AI coding agents act and why they fail; CEO-Bench is the author's own agent benchmark.</div></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">On Sep 24 the author is on the page that counts agents' actions and sorts failed tasks into failure types <span class="ref">1</span><span class="ref">2</span>. Four days later their to-do list says CEO-Bench needs reruns across models and “behavioral conclusions” <span class="ref">3</span>.</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">The paper's method is a ready-made template for those conclusions: count what each model does, and sort its failures into types.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll draft a CEO-Bench failure-mode table modeled on SWE-agent's (actions per model, failed runs sorted into types) and fill it in from the reruns as they finish.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">Two teaching videos, four days apart, stuck in the same place</div>
+    <div class="stats">Reviewing Manim animation video ↔ Video review and task planning · 4 days apart</div>
+    <div class="stats">JEV 0.83 · embedding 0.68 · TF-IDF 0.23 · Luna: 5 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Reviewing Manim animation video</div><div class="when">10-minute summary · Sep 24, 21:30 UTC</div><div class="body"><span class="gap">[…]</span>
+The user reviewed an updated video titled “Create Manim problem 1 animation” in the ChatGPT desktop app. They paused playback and <mark>sought among several timestamps<sup>1</sup></mark>, including later sections of the 18:02 video; <mark>no edits, notes, or explicit feedback were captured<sup>2</sup></mark>.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Video review and task planning</div><div class="when">10-minute summary · Sep 28, 19:20 UTC</div><div class="body"><span class="gap">[…]</span>
+The user reviewed the rendered “Meeting in the Middle” instructional video in Finder Quick Look, <mark>repeatedly scrubbing its middle and later sections<sup>3</sup></mark> around 6–15 minutes. They drafted additional Claude feedback focused on <mark>pausing to trace visual relationships<sup>4</sup></mark>,
+<span class="gap">[…]</span>
+The user briefly navigated Slack channels, then opened Notes and added a “Coaching session” task to <mark>finish, watch, and send the two video parts to [coaching contact]<sup>5</sup></mark>.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow bg"><div class="wlab">Background</div><div class="wtxt">The author makes AI-generated math teaching videos for a course they coach.</div></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">Two different videos, four days apart, are reviewed the same way: jumping back and forth through the middle <span class="ref">1</span><span class="ref">3</span>. The first review ends with no feedback <span class="ref">2</span>; the second finally names the problem: the video doesn't pause to show where each on-screen relationship comes from <span class="ref">4</span>.</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">The problem is in how the videos are made, not in one video, so it will come back in the next ones, including the two parts about to be sent <span class="ref">5</span>.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll add one rule to the video-generation instructions (after each new diagram element, pause and say where it came from) and re-render the two parts with it before they are sent.</div></div></div>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">A casual football question became a video project in three days</div>
+    <div class="stats">Football viewing and club-style exploration ↔ Video review and communication switching · 3 days apart</div>
+    <div class="stats">JEV 0.82 · embedding 0.52 · TF-IDF 0.12 · Luna: 5 of 5</div>
+    <div class="pair"><div class="ex"><div class="co">Football viewing and club-style exploration</div><div class="when">6-hour summary · Sep 27, 12:00 UTC</div><div class="body"><span class="gap">[…]</span>
+The later research centered on Brighton and other English clubs, with AI-assisted questions about attractive playing styles and <mark>personality-based club matches<sup>1</sup></mark>; several inquiries remained without a captured final result.
+<span class="gap">[…]</span>
+They investigated <mark>Brighton &amp; Hove Albion’s location, visual identity, local context, and playing style<sup>2</sup></mark>; reviewed related video and anthem content; and used AI chats to ask about Brighton’s style, contemporary clubs associated with attractive football, Manchester City’s current style, and personality-matched clubs across Europe’s major leagues.
+<span class="gap">[…]</span></div></div><div class="ex"><div class="co">Video review and communication switching</div><div class="when">10-minute summary · Sep 30, 15:00 UTC</div><div class="body"><span class="gap">[…]</span>
+The user returned to a Claude session for “Brighton analysis from video” and <mark>previewed the 12-minute, 1080p v3 render featuring persistent player labels<sup>3</sup></mark>. They also navigated older problem-set video sessions and local output folders, with brief inbox, communication, and media-sharing activity between review steps. The visible project state indicates the new labels follow confirmed players and hide behind overlay panels; <mark>the render had been spot-checked but not watched in full<sup>4</sup></mark>.
+<span class="gap">[…]</span></div></div></div>
+    <div class="why"><div class="whead"><b>Why they connect</b><span class="by">written by Opus 5.5</span></div><div class="wrow bg"><div class="wlab">Background</div><div class="wtxt">Outside work, the author follows football.</div></div><div class="wrow "><div class="wlab">The link</div><div class="wtxt">On Sep 27 they ask an AI which club matches their personality <span class="ref">1</span> and end up researching Brighton, from its location to its playing style <span class="ref">2</span>. Three days later they are reviewing a 12-minute analysis video of Brighton with every player's name on screen <span class="ref">3</span>, only spot-checked so far <span class="ref">4</span>.</div></div><div class="wrow take"><div class="wlab">Takeaway</div><div class="wtxt">A casual question became a real project in three days, and the video is the part that still needs checking.</div></div><div class="wrow act"><div class="wlab">What I'd do</div><div class="wtxt">I'll watch the full 12 minutes at double speed and list the timestamps where a name label is wrong or hidden, so the next version fixes them in one pass.</div></div></div>
+  </div>
+
+</article>
+<script>
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+function el(t, a, p) { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function txt(p, x, y, s, a = {}) { const t = el("text", Object.assign({ x, y, "font-size": 12, fill: "#1f2328" }, a), p); t.textContent = s; return t; }
+const RAMP = ["#86b6ef", "#5598e7", "#2a78d6", "#1c5cab", "#104281"];
+(function () {
+  // bars: one row per method; on narrow screens the label sits above its bar and text is drawn larger (the SVG is scaled down)
+  const svg = document.getElementById("dist"), rows = [["JEV", [0, 0, 4, 53, 43]], ["Embedding similarity", [27, 5, 8, 51, 9]], ["TF-IDF", [27, 6, 9, 56, 2]]];
+  const narrow = svg.getBoundingClientRect().width < 560, k = narrow ? 640 / Math.max(300, svg.getBoundingClientRect().width) : 1;
+  const fs = 12.5 * k, X = narrow ? 0 : 180, Wd = narrow ? 640 : 450, bh = narrow ? 17 * k : 28, rowH = narrow ? bh + 26 * k : 44;
+  svg.setAttribute("viewBox", `0 0 640 ${12 + rows.length * rowH}`);
+  rows.forEach(([name, c], i) => {
+    const y = 12 + i * rowH + (narrow ? 20 * k : 0), n = c.reduce((a, b) => a + b, 0) || 1;
+    if (narrow) txt(svg, 0, y - 6 * k, name, { "font-size": fs, "font-weight": 600 });
+    else txt(svg, X - 12, y + 18, name, { "text-anchor": "end", "font-size": 13.5, "font-weight": 500 });
+    let x = X;
+    c.forEach((v, s) => { const w = v / n * Wd; if (!w) return;
+      el("rect", { x: x + 1, y, width: Math.max(0, w - 2), height: bh, rx: 3, fill: RAMP[s] }, svg);
+      if (w > 30 * k) txt(svg, x + w / 2, y + bh / 2 + fs * 0.36, Math.round(v / n * 100) + "%", { "text-anchor": "middle", fill: s >= 2 ? "#fff" : "#1f2328", "font-weight": 600, "font-size": fs });
+      x += w; });
+  });
+  const lg = document.getElementById("distLegend");
+  ["1: no real link", "2", "3: modest", "4", "5: sharp insight"].forEach((s, i) => { const sp = document.createElement("span");
+    const sw = document.createElement("i"); sw.className = "sw"; sw.style.background = RAMP[i]; sp.appendChild(sw); sp.appendChild(document.createTextNode(s)); lg.appendChild(sp); });
+})();
+(function () {
+  const svg = document.getElementById("hist"), bins = [0, 0, 0, 0, 0, 0, 21, 145, 566, 2228, 5985, 9851, 15924, 19409, 15326, 12252, 6856, 268, 0, 0];
+  const k = Math.max(1, 640 / Math.max(300, svg.getBoundingClientRect().width)), fs = 12 * k;
+  const L = 22 + 34 * k, W = 640 - L - (10 + 1.4 * fs), T = 12, B = 30 + 26 * k, H = 220 + (k - 1) * 40 - T - B, mx = Math.max(...bins), bw = W / 20;
+  svg.setAttribute("viewBox", `0 0 640 ${T + H + B}`);
+  for (let q = 0; q <= 2; q++) { const y = T + H - H * q / 2;
+    el("line", { x1: L, x2: L + W, y1: y, y2: y, stroke: q ? "#dfe3e8" : "#c9d1d9" }, svg);
+    txt(svg, L - 8, y + fs * 0.35, Math.round(mx * q / 2).toLocaleString(), { "text-anchor": "end", fill: "#57606a", "font-size": fs }); }
+  for (let q = 0; q <= 4; q++) txt(svg, L + W * q / 4, T + H + fs + 6, (q / 4).toFixed(2), { "text-anchor": "middle", fill: "#57606a", "font-size": fs });
+  txt(svg, L + W / 2, T + H + 2 * fs + 16, "JEV weight (probability of “yes”)", { "text-anchor": "middle", "font-size": fs });
+  bins.forEach((c, i) => { const h = H * c / mx; const r = el("rect", { x: L + i * bw + 1, y: T + H - h, width: bw - 2, height: h, rx: 2, fill: "#286ee0" }, svg);
+    el("title", {}, r).textContent = `${c.toLocaleString()} pairs with weight ${(i / 20).toFixed(2)}–${((i + 1) / 20).toFixed(2)}`; });
+})();
+</script>
+{% endraw %}

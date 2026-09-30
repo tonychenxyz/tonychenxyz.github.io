@@ -56,6 +56,7 @@ sitemap: false
 @media (max-width: 980px) { .gx .main { grid-template-columns: 1fr; } }
 .gx .main > .rn-panel { margin-bottom: 0; }
 .gx .cur-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; margin-bottom: 4px; }
+.gx .cur-head label { white-space: nowrap; flex-shrink: 0; }
 .gx .cur-sym { font-size: 20px; font-weight: 650; }
 .gx .cur-ctx { font-size: 14px; color: var(--text-2); margin-bottom: 10px; }
 .gx .cur-text { font-size: 16px; line-height: 1.65; white-space: pre-wrap; }
@@ -94,6 +95,22 @@ sitemap: false
 /* overview */
 .gx .overview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 18px; align-items: start; margin-top: 18px; }
 @media (max-width: 980px) { .gx .overview { grid-template-columns: 1fr; } }
+@media (max-width: 700px) {
+  .gx { padding: 22px 14px 90px; font-size: 14.5px; }
+  .gx h1 { font-size: 25px; }
+  .gx .intro { font-size: 15px; }
+  .gx .rn-panel { padding: 12px 12px 14px; }
+  .gx .find { grid-template-columns: 1fr; }
+  .gx .find .rn-row button { flex: 1; }
+  .gx .settings { grid-template-columns: 1fr; }
+  .gx .settings label { flex-wrap: wrap; }
+  .gx .cur-text { font-size: 15px; }
+  .gx .list { max-height: 70vh; }
+  .gx .edge .pv { grid-template-columns: 1fr; }
+  .gx .selbar { left: 12px; right: 12px; transform: none; justify-content: space-between; }
+  .gx .tip { display: none !important; }
+}
+.gx .item, .gx .rn-card, .gx .edge { min-width: 0; overflow-wrap: anywhere; }
 .gx #hist { width: 100%; height: auto; display: block; }
 .gx .edge { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; cursor: pointer; }
 .gx .edge:hover { border-color: var(--theme); }
@@ -229,9 +246,18 @@ const G = window.GRAPH;
 if (!G) { window.__noData = true; $("status").style.background = "#fde2e2"; $("status").textContent = "The graph data (data.js) did not load."; return; }
 const N = G.nodes.length, ID = 0, SYM = 1, SEC = 2, CTX = 3, TXT = 4, META = 5;
 const LAM = G.meta.lam || 0.7, K = G.meta.K || 4;
+// optional per-dataset settings (the earnings export sets none of these)
+const UNIT = G.meta.unit || "paragraph", EXHAUSTIVE = !!G.meta.exhaustive, GROUP_LABEL = G.meta.groupLabel || "Same call";
+function relabel() {   // swap the word "paragraph" in the interface (not in the quoted texts) for this dataset's unit
+  if (UNIT === "paragraph") return;
+  const skip = n => n.parentElement && n.parentElement.closest(".txt, .cur-text, .pv, .cur-sym, .sym, input");
+  const w = document.createTreeWalker(document.querySelector(".gx"), NodeFilter.SHOW_TEXT);
+  for (let n = w.nextNode(); n; n = w.nextNode()) if (!skip(n) && /aragraph/.test(n.nodeValue))
+    n.nodeValue = n.nodeValue.replace(/Paragraph/g, UNIT[0].toUpperCase() + UNIT.slice(1)).replace(/paragraph/g, UNIT);
+}
 const SESSION = { pre_open: "before market open", after_close: "after market close", intraday: "during market hours" };
 const words = G.nodes.map(n => n[TXT].split(/\s+/).length);
-const callOf = G.nodes.map(n => n[ID].replace(/_\d+$/, ""));
+const callOf = G.group ? G.group.map((g, i) => g || "solo:" + i) : G.nodes.map(n => n[ID].replace(/_\d+$/, ""));
 const ctxOf = v => G.nodes[v][CTX].replace(G.nodes[v][SYM] + " · ", "").replace(/_/g, " ");
 // undirected graph: one weight per pair, stored under both ends
 const ADJ = Array.from({ length: N }, () => []);
@@ -269,7 +295,7 @@ async function copyText(t, what) {
   toast(ok ? `Copied ${what}` : "Copy failed: the browser blocked the clipboard");
 }
 let toastTimer = null;
-function toast(m) { const t = $("toast"); t.textContent = m; t.style.display = "block"; clearTimeout(toastTimer); toastTimer = setTimeout(() => t.style.display = "none", 1800); }
+function toast(m) { const t = $("toast"); t.textContent = UNIT === "paragraph" ? m : m.replace(/paragraph/g, UNIT); t.style.display = "block"; clearTimeout(toastTimer); toastTimer = setTimeout(() => t.style.display = "none", 1800); }
 const selected = new Map();
 function setSelected(v, on, rel) {
   if (on) { if (!selected.has(v)) selected.set(v, rel || ""); } else selected.delete(v);
@@ -302,6 +328,7 @@ function itemEl(v, weight, o = {}) {
 
 // ---------------- search ----------------
 function search() {
+  setTimeout(relabel, 0);
   const q = $("q").value.trim(), f = F(), res = $("results"); res.textContent = "";
   if (!q) { res.classList.remove("on"); $("qInfo").hidden = true; return; }
   const up = q.toUpperCase(), low = q.toLowerCase(), hits = [];
@@ -326,6 +353,7 @@ function go(v, fromWalk) {
   if (!fromWalk) document.querySelector(".gx .main").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 function render() {
+  setTimeout(relabel, 0);
   const n = G.nodes[cur];
   $("curSym").textContent = n[SYM]; $("curCtx").textContent = ctxOf(cur); $("curText").textContent = n[TXT];
   $("curInfo").textContent = `${words[cur]} words · JEV was asked about ${ADJ[cur].length} pairs with this paragraph`;
@@ -344,9 +372,10 @@ const HELP = {
   jev: n => `Paragraphs JEV was asked about together with this one, strongest first (${n}). The number is JEV's probability that reading both gives a new thought.`,
   inf: () => `Paragraphs never asked about with this one, but reachable through a chain of JEV edges. The number is the chain's strength: its edges multiplied, times ${LAM} per extra step.`,
   sim: () => `The nearest paragraphs by embedding similarity (Qwen3-Embedding-4B), shown for comparison. The number is the similarity; JEV's edge is given when it exists.`,
-  call: n => `The other ${n} paragraphs of this call, in order.`,
+  call: n => G.meta.groupHelp ? G.meta.groupHelp.replace("{n}", n) : `The other ${n} paragraphs of this call, in order.`,
 };
 function renderList() {
+  setTimeout(relabel, 0);
   const L = $("list"); L.textContent = ""; LIST = [];
   for (const [id, t] of [["tJev", "jev"], ["tInf", "inf"], ["tSim", "sim"], ["tCall", "call"]]) $(id).setAttribute("aria-selected", tab === t);
   const f = F(), me = G.nodes[cur][ID];
@@ -414,7 +443,7 @@ function renderMap() {
     el("circle", { cx: p.x, cy: p.y, r: 18, fill: "transparent" }, g);
     el("circle", { cx: p.x, cy: p.y, r: 7, fill: "#8c959f", stroke: "#fff", "stroke-width": 2 }, g);
     const right = p.x >= cx, lab = el("text", { x: p.x + (right ? 11 : -11), y: p.y + 4, "text-anchor": right ? "start" : "end", "font-size": 12.5, fill: "#1f2328" }, g);
-    lab.textContent = `${G.nodes[p.v][SYM]} ${p.w.toFixed(2)}`;
+    const nm = G.nodes[p.v][SYM]; lab.textContent = `${nm.length > 26 ? nm.slice(0, 25) + "…" : nm} ${p.w.toFixed(2)}`;
     g.addEventListener("click", () => go(p.v)); g.addEventListener("keydown", e => { if (e.key === "Enter") go(p.v); });
     g.addEventListener("pointermove", e => { tip.textContent = ""; tip.appendChild(h("b", "", `${G.nodes[p.v][SYM]} · JEV ${p.w.toFixed(2)}`));
       tip.appendChild(h("div", "", G.nodes[p.v][TXT].slice(0, 260) + (G.nodes[p.v][TXT].length > 260 ? "…" : "")));
@@ -483,6 +512,16 @@ function renderTop() {
   $("intro").textContent = `${N.toLocaleString()} paragraphs from the earnings calls of the week of ${d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}, ` +
     `linked by one question to JEV: “Would a reader who reads these two together have new thoughts that they wouldn't have from either one alone?”`; }
 $("about1").textContent = `JEV was asked about ${G.meta.pairs.toLocaleString()} randomly chosen pairs (${(G.meta.pairs / (N * (N - 1) / 2) * 100).toFixed(2)}% of all pairs), for $${(+G.meta.spent_usd).toFixed(2)}.`;
+if (G.meta.intro) $("intro").textContent = G.meta.intro;
+if (G.meta.searchHint) $("q").placeholder = G.meta.searchHint;
+if (G.meta.noOther) { $("fOther").checked = false; $("fOther").closest("label").style.display = "none"; }
+$("tCall").textContent = GROUP_LABEL;
+if (EXHAUSTIVE) {
+  $("tInf").style.display = "none";
+  $("about1").textContent = `JEV was asked about every one of the ${G.meta.pairs.toLocaleString()} pairs, for $${(+G.meta.spent_usd).toFixed(2)}, so every edge here is a JEV edge.`;
+  document.querySelectorAll(".gx .about p").forEach(p => { if (/Inferred edges|randomly chosen|picked at random/.test(p.textContent)) p.style.display = "none"; });
+}
+relabel();
 $("curSel").onchange = () => setSelected(cur, $("curSel").checked, "");
 $("curCopy").onclick = () => copyText(snippetText(cur, ""), "1 paragraph");
 $("copySel").onclick = () => {

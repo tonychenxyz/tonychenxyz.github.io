@@ -29,6 +29,7 @@ sitemap: false
 .rn .rn-panel { background: #f4f6f8; border-radius: 10px; padding: 16px 18px 18px; margin: 28px 0 36px; }
 .rn /* panels (figures and examples) break out of the text column, .rn up to 1100px, .rn never wider than the screen */
 .rn-panel { margin-left: calc(50% - min(550px, 50vw - 24px)); margin-right: calc(50% - min(550px, 50vw - 24px)); padding: 20px 24px 22px; }
+.rn .rn-panel.col { margin-left: 0; margin-right: 0; }
 .rn .why p { max-width: 820px; margin: 0; }
 .rn .ptitle { font-weight: 650; font-size: 16.5px; line-height: 1.4; margin: 0 0 14px; }
 .rn .pnote { font-size: 14px; margin: 10px 0 0; }
@@ -110,7 +111,7 @@ sitemap: false
 
   <p>The usual tools link text for other reasons: where it is filed, or how alike it is. None of them captures this.</p>
 
-  <figure class="rn-panel">
+  <figure class="rn-panel col">
     <div class="ptitle">Figure 2. Ways to link two pieces of text</div>
     <div class="grid4">
       <div class="kind"><svg class="icon" width="28" height="22" viewBox="0 0 34 26" aria-hidden="true"><path d="M3 4h10l2 3h16v16H3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><h4>Directory</h4>B is filed under A: Alphabet › 2024 Q2 › CFO remarks.</div>
@@ -127,7 +128,7 @@ sitemap: false
   <p>The catch is the number of pairs. <em>N</em> paragraphs make <em>N</em>×(<em>N</em>−1)/2 pairs, so the count grows with the square of the pile. One busy week of earnings calls has 8,693 paragraphs and 37.8 million pairs. At about $0.00002 per pair, asking JEV about every pair would cost about $830 for that week, about $19,000 for a quarter (41,303 paragraphs, 853 million pairs), and roughly $300,000 for a year.</p>
   <p>So we build the graph approximately. We don't need JEV's answer for every pair, only a way to tell which paragraphs go together: if A goes with C, and C goes with B, then A and B are probably worth reading together too. So we ask about a small random sample of pairs (<b>JEV edges</b>) and estimate the rest from chains (<b>inferred edges</b>):</p>
 
-  <figure class="rn-panel">
+  <figure class="rn-panel col">
     <div class="ptitle">Figure 3. How the graph is built (toy example, made-up numbers)</div>
     <div class="steps">
       <div class="stepcard"><svg id="step1" viewBox="0 0 360 206" role="img" aria-label="A pile, no edges yet"></svg><h4>1. A pile, no edges yet</h4><p>Each dot is a paragraph.</p></div>
@@ -141,7 +142,7 @@ sitemap: false
 
   <p><b>When to stop.</b> As the graph fills in, the average gap on new pairs shrinks. We stop once it stops shrinking (the last five rounds are no more than 5% better than the five before), or when the budget runs out. On the real week the gap leveled off after $2.36, with JEV edges covering just 0.28% of all pairs:</p>
 
-  <figure class="rn-panel">
+  <figure class="rn-panel col">
     <div class="ptitle">Figure 4. Average gap on new pairs, real run on 8,693 paragraphs</div>
     <svg id="gap" viewBox="0 0 640 230" width="100%" role="img" aria-label="Average gap on new pairs, by dollars spent, in the real run"></svg>
   </figure>
@@ -156,7 +157,7 @@ sitemap: false
   <h2>3. JEV versus similarity search</h2>
   <p>We took the JEV edges between different companies (107,214 pairs) and ranked them three ways: by JEV's weight; by embedding similarity (Qwen3-Embedding-4B), which matches meaning; and by TF-IDF, which matches words, counting rare words more. A separate model, GPT-5.6-Luna, then scored each method's top 100 pairs from 1 to 5: does reading the two together give a specific, non-obvious insight? (Luna's question is close to JEV's own, so this test leans in JEV's favour.)</p>
 
-  <figure class="rn-panel">
+  <figure class="rn-panel col">
     <div class="ptitle">Figure 5. Insight scores of each method's top 100 pairs, by GPT-5.6-Luna</div>
     <svg id="dist" viewBox="0 0 640 144" width="100%" role="img" aria-label="Insight scores of each method's top 100 pairs"></svg>
     <div class="legend" id="distLegend"></div>
