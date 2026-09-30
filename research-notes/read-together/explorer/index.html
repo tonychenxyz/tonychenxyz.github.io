@@ -58,16 +58,19 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1790796759">
+<link rel="stylesheet" href="/assets/css/main.css?v=1790796860">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/read-together/explorer/">
+
+<!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
+<meta name="color-scheme" content="only light">
+<style>
+  :root {
+    color-scheme: only light;
+  }
+</style>
 
 <!-- Dark Mode -->
 <script src="/assets/js/theme.js?9a0c749ec5240d9cda97bc72359a72c0"></script>
-
-  <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark">
-  <script>
-    initTheme();
-  </script>
 
 
 <!-- GeoJSON support via Leaflet -->
@@ -81,11 +84,6 @@
 
 
     <style>
-      /* research notes are designed for the light theme only */
-      #light-toggle,
-      .toggle-container {
-        display: none !important;
-      }
       .rn-host {
         padding-top: 8px;
       }
@@ -177,15 +175,6 @@
             </li>
           
           
-          
-            <!-- Toogle theme mode -->
-            <li class="toggle-container">
-              <button id="light-toggle" title="Change theme">
-                <i class="ti ti-sun-moon" id="light-toggle-system"></i>
-                <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
-                <i class="ti ti-sun-filled" id="light-toggle-light"></i>
-              </button>
-            </li>
           
         </ul>
       </div>
@@ -890,16 +879,5 @@ $("status").style.display = "none";
 
     
 
-    <script>
-      // keep these pages light even when the rest of the site is in dark mode (the saved preference is not changed)
-      (function () {
-        var d = document.documentElement;
-        function light() {
-          if (d.getAttribute("data-theme") !== "light") d.setAttribute("data-theme", "light");
-        }
-        light();
-        new MutationObserver(light).observe(d, { attributes: true, attributeFilter: ["data-theme"] });
-      })();
-    </script>
   </body>
 </html>
