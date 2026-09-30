@@ -68,6 +68,14 @@
 <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
 
+<!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
+<meta name="color-scheme" content="only light">
+<style>
+  :root {
+    color-scheme: only light;
+  }
+</style>
+
 <!-- Dark Mode -->
 <script src="{{ '/assets/js/theme.js' | relative_url | bust_file_cache }}"></script>
 {% if site.enable_darkmode %}

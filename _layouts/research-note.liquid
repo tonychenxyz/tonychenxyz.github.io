@@ -4,11 +4,6 @@
   <head>
     {% include head.liquid %}
     <style>
-      /* research notes are designed for the light theme only */
-      #light-toggle,
-      .toggle-container {
-        display: none !important;
-      }
       .rn-host {
         padding-top: 8px;
       }
@@ -29,16 +24,5 @@
     {% include scripts/analytics.liquid %}
     {% include scripts/progressBar.liquid %}
     {% include scripts/back_to_top.liquid %}
-    <script>
-      // keep these pages light even when the rest of the site is in dark mode (the saved preference is not changed)
-      (function () {
-        var d = document.documentElement;
-        function light() {
-          if (d.getAttribute("data-theme") !== "light") d.setAttribute("data-theme", "light");
-        }
-        light();
-        new MutationObserver(light).observe(d, { attributes: true, attributeFilter: ["data-theme"] });
-      })();
-    </script>
   </body>
 </html>
