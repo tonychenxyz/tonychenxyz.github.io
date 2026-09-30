@@ -1,0 +1,396 @@
+---
+layout: research-note
+title: Read together
+description: Good ideas often come from reading unrelated things side by side. A graph that links text worth reading together finds connections that similarity search misses.
+date: 2026-09-30
+permalink: /research-notes/read-together/
+research_note: true
+listed: true
+sitemap: false
+---
+{% raw %}
+<style>
+.rn { --text: #1f2328; --text-2: #57606a; --border: #e5e7eb; --line: #edf0f3; --theme: #286ee0; --wash: rgba(40,110,224,0.07); --hl: #fff1b8;
+        --sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+.rn * { box-sizing: border-box; }
+.rn a { color: var(--theme); text-decoration: none; }
+.rn { max-width: 760px; margin: 0 auto; padding: 72px 24px 120px; font-size: 16.5px; line-height: 1.72; }
+.rn .meta { font-size: 14px; color: var(--text-2); margin-bottom: 14px; }
+.rn h1 { font-size: 36px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 650; margin: 0 0 14px; }
+.rn .dek { font-size: 19px; line-height: 1.6; margin: 0 0 18px; }
+.rn .brief { margin: 0 0 8px; padding-left: 20px; }
+.rn .brief li { margin-bottom: 4px; }
+.rn h2 { font-size: 27px; line-height: 1.3; letter-spacing: -0.01em; font-weight: 650; margin: 64px 0 12px; }
+.rn h3 { font-size: 19px; font-weight: 600; margin: 40px 0 10px; }
+.rn h4 { font-size: 15.5px; font-weight: 600; margin: 0 0 6px; line-height: 1.4; }
+.rn p { margin: 0 0 18px; }
+.rn b { font-weight: 600; }
+.rn figure { margin: 0; }
+.rn .rn-panel { background: #f4f6f8; border-radius: 10px; padding: 16px 18px 18px; margin: 28px 0 36px; }
+.rn .ptitle { font-weight: 650; font-size: 16.5px; line-height: 1.4; margin: 0 0 14px; }
+.rn .pnote { font-size: 14px; margin: 10px 0 0; }
+.rn svg text { font-family: var(--sans); }
+.rn .ex { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; font-size: 14.5px; line-height: 1.62; }
+.rn .ex .co { font-weight: 600; margin-bottom: 6px; }
+.rn .gap { color: var(--text-2); }
+.rn mark { background: var(--hl); color: inherit; padding: 1px 2px; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.rn mark sup, .rn .ref { font-size: 10px; font-weight: 600; background: var(--text); color: #fff; border-radius: 7px; padding: 1px 5px; margin-left: 3px; vertical-align: 2px; line-height: 1; }
+.rn .ref + .ref { margin-left: 2px; }
+.rn .rn-row { margin-bottom: 28px; }
+.rn .rn-row h4 { font-size: 14.5px; margin-bottom: 8px; }
+.rn .rn-row:last-of-type { margin-bottom: 0; }
+.rn .two, .rn .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 700px) {
+.rn .two, .rn .pair, .rn .grid4, .rn .steps { grid-template-columns: 1fr !important; }
+}
+.rn .idea { font-weight: 600; margin: 10px 0 0; }
+.rn .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.rn .kind { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 12px 13px; font-size: 14px; line-height: 1.5; }
+.rn .kind .icon { display: block; color: #57606a; margin-bottom: 8px; }
+.rn .kind.want { border-color: var(--theme); background: #eaf1fc; }
+.rn .question { font-size: 19px; line-height: 1.55; font-weight: 500; margin: 22px 0 24px; padding: 0 12px; }
+.rn .steps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.rn .stepcard { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px 14px; }
+.rn .stepcard svg { width: 100%; height: auto; display: block; margin-bottom: 6px; }
+.rn .stepcard p { font-size: 14.5px; line-height: 1.6; margin: 0; }
+.rn .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13.5px; margin-top: 6px; }
+.rn .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.rn .sw { width: 11px; height: 11px; border-radius: 2px; display: inline-block; }
+.rn .case { margin: 18px 0 22px; }
+.rn .case .ptitle { font-size: 17px; margin: 0; }
+.rn .case .stats { font-size: 14px; margin: 2px 0 12px; }
+.rn .why { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid #dfe3e8; }
+.rn .cta { display: inline-block; background: var(--theme); color: #fff !important; font-weight: 600; padding: 10px 18px; border-radius: 8px; margin-top: 4px; }
+.rn .cta:hover { background: #1d4ed8; }
+</style>
+
+<article class="rn">
+  <div class="meta">Tony Chen · September 2026</div>
+  <h1>Read together</h1>
+  <p class="dek">Good ideas often come from reading unrelated things side by side. We built a graph that links text worth reading together, and it finds connections that similarity search misses.</p>
+  <ul class="brief">
+    <li><b>Idea:</b> link pieces of text that spark a new thought when read together, not pieces that look alike.</li>
+    <li><b>Method:</b> ask a cheap model one yes/no question about a small random sample of pairs, and infer the rest from chains.</li>
+    <li><b>Result:</b> on a week of earnings calls, 78% of JEV's top 100 edges hold a real insight, against 28% for embedding similarity.</li>
+  </ul>
+
+  <h2>1. The idea</h2>
+  <p>Insight often sits between documents, not inside them. Darwin read Malthus on population growth; neither text contains natural selection, but reading them together did. In a big pile of text such combinations are easy to miss, because the pieces rarely share a topic or a keyword.</p>
+
+  <figure class="rn-panel">
+    <div class="ptitle">Figure 1. Three pairs worth reading together</div>
+    <div class="rn-row">
+      <h4>A personal assistant (made up)</h4>
+      <div class="two">
+        <div class="ex"><div class="co">Email from the landlord, May</div>Your lease renews on Aug 31. The new monthly rent will be $3,450 (up 18%).</div>
+        <div class="ex"><div class="co">Company Slack, June</div>We're opening a Denver office this fall. Anyone who relocates gets up to $10,000 in moving support.</div>
+      </div>
+      <p class="idea">→ Don't sign the renewal yet: a company-paid move could replace an 18% rent increase.</p>
+    </div>
+    <div class="rn-row">
+      <h4>Earnings calls, April 2024</h4>
+      <div class="two">
+        <div class="ex"><div class="co">Meta</div>Turning now to the CapEx outlook. We anticipate our full year 2024 capital expenditures will be in the range of $35 to $40 billion, <mark>increased from our prior range of $30 to $37 billion as we continue to accelerate our infrastructure investments to support our AI roadmap</mark>. While we are not providing guidance for years beyond 2024, we expect CapEx will continue to increase next year as we invest aggressively to support our ambitious AI research and product development efforts. <span class="gap">[…]</span></div>
+        <div class="ex"><div class="co">PG&amp;E, the California utility</div><span class="gap">[…]</span> And I know Santa Clara is one of the biggest current data center area. So just, I think when you came out with your initial, you know, plan for low growth, data centers were probably not as front and center of that. But, you know, Patty, I'm curious just how you're thinking about that now and just are you in a position to be able to kind of, you know, get them served, so to speak, you know, with power on a timely basis? <span class="gap">[…]</span> But I do want to just tell a quick story. I had a visit to our Metcalfe sub, which is one of the critical substations, transmission substations across the nation. And we invited some customers to come. And when I got there, I was pleasantly surprised to see <mark>AWS, Microsoft, Apple, Google, Equinix, Cisco, Western Digital Semiconductor, Tesla, all in attendance</mark>. These are our customers that we serve who want us to serve more. And <mark>they were very clear that they would build if we can provide</mark>. <span class="gap">[…]</span></div>
+      </div>
+      <p class="idea">→ Big Tech's AI budgets are waiting on power. The bottleneck may be the local utility, not the chips.</p>
+    </div>
+    <div class="rn-row">
+      <h4>Science: Wegener, 1912</h4>
+      <div class="two">
+        <div class="ex"><div class="co">Fossils</div>Fossils of the same small freshwater reptile, <i>Mesosaurus</i>, turn up in both Brazil and South Africa.</div>
+        <div class="ex"><div class="co">Maps</div>The coastlines of South America and Africa fit together like puzzle pieces.</div>
+      </div>
+      <p class="idea">→ The continents were once joined and have drifted apart.</p>
+    </div>
+  </figure>
+
+  <p>The usual tools link text for other reasons: where it is filed, or how alike it is. None of them captures this.</p>
+
+  <figure class="rn-panel">
+    <div class="ptitle">Figure 2. Ways to link two pieces of text</div>
+    <div class="grid4">
+      <div class="kind"><svg class="icon" width="28" height="22" viewBox="0 0 34 26" aria-hidden="true"><path d="M3 4h10l2 3h16v16H3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><h4>Directory</h4>B is filed under A: Alphabet › 2024 Q2 › CFO remarks.</div>
+      <div class="kind"><svg class="icon" width="28" height="22" viewBox="0 0 34 26" aria-hidden="true"><circle cx="11" cy="13" r="3" fill="currentColor"/><circle cx="20" cy="8" r="3" fill="currentColor"/><circle cx="22" cy="18" r="3" fill="currentColor"/><circle cx="16" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><h4>Embedding</h4>A and B mean nearly the same thing.</div>
+      <div class="kind"><svg class="icon" width="28" height="22" viewBox="0 0 34 26" aria-hidden="true"><circle cx="13" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M18 16l8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg><h4>Keyword</h4>A and B both say <i>tariff</i>.</div>
+      <div class="kind want"><svg class="icon" width="28" height="22" viewBox="0 0 34 26" aria-hidden="true"><circle cx="5" cy="19" r="3" fill="#286ee0"/><circle cx="29" cy="19" r="3" fill="#286ee0"/><path d="M5 17 Q17 -2 29 17" fill="none" stroke="#286ee0" stroke-width="1.9"/></svg><h4>Read together</h4>A and B, read together, give a thought neither gives alone.</div>
+    </div>
+  </figure>
+
+
+  <h2>2. How we build it</h2>
+  <p>We use <b>JEV</b>, a model from TypeSafe that reads text but only answers multiple-choice questions, which makes it cheap. For each pair we ask:</p>
+  <p class="question">“Would a reader who reads excerpt A and excerpt B together have new thoughts that they wouldn't have from either one alone?”</p>
+  <p>The catch is the number of pairs. <em>N</em> paragraphs make <em>N</em>×(<em>N</em>−1)/2 pairs, so the count grows with the square of the pile. One busy week of earnings calls has 8,693 paragraphs and 37.8 million pairs. At about $0.00002 per pair, asking JEV about every pair would cost about $830 for that week, about $19,000 for a quarter (41,303 paragraphs, 853 million pairs), and roughly $300,000 for a year.</p>
+  <p>So we build the graph approximately. We don't need JEV's answer for every pair, only a way to tell which paragraphs go together: if A goes with C, and C goes with B, then A and B are probably worth reading together too. So we ask about a small random sample of pairs (<b>JEV edges</b>) and estimate the rest from chains (<b>inferred edges</b>):</p>
+
+  <figure class="rn-panel">
+    <div class="ptitle">Figure 3. How the graph is built (toy example, made-up numbers)</div>
+    <div class="steps">
+      <div class="stepcard"><svg id="step1" viewBox="0 0 360 206" role="img" aria-label="A pile, no edges yet"></svg><h4>1. A pile, no edges yet</h4><p>Each dot is a paragraph.</p></div>
+      <div class="stepcard"><svg id="step2" viewBox="0 0 360 206" role="img" aria-label="Ask JEV about one paragraph and a few random others"></svg><h4>2. Ask JEV about one paragraph and a few random others</h4><p>Each answer is a <b>JEV edge</b>, weighted by the probability of “yes”.</p></div>
+      <div class="stepcard"><svg id="step3" viewBox="0 0 360 206" role="img" aria-label="Repeat for more random paragraphs"></svg><h4>3. Repeat for more random paragraphs</h4><p>The JEV edges form a sparse web. Thicker means stronger.</p></div>
+      <div class="stepcard"><svg id="step4" viewBox="0 0 360 206" role="img" aria-label="Chains of JEV edges give inferred edges"></svg><h4>4. Chains of JEV edges give inferred edges</h4><p>We never asked about A and B, but A–C and C–B imply an <b>inferred edge</b> A–B: 0.81 × 0.72, times 0.7 for the extra step.</p></div>
+      <div class="stepcard"><svg id="step5" viewBox="0 0 360 206" role="img" aria-label="Ask next about pairs with no edge at all"></svg><h4>5. Ask next about pairs with no edge at all</h4><p>Paragraphs with neither kind of edge to A (dashed) become A's next partners. Once every pair has at least an inferred edge, partners are simply random pairs not yet asked.</p></div>
+      <div class="stepcard"><svg id="step6" viewBox="0 0 360 206" role="img" aria-label="Test the graph on new pairs"></svg><h4>6. Test the graph on new pairs</h4><p>Each round's new pairs are random, so they double as a test. Before asking JEV, we look up the inferred edge we already had; the <b>gap</b> is how much higher JEV's answer comes out (orange). A big gap means the graph was missing a connection.</p></div>
+    </div>
+  </figure>
+
+  <p><b>When to stop.</b> As the graph fills in, the average gap on new pairs shrinks. We stop once it stops shrinking (the last five rounds are no more than 5% better than the five before), or when the budget runs out. On the real week the gap leveled off after $2.36, with JEV edges covering just 0.28% of all pairs:</p>
+
+  <figure class="rn-panel">
+    <div class="ptitle">Figure 4. Average gap on new pairs, real run on 8,693 paragraphs</div>
+    <svg id="gap" viewBox="0 0 640 230" width="100%" role="img" aria-label="Average gap on new pairs, by dollars spent, in the real run"></svg>
+  </figure>
+
+  <p><b>What would a general-purpose model cost?</b> JEV costs $0.042 per million tokens it reads. GPT-5.6-Luna, one of the cheapest general models, costs $0.20 per million tokens read and $1.20 per million written (<a href="https://developers.openai.com/api/docs/models/gpt-5.6-luna">OpenAI pricing</a>). Asking Luna the same questions, batched the same way and answered with one word per pair, would cost:</p>
+  <ul>
+    <li><b>Our run</b> (107,510 pairs): about $11, instead of $2.36.</li>
+    <li><b>Every pair of the week</b> (37.8 million): about $3,850, instead of about $830.</li>
+  </ul>
+  <p>That is roughly 4.6 times more, and it assumes Luna does no step-by-step reasoning, which would be billed as extra output. Luna also answers in words, so it would not directly give the probability of “yes” that JEV uses as an edge's weight.</p>
+
+  <h2>3. JEV versus embedding similarity</h2>
+  <p>We took the JEV edges between different companies (107,214 pairs) and ranked them two ways: by JEV's weight, and by embedding similarity (Qwen3-Embedding-4B). A separate model, GPT-5.6-Luna, then scored each method's top 100 pairs from 1 to 5: does reading the two together give a specific, non-obvious insight? (Luna's question is close to JEV's own, so this test leans in JEV's favour.)</p>
+
+  <figure class="rn-panel">
+    <div class="ptitle">Figure 5. Insight scores of each method's top 100 pairs, by GPT-5.6-Luna</div>
+    <svg id="dist" viewBox="0 0 640 100" width="100%" role="img" aria-label="Insight scores of each method's top 100 pairs"></svg>
+    <div class="legend" id="distLegend"></div>
+    <p class="pnote">Scoring 4 or 5: JEV 78%, embedding similarity 28%.</p>
+  </figure>
+
+  <p>Here are the top five pairs of each list. Embedding similarity ranks call sign-offs first, since they sound the same everywhere. JEV ranks first pairs that share a real issue.</p>
+
+  <h3>Embedding similarity's top five</h3>
+
+  <div class="case rn-panel">
+    <div class="ptitle">1. Graco ↔ HCA Healthcare</div>
+    <div class="stats">Embedding similarity 0.85 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Graco</div>All right, well, thank you very much for participating today. That concludes the call, and have a good rest of your day. Thank you. This concludes our conference for today. Thank you all for participating, and have a nice day.</div>
+      <div class="ex"><div class="co">HCA Healthcare</div>Paul, I thank you for your help today, and thanks for everyone for joining our call. We hope you have a nice weekend. I'm around this afternoon. If you have additional questions, give us a call. Have a good day. This concludes today's conference call. Enjoy the rest of your day. You may now disconnect. Give us a call. Have a good day.</div>
+    </div>
+    <p class="why"><b>What they share</b> (written by Opus 5.5): Nothing. A paint-sprayer maker and a hospital chain saying goodbye. Almost every call ends this way, so to an embedding they look alike.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">2. Southwest ↔ AbbVie</div>
+    <div class="stats">Embedding similarity 0.80 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Southwest Airlines</div>Great. Thanks, Andrew. That completes our prepared remarks. We will now open the line for analyst questions. To allow for as many calls as possible, we ask that you limit yourself to one question and a brief follow-up if needed. We will now take the first question.</div>
+      <div class="ex"><div class="co">AbbVie</div>Thanks, Scott. We will now open the call for questions. In the interest of hearing from as many analysts as possible over the remainder of the call, we ask that you please limit your questions to one or two. Operator, first question, please.</div>
+    </div>
+    <p class="why"><b>What they share</b> (written by Opus 5.5): Nothing. An airline and a drug maker opening the floor to questions with the same stock phrases.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">3. Chemed ↔ Kirby</div>
+    <div class="stats">Embedding similarity 0.76 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Chemed</div>Thank you. I just wanted to thank everybody for your kind attention. And we've got some things to work on, but as we've indicated, I think matters are well in hand. Thank you. Thank you for your participation in today's conference. This does conclude the program.</div>
+      <div class="ex"><div class="co">Kirby</div>Thank you, Amber, and thank you, everyone, for joining us today. Should you have any follow-up questions, please feel free to reach out to me. Thank you for your participation in today's conference. This does conclude the program.</div>
+    </div>
+    <p class="why"><b>What they share</b> (written by Opus 5.5): Nothing. Roto-Rooter's parent company and a barge operator, ending with the very same line.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">4. Chemed ↔ Graco</div>
+    <div class="stats">Embedding similarity 0.75 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Chemed</div>Thank you. I just wanted to thank everybody for your kind attention. And we've got some things to work on, but as we've indicated, I think matters are well in hand. Thank you. Thank you for your participation in today's conference. This does conclude the program.</div>
+      <div class="ex"><div class="co">Graco</div>All right, well, thank you very much for participating today. That concludes the call, and have a good rest of your day. Thank you. This concludes our conference for today. Thank you all for participating, and have a nice day.</div>
+    </div>
+    <p class="why"><b>What they share</b> (written by Opus 5.5): Nothing. Two more goodbyes.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">5. Prosperity Bancshares ↔ FTAI Aviation</div>
+    <div class="stats">Embedding similarity 0.74 · Luna: 1 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Prosperity Bancshares</div>Thank you. Thank you, ladies and gentlemen, for taking the time to participate in our call today. We appreciate your support of our company and we will continue to work on building shareholder value. The conference has now concluded. Thank you for your participation.</div>
+      <div class="ex"><div class="co">FTAI Aviation</div>Thank you, Shannon. And thank you all for participating in today's conference call. We look forward to updating you after Q2. This concludes today's conference call. Thank you for your participation.</div>
+    </div>
+    <p class="why"><b>What they share</b> (written by Opus 5.5): Nothing. A bank and a jet-engine leasing firm saying goodbye.</p>
+  </div>
+
+  <h3>JEV's top five</h3>
+
+  <div class="case rn-panel">
+    <div class="ptitle">1. BOK Financial ↔ Valley National</div>
+    <div class="stats">JEV 0.84 · Luna: 5 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">BOK Financial</div>This is independent validation of our culture of inspiration, ambition, collaboration, and tenacity. Discipline is key to generating value, and one differentiator I wanted to highlight for us is our credit culture. If you look back to the great financial crisis, while our credit costs were well above our own average, we materially outperformed our peers. This and our holistic risk management focus contributed to us being the largest traditional bank not to participate in TARP. Industry-wide credit costs have been very low over the last several years, but <mark>with growing concerns in the regional banking space, there is renewed focus on credit and particularly commercial real estate<sup>1</sup></mark>. We never lost sight of managing credit prudently and believe this is an area where we will continue to outperform on a relative basis. We have maintained the same credit standards with a consistent credit management team that led to better credit losses versus peers historically. We've added a slide to our presentation that shows our historical credit performance by line of business to highlight our impressive long-term performance. Combining strong historical credit performance with an ongoing commitment around concentration limits should give investors further confidence in our ability to perform well in this area moving forward. We have a commercial real estate concentration limit of 185% of total commitments versus Tier 1 capital and reserves. And today, <mark>we have approximately 22% of outstanding balances in commercial real estate<sup>2</sup></mark>. Over the years, we have focused on growing our specialty lines of business, like energy and healthcare, which has increased our core commercial and industrial relationships. We've made investments in our core commercial businesses over the last several years, and we see those returns evident in the first quarter with 9% annualized growth in commercial loans. Another way you see us taking the long view is in the retention of our Visa Class B stock. Many have fully monetized their shares since 2008 at a considerable discount. We held onto this position and now expect to receive full value for the shares we hold.</div>
+      <div class="ex"><div class="co">Valley National</div><span class="gap">[…]</span> Okay. That's helpful. I'm curious, Ira, so <mark>stocks off, I think it's a little over 30% this year<sup>3</sup></mark>. And you mentioned perception, I believe, in terms of on the real estate portfolio. You know, when you compare yourselves, everybody, I mean, <mark>this is all happened in the aftermath of New York community<sup>4</sup></mark>. When you compare your pre portfolio to peer banks, what do you think the market's missing? I think to acknowledge that there is not an issue in commercial real estate on a macro perspective, I think would be putting my head in his hand. <span class="gap">[…]</span> That said, look, <mark>I acknowledge the CREE concentration is pretty significant on a macro level<sup>5</sup></mark>. We look at the concentration. People just have a perspective of what that is at Valley. So I'm aware of that. I acknowledge it. I think as an organization, we need to begin to reduce what that macro CREE concentration is. But at Valley, <mark>CREE concentration doesn't mean that you're going to have an absolute loss<sup>6</sup></mark>. <span class="gap">[…]</span></div>
+    </div>
+    <p class="why"><b>Why they connect</b> (written by Opus 5.5): Investors have grown wary of banks with many loans on office and apartment buildings <span class="ref">1</span><span class="ref">4</span>. One bank says it keeps them in check <span class="ref">2</span>; the other, its stock down 30%, says having many doesn't mean losses <span class="ref">3</span><span class="ref">5</span><span class="ref">6</span>. Together: banks are being judged on how many such loans they hold, not on actual losses.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">2. Interpublic ↔ International Paper</div>
+    <div class="stats">JEV 0.84 · Luna: 3 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Interpublic Group</div><mark>Our flexible cost model is an important lever for improving margins<sup>1</sup></mark> and that, you know, some of the new offerings that we have that are more precise and accountable will further enhance that opportunity as they lead to <mark>more performance-driven compensation models<sup>2</sup></mark>. <span class="gap">[…]</span></div>
+      <div class="ex"><div class="co">International Paper</div><span class="gap">[…]</span> The first question, just wanted to understand the operations and costs in the packaging business. I think you talked about it being a negative $70 million 2QV1Q. And I think, though, at the same time, we should have about 50 million positive because we don't have the fire and we don't have the winter freeze issues. So that seems to be like $120 million negative swing. So I was hoping to get kind of more specifics as to why that number would be so large. <span class="gap">[…]</span> The other thing, and Tim spoke to it in terms of the proactive maintenance spending, if you think about how we've been operating for the last several quarters in light of the lower demand environment, <mark>we have been modulating our spending in reaction to that<sup>3</sup></mark>. But as you heard us talk about, <mark>we're seeing more and more evidence of the recovery really across all the channels<sup>4</sup></mark>. And we need to be ready for that. We're in the early stages, but it's going to continue to ramp, and we need to be ahead of that. So, you know, Tom will talk about the box side. On the mill side, I would characterize it as a very modest step up, but given our size and scale, the numbers are not insignificant. But it's really about trying to get ahead of that. And these are things like ongoing maintenance and repairs to support productivity, efficiency, reliability, performance, across all facets of the mill, you know, the pulp areas, the power areas, and the paper as well. So it's really about increasing that cadence, and then <mark>depending on how the demand plays out from here, we'll modulate that accordingly<sup>5</sup></mark>. <span class="gap">[…]</span></div>
+    </div>
+    <p class="why"><b>Why they connect</b> (written by Opus 5.5): An ad agency and a box maker both keep costs flexible while demand is unsure: pay tied to results <span class="ref">1</span><span class="ref">2</span>, maintenance turned up only as orders return <span class="ref">3</span><span class="ref">4</span><span class="ref">5</span>.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">3. Pinnacle Financial ↔ Prosperity Bancshares</div>
+    <div class="stats">JEV 0.83 · Luna: 5 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Pinnacle Financial</div>As to 2024 deposit growth, still believing we can grow deposits within the previous range of high single to low double digits this year. Obviously, the latest FOMC meeting will impact our rate projections for the remainder of the year. As a result, we've taken more time looking at the back book on deposits. Two years ago, 100% of our MFAs had rates less than 2%. Today, only 15% are at rates less than 2%. Also today, <mark>65% of our money markets are at rates greater than 4%<sup>1</sup></mark>. So we feel that our deposits are priced very competitively. We have made some preemptive strikes here late in the quarter, <mark>successfully reducing some of our more expensive accounts<sup>2</sup></mark>, as well as a deep dive on our pool of reciprocal deposits. This effort is helpful to our outlook as we enter the second quarter.</div>
+      <div class="ex"><div class="co">Prosperity Bancshares</div>Hey, good morning. Before you put that crystal ball away, I have one more on deposits. Do you think that with the change in rate expectations and the fact that you're seeing a little bit of a slowdown on loan demand, Would any of your existing customers revisit their surplus cash balances and see if they can put more money to work elsewhere, especially on the commercial client side? I don't know if I understood the question exactly, but I think what you're asking is, will our commercial customers take money out and put it somewhere else with things slowing down? I would think if rates – this is just my feeling – usually when rates come down – the customer is not using their money. They're not pushing it, trying to find something to do with it every minute. They leave more in their accounts. I would think as interest rates come down, we'll probably have an easier time with commercial customers keeping their balances up. I think as interest rates stay where they're at right now or even higher, and <mark>they can see that they can get 4% or 5% somewhere, they're really trying to work that money<sup>3</sup></mark>. But again, I think that <mark>if the short-term interest rates come down, it'd probably be easier on us<sup>4</sup></mark>. Yeah, man, this is Kevin. I think most of that has already occurred. <mark>They were using excess money to pay down lines of credit<sup>5</sup></mark>, so we saw unfunded commitments rising through this period of time as they took DBA balances and paid off loans. And then to the extent they still had excess money, they were calling one of us asking for a special rate or some kind of rate bump. It's not all the way over yet, but I don't think it's going to get – I don't think it's going to accelerate from here unless something really odd happens. I think it's a good point, Kevin. We talked about that before. Most of that has happened already where they're starting to use their money on money. <span class="gap">[…]</span></div>
+    </div>
+    <p class="why"><b>Why they connect</b> (written by Opus 5.5): One bank now pays over 4% on most deposits and is trimming its costliest accounts <span class="ref">1</span><span class="ref">2</span>. The other explains why: when customers can earn 4–5% elsewhere, they move their spare cash <span class="ref">3</span><span class="ref">5</span>. Together: high rates squeeze banks, and only rate cuts will ease it <span class="ref">4</span>.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">4. Meta ↔ Microsoft</div>
+    <div class="stats">JEV 0.83 · Luna: 5 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Meta</div>Turning now to the CapEx outlook. We anticipate our full year 2024 capital expenditures will be in the range of $35 to $40 billion, <mark>increased from our prior range of $30 to $37 billion as we continue to accelerate our infrastructure investments to support our AI roadmap<sup>1</sup></mark>. While we are not providing guidance for years beyond 2024, <mark>we expect CapEx will continue to increase next year<sup>2</sup></mark> as we invest aggressively to support our ambitious AI research and product development efforts. <span class="gap">[…]</span></div>
+      <div class="ex"><div class="co">Microsoft</div>Keith Weiss, Morgan Stanley, Excellent. Thank you guys for taking the question, and congratulations on a fantastic quarter. A lot of excitement in the marketplace around generative AI and the potential of these technologies. But there's also a lot of investment going on behind them. It looks like <mark>Microsoft's on track to ramp CapEx over 50% year-on-year this year to over $50 billion<sup>3</sup></mark>. And there's media speculation of more spending ahead with some reports talking about like $100 billion data centers. So, obviously, <mark>investments are coming well ahead of the revenue contribution<sup>4</sup></mark>. But what I was hoping for is that you could give us some color on how you as a management team try to quantify the potential opportunities that underlie these investments, because they are getting very big. And maybe if you could give us some hint on whether there's any truth to the potential of, like, a $100 billion data center out there. <span class="gap">[…]</span> Then Amy referenced what we also do on the inference side, which is, one, we first innovate and build products, and, of course, We have an infrastructure business that's also dependent on a lot of ISVs building products that run on our infrastructure. <mark>And it's all going to be demand-driven.<sup>5</sup></mark> In other words, we track very closely what's happening with inference demand. And that's something that we'll manage, as Amy said in her remarks, very, very closely. <span class="gap">[…]</span></div>
+    </div>
+    <p class="why"><b>Why they connect</b> (written by Opus 5.5): Meta raised its budget for AI data centers <span class="ref">1</span><span class="ref">2</span>; Microsoft's is up over 50%, well ahead of any AI revenue <span class="ref">3</span><span class="ref">4</span>. Together: the biggest tech firms are racing to build before the payoff is known, which is good news for whoever sells them chips and power.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">5. EQT ↔ Antero Midstream</div>
+    <div class="stats">JEV 0.83 · Luna: 4 of 5</div>
+    <div class="pair">
+      <div class="ex"><div class="co">EQT</div>Due to the confluence of <mark>LNG facilities pulling gas south on Transco and power demand growth in the southeast<sup>1</sup></mark>, we expect this region will become even more desirable than the Gulf Coast later this decade. As a result, we intend to pursue an expansion of MVP through additional compression to increase capacity from two to two and a half BCF per day, which will provide additional affordable, reliable, and clean Appalachian natural gas to our downstream utility customers. On top of the tremendous opportunity to service customers in the Southeast, where we already have first-mover advantage through our record-sized physical gas supply deals with utilities we announced last fall, EQT is ideally situated to meet significant growth in power demand within PJM as well. Our analysis suggests the combination of <mark>data center build-outs and additional coal retirements could generate up to 6 BCF a day of incremental natural gas power demand<sup>2</sup></mark> in our own backyard by 2030. Whether it's in the southeast or at the doorstep of our asset base in Appalachia, EQT is well-positioned to capture this thematic tailwind through our material inventory depth and integrated business model that will create a one-stop shop to provide clean, reliable, and affordable natural gas that will be foundational to meeting America's power needs as we embark on what will be a transformational journey into the age of AI. <span class="gap">[…]</span></div>
+      <div class="ex"><div class="co">Antero Midstream</div>Looking ahead over the next two years as LNG export capacity increases by nearly six BCF per day, in addition to an expected rise in NYMEX pricing, we expect Antero sales points to be priced at even higher premiums than NYMEX <mark>as these LNG facilities compete for supply<sup>3</sup></mark>. An example of this is the pricing along the TGP 500L pool in the summer of 2025 and 2026. <mark>We've watched those summer premiums increase to $0.40 above Henry Hub<sup>4</sup></mark> on financial basis alone in anticipation of Venture Global's Plaquemines facility startup in the next few months. Just last year, those same implied summer premiums were only $0.03 above NYMEX. Venture Global received FERC approval this week to begin immediately introducing gas into the feeder Gator Express pipeline that brings supply from the TGP 500L pool to the Plaquemine LNG facility. This initial feed gas requirement will potentially lead to higher demand and pricing in the TGP 500 region, as well as NYMEX Henry Hub prices this summer. According to Market Intelligence, the Tennessee Gas Pipeline Phase 1 Evangeline Pass project that feeds the Plaquemine LNG facility is expected to be online by July 1, 2024, with capacity of $900 million per day. As a reminder, Ontario owns $570 million per day of the fern delivery to the 500L pool, or 63% of the supply that will feed the phase one project capacity.</div>
+    </div>
+    <p class="why"><b>Why they connect</b> (written by Opus 5.5): Two new buyers want the same Appalachian gas: export terminals on the Gulf Coast <span class="ref">1</span><span class="ref">3</span><span class="ref">4</span> and power plants for data centers <span class="ref">2</span>. Together: more demand for the same gas means higher prices for producers there.</p>
+  </div>
+
+  <h2>4. More links JEV found</h2>
+  <p>JEV's best edges often join different industries, where the paragraphs share no keyword and look nothing alike. Three we picked from its top 300:</p>
+
+  <div class="case rn-panel">
+    <div class="ptitle">Intel's chip-plant losses are a contractor's boom</div>
+    <div class="stats">JEV 0.78 · embedding similarity ranks this pair #2,755</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Intel</div>NEX revenue declined 8% year over year, As discussed last quarter, we saw significant declines in the 5G market, partially offset by approximately 10% year-over-year growth in our network and edge markets, which we expect to continue to recover through the year. Intel products operating profit expanded by more than $2.1 billion year-over-year, driven by higher revenue, better sell-through of reserved inventory, and operating spending discipline, resulting in an operating margin of approximately 28% in the quarter. Intel Foundry revenue was $4.4 billion, down 10% year-over-year, on lower backend services and sample revenue, along with lower IMS tool sales. In addition, wafer volume was modestly higher in the quarter, with ASPs modestly down driven by pricing for mature nodes. Operating profit declined by approximately $100 million year over year, with lower revenue being partially offset by improved factory utilization. Op margin declined significantly quarter over quarter, driven by higher startup costs and the conclusion of the traditional packaging business impacting revenue. The Foundry P&amp;L will remain challenged through the year and we expect operating margins to trough in 2024 as <mark>startup costs associated with five nodes in four years peak<sup>1</sup></mark> and the P&amp;L absorbs <mark>an expected increase of roughly $2 billion in depreciation<sup>2</sup></mark>. Beyond 2024, as volume begins to shift toward leadership manufacturing nodes with a competitive cost structure, scale improves, including the return of compute tiles to internal process nodes, and our efficiency actions begin to flow through the P&amp;L, we expect to see rapid profitability improvement.</div>
+      <div class="ex"><div class="co">EMCOR</div><span class="gap">[…]</span> At this time, we'll start with a question from Brent Tillman from DA Davidson. Brent, please go ahead. Hey, Grace. Thanks. Good morning. Tony, I get the manufacturing and the high-tech manufacturing verticals. <mark>How do you think about the sustainability of those areas without government incentives?<sup>3</sup></mark> And then also, how much of those verticals for you are being driven by, call them mega jobs that might require kind of billions of investment versus sort of more selective, that might be more selective versus kind of broader-based investment? I don't know how to parse the second one, really, as far as mega jobs versus, but we see demand being pretty strong across it. My general view on some of the high-tech manufacturing areas that have been built, you think about there's probably six semiconductor, seven semiconductor markets. They've been semiconductor markets. There is a rebirth in some of those markets. The only real new one is the one in outside Syracuse and Clay, New York. The other ones is where the business happened, right? It was happening in Phoenix before. It was happening in Austin, Texas before. It was happening, you know, Columbus, Ohio is new also, I guess, but <mark>I think Intel has been thinking of expanding<sup>4</sup></mark>. Boise, Idaho was happening before. Salt Lake City was happening before. Oregon was happening before. So these, for the most part, other than maybe two markets, have been well-established markets. Even Raleigh, North Carolina, I mean, you know, Wolfspeed, which is one of the customers. There was Cree one time, and Cree did semiconductors for their lighting products and decided just to focus on semiconductors. So I think a lot of it would be happening anyway. I think they realized they were too exposed to the supply chain. <mark>The supply chain had to move more to the U.S.<sup>5</sup></mark> It's pretty obvious why you can't, if you're a Taiwan semiconductor, why you just can't be in Taiwan. It's both a diversification. It's what any responsible business would do. <mark>Intel is investing for their next generation<sup>6</sup></mark>. I mean, Intel was not cash poor. Neither is Samsung. Neither is Micron. These are very good companies in how to invest through a cycle. Now, what have the government incentives done? Well, they've done a couple of things, right? I think they've helped strengthen commitment to a site. I think they've also sort of put some rules around how the work will get done and with what kind of people. and what kind of trade skill, which is very high trade skill, which was probably going to happen anyway, <span class="gap">[…]</span></div>
+    </div>
+    <p class="why"><b>Why they connect</b> (written by Opus 5.5): Intel is losing money building new chip factories <span class="ref">1</span><span class="ref">2</span>. EMCOR is a contractor that builds factories like these <span class="ref">4</span><span class="ref">5</span><span class="ref">6</span>. Together: Intel's costs are EMCOR's revenue, a link that is hard to spot because the two paragraphs share almost no words. The analyst also names their shared risk: government subsidies <span class="ref">3</span>.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">A pipe maker and a gas producer see different futures for gas</div>
+    <div class="stats">JEV 0.77 · embedding similarity ranks this pair #1,266</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Tenaris</div><span class="gap">[…]</span> Yes, thank you, Paolo. Good morning, Luca. Look, as we look forward, what we see is certainly <mark>some weakness on the dry gas side<sup>1</sup></mark> with these gas prices rising. We don't see this increasing. Actually, we see this probably going down a bit from where we are today. But <mark>the importance of the share of the gas drilling in the U.S. is limited<sup>2</sup></mark>. So what we expect is some weakness over there that is going to be offset from one upside, some upsides on the oil side. In general, we see <mark>a flat-ish drilling activity going through 2024<sup>3</sup></mark>. But this is what we see today. We don't know how this will progress in the second half. There are many factors at play in this case, and we need to go a little bit ahead in the year to give a more firm view on the second second half of the of the year. <span class="gap">[…]</span></div>
+      <div class="ex"><div class="co">EQT</div>Along with the material cost structure advantage, the combination of EQT and Equitrans will also create an integrated well-to-what solution that will help enable and power growing demand associated with the data center and artificial intelligence booms that are burgeoning across the southeast and mid-Atlantic regions of the United States. Our base case view suggests the proliferation of data centers, along with growth in other electricity-intensive markets, such as electric vehicles, to <mark>drive an incremental 10 BCF per day of natural gas demand by 2030<sup>4</sup></mark>, while there is a plausible upside case that could take this number up to 18 BCF per day. This means <mark>growth in the power generation segment could exceed LNG exports as a bullish demand catalyst<sup>5</sup></mark> for the natural gas market this decade, and this structural baseload demand growth story resides at the doorstep of our asset base. Our 1.2 BCF a day of capacity on MVP, along with the long-term firm sales arrangements we announced with investment-grade utilities last year, means EQT's low-emissions natural gas will be a key facilitator of the data center build-out occurring in the southeastern United States and will give us significant exposure to premium Transco zones 4 and 5 price points.</div>
+    </div>
+    <p class="why"><b>Why they connect</b> (written by Opus 5.5): A maker of drilling pipe expects gas drilling to stay flat <span class="ref">1</span><span class="ref">2</span><span class="ref">3</span>. A gas producer expects AI data centers to need much more gas by 2030 <span class="ref">4</span><span class="ref">5</span>. Together: if the producer is right, the pipe maker is underestimating demand for its own product.</p>
+  </div>
+  <div class="case rn-panel">
+    <div class="ptitle">High rates hand demand to landlords with cheap capital, in homes and in offices</div>
+    <div class="stats">JEV 0.78 · embedding similarity ranks this pair #1,465</div>
+    <div class="pair">
+      <div class="ex"><div class="co">Equity Residential</div>Thank you, Marty. Good morning, and thank you all for joining us today to discuss our first quarter 2024 results and outlook for the year. I will start us off, then Michael Manelis, our COO, will speak to our operating performance and how we see 2024 operations playing out, and then we will take your questions. We are pleased with our first quarter performance, which was ahead of January expectations and reflects the strong demand for the lifestyle our well-located apartment properties provide, as well as <mark>little new competitive supply<sup>1</sup></mark> across most of our established markets. Our same-store revenues increased 4.1% in a quarter, and our same-store expenses rose only 1.3%, which led to same-store NOI growth of 5.5% and an increase in our NFFO per share of 6.9%. So overall, very solid start to the year across all categories, with the company well-positioned to capture increasing seasonal demand as we head into our prime leasing season. As is our practice, we have not revised our operating or FFO guidance, and we'll make adjustments as we get deeper into our primary leasing season. Digging under the hood a bit, the durability of the employment picture for our target affluent renter demographic is a continuing bright spot in our business, as is the cost of owned housing. Unemployment for the college educated, a very sizable percentage of our residents, remains at around 2%, considerably lower than the overall average, supporting demand. This demographic, which is well employed in the growth engines of our economy, including technology, financial services, and other professional and business services, continues to grow in both our established and expansion markets. We also see a little competition from owned housing, as <mark>the high cost of homes combined with elevated financing costs<sup>2</sup></mark> and rapidly rising insurance, real estate tax and maintenance costs combine to make rental housing a very attractive option for many people.</div>
+      <div class="ex"><div class="co">Highwoods Properties</div><span class="gap">[…]</span> Ted, you mentioned this in your prepared remarks, but recently we've been hearing a lot about <mark>the flight to capital or tenants looking for landlords that are willing and able to fund TIs<sup>3</sup></mark> on new leases. I guess, can you just give a little bit more color on that trend broadly and then maybe comment on how much of the market vacancy might be attributable to space that's owned by a landlord that's unwilling to fund TIs? And then lastly, you know, I'm just wondering whether there are any specific instances you can cite where you think you've won out on a deal because of that ability that you guys have to fund TIs. Sure, a lot to unpack there. Remind me if I don't hit all parts of that. So in general, it's exactly what you said. We're seeing, you know, there's a bifurcation of assets and ownership that, you know, there are some cases we've heard that landlords or brokers aren't showing the space. If they understand the capital stack, <mark>the capital stack's upside down<sup>4</sup></mark>, or there's just risk of the building just, you know, effectively become a zombie-type building. So there's many instances out there. One in particular here in Raleigh, we got a four-floor user from a building that was in distress, and it was really from a cold call. And this is very similar to what all of our leasing reps are doing. <mark>All the buildings that have gotten maturing debt, we're targeting those buildings<sup>5</sup></mark> because of the capital that we can invest in the TIs and commissions that we can pay. This was a direct result of a cold call that we got. We got a full floor user. The user didn't want to stay in the building because they couldn't get enough money to recap to redo their space. So it was a great win for our team, and it shows just the resourcefulness of our team, and we're seeing that in other markets as well. In terms of the amount of vacancy, it's concentrated. Really, the vacancy is concentrated in B and C buildings in general. It's concentrated in less desirable submarkets, and then it's concentrated in the buildings that have been really in distress for the last, call it, two or three years. As we all know, the lenders have been kicking the can. Lenders don't want to take a lot of these assets back. A lot of the owners don't have the money or the ability or, in some cases, even the desire to remain in the ownership. So <mark>those buildings are going to be starved for capital<sup>6</sup></mark>. Occupancy is going to be under pressure. And those occupancies are declining. <span class="gap">[…]</span></div>
+    </div>
+    <p class="why"><b>Why they connect</b> (written by Opus 5.5): High interest rates keep people renting apartments instead of buying <span class="ref">2</span>. They also leave many office owners too short of cash to fix up space for new tenants, so tenants move to landlords who can <span class="ref">3</span><span class="ref">4</span><span class="ref">5</span><span class="ref">6</span>. Together: in homes and offices alike, high rates send tenants to landlords with money.</p>
+  </div>
+
+  <h2>5. Explore the graph yourself</h2>
+  <p>The explorer has every paragraph from the week, with its JEV edges, inferred edges and embedding neighbours side by side. Search for a company or a topic, or take a random walk through the graph.</p>
+  <p><a class="cta" href="explorer/">Open the graph explorer →</a></p>
+</article>
+
+<script>
+"use strict";
+const NS = "http://www.w3.org/2000/svg";
+function el(t, a, p) { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function txt(p, x, y, s, a = {}) { const t = el("text", Object.assign({ x, y, "font-size": 11.5, fill: "#1f2328" }, a), p); t.textContent = s; return t; }
+const C = { theme: "#286ee0", orange: "#eb6834", text: "#1f2328", text2: "#57606a", muted: "#8c959f", border: "#e5e7eb", node: "#aeb6c0",
+            ramp: ["#86b6ef", "#5598e7", "#2a78d6", "#1c5cab", "#104281"] };
+
+// Figure 3: the procedure in six panels (hand-placed toy pile, made-up weights)
+(function () {
+  const P = { A: [40, 100], p1: [108, 40], p2: [104, 168], C: [180, 70], p4: [252, 40], p5: [255, 142], B: [320, 100], p7: [340, 26], p8: [168, 188], p9: [342, 176] };
+  const E = [["A", "p1", .62], ["A", "C", .81], ["A", "p2", .18], ["A", "p5", .35],
+             ["p4", "B", .55], ["p4", "p1", .30], ["B", "C", .72], ["B", "p9", .64], ["B", "p5", .15]];
+  const call1 = E.slice(0, 4), names = { A: "A", B: "B", C: "C" };
+  function draw(id, o = {}) {
+    const svg = document.getElementById(id);
+    const L = (a, b, at) => el("line", Object.assign({ x1: P[a][0], y1: P[a][1], x2: P[b][0], y2: P[b][1] }, at), svg);
+    for (const [a, b, w] of o.edges || []) { const hl = o.hl && o.hl.includes(a + b);
+      L(a, b, { stroke: hl ? C.orange : C.theme, "stroke-width": hl ? 3.2 : 0.8 + 4.5 * w, opacity: hl ? 1 : o.fade ? 0.22 : 0.35 + 0.6 * w, "stroke-linecap": "round" }); }
+    for (const [a, b, col, dash] of o.dashed || []) L(a, b, { stroke: col || C.muted, "stroke-width": col ? 2.2 : 1.3, "stroke-dasharray": dash || (col ? "6 4" : "4 4") });
+    for (const [a, b, w, dx = 0, dy = 0] of o.weights || []) {
+      const mx = (P[a][0] + P[b][0]) / 2 + dx, my = (P[a][1] + P[b][1]) / 2 + dy;
+      el("rect", { x: mx - 15, y: my - 9, width: 30, height: 17, rx: 3, fill: "#fff", stroke: C.border }, svg);
+      txt(svg, mx, my + 3.5, w.toFixed(2), { "text-anchor": "middle", "font-size": 10.5 });
+    }
+    for (const k in P) {
+      const empty = o.empty && o.empty.includes(k), [x, y] = P[k];
+      el("circle", { cx: x, cy: y, r: 8, fill: (o.fill && o.fill[k]) || (empty ? "#fff" : C.node), stroke: empty ? C.text2 : "#fff",
+                     "stroke-width": empty ? 1.4 : 2, "stroke-dasharray": empty ? "3 2" : "none" }, svg);
+      if (o.ring && o.ring.includes(k)) el("circle", { cx: x, cy: y, r: 12.5, fill: "none", stroke: C.text, "stroke-width": 2.2 }, svg);
+      if (names[k] && !o.noNames) txt(svg, x + (k === "A" ? -16 : k === "B" ? 18 : 0), y + (k === "C" ? -14 : 4), names[k],
+                                    { "text-anchor": k === "A" ? "end" : k === "B" ? "start" : "middle", "font-size": 12, "font-weight": 600 });
+    }
+    for (const [x, y, t, at] of o.notes || []) txt(svg, x, y, t, Object.assign({ "font-size": 11.5, stroke: "#fff", "stroke-width": 4, "paint-order": "stroke" }, at || {}));
+  }
+  draw("step1", { noNames: true });
+  draw("step2", { ring: ["A"], edges: call1, weights: [["A", "p1", .62, -6, 4], ["A", "C", .81], ["A", "p2", .18, -6, -2], ["A", "p5", .35, 10, 0]] });
+  draw("step3", { ring: ["A", "p4", "B"], edges: E });
+  draw("step4", { edges: E, fade: true, hl: ["AC", "BC"], weights: [["A", "C", .81], ["B", "C", .72]], dashed: [["A", "B", C.orange, "2 4"]],
+                  notes: [[180, 18, "inferred A–B:  0.81 × 0.72 × 0.7  =  0.41", { "text-anchor": "middle", "font-weight": 600 }]] });
+  draw("step5", { edges: E, fade: true, empty: ["p7", "p8"], fill: { A: C.orange }, dashed: [["A", "p7"], ["A", "p8"]],
+                  notes: [[182, 200, "no edge to A", { "font-size": 11 }], [340, 50, "no edge", { "text-anchor": "middle", "font-size": 11 }]] });
+  // step 6: for each new pair, the inferred edge we already had vs JEV's answer; the difference is the gap
+  (function () {
+    const svg = document.getElementById("step6"), X = 112, W = 190, BH = 18;
+    const rows = [["New pair 1: a chain already links them", 0.35, 0.58, 20], ["New pair 2: nothing links them yet", 0, 0.71, 116]];
+    rows.forEach(([title, inf, jev, y0]) => {
+      txt(svg, 6, y0, title, { "font-size": 14, "font-weight": 600 });
+      txt(svg, 6, y0 + 25, "inferred edge", { "font-size": 13 });
+      if (inf > 0) { el("rect", { x: X, y: y0 + 11, width: inf * W, height: BH, rx: 3, fill: C.ramp[0] }, svg);
+                     txt(svg, X + inf * W + 6, y0 + 25, inf.toFixed(2), { "font-size": 13 }); }
+      else txt(svg, X, y0 + 25, "none", { "font-size": 13 });
+      txt(svg, 6, y0 + 49, "JEV's answer", { "font-size": 13 });
+      if (inf > 0) el("rect", { x: X, y: y0 + 35, width: inf * W, height: BH, rx: 3, fill: C.theme }, svg);
+      el("rect", { x: X + inf * W, y: y0 + 35, width: (jev - inf) * W, height: BH, rx: 3, fill: C.orange }, svg);
+      txt(svg, X + jev * W + 6, y0 + 49, jev.toFixed(2), { "font-size": 13 });
+      txt(svg, X + inf * W + (jev - inf) * W / 2, y0 + 72, inf > 0 ? "gap 0.23" : "gap 0.71: a missed connection",
+          { "text-anchor": "middle", "font-size": 13, fill: C.orange, "font-weight": 600 });
+    });
+  })();
+})();
+
+// Figure 4: average gap per round in the real run (v2/runs/graph_2024-04-22_busy_undirected/rounds.jsonl: spent_usd, mean_shortfall)
+(function () {
+  const R = [[0.095,0.570],[0.190,0.573],[0.285,0.580],[0.380,0.568],[0.475,0.577],[0.561,0.563],[0.652,0.562],[0.723,0.569],[0.783,0.571],[0.823,0.578],
+    [0.863,0.537],[0.904,0.524],[0.950,0.502],[1.006,0.499],[1.072,0.479],[1.145,0.480],[1.231,0.488],[1.321,0.468],[1.416,0.467],[1.509,0.465],
+    [1.604,0.460],[1.698,0.459],[1.793,0.464],[1.888,0.452],[1.983,0.459],[2.078,0.446],[2.172,0.442],[2.268,0.442],[2.363,0.443]];
+  const svg = document.getElementById("gap"), X = 60, Wd = 540, T = 20, H = 170;
+  const sx = v => X + v / 2.5 * Wd, sy = v => T + H - (v - 0.3) / 0.35 * H;
+  [0.3, 0.4, 0.5, 0.6].forEach(v => { el("line", { x1: X, x2: X + Wd, y1: sy(v), y2: sy(v), stroke: v === 0.3 ? "#d0d7de" : "#dfe3e8" }, svg);
+    if (v > 0.3) txt(svg, X - 8, sy(v) + 4, v.toFixed(1), { "text-anchor": "end", fill: C.text2, "font-size": 12 }); });
+  [0, 0.5, 1, 1.5, 2, 2.5].forEach(v => txt(svg, sx(v), T + H + 20, "$" + v.toFixed(2), { "text-anchor": "middle", fill: C.text2, "font-size": 12 }));
+  el("path", { d: R.map((r, j) => (j ? "L" : "M") + sx(r[0]).toFixed(1) + "," + sy(r[1]).toFixed(1)).join(""), fill: "none", stroke: C.theme, "stroke-width": 2.2, "stroke-linejoin": "round" }, svg);
+  const last = R[R.length - 1];
+  el("circle", { cx: sx(last[0]), cy: sy(last[1]), r: 4.5, fill: C.theme, stroke: "#fff", "stroke-width": 2 }, svg);
+  txt(svg, sx(last[0]), sy(last[1]) + 22, "stopped: $2.36", { "text-anchor": "middle", "font-size": 12.5, "font-weight": 600 });
+  txt(svg, sx(0.1), sy(0.58) - 12, "0.57", { "font-size": 12.5 });
+  txt(svg, sx(last[0]) - 6, sy(last[1]) - 10, "0.44", { "text-anchor": "end", "font-size": 12.5 });
+})();
+
+// Figure 5: insight-score distributions of each method's top 100 (v2/runs/compare_raw/ratings.jsonl)
+(function () {
+  const svg = document.getElementById("dist"), X = 180, Wd = 450;
+  const rows = [["Embedding similarity", [20, 20, 32, 22, 6]], ["JEV", [0, 6, 16, 58, 20]]];
+  rows.forEach(([name, c], i) => {
+    const y = 12 + i * 44, n = c.reduce((a, b) => a + b, 0);
+    txt(svg, X - 12, y + 18, name, { "text-anchor": "end", "font-size": 13.5, "font-weight": 500 });
+    let x = X;
+    c.forEach((v, s) => { const w = v / n * Wd; if (!w) return;
+      const r = el("rect", { x: x + 1, y, width: Math.max(0, w - 2), height: 28, rx: 3, fill: C.ramp[s] }, svg);
+      el("title", {}, r).textContent = `score ${s + 1}: ${v} of ${n} pairs`;
+      if (w > 28) txt(svg, x + w / 2, y + 18.5, v + "%", { "text-anchor": "middle", fill: s >= 2 ? "#fff" : C.text, "font-size": 12, "font-weight": 600, style: "pointer-events:none" });
+      x += w; });
+  });
+  const lg = document.getElementById("distLegend");
+  ["1: no real link", "2", "3: modest", "4", "5: sharp insight"].forEach((s, i) => { const sp = document.createElement("span");
+    const sw = document.createElement("i"); sw.className = "sw"; sw.style.background = C.ramp[i]; sp.appendChild(sw); sp.appendChild(document.createTextNode(s)); lg.appendChild(sp); });
+})();
+</script>
+{% endraw %}

@@ -1,0 +1,32 @@
+---
+layout: research-note
+title: Research notes
+permalink: /research-notes/
+research_note: true
+sitemap: false
+---
+<style>
+  .rn-index { max-width: 760px; margin: 0 auto; padding: 32px 24px 120px; color: #1f2328;
+              font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .rn-index h1 { font-size: 36px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 650; margin: 0 0 10px; color: #1f2328; }
+  .rn-index .lead { font-size: 18px; line-height: 1.6; margin: 0 0 34px; color: #1f2328; }
+  .rn-index .rn-note { display: block; position: relative; border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px 20px; margin-bottom: 14px; color: #1f2328; }
+  .rn-index .rn-note:hover { border-color: #286ee0; }
+  .rn-index .rn-note a.t { display: block; text-decoration: none; }
+  .rn-index .rn-note a.t::after { content: ""; position: absolute; inset: 0; }
+  .rn-index .rn-note .t { font-size: 20px; font-weight: 650; color: #286ee0; margin-bottom: 4px; }
+  .rn-index .rn-note .d { font-size: 16px; line-height: 1.6; }
+  .rn-index .rn-note .when { font-size: 14px; color: #57606a; margin-top: 8px; }
+</style>
+<div class="rn-index">
+  <h1>Research notes</h1>
+  <p class="lead">Notes on work in progress.</p>
+  {% assign notes = site.pages | where: "listed", true | sort: "date" | reverse %}
+  {% for note in notes %}
+    <div class="rn-note">
+      <a class="t" href="{{ note.url | relative_url }}">{{ note.title }}</a>
+      <div class="d">{{ note.description }}</div>
+      <div class="when">{{ note.date | date: "%B %-d, %Y" }}</div>
+    </div>
+  {% endfor %}
+</div>

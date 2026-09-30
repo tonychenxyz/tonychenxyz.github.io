@@ -116,6 +116,12 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+          {% if page.research_note %}
+            <!-- Research notes: only shown on research-notes pages, never on the homepage -->
+            <li class="nav-item {% if page.url contains '/research-notes/' %}active{% endif %}">
+              <a class="nav-link" href="{{ '/research-notes/' | relative_url }}">research notes</a>
+            </li>
+          {% endif %}
           {% if site.search_enabled %}
             <!-- Search -->
 

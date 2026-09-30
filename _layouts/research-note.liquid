@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+  <!-- Research notes: reachable only by direct link (not in the homepage navbar); their own navbar shows "research notes". -->
+  <head>
+    {% include head.liquid %}
+    <style>
+      /* research notes are designed for the light theme only */
+      #light-toggle,
+      .toggle-container {
+        display: none !important;
+      }
+      .rn-host {
+        padding-top: 8px;
+      }
+      .rn-host .rn {
+        padding-top: 32px;
+      }
+    </style>
+  </head>
+
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    {% include header.liquid %}
+
+    <div class="{% if page.full_width %}container-fluid px-0{% else %}container{% endif %} rn-host" role="main">{{ content }}</div>
+
+    {% include scripts/jquery.liquid %}
+    {% include scripts/bootstrap.liquid %}
+    {% include scripts/misc.liquid %}
+    {% include scripts/analytics.liquid %}
+    {% include scripts/progressBar.liquid %}
+    {% include scripts/back_to_top.liquid %}
+    <script>
+      // keep these pages light even when the rest of the site is in dark mode (the saved preference is not changed)
+      (function () {
+        var d = document.documentElement;
+        function light() {
+          if (d.getAttribute("data-theme") !== "light") d.setAttribute("data-theme", "light");
+        }
+        light();
+        new MutationObserver(light).observe(d, { attributes: true, attributeFilter: ["data-theme"] });
+      })();
+    </script>
+  </body>
+</html>
