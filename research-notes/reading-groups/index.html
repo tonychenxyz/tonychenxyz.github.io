@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Research notes: reachable only by direct link (not in the homepage navbar); their own navbar shows "research notes". -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Metadata, OpenGraph and Schema.org -->
+
+
+
+
+<!-- Standard metadata -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  
+  
+    
+      Reading groups in one earnings week | Tony Chen
+    
+  
+</title>
+<meta name="author" content="Haozhe (Tony) Chen ">
+<meta name="description" content="The read-together graph of one busy earnings week split into 1,000 groups; the ten most cohesive groups, read and explained.">
+
+  <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap & MDB -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css?2fb83a6dbc622464e2ca0f07c26f4486">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+<!-- Bootstrap Table -->
+
+
+<!-- Fonts & Icons -->
+<link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
+<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+
+<!-- Code Syntax Highlighting -->
+<link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
+
+
+
+<!-- Styles -->
+
+<!-- pseudocode -->
+
+
+
+  <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
+
+<link rel="stylesheet" href="/assets/css/main.css?v=1790811921">
+<link rel="canonical" href="https://tonychenxyz.github.io/research-notes/reading-groups/">
+
+<!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
+<meta name="color-scheme" content="only light">
+<style>
+  :root {
+    color-scheme: only light;
+  }
+</style>
+
+<!-- Dark Mode -->
+<script src="/assets/js/theme.js?9a0c749ec5240d9cda97bc72359a72c0"></script>
+
+
+<!-- GeoJSON support via Leaflet -->
+
+
+<!-- diff2html -->
+
+
+
+
+
+
+    <style>
+      .rn-host {
+        padding-top: 8px;
+      }
+      .rn-host .rn {
+        padding-top: 32px;
+      }
+    </style>
+  </head>
+
+  <body class="fixed-top-nav ">
+    <header>
+  <!-- Nav Bar -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation">
+    <div class="container">
+      
+        <a class="navbar-brand title font-weight-lighter" href="/">
+          Tony Chen
+        </a>
+      
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/">about
+              
+            </a>
+          </li>
+
+          <!-- Other pages -->
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/blog/">blog
+                    
+                  </a>
+                </li>
+              
+            
+          
+          
+            <!-- Research notes: only shown on research-notes pages, never on the homepage -->
+            <li class="nav-item active">
+              <a class="nav-link" href="/research-notes/">research notes</a>
+            </li>
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+    <!-- Scrolling Progress Bar -->
+    <progress id="progress" value="0">
+      <div class="progress-container">
+        <span class="progress-bar"></span>
+      </div>
+    </progress>
+  
+</header>
+
+
+    <div class="container rn-host" role="main">
+<style>
+
+
+.rn { --text: #1f2328; --text-2: #57606a; --border: #e5e7eb; --line: #edf0f3; --theme: #286ee0; --hl: #fff1b8; max-width: 760px; margin: 0 auto; padding: 64px 24px 120px; font-size: 16.5px; line-height: 1.72; }
+.rn a { color: var(--theme); text-decoration: none; }
+.rn .meta { font-size: 14px; color: var(--text-2); margin-bottom: 14px; }
+.rn h1 { font-size: 36px; line-height: 1.2; letter-spacing: -0.02em; font-weight: 650; margin: 0 0 14px; }
+.rn h2 { font-size: 27px; line-height: 1.3; letter-spacing: -0.01em; font-weight: 650; margin: 60px 0 12px; }
+.rn p { margin: 0 0 16px; }
+.rn b { font-weight: 600; }
+.rn ul, .rn ol { padding-left: 22px; margin: 0 0 16px; }
+.rn li { margin-bottom: 6px; }
+.rn .rn-panel { background: #f4f6f8; border-radius: 10px; padding: 20px 24px 22px; margin: 28px calc(50% - min(550px, 50vw - 24px)) 34px; }
+.rn .rn-panel.col { margin-left: 0; margin-right: 0; }
+.rn .ptitle { font-weight: 650; font-size: 17px; line-height: 1.4; margin: 0 0 4px; }
+.rn .stats { font-size: 14px; margin: 0 0 14px; }
+.rn .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.rn .ex { background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; font-size: 14px; line-height: 1.6; min-width: 0; overflow-wrap: anywhere; }
+.rn .ex .co { font-weight: 600; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.rn .ex .hub { font-size: 12px; font-weight: 600; color: #fff; background: var(--theme); border-radius: 4px; padding: 0 6px; }
+.rn .ex .w { font-size: 12.5px; font-weight: 500; color: var(--text-2); white-space: nowrap; }
+.rn .ex .when { font-size: 13px; color: var(--text-2); margin-bottom: 6px; }
+.rn .gap { color: var(--text-2); }
+.rn mark { background: var(--hl); color: inherit; padding: 1px 2px; border-radius: 3px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.rn .why { margin: 16px 0 0; padding-top: 12px; border-top: 1px solid #dfe3e8; }
+.rn .why .whead { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin-bottom: 8px; }
+.rn .why .whead b { font-size: 16px; }
+.rn .why .whead .by { font-size: 13px; color: var(--text-2); }
+.rn .why .wrow { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 14px; padding: 9px 0; border-top: 1px solid #e5e9ee; }
+.rn .why .wrow:first-of-type { border-top: 0; padding-top: 2px; }
+.rn .why .wlab { font-size: 13.5px; font-weight: 600; padding-top: 2px; }
+.rn .why .wtxt { max-width: 780px; font-size: 15.5px; line-height: 1.65; }
+.rn .why .take .wtxt { font-weight: 600; }
+.rn .toc li { margin-bottom: 2px; }
+.rn svg text { font-family: 'Inter', sans-serif; }
+@media (max-width: 700px) {
+  .rn { padding: 36px 16px 80px; font-size: 16px; }
+  .rn h1 { font-size: 28px; }
+  .rn h2 { font-size: 22px; margin-top: 44px; }
+  .rn .rn-panel { padding: 14px 12px 16px; border-radius: 8px; margin-left: -4px; margin-right: -4px; }
+  .rn .grid { grid-template-columns: 1fr; }
+  .rn .why .wrow { grid-template-columns: 1fr; gap: 2px; }
+  .rn .why .wtxt { font-size: 15px; }
+}
+</style>
+<article class="rn">
+  <div class="meta">Tony Chen · September 2026</div>
+  <h1>Reading groups in one earnings week</h1>
+  <p>The <a href="../read-together/">read-together post</a> built a graph of which paragraphs from one busy week of earnings calls are worth reading
+  together. Here the whole graph is split into 1,000 groups, and the ten most tightly linked groups are read and explained.</p>
+
+  <h2>1. How the groups were made</h2>
+  <ol>
+    <li>
+<b>Paragraphs:</b> the week's 8,402 paragraphs of at least 40 words. Shorter ones are almost all
+      call boilerplate (“next question, please”, sign-offs), which otherwise form their own groups.</li>
+    <li>
+<b>Links between companies only:</b> every link between two paragraphs from the same company is removed
+      (273 JEV edges), so a group can't just be one company's call.</li>
+    <li>
+<b>JEV edges plus inferred edges:</b> where JEV was asked about a pair, its answer is the link strength. Every other pair gets its
+      best chain score (the links multiplied, times 0.7 for each extra step), so all 35,292,601
+      pairs have a strength.</li>
+    <li>
+<b>1,000 groups:</b> average-linkage clustering, which keeps merging the two groups whose members are, on average, most strongly
+      linked, until exactly 1,000 remain.</li>
+  </ol>
+  <figure class="rn-panel col">
+    <div class="ptitle">Figure 1. How big the 1,000 groups are</div>
+    <svg id="sizes" viewbox="0 0 640 220" width="100%" role="img" aria-label="Number of groups by size"></svg>
+  </figure>
+
+  <h2>2. Which groups are strongest</h2>
+  <p><b>Cohesion</b> is the measure: the average link strength over every pair of members in a group (JEV's answer where it was asked, the
+  chain estimate otherwise). A high score means any two paragraphs you pick from the group are likely worth reading together.</p>
+  <p>Two rules keep it fair. Groups must have at least 5 paragraphs, because smaller groups score higher just for being small. And they
+  must span at least 4 companies. 884 of the 1,000 groups qualify; their typical cohesion is 0.39, and the ten below all
+  score 0.45 or more. (A second measure, how much more strongly members link to each other than to the rest of the week, shares
+  5 of these ten.)</p>
+  <p><b>One thing to know before reading.</b> Each top group is one <b>hub</b> paragraph that JEV linked to every other member, while the
+  other members are joined only through the hub. That's a side effect of how the graph was built: JEV was asked about a small random sample
+  of pairs, so a paragraph's strongest partners are usually not asked about each other. Some groups share a real theme; others are held
+  together only by the hub. Each note says which.</p>
+  <ol class="toc">
+<li><a href="#g1">Sun Belt real estate: a wave of new apartments, a shortage of houses</a></li>
+<li><a href="#g2">Companies finishing cost cuts, lenders saying losses have peaked</a></li>
+<li><a href="#g3">Waiting for interest rates to move</a></li>
+<li><a href="#g4">Fewer new loans, but lenders say borrowers are paying</a></li>
+<li><a href="#g5">Easter moved into March, and it shows up in different places</a></li>
+<li><a href="#g6">Money heading south, and higher rates changing who funds projects</a></li>
+<li><a href="#g7">Spare cash when borrowing costs 6%: keep it, return it, or borrow to buy</a></li>
+<li><a href="#g8">Fixing up old equipment instead of buying new</a></li>
+<li><a href="#g9">Non-tech companies already booking savings from AI and software</a></li>
+<li><a href="#g10">Oil services: busy at sea, spare rigs on land</a></li>
+</ol>
+
+  <h2>3. The ten strongest groups</h2>
+  <p>Each paragraph is shown as the sentence around its key phrase (verbatim; cuts marked […]). The hub comes first.</p>
+  
+  <div class="case rn-panel" id="g1">
+    <div class="ptitle">1. Sun Belt real estate: a wave of new apartments, a shortage of houses</div>
+    <div class="stats">5 paragraphs from 5 companies · cohesion 0.49 · 40% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">AvalonBay <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> You know, <mark>starts in the Sun Belt are expected to peak at some point kind of mid this year</mark>, stay elevated, you know, as you get through kind of the middle of next year. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Cousins Properties <span class="w">JEV 0.77 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> Again, I think We believe that there are <mark>long-term secular trends in migration trends that will continue to favor the markets that we're invested in</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Highwoods Properties <span class="w">JEV 0.63 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Ted Klink</div>
+<div class="body">First, our portfolio has never been better. and it will continue to improve as we sell additional non-core properties and <mark>deliver our $500 million development pipeline</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">PulteGroup <span class="w">JEV 0.72 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> You know, certainly anytime there's rate fluctuations, it can cause um you know some disruption in buyer behavior but we think the fundamental um you know uh or the overall demand for housing remains incredibly strong and <mark>we're still in a very supply constrained environment</mark> um so the overall thesis about this has been a strong operating environment for the industry and this company and what's been a pretty high interest rate environment You know, we think the environment that we would expect for the balance of the year, we can continue to show, you know, success in that type of situation as well. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Tri Pointe Homes <span class="w">JEV 0.71 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> I guess, what's your take on that that issue and and if there is going to be a step higher in land cost when should we expect that to start affecting the gross margin yeah jay good question this is tom um we've definitely seen approximately <mark>about a five to ten percent increase in land cross year over year</mark> depending on on markets um Thankfully, we've had enough pricing power to really be able to offset that, so we don't anticipate any headwinds going forward in margin relative to additional land costs. <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">An apartment landlord (AvalonBay), two office landlords (Cousins, Highwoods) and two homebuilders (PulteGroup, Tri Pointe).</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">The apartment landlord expects new Sun Belt apartment construction to peak in mid-2024 and weigh on rents into 2026, while the office landlord keeps betting on people moving south. The homebuilders say the opposite about houses: the market is still short of homes, buyers have got used to today's mortgage rates, and land is 5–10% dearer.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">The South is growing as promised, but it is getting too many new rental flats and too few houses at the same time, so rents there look set to stay soft while home prices hold up.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Tight: all five are about housing and property in the fast-growing southern US.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, AvalonBay; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g2">
+    <div class="ptitle">2. Companies finishing cost cuts, lenders saying losses have peaked</div>
+    <div class="stats">5 paragraphs from 5 companies · cohesion 0.47 · 40% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">Navient <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · closing · Dave</div>
+<div class="body">First, We've begun to <mark>implement a variable cost servicing model through an outsourcing relationship with MOHELA</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Phinia <span class="w">JEV 0.67 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · prepared remarks · Brady Erickson</div>
+<div class="body">
+<span class="gap">[…]</span> We continue to make good progress on the transition from our former parent and believe that we're on track to <mark>exit all material transition service agreements</mark>, or TSAs, and all contract manufacturing agreements, or CMAs, by the end of this summer. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Silicon Labs <span class="w">JEV 0.72 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> saying, look, it hurts and it's difficult to make these decisions, but look at it through a lens of managing the portfolio and how do we use this difficult environment, <mark>not just to cut and have less revenue, but to cut and use it to transform and restructure</mark>, re-change how we approach things. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Synchrony <span class="w">JEV 0.66 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> So, again, I think we have been somewhat clear that we believe charge-offs, when you look at the delinquency trend as we entered into 2024, that <mark>charge-offs will peak in the first half of the year and decline</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">United Community Banks <span class="w">JEV 0.69 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Lynn Harten</div>
+<div class="body">Deposits appear relatively flat on an overall level, but as Jefferson will discuss, we had solid core deposit growth outside of our higher rate public funds portfolio. <mark>Credit continues to perform well.</mark> <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">A student-loan servicer (Navient), an auto-parts maker spun off from its parent (Phinia), a chip designer (Silicon Labs), a store-card lender (Synchrony) and a regional bank (United Community).</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">Three describe turning fixed costs into flexible ones: Navient hands its servicing work to an outside firm, Phinia ends the service deals with its former parent, Silicon Labs used the downturn to restructure rather than just cut. The two lenders say consumer loan losses are peaking now and should fall later in the year.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">Companies are finishing their restructurings just as the credit squeeze that forced them starts to ease.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Partial: two themes (cost restructuring, consumer credit) joined through Navient, which is both.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, Navient; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g3">
+    <div class="ptitle">3. Waiting for interest rates to move</div>
+    <div class="stats">6 paragraphs from 6 companies · cohesion 0.46 · 40% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">Raymond James <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q2 · after market close · prepared remarks · Paul Riley</div>
+<div class="body">Overall, despite some of the near-term challenges, we believe the investments we've made in the capital markets business have <mark>positioned us well for growth once the market and rate environment become conducive</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Allegion <span class="w">JEV 0.70 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · prepared remarks · John Stone</div>
+<div class="body">
+<span class="gap">[…]</span> Residential markets remained soft with our business down low single digits in the quarter as <mark>higher interest rates continued to impact new and existing home sales</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Atlantic Union <span class="w">linked by a chain</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · prepared remarks · John Asbury</div>
+<div class="body">Last, I'd like to thank our teammates at Atlantic Union Bank, whose responses to the annual Top Workplaces USA survey landed us <mark>a second consecutive National Top Workplace USA award</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Bank of Hawaii <span class="w">JEV 0.74 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> I was just wondering if there was anything unusual or any kind of puts and takes to think about as we think about the dynamics of <mark>the repricing of your book as we look ahead in a higher for longer environment</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">MSCI <span class="w">JEV 0.64 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> Yeah, I don't have an exact number for total addressable market in front of me right now. But what I would say is that <mark>the range of use cases for customization is very broad</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">OSI Systems <span class="w">JEV 0.67 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q3 · during market hours · prepared remarks · Deepak Chopra</div>
+<div class="body">
+<span class="gap">[…]</span> First, <mark>Revenues increased 34% year-over-year to a Q3 record of $405 million</mark>, driven by the performance in our security division where revenues were up 60% year-over-year. <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">An investment firm (Raymond James), a lock maker (Allegion), two regional banks (Atlantic Union, Bank of Hawaii), an index provider (MSCI) and a security-scanner maker (OSI Systems).</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">Three are waiting on rates: Raymond James expects growth once the rate environment turns, Bank of Hawaii discusses loans repricing in a “higher for longer” world, and Allegion blames high rates for weak home sales. The other three are simply reporting good news (a record quarter, a workplace award, a fast-growing product).</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">Little beyond the fact that rates, not demand, are what several of these companies are waiting for.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Loose: the weakest of the ten. The hub (Raymond James) links to each member for a different reason.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">6 direct JEV links among the members; the rest are chains.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g4">
+    <div class="ptitle">4. Fewer new loans, but lenders say borrowers are paying</div>
+    <div class="stats">6 paragraphs from 6 companies · cohesion 0.46 · 33% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">FICO <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q2 · after market close · qa</div>
+<div class="body">
+<span class="gap">[…]</span> Good afternoon. So I want to go back to the card P loan and other <mark>origination revenue down nine</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">AutoNation <span class="w">JEV 0.68 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · prepared remarks</div>
+<div class="body">
+<span class="gap">[…]</span> The business is <mark>on track for over $700 million in origination in 2024</mark>, all from AutoNation stores, and we expect the portfolio to more than double during 2024. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Enova <span class="w">JEV 0.68 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · after market close · prepared remarks · Steve Cunningham</div>
+<div class="body">Notably, <mark>net charge-offs remain well below pre-COVID levels</mark> at 16. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">MSCI <span class="w">JEV 0.64 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Bear Pettit</div>
+<div class="body">As we have recently seen, these tools can become even more relevant amid market volatility, technical pressures, and geopolitical uncertainties. In the first quarter, <mark>analytics posted revenue growth of 12%</mark> and our highest Q1 in a decade for recurring new sales. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Microsoft <span class="w">JEV 0.71 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q3 · after market close · qa</div>
+<div class="body">
+<span class="gap">[…]</span> I want to follow up on the AI, obviously. We're seeing <mark>companies shifting their IT spending to invest in and learn about AI rather than receiving additional budgets for AI</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">PennyMac <span class="w">JEV 0.75 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · after market close · prepared remarks · Dan Perotti</div>
+<div class="body">Turning to our production segment, pre-tax income was $36 million, down slightly from $39 million in the prior quarter. <mark>Total acquisition and origination volumes were $22 billion in unpaid principal balance, down 19% from the prior quarter</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">FICO (the credit scores lenders check before each loan), a mortgage lender (PennyMac), a car dealer with its own finance arm (AutoNation), a subprime lender (Enova), an index and analytics firm (MSCI) and Microsoft.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">FICO's revenue from new-loan checks is down 9%, and PennyMac's mortgage volumes fell 19% in a quarter: fewer loans are being made. Yet AutoNation's own lending arm is growing fast and Enova says losses are well below pre-COVID levels.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">Overall lending is shrinking, but lenders who already own the customer relationship are gaining share without taking on bad credit. FICO's dip is the industry-wide echo of the mortgage slump.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Partial: four members are about lending; Microsoft and MSCI connect only through spending on data tools.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, FICO; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g5">
+    <div class="ptitle">5. Easter moved into March, and it shows up in different places</div>
+    <div class="stats">5 paragraphs from 5 companies · cohesion 0.46 · 40% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">HCA Healthcare <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> <mark>March was a difficult calendar for purposes of elective outpatient business and elective inpatient business</mark> simply because We had less working days, business days, and we had the Easter holidays during that time period. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">California Water <span class="w">JEV 0.70 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> No, exactly, you are, yeah. <mark>The cash flows won't come in until 25 and 26.</mark> <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">JetBlue <span class="w">JEV 0.63 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Marty St</div>
+<div class="body">
+<span class="gap">[…]</span> We continue to cycle against a difficult revenue comparison given the unprecedented demand we experienced throughout the first half of 2023 and, as mentioned, elevated energy supply in the Latin region. <mark>The second quarter is further challenged by the Easter holiday shift.</mark> <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Option Care Health <span class="w">JEV 0.70 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> We tried to provide some subjective color around some of the things affecting, but Honestly, given the fact <mark>we're still in remediation mode</mark> and it's still a dynamic environment, we're just not in a position to provide a simple dollar amount for the impact. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Teladoc <span class="w">JEV 0.65 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · after market close · qa</div>
+<div class="body">
+<span class="gap">[…]</span> On your question on ad spend, the way I would think about it is as follows. When we, in Q1, and especially early in Q1, We did see <mark>pressure on our advertising yield</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">A hospital chain (HCA), an airline (JetBlue), a water utility (California Water), a home-infusion provider (Option Care) and Teladoc.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">HCA says March was soft for planned procedures because Easter fell in March and there were fewer working days. JetBlue says the same Easter shift makes its April–June quarter look weaker.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">One holiday moved and it shows up as a weak March for hospitals and a weak second quarter for an airline, so part of this spring's swings is the calendar, not demand. Compare these companies' numbers with Easter taken out.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Partial: the hospital–airline link is sharp; the other three are about timing of cash and costs more generally.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, HCA Healthcare; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g6">
+    <div class="ptitle">6. Money heading south, and higher rates changing who funds projects</div>
+    <div class="stats">7 paragraphs from 7 companies · cohesion 0.45 · 29% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">ServisFirst <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · after market close · qa</div>
+<div class="body">
+<span class="gap">[…]</span> In terms of just the, you know, the business mix of the pipeline, just curious as to, you know, what types of opportunities you're seeing and geographically if there's any concentration. Well, you know, <mark>if you had to pick one area that's strongest, you'd say Florida</mark>, obviously, you know. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Ameris <span class="w">JEV 0.77 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> I think a lot of what we see was seasonality because of the markets we're in too. So <mark>being heavy in Georgia and Florida and the Carolinas</mark>, and mid-Atlantic, those southeastern markets have really paid dividends to us. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Bread Financial <span class="w">JEV 0.78 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · prepared remarks · Ralph Andretta</div>
+<div class="body">On the economic front, <mark>consumer spending in the first quarter continued to moderate given persistent inflation and higher interest rates</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">CBIZ <span class="w">JEV 0.63 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Ware Grove</div>
+<div class="body">
+<span class="gap">[…]</span> 8 million in 2027 for these estimated earn-out payments. <mark>Deploying capital for strategic acquisition purposes continues to be our highest priority.</mark> <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Deutsche Bank <span class="w">JEV 0.68 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> I think your <mark>annualized growth in wealth management and private banking is running at around 8%</mark> annualized from that new money and I'm really hard pressed to come up with any competitor getting close to that kind of growth. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Gaming and Leisure Properties <span class="w">JEV 0.73 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> if we go turn back the clock a few years, the borrowing cost was always significantly inside of whatever cap rate we could offer from a financing perspective. <mark>That's no longer the slam dunk that it used to be.</mark> <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">M/I Homes <span class="w">JEV 0.67 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Phil</div>
+<div class="body">
+<span class="gap">[…]</span> During the first quarter, <mark>we spent $108 million on land purchases and $119 million on land development</mark> for a total land spend of $227 million. <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">Two southeastern banks (ServisFirst, Ameris), a homebuilder (M/I Homes), a casino landlord (Gaming and Leisure Properties), a store-card issuer (Bread Financial), an accounting firm (CBIZ) and Deutsche Bank.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">Both banks say their best loan growth is in Florida and the Southeast, and the homebuilder spent $227 million on land in one quarter. Meanwhile the casino landlord says high borrowing costs now push its tenants to it for financing instead of banks, and the card issuer sees shoppers cutting big purchases.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">Money keeps flowing into the fast-growing South, but high rates are shifting who pays for projects, from bank loans toward landlords and firms with cheap capital.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Partial: a real Southeast growth theme, plus members linked through rates in general.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, ServisFirst; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g7">
+    <div class="ptitle">7. Spare cash when borrowing costs 6%: keep it, return it, or borrow to buy</div>
+    <div class="stats">5 paragraphs from 5 companies · cohesion 0.45 · 40% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">Synchrony <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> We generate a lot of capital over the calendar year. And <mark>if we have the opportunity to do something opportunistic, we certainly have the financial resources to do it</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">The Hartford <span class="w">JEV 0.62 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> Yeah, I would agree with that. You know, as we go through 24, you might see a slight uptick in Q2, because as we said, <mark>we are turning on marketing</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Piper Sandler <span class="w">JEV 0.75 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · prepared remarks · Kate</div>
+<div class="body">
+<span class="gap">[…]</span> We remain committed to returning capital to shareholders through market cycles. During the first quarter of 2024, <mark>we returned an aggregate of $88 million to shareholders through buybacks and dividends</mark> paid. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Roper Technologies <span class="w">JEV 0.66 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> So, you know, we assume around $75 million of EBITDA, and then the interest is going to be, you know, <mark>$1.86 billion at call it 6%, which is our current revolver rate</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">TAL Education <span class="w">JEV 0.63 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q4 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> So first of all, just to address this past quarter, as you mentioned and I alluded to earlier on the call, <mark>we launched two new products in this quarter</mark>, XPAT2 Pro and XPAT2 Pro Max. <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">A card lender (Synchrony), an investment bank (Piper Sandler), a software group (Roper), an insurer (Hartford) and a Chinese education company (TAL).</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">Synchrony keeps spare capital ready for a bargain acquisition like the one it just made; Piper Sandler hands its cash back through buybacks and dividends; Roper borrowed $1.86 billion at about 6% to buy ProCare, which lowers its earnings this year.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">Three answers to the same question, and Roper shows the price of the third: an acquisition that only pays off from 2025.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Partial: three members show the choice clearly; Hartford and TAL connect loosely.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, Synchrony; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g8">
+    <div class="ptitle">8. Fixing up old equipment instead of buying new</div>
+    <div class="stats">5 paragraphs from 5 companies · cohesion 0.45 · 40% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">NOV <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Jose Bayardo</div>
+<div class="body">
+<span class="gap">[…]</span> Additionally, as we dig deeper into the stack for reactivations and the average age of the operating fleet increases, <mark>reactivations, recertifications, and upgrades become more complex</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Antero Resources <span class="w">JEV 0.69 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · prepared remarks · Dave Canalongo</div>
+<div class="body">
+<span class="gap">[…]</span> The start of 2024 demonstrated improved fundamentals for liquids. <mark>Ongoing geopolitical tension, particularly in the Middle East, has increased the risk premium on crude pricing</mark> in 2024 year-to-date. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Fortive <span class="w">JEV 0.65 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Chuck</div>
+<div class="body">Moving on to precision technologies, core revenue in the quarter was down 2%, driven by <mark>normalizing demand at Tektronix</mark> and Sensi. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">SAP <span class="w">JEV 0.66 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · after market close · prepared remarks · Christian Klein</div>
+<div class="body">
+<span class="gap">[…]</span> The land and expand strategy works beautifully. <mark>Every customer right now has to redesign core processes end-to-end</mark> to master the business transformation in their industry. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">WM <span class="w">JEV 0.66 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Jim Fish</div>
+<div class="body">
+<span class="gap">[…]</span> Shifting to our sustainability businesses, during the quarter we delivered growth projects across the recycling and renewable energy businesses. This includes <mark>completing a large recycling upgrade in Germantown, Wisconsin</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">A drilling-equipment maker (NOV), a gas producer (Antero), an industrial-technology group (Fortive), SAP and a waste company (WM).</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">NOV says rigs are ageing and new ones are too expensive to build, so owners spend on repairs and upgrades instead. WM is upgrading its recycling plants and SAP says customers must redesign their core processes.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">A loose theme of upgrading what exists rather than building new; the oil-price and test-equipment members connect only through the hub.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Loose: a thin shared idea, held together by the hub (NOV).</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, NOV; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g9">
+    <div class="ptitle">9. Non-tech companies already booking savings from AI and software</div>
+    <div class="stats">5 paragraphs from 5 companies · cohesion 0.45 · 40% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">IMAX <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> And so through all of those sort of improvements, as well as <mark>incorporating AI, which we have in some of our processes as well for remastering</mark>, we are getting the opportunity to realize sustainable costs and actually reducing our cost for film as time goes on. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Fortive <span class="w">JEV 0.69 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Jim Lika</div>
+<div class="body">
+<span class="gap">[…]</span> The Florida software system is improving our feature on time delivery as our operating companies are seeing a <mark>greater than 20% acceleration in software development time using GenAI</mark>, creating bandwidth for higher-value work and enabling faster innovation for our customers. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">OSI Systems <span class="w">JEV 0.65 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q3 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> You know, with these two large contracts right now, we're delivering substantial product revenue growth. And the <mark>product revenues inherently carry a lower gross margin than service</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Skechers <span class="w">JEV 0.69 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · after market close · qa</div>
+<div class="body">
+<span class="gap">[…]</span> Good to hear. John, your 10K calls out that you're going to <mark>embark on a multi-year ERP implementation</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Tractor Supply <span class="w">JEV 0.63 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Hal Lawton</div>
+<div class="body">
+<span class="gap">[…]</span> It is great for our DC network to have this new capacity to better position our inventory and better service our stores, all the while allowing us to reduce our freight costs. <mark>Our supply chain investments over the last four years have provided us with material structural gross margin benefit</mark> from the reduction in STEM miles.</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">IMAX, an industrial-technology group (Fortive), a security-scanner maker (OSI Systems), Skechers and Tractor Supply.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">IMAX says AI in its film remastering has kept per-film costs flat since 2018 despite more films; Fortive says generative AI speeds its software work by more than 20%; Tractor Supply's new distribution centres cut freight costs; Skechers is starting a multi-year systems overhaul.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">In spring 2024, companies well outside the tech industry were already reporting AI and software savings as results, not just plans.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Fairly tight: four of five describe margin gains from technology and process investments.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, IMAX; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+  <div class="case rn-panel" id="g10">
+    <div class="ptitle">10. Oil services: busy at sea, spare rigs on land</div>
+    <div class="stats">5 paragraphs from 5 companies · cohesion 0.45 · 40% of member pairs asked directly</div>
+    <div class="grid">
+<div class="ex">
+<div class="co">Helmerich &amp; Payne <span class="hub">hub</span>
+</div>
+<div class="when">fiscal 2024 Q2 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> <mark>The rigs that we have idled over the last year are rigs, at least in my view, would be ready to go to work</mark>, would not require much startup expense. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Helix Energy <span class="w">JEV 0.72 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Eric Staffelt</div>
+<div class="body">
+<span class="gap">[…]</span> Moving to robotics. segment continues to benefit from <mark>tight markets where oil and gas and renewables markets are extremely active, competing for assets</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">IDEX <span class="w">JEV 0.62 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · qa</div>
+<div class="body">
+<span class="gap">[…]</span> So half of it is broadly industrial, again, more like FMT and the rest of IDEX. And I think they're like in those other areas, I'd say that <mark>these stocking trends are largely past us</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">L3Harris <span class="w">JEV 0.62 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · before market open · qa</div>
+<div class="body">
+<span class="gap">[…]</span> You know, our production deliveries are tracking. <mark>We have a ramp coming up in production here starting next month</mark>. <span class="gap">[…]</span>
+</div>
+</div>
+<div class="ex">
+<div class="co">Nabors <span class="w">JEV 0.70 with hub</span>
+</div>
+<div class="when">fiscal 2024 Q1 · during market hours · prepared remarks · Tony Petrello</div>
+<div class="body">
+<span class="gap">[…]</span> This incremental margin is significant. <mark>We generate this margin with limited capital spending</mark>, so the returns are impressive. <span class="gap">[…]</span>
+</div>
+</div>
+</div>
+    <div class="why">
+<div class="whead">
+<b>What reading this group tells you</b><span class="by">written by Opus 5.5</span>
+</div>
+<div class="wrow ">
+<div class="wlab">What's in it</div>
+<div class="wtxt">An offshore vessel operator (Helix), two US land drillers (Helmerich &amp; Payne, Nabors), a pumps and instruments maker (IDEX) and a defence contractor (L3Harris).</div>
+</div>
+<div class="wrow ">
+<div class="wlab">What they say</div>
+<div class="wtxt">Helix says oil, gas and wind projects compete for its ships, so offshore capacity is tight. Helmerich &amp; Payne says its idle US land rigs could go back to work with little restart cost, and Nabors earns extra margin from software on existing rigs with little new spending.</div>
+</div>
+<div class="wrow take">
+<div class="wlab">Takeaway</div>
+<div class="wtxt">A two-speed market. Offshore is short of capacity, but US land drilling has spare rigs ready, so a pick-up in US drilling can be met quickly and cheaply, which limits how far land-rig prices can rise.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">How tight</div>
+<div class="wtxt">Partial: three oil-service members line up; IDEX and L3Harris join through the hub's recovery talk.</div>
+</div>
+<div class="wrow ">
+<div class="wlab">Shape</div>
+<div class="wtxt">Every direct JEV link in this group goes through the hub, Helmerich &amp; Payne; the other members are joined to each other by chains through it.</div>
+</div>
+</div>
+  </div>
+</article>
+<script>
+(function () {
+  const NS = "http://www.w3.org/2000/svg", svg = document.getElementById("sizes"), bins = [["1", 43], ["2\u20134", 73], ["5\u20137", 345], ["8\u201310", 289], ["11\u201315", 192], ["16\u201320", 51], ["21+", 7]];
+  const el = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; };
+  const txt = (x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 13, fill: "#1f2328" }, a)); t.textContent = s; };
+  const L = 40, W = 580, T = 20, H = 150, mx = Math.max(...bins.map(b => b[1])), bw = W / bins.length;
+  bins.forEach(([lab, n], i) => { const h = H * n / mx, x = L + i * bw;
+    el("rect", { x: x + 6, y: T + H - h, width: bw - 12, height: h, rx: 3, fill: "#286ee0" });
+    txt(x + bw / 2, T + H - h - 6, n.toLocaleString(), { "text-anchor": "middle", "font-weight": 600 });
+    txt(x + bw / 2, T + H + 18, lab, { "text-anchor": "middle", fill: "#57606a" }); });
+  el("line", { x1: L, x2: L + W, y1: T + H, y2: T + H, stroke: "#c9d1d9" });
+  txt(L + W / 2, T + H + 40, "paragraphs in the group", { "text-anchor": "middle", fill: "#57606a" });
+})();
+</script>
+
+</div>
+
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="/assets/js/mdb.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    
+
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
+
+
+
+<!-- Bootstrap Table -->
+
+
+<!-- Load Common JS -->
+<script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script>
+<script defer src="/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
+
+<!-- Jupyter Open External Links New Tab -->
+<script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script>
+
+
+
+    
+
+
+
+    
+  <!-- Scrolling Progress Bar -->
+  <script type="text/javascript">
+    /*
+     * This JavaScript code has been adapted from the article
+     * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar,
+     * published on the website https://css-tricks.com on the 7th of May, 2014.
+     * Couple of changes were made to the original code to make it compatible
+     * with the `al-foio` theme.
+     */
+    const progressBar = $('#progress');
+    /*
+     * We set up the bar after all elements are done loading.
+     * In some cases, if the images in the page are larger than the intended
+     * size they'll have on the page, they'll be resized via CSS to accomodate
+     * the desired size. This mistake, however, breaks the computations as the
+     * scroll size is computed as soon as the elements finish loading.
+     * To account for this, a minimal delay was introduced before computing the
+     * values.
+     */
+    window.onload = function () {
+      setTimeout(progressBarSetup, 50);
+    };
+    /*
+     * We set up the bar according to the browser.
+     * If the browser supports the progress element we use that.
+     * Otherwise, we resize the bar thru CSS styling
+     */
+    function progressBarSetup() {
+      if ('max' in document.createElement('progress')) {
+        initializeProgressElement();
+        $(document).on('scroll', function () {
+          progressBar.attr({ value: getCurrentScrollPosition() });
+        });
+        $(window).on('resize', initializeProgressElement);
+      } else {
+        resizeProgressBar();
+        $(document).on('scroll', resizeProgressBar);
+        $(window).on('resize', resizeProgressBar);
+      }
+    }
+    /*
+     * The vertical scroll position is the same as the number of pixels that
+     * are hidden from view above the scrollable area. Thus, a value > 0 is
+     * how much the user has scrolled from the top
+     */
+    function getCurrentScrollPosition() {
+      return $(window).scrollTop();
+    }
+
+    function initializeProgressElement() {
+      let navbarHeight = $('#navbar').outerHeight(true);
+      $('body').css({ 'padding-top': navbarHeight });
+      $('progress-container').css({ 'padding-top': navbarHeight });
+      progressBar.css({ top: navbarHeight });
+      progressBar.attr({
+        max: getDistanceToScroll(),
+        value: getCurrentScrollPosition(),
+      });
+    }
+    /*
+     * The offset between the html document height and the browser viewport
+     * height will be greater than zero if vertical scroll is possible.
+     * This is the distance the user can scroll
+     */
+    function getDistanceToScroll() {
+      return $(document).height() - $(window).height();
+    }
+
+    function resizeProgressBar() {
+      progressBar.css({ width: getWidthPercentage() + '%' });
+    }
+    // The scroll ratio equals the percentage to resize the bar
+    function getWidthPercentage() {
+      return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+    }
+  </script>
+
+
+    
+
+  </body>
+</html>
