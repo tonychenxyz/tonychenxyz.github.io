@@ -47,7 +47,7 @@
     <div class="anim" data-segs='[[21.7, 30.6, 1.6], [30.6, 33.2, 1, "l03"]]' data-wide-from="29.86" role="img" aria-label="Someone asks Claude for a wedding RSVP site; Claude builds it, it flies out to the guests, and they all start using it."></div>
   </figure>
 
-  <p>And they use it in all kinds of ways nobody planned for. Grandma opens it on an old iPad with the text turned way up. Your cousin opens it from Tokyo, fourteen hours ahead. Two friends press send at the exact same second. Each of them runs into a different bug.</p>
+  <p>And they use it in all kinds of ways nobody planned for. Grandma opens it on an old iPad with the text turned way up, your cousin opens it from Tokyo, and two friends press send at the exact same second. Each of them runs into a different bug.</p>
 
   <figure class="anim-fig">
     <div class="anim" data-segs='[[43.4, 46.2]]' data-wide-from="0" role="img" aria-label="Each guest runs into a different bug and gets frustrated."></div>
@@ -80,7 +80,7 @@
 <section id="results">
   <h2>The best agent fixes 59%</h2>
 
-  <p>Each task gives an agent the app’s code, the running app, a browser, and a single vague request, something like <q>Find and fix issues in Focalboard’s board sharing and membership.</q> That’s all it gets. We tried 15 frontier agents, and <b>the best one, Grok 4.6 in Cursor, fixed 59%</b>. Nine of the fifteen fixed fewer than half. The cost of getting there varies wildly too: agents with similar scores differ in price by more than 30×.</p>
+  <p>Each task gives an agent the app’s code, the running app, a browser, and nothing more than a vague request like <q>Find and fix issues in Focalboard’s board sharing and membership.</q> We tried 15 frontier agents, and <b>the best one, Grok 4.6 in Cursor, fixed 59%</b>. Nine of the fifteen fixed fewer than half. The cost of getting there varies wildly too: agents with similar scores differ in price by more than 30×.</p>
 
   <figure class="paper-fig wide" data-svg="leaderboard">
     <figcaption>Pass rate against mean cost per task. A task passes only if the bug is fixed and nearby features still work.</figcaption>
@@ -161,7 +161,7 @@
 <section id="time">
   <h2>More time doesn’t fix it</h2>
 
-  <p>You might think more time would help. <b>It mostly doesn’t.</b> Grok 4.6 spends about 12 minutes per task, while Qwen 3.8 Flash spends 102 and scores a little lower. Giving the same agent a bigger budget helps up to about 40 minutes, and then it flattens out.</p>
+  <p>You might expect more time to help, but <b>it mostly doesn’t</b>. Grok 4.6 spends about 12 minutes per task, while Qwen 3.8 Flash spends 102 and scores a little lower, and giving the same agent a bigger budget only helps up to about 40 minutes before it flattens out.</p>
 
   <div class="two-up charts">
     <figure class="chart-fig">
