@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SWEeper-Bench: Can Agents Discover Bugs in Interactive Software?</title>
+<meta name="description" content="200 real bugs from 200 open-source web apps. No bug report, just a browser and “find and fix issues in…”. The best of 15 agents passes 59%.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="sbtoc" aria-label="Contents">
+  <a href="#motivation"><span>01</span>The problem</a>
+  <a href="#results"><span>02</span>The headline</a>
+  <a href="#benchmark"><span>03</span>The benchmark</a>
+  <a href="#example"><span>04</span>One bug, up close</a>
+  <a href="#stumble"><span>05</span>Where it goes wrong</a>
+  <a href="#time"><span>06</span>What doesn’t help</a>
+  <a href="#table"><span>07</span>Full results</a>
+  <a href="#outlook"><span>08</span>Looking ahead</a>
+</nav>
+
+<header class="hero">
+  <canvas class="doodle hero-doodle" data-doodle="hero" aria-hidden="true"></canvas>
+  <p class="kicker">a new benchmark · October 2026</p>
+  <h1><span class="swe">SWE</span><span class="eper">eper</span>-Bench</h1>
+  <p class="subtitle">Can agents discover bugs in interactive software?</p>
+  <p class="authors">
+    <span>Yang Yao<sup>1*</sup></span><span>Haozhe Chen<sup>1*</sup></span><span>Bingyi Kang</span><span>Karthik R Narasimhan<sup>1</sup></span><span>Zhuang Liu<sup>1</sup></span>
+  </p>
+  <p class="affil"><sup>1</sup>Princeton University &nbsp;·&nbsp; <sup>*</sup>Equal contribution</p>
+  <p class="links">
+    <a class="pill" href="#" data-todo="arXiv link"><b>Paper</b></a>
+    <a class="pill" href="https://github.com/tonychenxyz/sweeperbench"><b>Code</b></a>
+    <a class="pill" href="https://huggingface.co/datasets/tonychenxyz/sweeper-bench"><b>Data</b></a>
+    <a class="pill" href="#table"><b>Leaderboard</b></a>
+  </p>
+</header>
+
+<main>
+
+<section class="tldr" id="tldr">
+  <div class="tldr-box">
+    <h2>TL;DR</h2>
+    <ul>
+      <li>Coding agents can build an app in minutes. The bugs in it are still found by the people who use it.</li>
+      <li><b>SWEeper-Bench</b> gives an agent a real web app, a browser, and one request: <q>Find and fix issues in &lt;some part of the app&gt;.</q> There is no bug report. <b>200 tasks</b>, each a real bug from a different open-source app.</li>
+      <li>The best of 15 agents, <b>Grok 4.6</b>, passes <b>59.0%</b>. Told what the bug is, agents pass about <b>96%</b>. What they lack is <em>noticing</em> the bug, not fixing it.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="video-wrap" id="video">
+  <video controls preload="metadata" poster="media/poster.jpg" playsinline>
+    <source src="media/sweeperbench.mp4" type="video/mp4">
+  </video>
+  <p class="vnote">The two-minute version. Sound on.</p>
+</section>
+
+<!-- ① ---------------------------------------------------------------- -->
+<section id="motivation">
+  <p class="sec-kicker">01 · the problem</p>
+  <h2>Users are still the testers</h2>
+
+  <p>Even the biggest software teams ship bugs that users find first. Here is one from late September:</p>
+
+  <div class="tweet-wrap">
+    <blockquote class="twitter-tweet" data-dnt="true" data-align="center">
+      <p lang="en" dir="ltr">This Glitch Can FULLY CRASH the new iPhone 18 Pro<br><br>New iOS glitch has been discovered which can make the iPhone completely UNRESPONSIVE and mess up the entire UI. Apple NEEDS to take action immediately and push a HOTFIX update ASAP.<br><br>This is not a minor visual bug. Your iPhone <a href="https://t.co/pFYqcnbnt9">pic.x.com/pFYqcnbnt9</a></p>
+      &mdash; TechDroider (@techdroider) <a href="https://twitter.com/techdroider/status/2104138643648696726">September 27, 2026</a>
+    </blockquote>
+  </div>
+
+  <p>That one got past a company with entire teams of testers. More and more software now gets built with no testers at all. You ask a coding agent for a small app, it builds one in minutes, and you send it out.</p>
+
+  <figure class="anim-fig">
+    <div class="anim" data-from="18.4" data-to="31.2" aria-label="Animation: someone asks Claude for a wedding RSVP site; Claude builds it and it flies out to the guests."></div>
+    <figcaption class="anim-cap">“Hey Claude, can you make us an RSVP site for the wedding?” A few minutes later, it’s out.</figcaption>
+  </figure>
+
+  <p>Then real people use it, each in their own way. Grandma is on an old iPad with the text turned way up. A cousin is in Tokyo. Two friends press Send at the same moment. Someone on a train taps twice. Each of them runs into something different.</p>
+
+  <div class="two-up">
+    <figure class="anim-fig">
+      <div class="anim" data-from="30.9" data-to="43.6" aria-label="Animation: the guests use the site on different devices and in different situations."></div>
+      <figcaption class="anim-cap">Every guest uses it differently.</figcaption>
+    </figure>
+    <figure class="anim-fig">
+      <div class="anim" data-from="43.6" data-to="55.0" aria-label="Animation: the guests hit bugs and get frustrated; complaints come back to you and on to Claude, and everyone waits."></div>
+      <figcaption class="anim-cap">Each finds a different bug, and everyone waits.</figcaption>
+    </figure>
+  </div>
+
+  <p>The complaints come back to you, you pass them on to the agent, and everyone waits for a fix. The users have become the test suite.</p>
+
+  <p>What if the agent went looking first? You would hand over the app with one line, <q>find and fix issues in the RSVP page</q>, and it would use the thing itself: clicking, breaking, fixing, again and again, before anyone else sees it.</p>
+
+  <figure class="anim-fig">
+    <div class="anim" data-from="55.0" data-to="69.7" aria-label="Animation: the guests are replaced by Claudes testing the app in a fast loop; then the fixed app reaches happy guests."></div>
+    <figcaption class="anim-cap">Click, break, fix, faster each round, before anyone else sees it.</figcaption>
+  </figure>
+
+  <p>Most coding benchmarks start one step too late. SWE-bench and its successors hand the agent an issue that someone has already written, so they measure diagnosis and repair but not discovery. SWEeper-Bench starts before anyone has reported anything.</p>
+
+  <figure class="paper-fig" data-svg="motivation">
+    <figcaption><b>From waiting for bug reports to sweeping for bugs.</b> (a) Existing benchmarks evaluate the stages after a user reports a bug, and that report arrives only after a slow and costly deployment. (b) In SWEeper-Bench, the agent must discover the problem itself by exploring the code and the running application, then diagnose it, fix it, and update the code before users ever encounter it.</figcaption>
+  </figure>
+</section>
+
+<!-- ② ---------------------------------------------------------------- -->
+<section id="results">
+  <p class="sec-kicker">02 · the headline</p>
+  <h2>The best agent catches 59%</h2>
+
+  <div class="stats">
+    <div class="stat"><span class="num">59.0%</span><span class="lbl">best pass rate<br><small>Grok 4.6 in Cursor</small></span></div>
+    <div class="stat"><span class="num">9<small> of </small>15</span><span class="lbl">agents pass fewer<br>than half the tasks</span></div>
+    <div class="stat good"><span class="num">~96%</span><span class="lbl">pass rate once the agent<br><small>is told what the bug is</small></span></div>
+  </div>
+
+  <p>We ran 15 frontier agents, each a model paired with its native harness (or Codex if it has none), with up to 8 hours per task. Grok 4.6 in Cursor comes first at 59.0%, which surprised us. Qwen 3.8 Flash follows at 57.5%, and three agents tie at 56.5%. Nine of the fifteen pass fewer than half of the tasks.</p>
+
+  <figure class="paper-fig wide" data-svg="leaderboard">
+    <figcaption><b>SWEeper-Bench is far from solved.</b> Pass rate versus mean cost per task for 15 agents. A task passes only if both its target and preservation behavior tests pass. Agents with similar pass rates differ in cost by more than 30×.</figcaption>
+  </figure>
+
+  <p>Two more things stand out. The failures are misses, not breakage: preservation tests pass 97.5–100% of the time, so agents rarely break what already works. They just don’t find what’s broken. And similar scores hide very different bills. Claude Opus 5 matches Claude Fable 5.1 at twice the cost, and Grok 4.6 averages 12 minutes per task where Qwen 3.8 Flash takes 102. Every number is in the <a href="#table">full table</a>.</p>
+</section>
+
+<!-- ③ ---------------------------------------------------------------- -->
+<section id="benchmark">
+  <p class="sec-kicker">03 · the benchmark</p>
+  <h2>Software engineering, with a broom</h2>
+
+  <figure class="anim-fig">
+    <div class="anim" data-from="71.2" data-to="75.3" aria-label="Animation: the letters SWE, then a broom sweeps in 'eper' and the bugs scatter."></div>
+  </figure>
+
+  <p>Each task is a real bug that was fixed in a merged pull request of an open-source web app. We roll the app back to the commit before the fix. Every task comes from a different app: 200 apps across seven domains, with a median of 4.6k GitHub stars. We picked bugs that are hard to find but obvious once seen. Any user would agree the behavior is wrong, but it only shows up if you click through the app in just the right way.</p>
+
+  <div class="two-up align-center">
+    <figure class="paper-fig" data-svg="domains">
+      <figcaption><b>200 tasks from 200 web apps,</b> in seven domains. Examples are the two most-starred repositories in each domain.</figcaption>
+    </figure>
+    <figure class="anim-fig">
+      <div class="anim" data-from="75.8" data-to="84.0" aria-label="Animation: one task card clicks through to its error, then the camera pulls back to all 200 cards, each ending on a bug."></div>
+      <figcaption class="anim-cap">200 apps, 200 bugs, each behind the right sequence of clicks.</figcaption>
+    </figure>
+  </div>
+
+  <h3>What the agent gets</h3>
+  <div class="gets">
+    <ul class="checks">
+      <li>the app’s source code</li>
+      <li>the app, running, and reflecting its edits</li>
+      <li>a Chromium browser with Playwright, and a shell</li>
+      <li>one sentence naming a product area:</li>
+    </ul>
+    <ul class="crosses">
+      <li>the issue or the pull request</li>
+      <li>the reference fix or the repo history</li>
+      <li>our behavior tests</li>
+      <li>the internet</li>
+    </ul>
+  </div>
+  <p class="prompt-card"><span class="prompt-lbl">The entire task description</span>Find and fix issues in Focalboard’s board sharing and membership.</p>
+  <p>That is all. The agent has to work out how the app is used, guess what might go wrong, and design tests that expose it, the way you would if a colleague asked you to sweep a feature before release.</p>
+
+  <h3>Graded the way a user would grade it</h3>
+  <p>When the agent stops, we apply its code changes to a fresh copy of the app. A verifier agent then uses the app through the browser, without seeing any code, and follows two behavior tests written as step-by-step instructions. The <b>target test</b> reproduces the bug and checks that it’s gone. The <b>preservation test</b> checks that nearby features still work. A task passes only if both pass, so any fix that works for the user counts, however it is written.</p>
+
+  <figure class="paper-fig wide frame-fig" data-frame="pipeline" data-width="752">
+    <figcaption><b>Task execution and verification.</b> Given only the buggy codebase and an open-ended prompt, the agent explores the code and the running app in a sandbox, discovers the bug, and produces a patch. An agentic verifier applies the patch to a fresh copy of the app and runs predefined behavior tests through the browser, judging only what a user would observe.</figcaption>
+  </figure>
+
+  <details class="aside">
+    <summary>How reliable is the verifier?</summary>
+    <p>We ran both tests on every buggy version and every reference fix, with three verifier setups, three times each. A perfect verifier fails the target test on all buggy versions and passes everything else. All three setups come within one point of that, with run-to-run standard deviation of at most 0.8 points. We use the cheapest, GPT-5.6 Luna in Codex.</p>
+    <div class="table-scroll"><table class="mini">
+      <thead><tr><th rowspan="2">Verifier</th><th colspan="2">Buggy version</th><th colspan="2">Reference fix</th><th rowspan="2">Cost / task</th></tr>
+      <tr><th>Target ↓</th><th>Preserv. ↑</th><th>Target ↑</th><th>Preserv. ↑</th></tr></thead>
+      <tbody>
+        <tr><td><img class="logo" src="anim/assets/logos/openai.svg" alt="">GPT-5.6 Luna, Codex</td><td>0.2 ± 0.3</td><td>99.2 ± 0.8</td><td>99.8 ± 0.3</td><td>99.3 ± 0.3</td><td>$0.16</td></tr>
+        <tr><td><img class="logo" src="anim/assets/logos/openai.svg" alt="">GPT-5.6 Luna, Browser Use</td><td>0.8 ± 0.3</td><td>99.8 ± 0.3</td><td>99.8 ± 0.3</td><td>99.7 ± 0.3</td><td>$0.64</td></tr>
+        <tr><td><img class="logo" src="anim/assets/logos/claude-color.svg" alt="">Claude Sonnet 5, Browser Use</td><td>0.2 ± 0.3</td><td>99.8 ± 0.3</td><td>99.8 ± 0.3</td><td>100.0 ± 0.0</td><td>$3.84</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+</section>
+
+<!-- ④ ---------------------------------------------------------------- -->
+<section id="example">
+  <p class="sec-kicker">04 · one bug, up close</p>
+  <h2>A board that never arrives</h2>
+
+  <p>Focalboard is an open-source project board, a bit like Trello. When you share a board with a teammate, it should show up in their sidebar. In the buggy version it never does. Nothing looks wrong to the person sharing, and the teammate can still open the board through a direct link. You only see the bug if you share the board, switch accounts, and look. It takes nine steps and two accounts. Step through it below; these are frames from our verifier’s own run.</p>
+
+  <div class="walk" id="walk">
+    <ol class="walk-steps" role="tablist" aria-label="Steps of the Focalboard behavior test"></ol>
+    <div class="walk-stage">
+      <div class="browser">
+        <div class="browser-bar"><i></i><i></i><i></i><span class="url">127.0.0.1:13200 · Focalboard</span><span class="who"></span></div>
+        <div class="browser-view"></div>
+      </div>
+      <div class="walk-ctrl">
+        <button class="walk-prev" aria-label="Previous step">←</button>
+        <p class="walk-text"></p>
+        <button class="walk-next" aria-label="Next step">→</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="root-cause"><span class="lbl">Root cause</span>Adding a member saves the membership but never files the board under the member’s default sidebar category. The fix is a single function call.</p>
+
+  <h3>Four agents saw it. Two called it a bug.</h3>
+  <p>Every agent got the same one-line request. We read the trajectories of four of them closely. All four reached the empty sidebar (the dashed column). What they did next differed. Click any card to read the agent’s own words.</p>
+
+  <div class="traj" id="traj"></div>
+
+  <p>Claude Opus 5’s path is the instructive one. It saw the empty sidebar, read the unit tests, found that they expect no sidebar update, and concluded the behavior was intended. The existing tests had the bug baked in, and the agent trusted them over what a user would expect.</p>
+</section>
+
+<!-- ⑤ ---------------------------------------------------------------- -->
+<section id="stumble">
+  <p class="sec-kicker">05 · where it goes wrong</p>
+  <h2>Agents find the feature, then miss the bug</h2>
+
+  <p>To see where agents stop, we split each trajectory into five stages, each requiring the ones before it. GPT-5.6 Luna reads every trajectory and, using a description written from the reference fix, judges the first three. The behavior tests give the last two.</p>
+
+  <figure class="chart-fig">
+    <div class="chart" id="chart-stages"></div>
+    <figcaption><b>The largest drop is at identifying the buggy behavior.</b> Share of trajectories reaching each stage, for 14 agents (grey) and their average (black). Hover a line to see the agent.</figcaption>
+  </figure>
+
+  <ol class="stage-notes">
+    <li><span class="pct">75.4%</span><b>Find the feature.</b> In AbanteCart, Grok 4.6 fixed phone numbers, addresses, and notifications on the profile page, but never tried the ID-photo upload where the bug was.</li>
+    <li class="drop"><span class="pct">50.0%</span><b>Identify the buggy behavior.</b> The biggest drop. Agents often reach the feature but never run the interaction that exposes the bug. In Answer, Grok 4.6 accepted and reverted answers but never opened a question through its short-ID link. Or, as in Focalboard, they trigger the failure and don’t recognize it.</li>
+    <li><span class="pct">43.8%</span><b>Diagnose the cause.</b> In SearXNG, GLM 5.3 Flash saw escaped ampersands in search suggestions but blamed client-side encoding instead of server-side HTML escaping.</li>
+    <li><span class="pct">41.0%<br>40.8%</span><b>Fix it, and keep everything else working.</b> Once agents find the cause, they usually fix it, and rarely break anything along the way.</li>
+  </ol>
+
+  <h3>Finding is the hard part</h3>
+  <p>To test this directly, we gave five agents a detailed prompt that describes the bug and the expected behavior, which is essentially a bug report. All five jump to 96.0–96.5%, and the gap between them nearly disappears. They can fix these bugs. They can’t yet find them.</p>
+  <figure class="chart-fig narrow">
+    <div class="chart" id="chart-detailed"></div>
+    <figcaption><b>Agents fix bugs reliably once told what the bug is.</b> Pass rate with the open-ended prompt versus a detailed bug description. GPT-5.6 Sol has 199 detailed-prompt tasks.</figcaption>
+  </figure>
+</section>
+
+<!-- ⑥ ---------------------------------------------------------------- -->
+<section id="time">
+  <p class="sec-kicker">06 · what doesn’t help</p>
+  <h2>More time, more clicking</h2>
+
+  <p>Agents differ in work time by almost 10×, and it doesn’t track success. Grok 4.6 and GPT-6 Astra average about 13 minutes per task. Qwen 3.8 Flash and Kimi K3 take 102 and 90 minutes for similar or lower scores. On three tasks Qwen 3.8 Flash worked for nearly the full 8 hours without producing a patch. Giving the same agent a bigger budget helps from 20 to 40 minutes, then stops helping.</p>
+
+  <div class="two-up charts">
+    <figure class="chart-fig">
+      <div class="chart" id="chart-duration"></div>
+      <figcaption><b>Working longer does not lead to higher pass rates.</b> Pass rate versus mean work time per task.</figcaption>
+    </figure>
+    <figure class="chart-fig">
+      <div class="chart" id="chart-budget"></div>
+      <figcaption><b>More time helps only up to a point.</b> Pass rate by time budget, same 40 tasks. With 40 tasks, differences past 40 minutes are not statistically significant.</figcaption>
+    </figure>
+  </div>
+
+  <p>Browser use looks the same. Agents spend 17–62% of their turns in the browser, and the share doesn’t predict the score: Qwen 3.8 Max takes 517 browser actions per task and passes 28%, while Claude Fable 5.1 uses the browser in a quarter of its turns and passes 56.5%. What matters is which scenarios an agent tries and whether it recognizes a failure when it sees one.</p>
+
+  <p>Agents also don’t reach for the browser on their own. Our default prompt asks them to test like a real user. Without that line, GPT-5.6 Luna opened a browser on 2 of 200 tasks and GLM 5.3 on 6, and both scored lower. The harness matters less than the model: GPT-5.6 Luna ranges from 35.0% to 42.5% across five harnesses, best in its native Codex.</p>
+
+  <div class="two-up minis">
+    <div class="table-scroll"><table class="mini">
+      <caption>Without the instruction to test in the browser</caption>
+      <thead><tr><th>Model</th><th>Instruction</th><th>Used browser</th><th>Pass</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="2"><img class="logo" src="anim/assets/logos/openai.svg" alt="">GPT-5.6 Luna</td><td>no</td><td>2 / 200</td><td>39.5</td></tr>
+        <tr><td>yes</td><td>200 / 200</td><td><b>42.0</b></td></tr>
+        <tr><td rowspan="2"><img class="logo" src="anim/assets/logos/zai.svg" alt="">GLM 5.3</td><td>no</td><td>6 / 200</td><td>31.5</td></tr>
+        <tr><td>yes</td><td>200 / 200</td><td><b>43.5</b></td></tr>
+      </tbody>
+    </table></div>
+    <div class="table-scroll"><table class="mini">
+      <caption>GPT-5.6 Luna in five harnesses</caption>
+      <thead><tr><th>Harness</th><th>Pass</th></tr></thead>
+      <tbody>
+        <tr><td><img class="logo" src="media/harness/codex.svg" alt="">Codex</td><td><b>42.5</b></td></tr>
+        <tr><td><img class="logo" src="media/harness/cursor.svg" alt="">Cursor</td><td>40.0</td></tr>
+        <tr><td><img class="logo" src="anim/assets/logos/moonshot.svg" alt="">Kimi Code</td><td>37.5</td></tr>
+        <tr><td><img class="logo" src="media/harness/claudecode.svg" alt="">Claude Code</td><td>35.0</td></tr>
+        <tr><td><img class="logo" src="anim/assets/logos/meta-color.svg" alt="">Muse Code</td><td>35.0</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ⑦ ---------------------------------------------------------------- -->
+<section id="table">
+  <p class="sec-kicker">07 · full results</p>
+  <h2>All fifteen agents</h2>
+  <p>Pass rates are percentages of the 200 tasks. <b>Pass</b> needs both behavior tests; <b>Target</b> and <b>Preserv.</b> report each test on its own. Time is mean ± standard deviation of agent work time per task; cost is mean cost per task. Click a column to sort.</p>
+  <div class="table-scroll"><table class="results" id="results-table"></table></div>
+</section>
+
+<!-- ⑧ ---------------------------------------------------------------- -->
+<section id="outlook">
+  <p class="sec-kicker">08 · looking ahead</p>
+  <h2>Noticing is the general skill</h2>
+
+  <figure class="anim-fig">
+    <div class="anim" data-from="112.0" data-to="125.6" aria-label="Animation: Grandma in her armchair with her iPad; Claude beside her notices a small bug before she does, and her tap on Send works."></div>
+  </figure>
+
+  <p>Most of what makes SWEeper-Bench hard has little to do with web apps. To pass, an agent has to step outside the code it is reading, picture how someone else will use the thing, try it, and notice when the result isn’t what that person would expect, even when the existing tests say everything is fine. It is the same habit that separates a careful engineer from a fast one, and it is what you would want from any agent that works without someone checking each step.</p>
+
+  <p>It is also a habit we can measure, and possibly train. Our verifier judges only what a user would see, so it accepts any fix that works, and the same setup could reward agents for testing their own work. The target is clear: agents fix about 96% of these bugs once someone describes them, and catch at most 59% on their own.</p>
+
+  <p>As agents build more software for individual people, software no QA team will ever look at, that gap is where users get stuck. We would like agents to do more than fix the bugs we report.</p>
+
+  <p class="big-question">Can they find them before we do?</p>
+
+  <p class="limits"><b>Limitations.</b> SWEeper-Bench covers web apps only, and scores one known bug per task, so it measures recall rather than precision: fixes to other real issues earn no credit. Its behavior tests check function, not visual design, ease of use, or speed. Extending it to other interactive software is a natural next step.</p>
+</section>
+
+<section id="cite">
+  <h2 class="small-h">Citation</h2>
+  <div class="bib">
+    <button class="copy" type="button">copy</button>
+<pre><code>@article{yao2026sweeperbench,
+  title   = {SWEeper-Bench: Can Agents Discover Bugs in Interactive Software?},
+  author  = {Yao, Yang and Chen, Haozhe and Kang, Bingyi and
+             Narasimhan, Karthik R and Liu, Zhuang},
+  journal = {arXiv preprint},
+  year    = {2026}
+}</code></pre>
+  </div>
+
+  <h2 class="small-h">Acknowledgments</h2>
+  <p>We thank Modal for providing the cloud sandboxes in which we ran all agent and verifier experiments.</p>
+</section>
+
+</main>
+
+<footer>
+  <canvas class="doodle foot-doodle" data-doodle="foot" aria-hidden="true"></canvas>
+  <p>SWEeper-Bench · Princeton University · 2026</p>
+</footer>
+
+<dialog class="dlg" id="dlg">
+  <button class="dlg-close" type="button" aria-label="Close">×</button>
+  <h4 class="dlg-title"></h4>
+  <div class="dlg-body"></div>
+</dialog>
+
+<script src="anim/lib.js"></script>
+<script src="anim/chars.js"></script>
+<script src="anim/scenes.js"></script>
+<script src="anim/boot.js"></script>
+<script src="data/anim_shapes.js"></script>
+<script src="data/timeline.js"></script>
+<script src="data/tasks.js"></script>
+<script src="data/results.js"></script>
+<script src="data/focal_evidence.js"></script>
+<script src="figs/motivation.js"></script>
+<script src="figs/leaderboard.js"></script>
+<script src="figs/domains.js"></script>
+<script src="figs/pipeline.js"></script>
+<script src="js/main.js"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</body>
+</html>
