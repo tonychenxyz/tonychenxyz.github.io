@@ -85,7 +85,7 @@
   </figure>
 
   <div class="table-scroll wide-table"><table class="results" id="results-table"></table></div>
-  <p class="table-note">Pass needs both behavior tests; Target and Preserv. report each on its own. Time is mean ± standard deviation per task. Click a column to sort.</p>
+  <p class="table-note"><b>Target</b>: the target behavior test passes, meaning the verifier repeats the interactions that expose the bug and sees the intended behavior. <b>Preserv.</b>: the preservation test passes, meaning nearby features still work. <b>Pass</b> requires both. All are percentages of the 200 tasks; time is mean ± standard deviation per task. Click a column to sort.</p>
 </section>
 
 <section id="benchmark">
@@ -174,15 +174,17 @@
 </section>
 
 <section id="outlook">
-  <h2>Looking ahead</h2>
+  <h2>Before we have to</h2>
+
+  <p>Picture the wedding site one more time. Before a single invitation goes out, the agent has already opened it on an old iPad with the text turned way up, tried it from the other side of the world, and pressed send twice at once. Grandma taps send, and it just works. She never knows there was a bug.</p>
 
   <figure class="anim-fig">
     <div class="anim" data-from="112.5" data-to="125.6" role="img" aria-label="Grandma in her armchair with her iPad; Claude beside her notices a small bug before she does, and her tap on Send works."></div>
   </figure>
 
-  <p>As AI builds more of the software people use, there often won’t be a testing team between the agent and the user. The agent has to <b>use what it built the way someone else would, and notice when something is off</b>, even when the existing tests pass. SWEeper-Bench measures that skill, and because its verifier only checks what a user can see, the same setup could also reward it in training.</p>
+  <p>Machines can already build for us. What we don’t know yet is whether they can <b>notice what we would notice</b>.</p>
 
-  <p class="big-question">Can agents find the bugs before we do?</p>
+  <p class="big-question">Can they find the bugs before we have to?</p>
 </section>
 
 <section id="cite">
