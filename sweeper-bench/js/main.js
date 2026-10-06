@@ -318,7 +318,15 @@ dlg.addEventListener('close', () => $$('video', dlg).forEach(v => v.pause()));
 // ---------------------------------------------------------------- four agents, one empty sidebar
 {
   const EVID = SB_DATA.focal_evidence;
-  const KIND = { act: 'browser action', out: 'page text', say: 'agent', edit: 'code edit' };
+  // what each excerpt is, marked with the paper figure's icons (and a legend under the four rows)
+  const ICON = {
+    act: '<path d="M4 2.5l8.5 5.2-3.9.9-1.9 3.7z"/>',
+    out: '<rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><path d="M4.5 6l2.2 2-2.2 2M8.5 10.5h3"/>',
+    say: '<path d="M2.5 3h11v7.5H7.5L4.5 13v-2.5h-2z"/>',
+    edit: '<path d="M10.5 2.5l3 3-7.8 7.8H2.7v-3z"/>',
+  };
+  const KIND = { act: 'Browser action (Playwright code)', out: 'Browser output (page text in terminal)', say: 'Agent message or reasoning', edit: 'Code-edit tool call' };
+  const icon = k => `<svg class="src" viewBox="0 0 16 16" aria-hidden="true">${ICON[k]}</svg>`;
   const AG = [
     { k: 'Fable', name: 'Claude Fable 5.1', logo: 'claude-color', ok: true, head: 'treated the empty sidebar as a bug and fixed it.', cards: [
       ['Joins an open board as Carol', '// carol: non-member visits open board URL', 'act'], ['Carol’s sidebar is empty', 'BOARDS No boards inside', 'out'],
@@ -347,13 +355,14 @@ dlg.addEventListener('close', () => $$('video', dlg).forEach(v => v.pause()));
     a.cards.forEach(([sum, quote, kind], i) => {
       const c = html('button', 'tcard' + (i === 1 ? ' seen' : '') + (i === 4 ? (a.ok ? ' ok' : ' no') : ''));
       c.type = 'button';
-      c.innerHTML = `${sum}<span class="q${kind === 'act' || kind === 'out' || kind === 'edit' ? ' code' : ''}">${quote}</span>`;
+      c.innerHTML = `${sum}<span class="q${kind === 'act' || kind === 'out' || kind === 'edit' ? ' code' : ''}">${quote}${icon(kind)}</span>`;
       c.title = KIND[kind];
       c.onclick = () => { const e = EVID[`${a.k}-${i}`], pre = document.createElement('pre'); pre.textContent = e.text; openModal(`${a.name} · ${e.moment} · trajectory event ${e.event}`, pre); };
       flow.append(c);
     });
     row.append(flow); host.append(row);
   }
+  host.append(html('p', 'traj-legend', Object.keys(KIND).map(k => `<span>${icon(k)}${KIND[k]}</span>`).join('')));
   // one band behind the second column: every agent got here
   const band = html('div', 'traj-band', '<span>all four saw this</span>'); host.prepend(band);
   const place = () => {
