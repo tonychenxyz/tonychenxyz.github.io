@@ -29,7 +29,7 @@
 <main>
 
 <section class="tldr">
-  <p><b>TL;DR</b>&ensp;AI can now build you an app in minutes, but the bugs in that app still get found the old way: by the people using it. SWEeper-Bench asks whether an agent can <b>find and fix those bugs first</b>. It’s 200 real bugs from 200 open-source web apps, each one hidden behind a particular sequence of clicks. The agent doesn’t get a bug report, just a request like <q>find and fix issues in board sharing</q>. The best of 15 frontier agents fixes 59% of them.</p>
+  <p><b>TL;DR</b>&ensp;AI can now build you an app in minutes, but the bugs in that app still get found the old way: by the people using it. SWEeper-Bench asks whether an agent can <b>find and fix those bugs first</b>. The benchmark is built from 200 real bugs in 200 open-source web apps, each one hidden behind a particular sequence of clicks. Instead of a bug report, the agent only gets a broad request such as <q>find and fix issues in board sharing</q>, and has to discover the bug on its own. The best of 15 frontier agents fixes 59% of the bugs.</p>
 </section>
 
 <section class="video-wrap">
@@ -53,7 +53,7 @@
     <div class="anim" data-segs='[[43.4, 46.2]]' data-wide-from="0" role="img" aria-label="Each guest runs into a different bug and gets frustrated."></div>
   </figure>
 
-  <p>What makes bugs like these so hard to catch is that you can’t see them <b>in the code</b>. Read it line by line and it looks fine, and the tests pass. The bug only shows up when a real person uses the app on a particular device, in a particular order, or at the same moment as someone else. You can’t read your way to it — you have to use the app.</p>
+  <p>What makes bugs like these so hard to catch is that you can’t see them <b>in the code</b>. Read it line by line and it looks fine, and the tests pass. The bug only shows up when a real person uses the app on a particular device, in a particular order, or at the same moment as someone else. To find it, you have to actually use the app.</p>
 
   <p>So right now, <b>users are the testers</b>. They hit the bug, they complain, the complaint makes its way back to whoever built the thing, and everyone waits for a fix. It happens to the biggest companies in the world:</p>
 
@@ -64,13 +64,13 @@
     </blockquote>
   </div>
 
-  <p>This loop was already slow when people wrote all the software. Now AI writes apps on the fly, often for a handful of people and with no testing team anywhere, so even more of the finding falls on users. What we want instead is for the agent that built the app to <b>use it the way people will, find what’s broken, and fix it</b> before anyone else notices.</p>
+  <p>This loop was already slow when people wrote all the software. Now AI writes apps on the fly, often for a handful of people and with no testing team anywhere, so even more of the work of finding bugs falls on users. What we want instead is for the agent that built the app to <b>use it the way people will, find what’s broken, and fix it</b> before anyone else notices.</p>
 
   <figure class="anim-fig">
     <div class="anim" data-segs='[[63.2, 69.8]]' role="img" aria-label="Instead of the guests, Claudes test the app in a fast loop of clicking, breaking and fixing, and the fixed app reaches happy guests."></div>
   </figure>
 
-  <p>That’s the part no benchmark measures yet. SWE-bench and its successors hand the agent a bug report someone already wrote, so they test the fixing, not the finding. <b>SWEeper-Bench starts before anyone has reported anything.</b></p>
+  <p>That’s the part no benchmark measures yet. SWE-bench and its successors hand the agent a bug report someone already wrote, so they measure whether an agent can fix a bug that has already been found, not whether it can find the bug in the first place. <b>SWEeper-Bench starts before anyone has reported anything.</b></p>
 
   <figure class="paper-fig" data-svg="motivation">
     <figcaption>Existing benchmarks begin after a user reports a bug (a). In SWEeper-Bench, the agent has to discover the problem itself before fixing it (b).</figcaption>
@@ -80,7 +80,7 @@
 <section id="results">
   <h2>The best agent fixes 59%</h2>
 
-  <p>Each task gives an agent the app’s code, the running app, a browser, and nothing more than a vague request like <q>Find and fix issues in Focalboard’s board sharing and membership.</q> We tried 15 frontier agents, and <b>the best one, Grok 4.6 in Cursor, fixed 59%</b>. Nine of the fifteen fixed fewer than half. The cost of getting there varies wildly too: agents with similar scores differ in price by more than 30×.</p>
+  <p>Each task gives an agent the app’s code, the running app, a browser, and a broad request that only names part of the app, such as <q>Find and fix issues in Focalboard’s board sharing and membership.</q> We tried 15 frontier agents, and <b>the best one, Grok 4.6 in Cursor, fixed 59%</b>. Nine of the fifteen fixed fewer than half. Cost varies widely as well: agents with similar scores can differ in cost per task by more than 30×.</p>
 
   <figure class="paper-fig wide" data-svg="leaderboard">
     <figcaption>Pass rate against mean cost per task. A task passes only if the bug is fixed and nearby features still work.</figcaption>
@@ -97,7 +97,7 @@
 
   <figure class="paper-fig narrow" data-svg="domains"></figure>
 
-  <p>To grade the agent’s fix, a second agent, the verifier, opens the repaired app in a browser and follows step-by-step tests. One checks that the bug is gone, the other that nothing nearby broke. The verifier <b>only judges what a user would see</b>, so any fix that actually works counts.</p>
+  <p>To grade the agent’s fix, a second agent, the verifier, opens the repaired app in a browser and follows step-by-step tests. One test checks that the bug is gone, and the other checks that nearby features still work. The verifier <b>only judges what a user would see</b>, so any fix that actually works counts.</p>
 
   <figure class="paper-fig wide frame-fig" data-frame="pipeline" data-width="752"></figure>
 
@@ -136,7 +136,7 @@
     </div>
   </div>
 
-  <p>The fix turns out to be a single function call. The hard part is noticing there’s anything to fix: four agents made it to that empty sidebar, and <b>only two of them thought it was a bug</b>. Claude Opus 5 checked the unit tests, saw that they expect no sidebar update, and concluded the empty sidebar was intentional. The tests had the bug baked right in.</p>
+  <p>The fix turns out to be a single function call. The hard part is noticing there’s anything to fix: four agents made it to that empty sidebar, and <b>only two of them thought it was a bug</b>. Claude Opus 5 checked the unit tests, saw that they expect no sidebar update, and concluded the empty sidebar was intentional. The existing tests had the bug built into them, so they pointed the agent the wrong way.</p>
 
   <div class="traj" id="traj"></div>
 </section>
@@ -144,14 +144,14 @@
 <section id="stumble">
   <h2>Where do agents stumble?</h2>
 
-  <p>So what goes wrong? When we split each run into stages, about a quarter of the time the agent <b>never gets to the feature</b> where the bug lives. Another quarter of the time it gets there and still <b>misses the bug</b>: it never does the thing that triggers it, or it triggers it and doesn’t recognize what it’s looking at. Once an agent actually sees the bug, diagnosing and fixing it almost never goes wrong.</p>
+  <p>To see where agents go wrong, we split each run into stages. About a quarter of the time, the agent <b>never gets to the feature</b> where the bug lives. Another quarter of the time it gets there and still <b>misses the bug</b>: it never does the thing that triggers it, or it triggers it and doesn’t recognize what it’s looking at. Once an agent actually sees the bug, diagnosing and fixing it almost never goes wrong.</p>
 
   <figure class="chart-fig">
     <div class="chart" id="chart-stages"></div>
     <figcaption>Share of runs reaching each stage, for 14 agents (grey) and their average (black). Each stage requires the ones before it.</figcaption>
   </figure>
 
-  <p>How easy is the fixing part? Tell the agents what the bug is, and every one we tried passes about 96%.</p>
+  <p>Fixing, on the other hand, is the easy part: when we tell agents what the bug is, every agent we tried passes about 96% of the tasks.</p>
 
   <figure class="chart-fig narrow">
     <div class="chart" id="chart-detailed"></div>
