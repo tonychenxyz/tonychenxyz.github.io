@@ -1,0 +1,44 @@
+{
+  "deepseek-color.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/deepseek-color.svg",
+    "sha256": "deba5f98a5c1796e20fcac3149bcd7eb8a32f0bdd04d048819400b1f28bd1439"
+  },
+  "qwen-color.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/qwen-color.svg",
+    "upstream_sha256": "77f5768c66d08ce1d3d14e73373975c1bc0454be88c81523ddd0ffd7e2974029",
+    "sha256": "7b9627cb6f09326206be8b18e23259340a734216528510d3430495c8ea66be80",
+    "modified": "Gradient stop-opacity .84 flattened onto white (#6336E7->#7C56EB, #6F69F7->#8681F8) so PDF viewers that drop soft masks still show the logo."
+  },
+  "moonshot.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/moonshot.svg",
+    "sha256": "435f41b74e6a87639b6bf860e9628f20cbe7d6229bece412d548f4cea3081852"
+  },
+  "xai.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/xai.svg",
+    "sha256": "89eb7de9f0d02a41cfecd9109e253d7fd3529e27467dee4254faa67f3ac21451"
+  },
+  "meta-color.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/meta-color.svg",
+    "sha256": "adf9f2c1a646ccd3a37ca8c2e7e5985d64630cd633f4b95fba393d1d44e0578c"
+  },
+  "anthropic.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/anthropic.svg",
+    "sha256": "e833fdfa7e7187a86a05b870925067556a506dcd4239089aed73e1e58c9366a3"
+  },
+  "openai.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/openai.svg",
+    "sha256": "a595df6b423920c67a7f8f73c063e4bfb72d415948097b6cac063a2366bb5186"
+  },
+  "zai.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/zai.svg",
+    "sha256": "e748cb5108ce37b116d7a5ba97d37e0ae97eadf6849b0de11afb248e244a01e1"
+  },
+  "claude-color.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/claude-color.svg",
+    "sha256": "a3101f3047a119aa11825ad9369510f0c472428c8c52d420e31bc62db44a8364"
+  },
+  "grok.svg": {
+    "url": "https://raw.githubusercontent.com/lobehub/lobe-icons/master/packages/static-svg/icons/grok.svg",
+    "sha256": "9175fc90c22655160231976c849f25a03b888d7cc0e04c5f1b987b659bb07c95"
+  }
+}
