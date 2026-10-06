@@ -29,7 +29,7 @@
 <main>
 
 <section class="tldr">
-  <p><b>TL;DR</b>&ensp;AI now builds apps that people start using right away, and the bugs in them are usually found by those people. SWEeper-Bench asks whether an agent can <b>find and fix those bugs first</b>. It has 200 real bugs from 200 open-source web apps, each hidden behind a sequence of user interactions. The agent gets the app, a browser, and a request like <q>find and fix issues in board sharing</q>, with no bug report. The best of 15 frontier agents fixes 59%.</p>
+  <p><b>TL;DR</b>&ensp;AI can build you an app in minutes. Finding the bugs in it is still your users’ job. SWEeper-Bench tests whether an agent can <b>find and fix those bugs first</b>: 200 real bugs in 200 open-source web apps, each hiding behind the right sequence of clicks, with no bug report, just a request like <q>find and fix issues in board sharing</q>. The best of 15 frontier agents gets 59%.</p>
 </section>
 
 <section class="video-wrap">
@@ -41,21 +41,21 @@
 <section id="motivation">
   <h2>Who finds the bugs?</h2>
 
-  <p>More and more, we <b>ask AI for software</b> rather than answers: a sign-up form for an event, a booking page, a small tool for the team. The app is ready in minutes and goes straight to the people who will use it.</p>
+  <p>We used to ask AI for answers. Now we ask it for <b>software</b>: a sign-up form for the team trip, a booking page, a tiny tool for the office. A few minutes later it’s done, and it goes straight to the people who’ll use it.</p>
 
   <figure class="anim-fig">
     <div class="anim" data-segs='[[21.7, 30.6, 1.6], [30.6, 33.2, 1, "l03"]]' data-wide-from="29.86" role="img" aria-label="Someone asks Claude for a wedding RSVP site; Claude builds it, it flies out to the guests, and they all start using it."></div>
   </figure>
 
-  <p>These are <b>interactive apps used by real people</b>, and people use software in ways no one planned for. Grandma opens it on an old iPad with the text turned way up, a cousin opens it from Tokyo, two friends press send at the same moment. Each of them runs into a different bug.</p>
+  <p>And people are creative. Grandma opens it on an old iPad with the text cranked way up. Your cousin opens it from Tokyo. Two friends hit send at the exact same moment. This is <b>interactive software with real users</b>, and each of them finds a different way to break it.</p>
 
   <figure class="anim-fig">
     <div class="anim" data-segs='[[43.4, 46.2]]' data-wide-from="0" role="img" aria-label="Each guest runs into a different bug and gets frustrated."></div>
   </figure>
 
-  <p>Bugs like these are hard to catch before release, <b>especially by reading code</b>. They live in a sequence of taps, a particular device, or two actions landing at once, not in any single line. The code can look right and the tests can pass until someone happens to use the app in the one way that breaks it. To find them, you have to use the app.</p>
+  <p>Here’s the annoying part: you mostly can’t find these bugs <b>by reading the code</b>. The code looks fine. The tests pass. The bug only exists in a particular sequence of taps, on a particular device, or when two things happen at once. To find it, you have to actually <i>use</i> the app.</p>
 
-  <p>Today, <b>users are how these bugs get found</b>. They report them, the report makes its way back to whoever built the app, and everyone waits for a fix. It happens to the biggest products too:</p>
+  <p>So today, <b>users are the testers</b>. They hit the bug, they complain, the complaint makes its way back to whoever built the thing, and everyone waits. Even the biggest companies work this way:</p>
 
   <div class="tweet-wrap">
     <blockquote class="twitter-tweet" data-dnt="true" data-align="center">
@@ -64,13 +64,13 @@
     </blockquote>
   </div>
 
-  <p>As more of the software people use is generated on the fly, often for a handful of users and with no testing team in between, this loop matters more. The agent that built the app should use it the way people will, <b>find what is broken, and fix it before anyone else sees it</b>.</p>
+  <p>That loop was slow even when people built everything. Now AI builds apps on the fly, often for a handful of people and with no testing team in sight. Ideally, the agent that built the app would <b>use it the way people will, find what’s broken, and fix it</b>, before anyone else notices.</p>
 
   <figure class="anim-fig">
     <div class="anim" data-segs='[[63.2, 69.8]]' role="img" aria-label="Instead of the guests, Claudes test the app in a fast loop of clicking, breaking and fixing, and the fixed app reaches happy guests."></div>
   </figure>
 
-  <p>Coding benchmarks don’t measure this yet. SWE-bench and its successors start from a bug report someone has already written, so they test diagnosis and repair. <b>SWEeper-Bench starts before anyone has reported anything.</b></p>
+  <p>No benchmark measures this yet. SWE-bench and its successors hand the agent a bug report someone already wrote, so they test the fixing, not the finding. <b>SWEeper-Bench starts before anyone has reported anything.</b></p>
 
   <figure class="paper-fig" data-svg="motivation">
     <figcaption>Existing benchmarks begin after a user reports a bug (a). In SWEeper-Bench, the agent has to discover the problem itself before fixing it (b).</figcaption>
@@ -80,7 +80,7 @@
 <section id="results">
   <h2>The best agent fixes 59%</h2>
 
-  <p>Each task gives the agent the app’s code, the running app with a browser, and one sentence such as <q>Find and fix issues in Focalboard’s board sharing and membership.</q> We ran 15 frontier agents, each a model in its native harness. <b>Grok 4.6 in Cursor did best at 59.0%</b>, and nine of the fifteen fixed fewer than half of the bugs. Similar scores also hide very different bills, with cost per task varying more than 30×.</p>
+  <p>Each task gives an agent the app’s code, the running app, a browser, and one vague sentence, like <q>Find and fix issues in Focalboard’s board sharing and membership.</q> That’s it. We tried 15 frontier agents. <b>The best, Grok 4.6 in Cursor, fixed 59%.</b> Nine of the fifteen fixed fewer than half. The bills vary wildly too: agents with similar scores differ in cost by more than 30×.</p>
 
   <figure class="paper-fig wide" data-svg="leaderboard">
     <figcaption>Pass rate against mean cost per task. A task passes only if the bug is fixed and nearby features still work.</figcaption>
@@ -93,11 +93,11 @@
 <section id="benchmark">
   <h2>How it works</h2>
 
-  <p>Each of the 200 tasks comes from a real bug fix merged into a different open-source web app. We roll the app back to just before the fix, so the bug is still there, and it only shows up when someone uses the app in the right way. The agent <b>never sees the bug report</b>, the fix, or our tests.</p>
+  <p>Every task is a real bug that was fixed in a real open-source web app, 200 apps in all. We rewind the app to just before the fix, so the bug is back, waiting for someone to tap through the app in just the right way. The agent <b>never sees the bug report</b>, the fix, or our tests.</p>
 
   <figure class="paper-fig narrow" data-svg="domains"></figure>
 
-  <p>To grade a fix, a separate verifier agent uses the repaired app in a browser and follows step-by-step behavior tests. One checks that the bug is gone, the other that nearby features still work. The verifier <b>only judges what a user would see</b>, so any fix that works passes.</p>
+  <p>To grade a fix, a second agent (the verifier) opens the repaired app in a browser and follows step-by-step tests: one checks that the bug is gone, the other that nothing nearby broke. It <b>only judges what a user would see</b>, so any fix that works counts.</p>
 
   <figure class="paper-fig wide frame-fig" data-frame="pipeline" data-width="752"></figure>
 
@@ -119,7 +119,7 @@
 <section id="example">
   <h2>Test case example: shared team board doesn’t show up</h2>
 
-  <p>Focalboard is an open-source project board. Sharing a board with a teammate should put it in their sidebar, but in the buggy version it never appears. Nothing looks wrong to the person sharing, so you only notice if you share the board, log in as the teammate, and look. Here is our verifier doing exactly that.</p>
+  <p>Focalboard is an open-source project board, a bit like Trello. When you share a board with a teammate, it should show up in their sidebar. In the buggy version, it just… doesn’t. Nothing looks wrong from your side, so you only find out if you share the board, log in as your teammate, and look. Here’s our verifier doing exactly that:</p>
 
   <div class="walk" id="walk">
     <ol class="walk-steps" role="tablist" aria-label="Steps of the Focalboard behavior test"></ol>
@@ -136,7 +136,7 @@
     </div>
   </div>
 
-  <p>The fix is a single function call. Spotting the bug is the hard part: all four agents whose runs we read reached the empty sidebar, but <b>only two treated it as a bug</b>. Claude Opus 5 checked the unit tests, saw that they expect no sidebar update, and decided the behavior was intended.</p>
+  <p>The fix? One function call. <i>Finding</i> the bug is the hard part: four agents reached that empty sidebar, and <b>only two thought it was a bug</b>. Claude Opus 5 read the unit tests, saw that they expect no sidebar update, and decided the empty sidebar was intended. The tests had the bug baked in.</p>
 
   <div class="traj" id="traj"></div>
 </section>
@@ -144,14 +144,14 @@
 <section id="stumble">
   <h2>Where agents fall short</h2>
 
-  <p>We split each run into stages. About a quarter of the time, the agent <b>never reaches the feature</b> where the bug lives. Another quarter of the time it gets there but <b>never triggers the bug, or sees it and doesn’t recognize it</b>. Once an agent does see the bug, diagnosing and fixing it rarely fail. Finding a bug takes both: looking in the right place, and noticing what is wrong there.</p>
+  <p>So where do agents lose it? We split each run into stages. About a quarter of the time, the agent <b>never gets to the feature</b> with the bug. Another quarter of the time it gets there and still <b>misses the bug</b>: it never triggers it, or it sees it and shrugs. Once it actually sees the bug, diagnosing and fixing it rarely go wrong.</p>
 
   <figure class="chart-fig">
     <div class="chart" id="chart-stages"></div>
     <figcaption>Share of runs reaching each stage, for 14 agents (grey) and their average (black). Each stage requires the ones before it.</figcaption>
   </figure>
 
-  <p>Fixing really is the easy part. When we replace the open-ended request with a description of the bug, every agent we tried passes <b>about 96%</b> of the tasks.</p>
+  <p>How easy is the fixing? Tell agents what the bug is, and every one we tried passes about 96%.</p>
 
   <figure class="chart-fig narrow">
     <div class="chart" id="chart-detailed"></div>
@@ -161,7 +161,7 @@
 <section id="time">
   <h2>More time doesn’t fix it</h2>
 
-  <p><b>Agents that work longer don’t score higher.</b> Grok 4.6 averages 12 minutes per task, while Qwen 3.8 Flash takes 102 minutes for a slightly lower score. Giving the same agent a bigger budget helps up to about 40 minutes, then levels off.</p>
+  <p><b>Working longer doesn’t help much.</b> Grok 4.6 spends about 12 minutes per task. Qwen 3.8 Flash spends 102, and scores a bit lower. Give the same agent a bigger budget and it improves up to about 40 minutes, then flattens out.</p>
 
   <div class="two-up charts">
     <figure class="chart-fig">
@@ -182,7 +182,7 @@
     <div class="anim" data-segs='[[112.5, 125.6]]' role="img" aria-label="Grandma in her armchair with her iPad; Claude beside her notices a small bug before she does, and her tap on Send works."></div>
   </figure>
 
-  <p>Today, the loop that makes interactive software reliable still runs through people: someone builds the app, its users find what breaks, and fixes follow. As AI builds more of the software we use, it can take on the rest of that loop as well, <b>using the app the way people will, noticing what goes wrong, and fixing it</b>, round after round, until what reaches people simply works. SWEeper-Bench measures how close agents are to closing that loop on their own.</p>
+  <p>Right now, the loop that makes interactive software work still runs through people: someone builds the app, users find what breaks, fixes follow. As AI builds more of what we use, it can close that loop itself: <b>use the app like a person would, notice what’s off, fix it</b>, and go again, until what reaches people just works. SWEeper-Bench measures how close agents are to doing that on their own.</p>
 </section>
 
 <section id="cite">
