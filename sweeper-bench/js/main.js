@@ -16,7 +16,7 @@ const el = (tag, attrs = {}, parent) => {
   return n;
 };
 const html = (tag, cls, inner) => { const n = document.createElement(tag); if (cls) n.className = cls; if (inner != null) n.innerHTML = inner; return n; };
-const LOGO = name => asset(`anim/assets/logos/${name}.svg`);
+const LOGO = name => asset(`anim/art/logos/${name}.svg`);
 const fmt1 = x => x.toFixed(1);
 
 const DATA = SB_DATA.results;
