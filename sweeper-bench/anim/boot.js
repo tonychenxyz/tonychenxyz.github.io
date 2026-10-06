@@ -21,7 +21,7 @@ async function bootAnim({ scenes = false } = {}) {
   Object.assign(LOGOS, SB_DATA.anim_shapes.logos);
   if (scenes) {
     TL = SB_DATA.timeline; TASKS = SB_DATA.tasks;
-    IMG.focal = new Image(); IMG.focal.src = asset('anim/assets/focal-fail.png'); await IMG.focal.decode();
+    IMG.focal = new Image(); IMG.focal.src = asset('anim/art/focal-fail.png'); await IMG.focal.decode();
     initScenes();
   }
 }
