@@ -368,6 +368,8 @@ dlg.addEventListener('close', () => $$('video', dlg).forEach(v => v.pause()));
 // ---------------------------------------------------------------- animations
 // Shots from the explainer video, drawn by its own renderer onto canvases in the page. Each shot
 // stays inside one scene, plays once when it scrolls into view, and then holds its last frame.
+// data-speed plays it faster; data-wide-from holds the story's wide view from that video time on,
+// instead of following the video's camera into close-ups.
 // To keep scrolling smooth, only the most visible shot draws, at 15 fps, and never mid-scroll.
 await bootAnim({ scenes: true });
 // The sweep from the video's title scene, from a fixed camera, cropped to a strip around Claude and
@@ -383,12 +385,14 @@ const heroFrame = (t, narrow) => {
 const SHOTS = $$('.anim').map(el => {
   const cv = document.createElement('canvas'); el.append(cv);
   const hero = el.dataset.shot === 'hero';
-  return { el, cv, g: cv.getContext('2d'), hero, ratio: 0, t: 0, drawn: -1,
+  return { el, cv, g: cv.getContext('2d'), hero, ratio: 0, t: 0, drawn: -1, speed: +(el.dataset.speed ?? 1),
+    wide: el.dataset.wideFrom === undefined ? Infinity : +el.dataset.wideFrom,
     from: hero ? T('l07', 'Sweeper') : +el.dataset.from, to: hero ? T('l07', 'with') + 2.6 : +el.dataset.to };
 });
 const drawShot = a => {
   ctx = a.g; DPR_ = a.cv.width / Math.max(1, a.cv.clientWidth); SC_ = a.cv.width / W;
-  if (a.hero) heroFrame(a.from + a.t, a.cv.clientWidth < 560); else renderAt(a.from + a.t, { captions: false });
+  const vt = a.from + a.t * a.speed;
+  if (a.hero) heroFrame(vt, a.cv.clientWidth < 560); else renderAt(vt, { captions: false, cam: vt >= a.wide ? [960, 540, 1] : undefined });
   a.drawn = a.t;
 };
 const sizeShot = a => {
@@ -412,7 +416,7 @@ const shotTick = now => {
   if (document.hidden || now - lastScroll < 150) return;
   const a = SHOTS.reduce((best, x) => (x.ratio >= .4 && x.ratio > (best?.ratio ?? 0)) ? x : best, null);
   if (!a || !a.cv.width) return;
-  const len = a.to - a.from;
+  const len = (a.to - a.from) / a.speed;
   if (a.drawn >= len) return;   // finished: hold the last frame
   a.t = Math.min(len, a.t + dt);
   if (a.drawn < 0 || a.t >= len || Math.floor(a.t * 15) !== Math.floor(a.drawn * 15)) drawShot(a);
