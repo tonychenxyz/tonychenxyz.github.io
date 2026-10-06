@@ -369,7 +369,9 @@ dlg.addEventListener('close', () => $$('video', dlg).forEach(v => v.pause()));
 // Shots from the explainer video, drawn by its own renderer onto canvases in the page. Each shot
 // stays inside one scene and loops while on screen: it plays, holds its last frame for a moment,
 // dips softly to white and starts again (from the top each time it scrolls back into view).
-// data-speed plays it faster; data-wide-from holds the story's wide view from that video time on,
+// data-segs lists [from, to, speed, warpLine] stretches of video time played back to back (so idle
+// gaps left for the narration can be skipped); warpLine squeezes that narration line's beats
+// together (T_WARP in lib.js). data-wide-from holds the story's wide view from that video time on,
 // instead of following the video's camera into close-ups.
 // To keep scrolling smooth, only the most visible shot draws, at 15 fps, and never mid-scroll.
 await bootAnim({ scenes: true });
@@ -387,16 +389,22 @@ const heroFrame = (t, narrow) => {
 const SHOTS = $$('.anim').map(el => {
   const cv = document.createElement('canvas'); el.append(cv);
   const hero = el.dataset.shot === 'hero';
-  return { el, cv, g: cv.getContext('2d'), hero, ratio: 0, t: 0, drawn: -1, speed: +(el.dataset.speed ?? 1),
-    wide: el.dataset.wideFrom === undefined ? Infinity : +el.dataset.wideFrom,
-    from: hero ? T('l07', 'Sweeper') : +el.dataset.from, to: hero ? T('l07', 'with') + 2.6 : +el.dataset.to };
+  const segs = (hero ? [[T('l07', 'Sweeper'), T('l07', 'with') + 2.6]] : JSON.parse(el.dataset.segs))
+    .map(([f, t, sp = 1, warp]) => ({ f, t, sp, len: (t - f) / sp,
+      warp: warp && { id: warp, at: f + .3, from: LINE(warp).start, k: .12 } }));
+  return { el, cv, g: cv.getContext('2d'), hero, ratio: 0, t: 0, drawn: -1, segs, len: segs.reduce((n, s) => n + s.len, 0),
+    wide: el.dataset.wideFrom === undefined ? Infinity : +el.dataset.wideFrom };
 });
 const HOLD = 1.2, FADE = .35;   // seconds on the last frame before looping, and the dip at the seam
 const drawShot = a => {
   ctx = a.g; DPR_ = a.cv.width / Math.max(1, a.cv.clientWidth); SC_ = a.cv.width / W;
-  const len = (a.to - a.from) / a.speed, cyc = len + HOLD, local = a.t % cyc;
-  const vt = a.from + Math.min(local, len) * a.speed;
+  const cyc = a.len + HOLD, local = a.t % cyc;
+  let rest = Math.min(local, a.len), s = a.segs[0];
+  for (s of a.segs) { if (rest <= s.len) break; rest -= s.len; }
+  const vt = s.f + Math.min(rest, s.len) * s.sp;
+  T_WARP = s.warp;
   if (a.hero) heroFrame(vt, a.cv.clientWidth < 560); else renderAt(vt, { captions: false, cam: vt >= a.wide ? [960, 540, 1] : undefined });
+  T_WARP = null;
   const dip = Math.max(a.t >= cyc ? 1 - local / FADE : 0, (local - (cyc - FADE)) / FADE, 0);   // no fade-in on the first play
   if (dip > 0) { ctx.setTransform(SC_, 0, 0, SC_, 0, 0); ctx.fillStyle = `rgba(255,255,255,${dip})`; ctx.fillRect(0, 0, W, H); }
   a.drawn = a.t;

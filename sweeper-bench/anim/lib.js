@@ -25,9 +25,15 @@ const E = {
 const norm = s => s.toLowerCase().replace(/[^a-z0-9']/g, '');
 const LINE = id => TL.lines.find(l => l.id === id);
 // Start time of the nth occurrence of `word` in line `id`.
+// blog: T_WARP = { id, at, from, k } compresses one line's word times (at + (t - from) * k), so
+// beats the video spreads across a sentence can happen together in a page animation.
+let T_WARP = null;
 function T(id, word, nth = 0, end = false) {
   let k = 0;
-  for (const w of LINE(id).words) if (norm(w.w) === norm(word)) { if (k === nth) return end ? w.e : w.s; k++; }
+  for (const w of LINE(id).words) if (norm(w.w) === norm(word)) {
+    if (k === nth) { const v = end ? w.e : w.s; return T_WARP && T_WARP.id === id ? T_WARP.at + (v - T_WARP.from) * T_WARP.k : v; }
+    k++;
+  }
   throw new Error(`word "${word}" not in ${id}`);
 }
 const TE = (id, word, nth = 0) => T(id, word, nth, true);

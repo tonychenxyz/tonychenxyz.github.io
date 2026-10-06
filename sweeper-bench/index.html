@@ -44,13 +44,13 @@
   <p>More and more, we <b>ask AI for software</b> rather than answers: a sign-up form for an event, a booking page, a small tool for the team. The app is ready in minutes and goes straight to the people who will use it.</p>
 
   <figure class="anim-fig">
-    <div class="anim" data-from="17.4" data-to="43.3" data-speed="1.8" data-wide-from="29.86" role="img" aria-label="Someone asks Claude for a wedding RSVP site; Claude builds it, it flies out to the guests, and they all start using it."></div>
+    <div class="anim" data-segs='[[21.7, 30.6, 1.6], [30.6, 33.2, 1, "l03"]]' data-wide-from="29.86" role="img" aria-label="Someone asks Claude for a wedding RSVP site; Claude builds it, it flies out to the guests, and they all start using it."></div>
   </figure>
 
   <p>These are <b>interactive apps used by real people</b>, and people use software in ways no one planned for. Grandma opens it on an old iPad with the text turned way up, a cousin opens it from Tokyo, two friends press send at the same moment. Each of them runs into a different bug.</p>
 
   <figure class="anim-fig">
-    <div class="anim" data-from="43.4" data-to="46.2" data-wide-from="0" role="img" aria-label="Each guest runs into a different bug and gets frustrated."></div>
+    <div class="anim" data-segs='[[43.4, 46.2]]' data-wide-from="0" role="img" aria-label="Each guest runs into a different bug and gets frustrated."></div>
   </figure>
 
   <p>Bugs like these are hard to catch before release, <b>especially by reading code</b>. They live in a sequence of taps, a particular device, or two actions landing at once, not in any single line. The code can look right and the tests can pass until someone happens to use the app in the one way that breaks it. To find them, you have to use the app.</p>
@@ -67,7 +67,7 @@
   <p>As more of the software people use is generated on the fly, often for a handful of users and with no testing team in between, this loop matters more. The agent that built the app should use it the way people will, <b>find what is broken, and fix it before anyone else sees it</b>.</p>
 
   <figure class="anim-fig">
-    <div class="anim" data-from="55.1" data-to="69.8" role="img" aria-label="Instead of the guests, Claudes test the app in a fast loop of clicking, breaking and fixing, and the fixed app reaches happy guests."></div>
+    <div class="anim" data-segs='[[63.2, 69.8]]' role="img" aria-label="Instead of the guests, Claudes test the app in a fast loop of clicking, breaking and fixing, and the fixed app reaches happy guests."></div>
   </figure>
 
   <p>Coding benchmarks don’t measure this yet. SWE-bench and its successors start from a bug report someone has already written, so they test diagnosis and repair. <b>SWEeper-Bench starts before anyone has reported anything.</b></p>
@@ -181,7 +181,7 @@
   <p>Picture the wedding site one more time. Before a single invitation goes out, the agent has already opened it on an old iPad with the text turned way up, tried it from the other side of the world, and pressed send twice at once. Grandma taps send, and it just works. She never knows there was a bug.</p>
 
   <figure class="anim-fig">
-    <div class="anim" data-from="112.5" data-to="125.6" role="img" aria-label="Grandma in her armchair with her iPad; Claude beside her notices a small bug before she does, and her tap on Send works."></div>
+    <div class="anim" data-segs='[[112.5, 125.6]]' role="img" aria-label="Grandma in her armchair with her iPad; Claude beside her notices a small bug before she does, and her tap on Send works."></div>
   </figure>
 
   <p>Machines can already build for us. What we don’t know yet is whether they can <b>notice what we would notice</b>.</p>
