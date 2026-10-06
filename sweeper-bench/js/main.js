@@ -65,8 +65,8 @@ const hostPoint = (host, ev) => { const r = host.getBoundingClientRect(); return
 
 // ---------------------------------------------------------------- where agents stumble
 {
-  const host = $('#chart-stages'), W_ = 600, H_ = 420;
-  const f = chartFrame(host, W_, H_, { l: 64, r: 150, t: 14, b: 74 });
+  const host = $('#chart-stages'), W_ = 560, H_ = 420;
+  const f = chartFrame(host, W_, H_, { l: 64, r: 58, t: 14, b: 74 });
   const STAGES = [['Identified', 'target', 'feature'], ['Identified', 'buggy', 'behavior'], ['Diagnosed', 'root', 'cause'], ['Fixed the', 'buggy', 'behavior'], ['Maintained', 'existing', 'behaviors']];
   const x = i => f.x0 + 24 + i * (f.x1 - f.x0 - 48) / 4, y = scale(0, 100, f.y0, f.y1);
   yAxis(f.svg, f, [0, 20, 40, 60, 80, 100], y, String, '% of cases reaching stage');
@@ -87,14 +87,13 @@ const hostPoint = (host, ev) => { const r = host.getBoundingClientRect(); return
     lab.textContent = fmt1(p) + '%';
   });
   // legend (paper position: top right)
-  const lg = el('g', { transform: `translate(${f.x1 - 160},${f.y1 + 6})` }, f.svg);
+  const lg = el('g', { transform: `translate(${f.x1 - 150},${f.y1 + 6})` }, f.svg);
   el('rect', { x: -10, y: -10, width: 166, height: 52, fill: '#fff' }, lg);
   el('line', { x1: 0, x2: 24, y1: 6, y2: 6, stroke: '#BDBDBD', 'stroke-width': 1.5 }, lg); el('circle', { cx: 12, cy: 6, r: 3.2, fill: '#BDBDBD' }, lg);
   el('text', { x: 32, y: 10, 'font-size': 12.5 }, lg).textContent = 'Individual model';
   el('line', { x1: 0, x2: 24, y1: 28, y2: 28, stroke: '#000', 'stroke-width': 2.8 }, lg); el('circle', { cx: 12, cy: 28, r: 4.6, fill: '#000' }, lg);
   el('text', { x: 32, y: 32, 'font-size': 12.5 }, lg).textContent = 'Average';
   // hover: nearest model line
-  const name = el('text', { 'font-size': 12.5, 'font-weight': 600, fill: '#5B5EC2', opacity: 0 }, f.svg);
   let cur = null;
   const set = k => {
     if (cur === k) return; cur = k;
@@ -104,8 +103,6 @@ const hostPoint = (host, ev) => { const r = host.getBoundingClientRect(); return
       gg.querySelectorAll('circle').forEach(c => c.setAttribute('fill', on ? '#5B5EC2' : '#BDBDBD'));
       if (on) g.appendChild(gg);
     }
-    if (k) { const v = DATA.stages[k]; name.setAttribute('x', x(4) + 10); name.setAttribute('y', y(v[4]) + 4); name.textContent = byKey[k].name; name.setAttribute('opacity', 1); }
-    else name.setAttribute('opacity', 0);
   };
   f.svg.addEventListener('mousemove', ev => {
     const p = svgPoint(f.svg, ev); if (p.x < f.x0 || p.x > x(4) + 20) { set(null); f.tip.style.opacity = 0; return; }
@@ -126,13 +123,13 @@ const hostPoint = (host, ev) => { const r = host.getBoundingClientRect(); return
   const rows = [['DeepSeek V4.1 Flash', 'deepseek-color', 51.5, 96.5], ['GPT-5.6 Sol', 'openai', 47.0, 96.5], ['GLM 5.3', 'zai', 43.5, 96.0], ['GPT-5.6 Luna', 'openai', 42.0, 96.0], ['GPT-5.6 Terra', 'openai', 35.0, 96.0]];
   const host = $('#chart-detailed'), W_ = 560, H_ = 46 + rows.length * 34;
   const f = chartFrame(host, W_, H_, { l: 168, r: 22, t: 30, b: 30 });
-  const x = scale(0, 100, f.x0, f.x1);
-  for (const t of [0, 25, 50, 75, 100]) {
+  const x = scale(30, 100, f.x0, f.x1);
+  for (const t of [30, 50, 70, 90]) {
     el('line', { x1: x(t), x2: x(t), y1: f.y1 - 8, y2: f.y0, stroke: '#e5e8ed' }, f.svg);
     el('text', { x: x(t), y: f.y0 + 18, 'text-anchor': 'middle', 'font-size': 12 }, f.svg).textContent = t + '%';
   }
-  el('text', { x: x(48), y: 14, 'text-anchor': 'middle', 'font-size': 12 }, f.svg).textContent = 'open-ended prompt';
-  el('text', { x: x(96), y: 14, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700 }, f.svg).textContent = 'with a bug report';
+  el('text', { x: x(44), y: 14, 'text-anchor': 'middle', 'font-size': 12 }, f.svg).textContent = 'open-ended prompt';
+  el('text', { x: x(96), y: 14, 'text-anchor': 'end', 'font-size': 12, 'font-weight': 700 }, f.svg).textContent = 'with a bug report';
   rows.forEach(([n, logo, a, b], i) => {
     const yy = f.y1 + 10 + i * 34;
     el('image', { href: LOGO(logo), x: 4, y: yy - 8, width: 16, height: 16 }, f.svg);
