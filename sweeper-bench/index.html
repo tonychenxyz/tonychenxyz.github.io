@@ -29,7 +29,7 @@
 <main>
 
 <section class="tldr">
-  <p><b>TL;DR</b>&ensp;SWEeper-Bench is <b>200 real bugs from 200 open-source web apps</b>. Each task gives an agent the app, a browser, and a request like <q>find and fix issues in board sharing</q>, but <b>no bug report</b>. The best of 15 frontier agents fixes <b>59%</b> of the bugs, while agents given a description of the bug fix about 96%.</p>
+  <p><b>TL;DR</b>&ensp;AI now builds apps that people start using right away, and the bugs in them are usually found by those people. SWEeper-Bench asks whether an agent can <b>find and fix those bugs first</b>. It has 200 real bugs from 200 open-source web apps, each hidden behind a sequence of user interactions. The agent gets the app, a browser, and a request like <q>find and fix issues in board sharing</q>, with no bug report. The best of 15 frontier agents fixes 59%.</p>
 </section>
 
 <section class="video-wrap">
@@ -47,11 +47,13 @@
     <div class="anim" data-from="17.4" data-to="43.3" data-speed="1.8" data-wide-from="29.86" role="img" aria-label="Someone asks Claude for a wedding RSVP site; Claude builds it, it flies out to the guests, and they all start using it."></div>
   </figure>
 
-  <p>That makes it <b>interactive software with real end users</b>, and people use software in ways no one planned for. Grandma opens it on an old iPad with the text turned way up, a cousin opens it from Tokyo, two friends press send at the same moment. Each runs into a different bug, and each bug only shows up through their own sequence of taps.</p>
+  <p>These are <b>interactive apps used by real people</b>, and people use software in ways no one planned for. Grandma opens it on an old iPad with the text turned way up, a cousin opens it from Tokyo, two friends press send at the same moment. Each of them runs into a different bug.</p>
 
   <figure class="anim-fig">
     <div class="anim" data-from="43.4" data-to="46.2" data-wide-from="0" role="img" aria-label="Each guest runs into a different bug and gets frustrated."></div>
   </figure>
+
+  <p>Bugs like these are hard to catch before release, <b>especially by reading code</b>. They live in a sequence of taps, a particular device, or two actions landing at once, not in any single line. The code can look right and the tests can pass until someone happens to use the app in the one way that breaks it. To find them, you have to use the app.</p>
 
   <p>Today, <b>users are how these bugs get found</b>. They report them, the report makes its way back to whoever built the app, and everyone waits for a fix. It happens to the biggest products too:</p>
 
