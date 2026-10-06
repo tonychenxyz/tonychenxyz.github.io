@@ -43,7 +43,8 @@ main h2.small-h { font-size: 20px; margin-top: 56px; letter-spacing: -.01em; }
 .title .eper .lab { left: .12em; }
 .title.show-swe .swe::after, .title.show-broom .eper::after { transform: scaleX(1); }
 .title.show-swe .swe .lab, .title.show-broom .eper .lab { clip-path: inset(0 0 0 0); }
-.subtitle { font: 500 clamp(19px, 2.4vw, 24px)/1.35 var(--sans); color: var(--ink); margin: 6px 0 20px; letter-spacing: -.015em; }
+.subtitle { font: 400 clamp(19px, 2.4vw, 24px)/1.35 var(--sans); color: var(--ink); margin: 6px 0 20px; letter-spacing: -.015em; }
+.subtitle b { font-weight: 700; }
 .authors { font-size: 16px; font-weight: 500; line-height: 1.6; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 20px; }
 .authors a { color: var(--ink); text-decoration-color: var(--faint); }
 .authors a:hover { text-decoration-color: currentColor; }
