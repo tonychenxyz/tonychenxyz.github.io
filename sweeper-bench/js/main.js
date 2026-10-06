@@ -131,7 +131,7 @@ const hostPoint = (host, ev) => { const r = host.getBoundingClientRect(); return
     el('line', { x1: x(t), x2: x(t), y1: f.y1 - 8, y2: f.y0, stroke: '#e5e8ed' }, f.svg);
     el('text', { x: x(t), y: f.y0 + 18, 'text-anchor': 'middle', 'font-size': 12 }, f.svg).textContent = t + '%';
   }
-  el('text', { x: x(48), y: 14, 'text-anchor': 'middle', 'font-size': 12, fill: '#777' }, f.svg).textContent = 'open-ended prompt';
+  el('text', { x: x(48), y: 14, 'text-anchor': 'middle', 'font-size': 12 }, f.svg).textContent = 'open-ended prompt';
   el('text', { x: x(96), y: 14, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700 }, f.svg).textContent = 'with a bug report';
   rows.forEach(([n, logo, a, b], i) => {
     const yy = f.y1 + 10 + i * 34;
@@ -140,7 +140,7 @@ const hostPoint = (host, ev) => { const r = host.getBoundingClientRect(); return
     el('line', { x1: x(a), x2: x(b) - 6, y1: yy, y2: yy, stroke: '#BDBDBD', 'stroke-width': 2.4 }, f.svg);
     el('circle', { cx: x(a), cy: yy, r: 6, fill: '#fff', stroke: '#888', 'stroke-width': 2 }, f.svg);
     el('circle', { cx: x(b), cy: yy, r: 6.5, fill: '#000' }, f.svg);
-    el('text', { x: x(a) - 11, y: yy + 4.5, 'text-anchor': 'end', 'font-size': 12, fill: '#666' }, f.svg).textContent = fmt1(a);
+    el('text', { x: x(a) - 11, y: yy + 4.5, 'text-anchor': 'end', 'font-size': 12 }, f.svg).textContent = fmt1(a);
     el('text', { x: x(b) - 12, y: yy - 9, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700 }, f.svg).textContent = fmt1(b);
   });
 }
@@ -209,7 +209,7 @@ function logoDot(svg, m, cx, cy, r = 11) {
     ['pass', 'Pass ↑', m => `${fmt1(m.pass)}<span class="bar" style="width:${m.pass * 1.2}px"></span>`, m => m.pass, 'pass'],
     ['target', 'Target ↑', m => fmt1(m.target), m => m.target, ''],
     ['pres', 'Preserv. ↑', m => fmt1(m.pres), m => m.pres, ''],
-    ['time', 'Time (min)', m => `${fmt1(m.time)} <span style="color:#9a958c">± ${fmt1(m.time_sd)}</span>`, m => m.time, ''],
+    ['time', 'Time (min)', m => `${fmt1(m.time)} ± ${fmt1(m.time_sd)}`, m => m.time, ''],
     ['cost', 'Cost ($)', m => m.cost.toFixed(2), m => m.cost, ''],
   ];
   let key = 'pass', asc = false;
