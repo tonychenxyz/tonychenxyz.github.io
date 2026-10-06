@@ -44,13 +44,13 @@
   <p>More and more, we ask AI for software rather than answers: a sign-up form for an event, a booking page, a small tool for the team. The app is ready in minutes and goes straight to the people who will use it.</p>
 
   <figure class="anim-fig">
-    <div class="anim" data-from="17.4" data-to="30.5" role="img" aria-label="Someone asks Claude for a wedding RSVP site; Claude builds it, and it flies out to the guests."></div>
+    <div class="anim" data-from="17.4" data-to="43.3" data-speed="1.8" data-wide-from="29.86" role="img" aria-label="Someone asks Claude for a wedding RSVP site; Claude builds it, it flies out to the guests, and they all start using it."></div>
   </figure>
 
   <p>That makes it interactive software with real end users, and people use software in ways no one planned for. Grandma opens it on an old iPad with the text turned way up, a cousin opens it from Tokyo, two friends press send at the same moment. Each runs into a different bug, and each bug only shows up through their own sequence of taps.</p>
 
   <figure class="anim-fig">
-    <div class="anim" data-from="30.8" data-to="54.8" role="img" aria-label="The guests use the site in different situations, hit different bugs, and their complaints come back while everyone waits."></div>
+    <div class="anim" data-from="43.4" data-to="46.2" data-wide-from="0" role="img" aria-label="Each guest runs into a different bug and gets frustrated."></div>
   </figure>
 
   <p>Today, users are how these bugs get found. They report them, the report makes its way back to whoever built the app, and everyone waits for a fix. It happens to the biggest products too:</p>
@@ -98,10 +98,24 @@
   <p>To grade a fix, a separate verifier agent uses the repaired app in a browser and follows step-by-step behavior tests. One checks that the bug is gone, the other that nearby features still work. The verifier only judges what a user would see, so any fix that works passes.</p>
 
   <figure class="paper-fig wide frame-fig" data-frame="pipeline" data-width="752"></figure>
+
+  <details class="aside">
+    <summary>How reliable is the verifier?</summary>
+    <p>We ran both behavior tests on every buggy version and every reference fix, with three verifier setups, three times each. A perfect verifier fails the target test on the buggy version and passes everything else. All three setups come within one point of that, varying by at most 0.8 points between runs. We use the cheapest, GPT-5.6 Luna in Codex.</p>
+    <div class="table-scroll"><table class="mini">
+      <thead><tr><th rowspan="2">Verifier</th><th colspan="2">Buggy version</th><th colspan="2">Reference fix</th><th rowspan="2">Cost / task</th></tr>
+      <tr><th>Target ↓</th><th>Preserv. ↑</th><th>Target ↑</th><th>Preserv. ↑</th></tr></thead>
+      <tbody>
+        <tr><td><img class="logo" src="anim/art/logos/openai.svg" alt="">GPT-5.6 Luna, Codex</td><td>0.2 ± 0.3</td><td>99.2 ± 0.8</td><td>99.8 ± 0.3</td><td>99.3 ± 0.3</td><td>$0.16</td></tr>
+        <tr><td><img class="logo" src="anim/art/logos/openai.svg" alt="">GPT-5.6 Luna, Browser Use</td><td>0.8 ± 0.3</td><td>99.8 ± 0.3</td><td>99.8 ± 0.3</td><td>99.7 ± 0.3</td><td>$0.64</td></tr>
+        <tr><td><img class="logo" src="anim/art/logos/claude-color.svg" alt="">Claude Sonnet 5, Browser Use</td><td>0.2 ± 0.3</td><td>99.8 ± 0.3</td><td>99.8 ± 0.3</td><td>100.0 ± 0.0</td><td>$3.84</td></tr>
+      </tbody>
+    </table></div>
+  </details>
 </section>
 
 <section id="example">
-  <h2>A board that never arrives</h2>
+  <h2>Test case: a shared team board doesn’t show up</h2>
 
   <p>Focalboard is an open-source project board. Sharing a board with a teammate should put it in their sidebar, but in the buggy version it never appears. Nothing looks wrong to the person sharing, so you only notice if you share the board, log in as the teammate, and look. Here is our verifier doing exactly that.</p>
 

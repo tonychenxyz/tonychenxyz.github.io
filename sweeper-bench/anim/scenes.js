@@ -861,10 +861,10 @@ function hookCues(add) {
 }
 
 // ---------- frame ----------
-function drawMain(t, st) {
+function drawMain(t, st, cam) {   // blog: cam overrides the video's camera for a shot
   ctx.save();
   ctx.translate(n1(st, 5) * .7, n1(st, 9) * .7);   // re-shot frame: a hair of jitter each pose
-  applyCam(camera(RAW));
+  applyCam(cam ?? camera(RAW));
   story(t); title(t); grid(t); results(t); noticing(t); focal(t); ending(t);
   ctx.restore();
 }
@@ -883,7 +883,7 @@ function renderAt(t, opts = {}) {
   ctx.fillStyle = PAL.bg; ctx.fillRect(0, 0, W, H);
   if (t < K.flip0) drawHook(TIME, st, RAW);
   else {
-    drawMain(TIME, st);
+    drawMain(TIME, st, opts.cam);
     if (t < K.flip1) {
       // stop-motion page turn: the old sheet peels away right-to-left
       const u = E.io(seg(TIME, K.flip0, K.flip1)), xe = lerp(W + 200, -260, u), fw = 60 + 200 * Math.sin(u * Math.PI);
