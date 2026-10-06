@@ -353,39 +353,35 @@ function title(t) {
   if (t < K.storyEnd - 1 || t > K.zoomOut + .5) return;
   page(P1, 1, () => {
     const tSw = T('l07', 'Sweeper'), tB = T('l07', 'Bench.'), tSE = T('l07', 'Software'), tW = T('l07', 'with'), tBr = T('l07', 'broom.');
-    const g = logo(960, 470, 1, { swe: seg(t, tSw - .15, tSw + .25), eper: seg(t, tSw + .1, tB + .1), bench: seg(t, tB - .05, tB + .45) });
-    const ux = 960 + g.x0;
-    strokeP([[ux, 505], [ux + g.wS, 499]], PAL.ink, 6, { prog: seg(t, tSE - .1, tSE + .3) });
-    text('software engineering', ux + g.wS / 2, 575, { size: 40, write: seg(t, tSE, T('l07', 'engineering...') + .5) });
-    const ex = ux + g.wS + 2;
-    text('with a broom', ex + g.wE / 2 + 110, 575, { size: 40, color: PAL.periDark, write: seg(t, tW, tBr + .4) });
+    // blog: the name and its labels are page text above this drawing; only the sweep is drawn here
     const [hx, hy] = HERO_PG;
-    if (t > K.dive && t < K.dive + .8) strokeP(rrPts(hx, hy, CW, CH, 16, 40), PAL.ink, 2.4, { closed: true, prog: seg(t, K.dive, K.dive + .3), seed: 1 });
+    // blog: the page's hero holds on the title, so no dive into the Sylius card
     // Claude walks in, then sweeps right-to-left across the page
     const sw0 = tW - .1, sw1 = tW + 1.9;
     const walkIn = walk(t, tSE - .4, sw0, 2150, 1300);
-    const sweepX = lerp(1300, 520, E.io(seg(t, sw0, sw1)));
+    const sweepX = lerp(1300, 660, E.io(seg(t, sw0, sw1)));   // blog: ends nearer the middle of the hero
     const cx = t < sw0 ? walkIn.x : sweepX, sweeping = t > sw0 && t < sw1;
     const st = Math.floor(t * STEP), swing = sweeping ? (st % 2 ? .45 : -.35) : 0;
     const bx = cx - 95 - (sweeping ? (st % 2 ? 30 : -10) : 0);           // bristles position
     // dust kicked up behind the broom
     if (sweeping) for (let k = 0; k < 6; k++) { const r = rng(st * 7 + k); fillP(ellPts(bx - 30 - r() * 120, 900 - r() * 70, 14 + r() * 22, 10 + r() * 14, 10), 'rgba(196,186,168,.55)', { amp: 2, seed: st + k }); }
     // a little crowd of bugs under the name; the broom flings them away, one sneaks into the card
-    const bugs = [[760, 900], [840, 930], [930, 895], [1010, 925], [1090, 905]];
+    const bugs = [[700, 915], [760, 895], [840, 930], [910, 900], [980, 928], [1040, 898], [1110, 920]];   // blog: a few more to sweep
     bugs.forEach(([x0, y0], k) => {
       if (t < tSw) return;
       const sneak = false;
-      const hitT = sneak ? sw0 + .2 : sw0 + (1300 - x0) / 780 * (sw1 - sw0) - .05;
+      const hitT = sneak ? sw0 + .2 : sw0 + (1300 - x0) / 640 * (sw1 - sw0) - .05;
       if (t < hitT) { bug(x0, y0, 1.1, Math.sin(st + k) * .3, { walk: true }); return; }
       const u = seg(t, hitT, hitT + (sneak ? 1.6 : .8));
       if (u >= 1) return;
       if (sneak) { const e = E.io(u); bug(lerp(x0, hx + 150, e), lerp(y0, hy + 110, e) - Math.sin(u * Math.PI) * 60, 1.1 * (1 - e * .3), .9, { walk: true }); return; }
       const e = E.out(u); // tumbling away to the left, off the page
-      bug(lerp(x0, x0 - 900 - k * 120, e), y0 - Math.sin(u * Math.PI) * (120 + k * 30), 1.1, u * 14 + k, { alpha: 1 - seg(u, .7, 1) });
+      bug(lerp(x0, x0 - 1100 - k * 90, e), y0 - Math.sin(u * Math.PI) * (170 + k * 25), 1.15, u * 14 + k, { alpha: 1 - seg(u, .75, 1) });
     });
     if (t > tSE - .4) {
-      claude(cx, 880 + (t < sw0 ? walkIn.bob : sweeping ? (st % 2 ? -6 : 0) : 0), .8, { mood: 'happy', look: -1, rot: t < sw0 ? walkIn.rot : sweeping ? (st % 2 ? -.06 : .04) : 0, tool: true, seed: 501 });
-      broom(cx - 70, 905, .55, -.75 + swing);
+      // blog: a happier Claude, beaming once the sweep is done
+      claude(cx, 880 + (t < sw0 ? walkIn.bob : sweeping ? (st % 2 ? -6 : 0) : 0), .95, { mood: t > sw1 ? 'proud' : 'delight', look: -1, rot: t < sw0 ? walkIn.rot : sweeping ? (st % 2 ? -.06 : .04) : 0, tool: true, seed: 501 });
+      broom(cx - 84, 905, .66, -.75 + swing);
     }
   });
 }

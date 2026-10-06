@@ -7,9 +7,9 @@
 // SB_ASSETS with data: URLs keyed by these relative paths.
 const asset = p => (window.SB_ASSETS && SB_ASSETS[p]) || p;
 const ANIM_FONTS = [
-  ['Waiting for the Sunrise', 'WaitingfortheSunrise.ttf'], ['Covered By Your Grace', 'CoveredByYourGrace.ttf'],
-  ['Shadows Into Light Two', 'ShadowsIntoLightTwo-Regular.ttf'], ['Reenie Beanie', 'ReenieBeanie.ttf'],
-  ['Patrick Hand', 'PatrickHand-Regular.ttf'], ['Gaegu', 'Gaegu-Bold.ttf', 700], ['Gaegu', 'Gaegu-Regular.ttf', 400],
+  ['Waiting for the Sunrise', 'WaitingfortheSunrise.woff2'], ['Covered By Your Grace', 'CoveredByYourGrace.woff2'],
+  ['Shadows Into Light Two', 'ShadowsIntoLightTwo-Regular.woff2'], ['Reenie Beanie', 'ReenieBeanie.woff2'],
+  ['Patrick Hand', 'PatrickHand-Regular.woff2'], ['Gaegu', 'Gaegu-Bold.woff2', 700], ['Gaegu', 'Gaegu-Regular.woff2', 400],
 ];
 async function bootAnim({ scenes = false } = {}) {
   if (!ctx) ctx = document.createElement('canvas').getContext('2d');   // initScenes measures text
