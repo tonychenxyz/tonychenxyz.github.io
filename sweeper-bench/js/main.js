@@ -1,5 +1,5 @@
-// SWEeper-Bench blog. Everything here draws into the DOM: inline SVG figures and charts, HTML
-// tables and cards, and live canvases for the hand-drawn animations (no rasterised diagrams).
+// SWEeper-Bench page. Everything here draws into the DOM: inline SVG figures and charts, HTML
+// tables and cards, and canvases for the hand-drawn animations (no rasterised diagrams).
 // lib.js / chars.js are classic scripts that own globals such as ctx, TIME, W, H, PAL, E, T, seg;
 // everything here lives inside one function scope and declares none of those names, so it can
 // assign the shared ones. Data and figures come from the data/*.js and figs/*.js script files
@@ -86,9 +86,6 @@ const hostPoint = (host, ev) => { const r = host.getBoundingClientRect(); return
     const lab = el('text', { x: x(i) + 9, y: y(p) + (i === 1 ? 19 : -10), 'font-size': 12.5, 'font-weight': 700, stroke: '#fff', 'stroke-width': 4, 'paint-order': 'stroke' }, ga);
     lab.textContent = fmt1(p) + '%';
   });
-  // the drop, called out
-  const dl = el('text', { x: (x(0) + x(1)) / 2 + 8, y: y((avg[0] + avg[1]) / 2) - 4, 'font-size': 12.5, 'font-weight': 700, stroke: '#fff', 'stroke-width': 4, 'paint-order': 'stroke' }, f.svg);
-  dl.textContent = '−25.4 pts'; dl.style.fill = '#C8463A';
   // legend (paper position: top right)
   const lg = el('g', { transform: `translate(${f.x1 - 160},${f.y1 + 6})` }, f.svg);
   el('rect', { x: -10, y: -10, width: 166, height: 52, fill: '#fff' }, lg);
@@ -237,25 +234,23 @@ dlg.addEventListener('close', () => $$('video', dlg).forEach(v => v.pause()));
 
 // ---------------------------------------------------------------- Focalboard walkthrough
 {
-  const SH = 1920, SV = 1200, F = n => asset(`media/focal/${n}.png`);
+  const SH = 1920, SV = 1200, F = n => asset(`media/focal/${n}.webp`);
   const STEPS = [
-    { img: '01-login', who: 'owner', title: 'Log in as miraDunn', text: '<b>Log in as the board owner, miraDunn.</b> The verifier types her username and password and clicks <i>Log in</i>.', r: [730, 145, 465, 410], pt: [960, 360] },
-    { img: '03-empty', who: 'owner', title: 'Create an empty board', text: '<b>In the sidebar, click <i>+ Add board</i>, then <i>Create empty board</i>.</b>', r: [1150, 600, 380, 140], pt: [1335, 667] },
-    { img: '05-owner-sidebar', who: 'owner', title: 'Name it “Q3 Launch Desk”', text: '<b>Click the title and type <i>Q3 Launch Desk</i>.</b> The board now shows up in miraDunn’s own sidebar, under <i>Boards</i>.', r: [0, 40, 700, 200] },
-    { img: '06-share', who: 'owner', title: 'Open Share', text: '<b>Click <i>Share</i> in the top right.</b> The Share Board dialog opens with a search field for people.', r: [655, 318, 610, 170], pt: [1840, 96] },
-    { img: '08-select', who: 'owner', title: 'Add @kadeRue', text: '<b>Type <i>kadeRue</i> and click the <i>@kadeRue</i> result</b>, so kadeRue is added to the board.', r: [680, 380, 555, 160], pt: [835, 455] },
-    { img: '09-member', who: 'owner', title: 'Confirm the member', text: '<b>kadeRue is now listed as a member.</b> From the owner’s side, sharing worked.', r: [660, 500, 600, 130] },
-    { img: '12-logout', who: 'owner', title: 'Close and log out', text: '<b>Close the dialog, open the Focalboard menu, and click <i>Log out</i>.</b>', r: [0, 50, 245, 265], pt: [70, 218] },
-    { img: '13-recipient-login', who: 'recip', title: 'Log in as kadeRue', text: '<b>Log in as the teammate, kadeRue, and refresh once</b> so the sidebar reloads its categories.', r: [730, 145, 465, 410], pt: [960, 360] },
-    { verdict: true, who: 'recip', title: 'Look at the sidebar', text: '<b>Judge only kadeRue’s sidebar, under <i>Boards</i>.</b> With the bug it says <i>No boards inside</i>. With the fix, <i>Q3 Launch Desk</i> is there. Toggle between the two builds.' },
+    { img: '01-login', who: 'owner', title: 'Log in as miraDunn', text: 'Log in as the board owner, miraDunn.', r: [730, 145, 465, 410], pt: [960, 360] },
+    { img: '03-empty', who: 'owner', title: 'Create an empty board', text: 'Click <i>+ Add board</i>, then <i>Create empty board</i>.', r: [1150, 600, 380, 140], pt: [1335, 667] },
+    { img: '05-owner-sidebar', who: 'owner', title: 'Name it', text: 'Name it <i>Q3 Launch Desk</i>. It appears in miraDunn’s own sidebar.', r: [0, 40, 700, 200] },
+    { img: '06-share', who: 'owner', title: 'Open Share', text: 'Click <i>Share</i> to open the sharing dialog.', r: [655, 318, 610, 170], pt: [1840, 96] },
+    { img: '08-select', who: 'owner', title: 'Add kadeRue', text: 'Search for <i>kadeRue</i> and add them.', r: [680, 380, 555, 160], pt: [835, 455] },
+    { img: '09-member', who: 'owner', title: 'Confirm the member', text: 'kadeRue is now a member. From the owner’s side, sharing worked.', r: [660, 500, 600, 130] },
+    { img: '12-logout', who: 'owner', title: 'Log out', text: 'Close the dialog and log out.', r: [0, 50, 245, 265], pt: [70, 218] },
+    { img: '13-recipient-login', who: 'recip', title: 'Log in as kadeRue', text: 'Log in as the teammate, kadeRue, and refresh.', r: [730, 145, 465, 410], pt: [960, 360] },
+    { verdict: true, who: 'recip', title: 'Check the sidebar', text: 'Check kadeRue’s sidebar. With the bug it says <i>No boards inside</i>; with the fix, the shared board is there.' },
   ];
   const walk = $('#walk'), list = $('.walk-steps', walk), view = $('.browser-view', walk), who = $('.who', walk), txt = $('.walk-text', walk);
   STEPS.forEach((s, i) => {
-    if (i === 7) list.append(html('li', 'sep', 'switch accounts ↓'));
     const li = html('li', s.verdict ? 'verdict' : '');
-    const b = html('button', '', `<span class="n">${s.verdict ? '?' : i + 1}</span>${s.title}<span class="acct">${s.who === 'owner' ? 'as miraDunn (owner)' : 'as kadeRue (teammate)'}</span>`);
+    const b = html('button', '', `<span class="n">${s.verdict ? '?' : i + 1}</span>${s.title}`);
     b.setAttribute('role', 'tab'); b.onclick = () => go(i); li.append(b); list.append(li);
-    if (s.img) new Image().src = F(s.img);   // warm the cache
   });
   let cur = 0;
   const pct = (v, of) => (v / of * 100) + '%';
@@ -316,6 +311,8 @@ dlg.addEventListener('close', () => $$('video', dlg).forEach(v => v.pause()));
   $('.walk-next', walk).onclick = () => go(cur + 1);
   walk.addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1); });
   new ResizeObserver(() => go(cur)).observe(view);
+  // fetch the other frames only once the walkthrough is close
+  new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); for (const n of ['03-empty', '05-owner-sidebar', '06-share', '08-select', '09-member', '12-logout', '13-recipient-login', '15-fail', '16-pass']) new Image().src = F(n); }, { rootMargin: '400px 0px' }).observe(walk);
 }
 
 // ---------------------------------------------------------------- four agents, one empty sidebar
@@ -368,105 +365,61 @@ dlg.addEventListener('close', () => $$('video', dlg).forEach(v => v.pause()));
   $$('.traj-flow', host).forEach(f => f.addEventListener('scroll', place));
 }
 
-// ---------------------------------------------------------------- hand-drawn doodles (video engine)
+// ---------------------------------------------------------------- animations
+// Shots from the explainer video, drawn by its own renderer onto canvases in the page. Each shot
+// stays inside one scene, plays once when it scrolls into view, and then holds its last frame.
+// To keep scrolling smooth, only the most visible shot draws, at 15 fps, and never mid-scroll.
 await bootAnim({ scenes: true });
-
-// ---------------------------------------------------------------- live animations
-// Stretches of the video, drawn by the video's own renderer straight onto canvases in the page, at
-// device resolution. Each loops while on screen and restarts from the top when it scrolls back in.
-const ANIMS = $$('.anim').map(el => {
+// The sweep from the video's title scene, from a fixed camera, cropped to a strip around Claude and
+// the bugs (closer on phones; the canvas aspect in style.css matches: 1920:380 wide, 1920:560 narrow).
+// The name itself is page text; its two labels appear as the scene reaches those words.
+const heroFrame = (t, narrow) => {
+  RAW = t; TIME = Math.floor(t * STEP + 1e-6) / STEP;
+  ctx.setTransform(SC_, 0, 0, SC_, 0, 0); ctx.fillStyle = PAL.bg; ctx.fillRect(0, 0, W, H);
+  ctx.save(); applyCam(narrow ? [P1[0] + 950, 1017, 1.6] : [P1[0] + 960, 1180, 1]); title(TIME); ctx.restore();
+  const h1 = $('.title');
+  h1.classList.toggle('show-swe', t >= T('l07', 'Software')); h1.classList.toggle('show-broom', t >= T('l07', 'with'));
+};
+const SHOTS = $$('.anim').map(el => {
   const cv = document.createElement('canvas'); el.append(cv);
-  return { el, cv, g: cv.getContext('2d'), from: +el.dataset.from, to: +el.dataset.to, vis: false, start: 0, last: -1 };
+  const hero = el.dataset.shot === 'hero';
+  return { el, cv, g: cv.getContext('2d'), hero, ratio: 0, t: 0, drawn: -1,
+    from: hero ? T('l07', 'Sweeper') : +el.dataset.from, to: hero ? T('l07', 'with') + 2.6 : +el.dataset.to };
 });
-const drawAnim = (a, t, fade = 0) => {
+const drawShot = a => {
   ctx = a.g; DPR_ = a.cv.width / Math.max(1, a.cv.clientWidth); SC_ = a.cv.width / W;
-  renderAt(t, { captions: false });
-  if (fade > 0) { ctx.setTransform(SC_, 0, 0, SC_, 0, 0); ctx.fillStyle = `rgba(255,255,255,${fade})`; ctx.fillRect(0, 0, W, H); }
+  if (a.hero) heroFrame(a.from + a.t, a.cv.clientWidth < 560); else renderAt(a.from + a.t, { captions: false });
+  a.drawn = a.t;
 };
-const sizeAnim = a => {
-  const dpr = Math.min(devicePixelRatio || 1, 2.5);
+const sizeShot = a => {
+  const dpr = Math.min(devicePixelRatio || 1, 2);
   a.cv.width = Math.round(a.cv.clientWidth * dpr); a.cv.height = Math.round(a.cv.clientHeight * dpr);
-  a.last = -1; if (a.cv.width) drawAnim(a, a.from + .5);
+  if (a.cv.width) drawShot(a);
 };
-const animIO = new IntersectionObserver(es => {
+const shotIO = new IntersectionObserver(es => {
   for (const e of es) {
-    const a = ANIMS.find(x => x.el === e.target);
-    if (e.isIntersecting && !a.vis) { a.start = performance.now(); a.last = -1; }
-    a.vis = e.isIntersecting;
+    const a = SHOTS.find(x => x.el === e.target);
+    a.ratio = e.isIntersecting ? e.intersectionRatio : 0;
+    if (!e.isIntersecting && a.t > 0) { a.t = 0; a.drawn = -1; }   // replay from the top next time
   }
-}, { threshold: .25 });
-ANIMS.forEach(a => { new ResizeObserver(() => sizeAnim(a)).observe(a.el); animIO.observe(a.el); });
-const FADE = .45;
-const animTick = now => {
-  requestAnimationFrame(animTick);
-  if (document.hidden) return;
-  for (const a of ANIMS) {
-    if (!a.vis || !a.cv.width) continue;
-    const len = a.to - a.from, local = ((now - a.start) / 1000) % len, f = Math.floor(local * 24);
-    if (f === a.last) continue;   // 24 fps is plenty: poses change 12x per second
-    a.last = f;
-    drawAnim(a, a.from + local, Math.max(1 - local / FADE, 1 - (len - local) / FADE, 0));   // soft dip at the loop seam
-  }
+}, { threshold: [0, .2, .4, .6, .8, 1] });
+SHOTS.forEach(a => { new ResizeObserver(() => sizeShot(a)).observe(a.el); shotIO.observe(a.el); });
+let lastScroll = 0, prev = performance.now();
+addEventListener('scroll', () => { lastScroll = performance.now(); }, { passive: true });
+const shotTick = now => {
+  requestAnimationFrame(shotTick);
+  const dt = Math.min(.1, (now - prev) / 1000); prev = now;
+  if (document.hidden || now - lastScroll < 150) return;
+  const a = SHOTS.reduce((best, x) => (x.ratio >= .4 && x.ratio > (best?.ratio ?? 0)) ? x : best, null);
+  if (!a || !a.cv.width) return;
+  const len = a.to - a.from;
+  if (a.drawn >= len) return;   // finished: hold the last frame
+  a.t = Math.min(len, a.t + dt);
+  if (a.drawn < 0 || a.t >= len || Math.floor(a.t * 15) !== Math.floor(a.drawn * 15)) drawShot(a);
 };
-requestAnimationFrame(animTick);
-const DOODLES = {
-  hero: { w: 900, h: 290, draw(t) {
-    // Claude sweeps; bugs scurry off to the right; dust kicks up
-    push(0, -26);   // keep the rug and the scurrying bugs inside the canvas
-    const sw = Math.sin(t * 3.2), cx = 360, cy = 272;
-    rug(cx + 20, cy + 4, 260, 16, .6);
-    for (let i = 0; i < 6; i++) {
-      const sp = 60 + i * 13, ph = ((t * sp + i * 157) % 560);
-      const bx = 470 + ph, by = 250 + (i % 3) * 14 - Math.sin(ph / 30 + i) * 6;
-      bug(bx, by, .8 + (i % 2) * .15, Math.PI / 2 + Math.sin(t * 6 + i) * .25, { walk: true, alpha: Math.min(1, (560 - ph) / 80) });
-    }
-    for (let k = 0; k < 3; k++) puff(cx + 200 + k * 26, cy + 50, .32, ((t * .9 + k * .33) % 1), 7 + k);
-    broom(cx + 128 + sw * 14, cy + 12, .74, -.6 + sw * .1);
-    claude(cx, cy, .9, { mood: 'focus', tool: true, look: .8, seed: 13 });
-    // a little tidy app on the left, already swept
-    push(140, 168, .72, -.05);
-    fillP(rrPts(-90, -70, 180, 140, 14, 18), PAL.paper, { stroke: PAL.ink, lw: 3, amp: 1, seed: 401 });
-    for (let i = 0; i < 3; i++) fillP(rrPts(-66, -42 + i * 30, 132 - i * 30, 14, 6, 12), i ? PAL.faint : PAL.peri, { amp: .6, seed: 410 + i });
-    check(48, 44, .9, PAL.green, 1, 6);
-    pop_();
-    sparkles(140, 120, 120, t, 5, PAL.orange);
-    pop_();
-  } },
-  foot: { w: 260, h: 150, draw(t) {
-    claude(110, 142, .55, { mood: 'happy', seed: 21 });
-    magnifier(180, 92, .7, Math.sin(t * 2) * .15);
-    bug(186, 90, .55, Math.sin(t * 5) * .4, { walk: true });
-  } },
-};
-for (const cv of $$('canvas.doodle')) {
-  const d = DOODLES[cv.dataset.doodle]; if (!d) continue;
-  let vis = true, last = -1;
-  new IntersectionObserver(([e]) => vis = e.isIntersecting).observe(cv);
-  const size = () => { const dpr = Math.min(devicePixelRatio || 1, 2.5); cv.width = Math.round(cv.clientWidth * dpr); cv.height = Math.round(cv.clientHeight * dpr); last = -1; };
-  size(); new ResizeObserver(size).observe(cv);
-  const g = cv.getContext('2d');
-  const tick = now => {
-    requestAnimationFrame(tick);
-    const t = now / 1000, f = Math.floor(t * 12);
-    if (!vis || f === last || !cv.width) return;
-    last = f;
-    ctx = g; TIME = f / 12; DPR_ = cv.width / cv.clientWidth;
-    const s = cv.width / d.w;
-    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, cv.width, cv.height);
-    ctx.setTransform(s, 0, 0, s, 0, 0);
-    d.draw(TIME);
-  };
-  requestAnimationFrame(tick);
-}
+requestAnimationFrame(shotTick);
 
 // ---------------------------------------------------------------- small things
 $('.bib .copy').onclick = async e => { await navigator.clipboard.writeText($('.bib code').textContent); e.target.textContent = 'copied ✓'; setTimeout(() => e.target.textContent = 'copy', 1600); };
 $$('[data-todo]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); a.title = 'coming soon'; }));
-{
-  const links = $$('.sbtoc a'), secs = links.map(a => $(a.getAttribute('href'))).filter(Boolean);
-  const tocIO = new IntersectionObserver(es => {
-    for (const e of es) if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  secs.forEach(s => tocIO.observe(s));
-}
 })();
