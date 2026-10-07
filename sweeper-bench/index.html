@@ -94,7 +94,7 @@
 <section id="benchmark">
   <h2>How it works</h2>
 
-  <p>Here’s how a task runs. The agent gets the app’s code and a running copy of the app with a browser. It explores both, tests whatever it suspects might be broken, and writes a patch. A second agent, the verifier, then applies that patch to a fresh copy of the app and uses it in a browser, following step-by-step tests: one checks that the bug is gone, and the other checks that nearby features still work. The verifier <b>only judges what a user would see</b>, so any fix that actually works counts.</p>
+  <p>The agent receives the app’s codebase and an open-ended prompt like <q>Find and fix issues in SearXNG’s search suggestion interface.</q> It can run any tests it likes in a sandbox with a browser installed. Once it produces a code patch, we run the patched app and have a verifier agent use it in a browser, following step-by-step instructions written for that task. Each task has two tests: a <b>target test</b>, which repeats the interactions that expose the bug and checks that it’s gone, and a <b>preservation test</b>, which checks that nearby features still work. A task passes only if both do.</p>
 
   <figure class="paper-fig wide frame-fig" data-frame="pipeline" data-width="752"></figure>
 
@@ -112,7 +112,7 @@
     </table></div>
   </details>
 
-  <p>Every task is a real bug that someone fixed in a real open-source web app, with 200 different apps spread across seven kinds of software. We roll each app back to the moment before the fix, so the bug is back and waiting for someone to click through the app in just the right way. The agent <b>never sees the bug report</b>, the fix, or our tests.</p>
+  <p>Every task is a real bug that someone fixed in a real open-source web app, with 200 different apps spread across seven kinds of software. These bugs are <b>hard to spot</b>. Many only appear after a long sequence of steps, sometimes across more than one account, and they often come from several parts of the app working together, like the interface, the server and the stored data, rather than from one obviously wrong line. Often nothing crashes at all: the app just quietly does the wrong thing, and only someone paying close attention would notice.</p>
 
   <figure class="paper-fig narrow" data-svg="domains"></figure>
 </section>
