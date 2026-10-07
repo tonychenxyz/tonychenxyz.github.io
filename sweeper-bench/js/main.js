@@ -388,7 +388,7 @@ const heroFrame = (t, narrow) => {
   RAW = t; TIME = Math.floor(t * STEP + 1e-6) / STEP;
   ctx.setTransform(SC_, 0, 0, SC_, 0, 0); ctx.fillStyle = PAL.bg; ctx.fillRect(0, 0, W, H);
   ctx.save(); applyCam(narrow ? [P1[0] + 950, 1017, 1.6] : [P1[0] + 960, 1180, 1]); title(TIME); ctx.restore();
-  const h1 = $('.title');
+  const h1 = $('h1.title');
   if (t >= T('l07', 'Software')) h1.classList.add('show-swe');   // the labels write in once and stay while the sweep loops
   if (t >= T('l07', 'with')) h1.classList.add('show-broom');
 };

@@ -33,16 +33,16 @@ main h2.small-h { font-size: 20px; margin-top: 56px; letter-spacing: -.01em; }
 
 /* ---------- header ---------- */
 .hero { text-align: center; padding: 6px var(--gut) 28px; max-width: 1100px; margin: 0 auto; }
-.title { --fs: clamp(40px, 7vw, 64px); font: 700 var(--fs)/1 var(--sans); letter-spacing: -.035em; margin: 4px 0 calc(var(--fs) * .55 + 22px); }
-.title .part { position: relative; display: inline-block; }
+h1.title { --fs: clamp(40px, 7vw, 64px); font: 700 var(--fs)/1 var(--sans); letter-spacing: -.035em; margin: 4px 0 calc(var(--fs) * .55 + 22px); }
+h1.title .part { position: relative; display: inline-block; }
 /* the labels under SWE and eper write themselves in as the sweep happens (main.js adds the classes) */
-.title .part::after { content: ''; position: absolute; left: 2%; right: 2%; bottom: calc(var(--fs) * -.2); height: 2px; border-radius: 2px; background: currentColor; opacity: .55; transform: scaleX(0); transform-origin: left; transition: transform .5s ease; }
-.title .lab { position: absolute; top: calc(100% + var(--fs) * .3); font-size: max(11px, .2em); font-weight: 500; letter-spacing: .02em; color: var(--soft); white-space: nowrap; clip-path: inset(0 100% 0 0); transition: clip-path .7s ease; }
+h1.title .part::after { content: ''; position: absolute; left: 2%; right: 2%; bottom: calc(var(--fs) * -.2); height: 2px; border-radius: 2px; background: currentColor; opacity: .55; transform: scaleX(0); transform-origin: left; transition: transform .5s ease; }
+h1.title .lab { position: absolute; top: calc(100% + var(--fs) * .3); font-size: max(11px, .2em); font-weight: 500; letter-spacing: .02em; color: var(--soft); white-space: nowrap; line-height: 1.5; clip-path: inset(-.3em 100% -.4em 0); transition: clip-path .7s ease; }
 /* labels run outward from the SWE|eper boundary, so they never collide on narrow screens */
-.title .swe .lab { right: .1em; }
-.title .eper .lab { left: .12em; }
-.title.show-swe .swe::after, .title.show-broom .eper::after { transform: scaleX(1); }
-.title.show-swe .swe .lab, .title.show-broom .eper .lab { clip-path: inset(0 0 0 0); }
+h1.title .swe .lab { right: .1em; }
+h1.title .eper .lab { left: .12em; }
+h1.title.show-swe .swe::after, h1.title.show-broom .eper::after { transform: scaleX(1); }
+h1.title.show-swe .swe .lab, h1.title.show-broom .eper .lab { clip-path: inset(-.3em -.2em -.4em 0); }   /* room for descenders */
 .subtitle { font: 400 clamp(19px, 2.4vw, 24px)/1.35 var(--sans); color: var(--ink); margin: 6px 0 20px; letter-spacing: -.015em; }
 .subtitle b { font-weight: 700; }
 .authors { font-size: 16px; font-weight: 500; line-height: 1.6; margin: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 20px; }
