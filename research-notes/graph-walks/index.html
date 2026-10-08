@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Research notes: reachable only by direct link (not in the homepage navbar); their own navbar shows "research notes". -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Metadata, OpenGraph and Schema.org -->
+
+
+
+
+<!-- Standard metadata -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  
+  
+    
+      Walking the read-together graph | Tony Chen
+    
+  
+</title>
+<meta name="author" content="Haozhe (Tony) Chen ">
+<meta name="description" content="Agents walked a graph of " worth reading together links over earnings calls a person app history and old gpu-kernel runs. did it surface connections they would not find by searching>
+
+  <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap & MDB -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css?2fb83a6dbc622464e2ca0f07c26f4486">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+<!-- Bootstrap Table -->
+
+
+<!-- Fonts & Icons -->
+<link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
+<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+
+<!-- Code Syntax Highlighting -->
+<link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
+
+
+
+<!-- Styles -->
+
+<!-- pseudocode -->
+
+
+
+  <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
+
+<link rel="stylesheet" href="/assets/css/main.css?v=1791484521">
+<link rel="canonical" href="https://tonychenxyz.github.io/research-notes/graph-walks/">
+
+<!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
+<meta name="color-scheme" content="only light">
+<style>
+  :root {
+    color-scheme: only light;
+  }
+</style>
+
+<!-- Dark Mode -->
+<script src="/assets/js/theme.js?9a0c749ec5240d9cda97bc72359a72c0"></script>
+
+
+<!-- GeoJSON support via Leaflet -->
+
+
+<!-- diff2html -->
+
+
+
+
+
+
+    <style>
+      .rn-host {
+        padding-top: 8px;
+      }
+      .rn-host .rn {
+        padding-top: 32px;
+      }
+    </style>
+  </head>
+
+  <body class="fixed-top-nav ">
+    <header>
+  <!-- Nav Bar -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation">
+    <div class="container">
+      
+        <a class="navbar-brand title font-weight-lighter" href="/">
+          Tony Chen
+        </a>
+      
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/">about
+              
+            </a>
+          </li>
+
+          <!-- Other pages -->
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/blog/">blog
+                    
+                  </a>
+                </li>
+              
+            
+          
+          
+            <!-- Research notes: only shown on research-notes pages, never on the homepage -->
+            <li class="nav-item active">
+              <a class="nav-link" href="/research-notes/">research notes</a>
+            </li>
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+    <!-- Scrolling Progress Bar -->
+    <progress id="progress" value="0">
+      <div class="progress-container">
+        <span class="progress-bar"></span>
+      </div>
+    </progress>
+  
+</header>
+
+
+    <div class="container rn-host" role="main">
+<style>
+.wk { --text: #1f2328; --text-2: #57606a; --muted: #8c959f; --border: #e5e7eb; --line: #edf0f3; --panel: #f4f6f8; --theme: #286ee0;
+      --hl: #fff1b8; --jev: #2a78d6; --luna: #eb6834; --decisions: #1baf7a; --baseline: #4a3aa7; --glass: #e87ba4;
+      --sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-family: var(--sans); color: var(--text); font-size: 16.5px; line-height: 1.72; -webkit-font-smoothing: antialiased;
+      max-width: 760px; margin: 0 auto; padding: 72px 24px 140px; }
+.wk * { box-sizing: border-box; }
+.wk a { color: var(--theme); text-decoration: none; }
+.wk a:hover { text-decoration: underline; }
+.wk .meta { font-size: 14px; color: var(--text-2); margin-bottom: 14px; }
+.wk h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.025em; font-weight: 700; margin: 0 0 14px; }
+.wk .dek { font-size: 19.5px; line-height: 1.6; margin: 0 0 22px; }
+.wk h2 { font-size: 28px; line-height: 1.25; letter-spacing: -0.015em; font-weight: 680; margin: 88px 0 14px; scroll-margin-top: 70px; }
+.wk h2 .num { color: var(--theme); font-weight: 650; margin-right: 10px; }
+.wk h3 { font-size: 19.5px; font-weight: 640; margin: 46px 0 10px; letter-spacing: -0.005em; }
+.wk p { margin: 0 0 18px; }
+.wk b { font-weight: 620; }
+.wk ul.plain { margin: 0 0 18px; padding-left: 20px; }
+.wk ul.plain li { margin-bottom: 6px; }
+.wk code { font-family: var(--mono); font-size: 0.86em; background: #f2f4f7; padding: 1px 5px; border-radius: 4px; }
+.wk .arm { font-weight: 640; white-space: nowrap; }
+.wk .arm::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; background: currentColor; }
+.wk .arm.jev { color: var(--jev); } .wk .arm.luna { color: var(--luna); } .wk .arm.decisions { color: #13865d; } .wk .arm.baseline { color: var(--baseline); }
+.wk .arm span { color: var(--text); }
+
+/* wide panels break out of the text column */
+.wk .panel { background: var(--panel); border-radius: 14px; padding: 22px 26px 24px; margin: 30px 0 40px;
+             margin-left: calc(50% - min(560px, 50vw - 16px)); margin-right: calc(50% - min(560px, 50vw - 16px)); }
+.wk .panel.col { margin-left: 0; margin-right: 0; }
+.wk .ptitle { font-weight: 650; font-size: 16.5px; line-height: 1.4; margin: 0 0 4px; }
+.wk .psub { font-size: 14.5px; color: var(--text-2); margin: 0 0 14px; line-height: 1.55; }
+.wk .pnote { font-size: 13.5px; color: var(--text-2); margin: 12px 0 0; line-height: 1.55; }
+.wk svg text { font-family: var(--sans); }
+
+/* hero */
+.wk .hero { position: relative; height: 300px; margin: 6px 0 28px; border-radius: 16px; overflow: hidden; background: #0f1724;
+            margin-left: calc(50% - min(560px, 50vw - 16px)); margin-right: calc(50% - min(560px, 50vw - 16px)); }
+.wk .hero canvas { width: 100%; height: 100%; display: block; }
+.wk .hero .cap { position: absolute; left: 22px; bottom: 16px; color: #c9d4e3; font-size: 13px; letter-spacing: .01em; }
+.wk .hero .cap b { color: #fff; }
+
+.wk .tldr { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 18px 0 8px; margin: 8px 0 26px; }
+.wk .tldr h4 { margin: 0 0 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--text-2); font-weight: 650; }
+.wk .tldr ul { margin: 0 0 10px; padding-left: 20px; }
+.wk .tldr li { margin-bottom: 8px; }
+.wk .verdict { font-size: 17.5px; font-weight: 560; margin: 6px 0 12px; }
+.wk .toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; }
+.wk .toc a { font-size: 13.5px; border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; color: var(--text); }
+.wk .toc a:hover { border-color: var(--theme); color: var(--theme); text-decoration: none; }
+
+/* controls */
+.wk .ctrl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 14px; }
+.wk .ctrl .lab { font-size: 13px; color: var(--text-2); margin-right: 2px; }
+.wk .chip { font: inherit; font-size: 13.5px; border: 1px solid #d0d7de; background: #fff; color: var(--text); border-radius: 999px;
+            padding: 4px 12px; cursor: pointer; line-height: 1.5; transition: all .15s; }
+.wk .chip:hover { border-color: #8c959f; }
+.wk .chip.on { background: var(--text); color: #fff; border-color: var(--text); }
+.wk .chip .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+.wk .btn { font: inherit; font-size: 13.5px; font-weight: 600; border: 0; background: var(--theme); color: #fff; border-radius: 8px;
+           padding: 6px 14px; cursor: pointer; }
+.wk .btn.ghost { background: #fff; color: var(--text); border: 1px solid #d0d7de; font-weight: 500; }
+.wk .btn:disabled { opacity: .4; cursor: default; }
+.wk input[type=range] { accent-color: var(--theme); }
+
+/* cards */
+.wk .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.wk .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.wk .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 760px) { .wk .grid2, .wk .grid3, .wk .grid4 { grid-template-columns: 1fr; } }
+.wk .card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-size: 14.5px; line-height: 1.58; }
+.wk .card h4 { margin: 0 0 6px; font-size: 15.5px; font-weight: 650; }
+.wk .card .k { font-size: 12.5px; color: var(--text-2); }
+.wk .card.top { border-top: 3px solid var(--c, var(--text)); }
+.wk .stat { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.wk .stat small { font-size: 13px; font-weight: 500; color: var(--text-2); letter-spacing: 0; }
+.wk .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 24px; }
+.wk .fact { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 8px 14px; font-size: 13.5px; color: var(--text-2); }
+.wk .fact b { color: var(--text); font-size: 15px; display: block; }
+
+/* tooltip */
+.wk-tip { position: fixed; pointer-events: none; z-index: 9999; max-width: 360px; background: #fff; color: #1f2328; border: 1px solid #d0d7de;
+          border-radius: 8px; box-shadow: 0 8px 24px rgba(15,23,36,.14); padding: 9px 12px; font: 13px/1.5 'Inter', -apple-system, sans-serif;
+          opacity: 0; transition: opacity .1s; }
+.wk-tip b { font-weight: 650; }
+.wk-tip .s { color: #57606a; font-size: 12px; }
+
+/* playground */
+.wk .pg { display: grid; grid-template-columns: 1.35fr 1fr; gap: 16px; }
+@media (max-width: 860px) { .wk .pg { grid-template-columns: 1fr; } }
+.wk .pg .stage { background: #fff; border: 1px solid var(--border); border-radius: 10px; position: relative; }
+.wk .pg svg { width: 100%; height: auto; display: block; }
+.wk .term { background: #0f1724; color: #d6deeb; border-radius: 10px; padding: 12px 14px; font: 12.5px/1.6 var(--mono); height: 236px; overflow: auto; }
+.wk .term .c { color: #7fdbca; } .wk .term .m { color: #8b9bb4; } .wk .term .w { color: #ffcb6b; }
+.wk .plist { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; margin-top: 10px; min-height: 120px; font-size: 13px; }
+.wk .plist .row { display: grid; grid-template-columns: 24px 1fr 90px; gap: 8px; align-items: center; padding: 3px 4px; border-radius: 6px; cursor: pointer; }
+.wk .plist .row:hover { background: #f2f6fd; }
+.wk .plist .bar { height: 7px; border-radius: 4px; background: #e9edf2; position: relative; overflow: hidden; }
+.wk .plist .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: var(--jev); transition: width .35s; }
+.wk .meter { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-2); }
+.wk .meter .track { flex: 1; height: 8px; background: #e3e8ee; border-radius: 4px; overflow: hidden; }
+.wk .meter .track i { display: block; height: 100%; background: var(--theme); width: 0; transition: width .4s; }
+
+/* judge cards */
+.wk .judge { position: relative; }
+.wk .judge canvas { width: 100%; height: 54px; display: block; margin: 8px 0 8px; }
+.wk .judge .how { font-size: 13.5px; color: var(--text-2); }
+
+/* walk replay */
+.wk .replay { display: grid; grid-template-columns: 1fr 300px; gap: 16px; }
+@media (max-width: 900px) { .wk .replay { grid-template-columns: 1fr; } }
+.wk .replay .stage { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.wk .replay svg { width: 100%; height: auto; display: block; }
+.wk .narr { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 13.5px; line-height: 1.55; max-height: 520px; overflow: auto; }
+.wk .narr .who { font-size: 12px; color: var(--text-2); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+.wk .narr .msg { margin-bottom: 12px; padding-left: 10px; border-left: 2px solid var(--border); transition: border-color .3s, opacity .3s; }
+.wk .narr .msg.now { border-color: var(--theme); }
+.wk .narr .msg.future { opacity: .25; }
+.wk .scrub { display: flex; align-items: center; gap: 12px; margin-top: 10px; font-size: 13px; color: var(--text-2); }
+.wk .scrub input { flex: 1; }
+.wk .legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--text-2); margin-top: 10px; }
+.wk .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.wk .sw { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.wk .sw.sq { border-radius: 2px; }
+
+/* connections */
+.wk .conn { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; }
+.wk .conn .hd { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; margin-bottom: 4px; }
+.wk .conn .hd b { font-size: 15.5px; }
+.wk .conn .th { font-size: 14.5px; margin: 0 0 12px; }
+.wk .conn .sn { display: grid; grid-template-columns: 1fr 34px 1fr; gap: 0; align-items: stretch; }
+.wk .conn .sn.n3 { grid-template-columns: 1fr 34px 1fr 34px 1fr; }
+@media (max-width: 760px) { .wk .conn .sn, .wk .conn .sn.n3 { grid-template-columns: 1fr; } .wk .conn .link { display: none; } }
+.wk .conn .one { background: #f8fafc; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 1.55; }
+.wk .conn .one .co { font-weight: 650; font-size: 13.5px; }
+.wk .conn .one mark { background: var(--hl); color: inherit; padding: 1px 2px; border-radius: 3px; }
+.wk .conn .one .cx { font-size: 12px; color: var(--text-2); margin-bottom: 6px; }
+.wk .conn .link { display: flex; align-items: center; justify-content: center; }
+.wk .badge { display: inline-block; font-size: 11.5px; font-weight: 600; border-radius: 999px; padding: 1px 8px; margin-top: 8px; }
+.wk .badge.edge { background: #e7f0fb; color: #1c5cab; }
+.wk .badge.random { background: #f1f2f4; color: #57606a; }
+.wk .badge.doc { background: #f1f2f4; color: #57606a; }
+.wk .badge.typed { background: #f1f2f4; color: #57606a; }
+.wk .badge.grep { background: #efedf8; color: #4a3aa7; }
+.wk .ret { font-weight: 650; font-variant-numeric: tabular-nums; }
+.wk .ret.up { color: #1a7f37; } .wk .ret.dn { color: #cf222e; }
+.wk .more { text-align: center; margin-top: 6px; }
+
+/* idea grid */
+.wk .ideas { display: grid; grid-template-columns: 90px repeat(3, 1fr); gap: 10px; align-items: stretch; }
+.wk .ideas .rh { font-size: 12.5px; color: var(--text-2); display: flex; align-items: center; line-height: 1.4; }
+.wk .ideas .ch { font-weight: 650; font-size: 14px; text-align: left; padding-left: 4px; }
+.wk .idea { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; font-size: 13.5px; line-height: 1.5; position: relative; }
+.wk .idea.glass { border-color: var(--glass); box-shadow: inset 0 0 0 1px var(--glass); }
+.wk .idea .tag { display: inline-block; font-size: 11px; font-weight: 650; text-transform: uppercase; letter-spacing: .05em; color: var(--text-2); margin-bottom: 4px; }
+.wk .idea.glass .tag { color: #b83c6f; }
+@media (max-width: 760px) { .wk .ideas { grid-template-columns: 1fr; } .wk .ideas .rh, .wk .ideas .ch { display: none; } }
+
+/* theme history */
+.wk .hist { display: grid; grid-template-columns: 150px repeat(4, 1fr); gap: 4px; font-size: 12.5px; }
+.wk .hist .h { font-weight: 650; padding: 2px 6px; font-size: 13px; }
+.wk .hist .r { color: var(--text-2); padding: 6px 4px; line-height: 1.3; }
+.wk .hist .c { border-radius: 6px; padding: 6px 8px; background: #fff; border: 1px solid var(--line); line-height: 1.3; min-height: 30px; transition: transform .2s, box-shadow .2s; }
+.wk .hist .c.t-glass { background: #fbe3ec; border-color: #f2b6cc; color: #8f2a55; font-weight: 600; }
+.wk .hist .c.t-cheese { background: #eef1f4; }
+.wk .hist .c.t-sauna { background: #e9ecef; }
+.wk .hist .c.t-bistro { background: #e2e6ea; }
+.wk .hist .c.na { background: transparent; border: 1px dashed #dde2e7; color: #b1b8c0; }
+.wk .hist .c.dim { opacity: .28; }
+.wk .hist .sep { grid-column: 1 / -1; font-size: 12px; color: var(--text-2); padding: 10px 0 2px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+@media (max-width: 760px) { .wk .hist { grid-template-columns: 44px repeat(4, minmax(0, 1fr)); font-size: 10.5px; gap: 3px; } .wk .hist .c { padding: 4px 5px; word-break: break-word; } .wk .hist .h { font-size: 11px; padding: 2px; } }
+.wk .hist > * { min-width: 0; }
+
+/* ribbon */
+.wk .ribbon { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; }
+.wk .ribbon svg { display: block; }
+
+.wk .foot { font-size: 13.5px; color: var(--text-2); border-top: 1px solid var(--border); margin-top: 70px; padding-top: 18px; }
+.wk .foot p { margin-bottom: 10px; }
+.wk .reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+.wk .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .wk .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+
+<div class="wk" id="wk">
+  <div class="meta">Research note · October 8, 2026</div>
+  <h1>Walking the read-together graph</h1>
+  <p class="dek">We gave AI agents a graph to walk over a big pile of text. Its edges link passages that are worth reading together. Does walking it surface connections the agent wouldn't find by searching? We tested it on three corpora: earnings calls, one person's app history, and the notes from 823 earlier GPU-kernel coding runs.</p>
+
+  <div class="hero">
+<canvas id="hero"></canvas><div class="cap">
+<b>A walk.</b> The agent expands a snippet, a judge scores random partners, and it steps along the strongest links.</div>
+</div>
+
+  <div class="tldr">
+    <h4>In short</h4>
+    <p class="verdict">Not proven. The graph changed where agents looked, and on earnings that came with better portfolios. It also pulled walks toward a few hub topics.</p>
+    <ul>
+      <li>
+<b>Earnings calls (12 agents, 3 rounds).</b> All three graph-walking arms beat the files-only agent on return, Sharpe and alpha over July–October 2026, Decisions only narrowly. <span class="arm luna"><span>Luna</span></span> did best: +4.0% mean return and +9% annualized alpha, against −19% for files only. Three rounds are too few: no alpha is statistically significant.</li>
+      <li>
+<b>The walk did find the evidence.</b> Half to two-thirds of the calls the graph agents cited were first reached through a judged edge. The cross-company pairs that <span class="arm jev"><span>JEV</span></span> and <span class="arm decisions"><span>Decisions</span></span> cited share about a third less vocabulary than the files-only agent's, which it found with keyword search.</li>
+      <li>
+<b>Personal memory (9 agents).</b> The ideas concentrated. Three of the nine surprises were a hand-made glass object. The other six were a game night, a fireside dinner or a sauna restart: the same four threads that earlier runs kept finding. The JEV and Decisions graphs rate the user's "glass render" entries high against almost everything, so walks drain into them.</li>
+      <li>
+<b>KernelBench (a 3-hour GPU task).</b> No clear help. With the graph as its only way into memory, the Luna agent reached 45.6×, close to the files-only agent's 46.1×. The JEV agent reached 34.6×, below an agent with no memory at all.</li>
+      <li>
+<b>Cost and speed.</b> Judging 5,000 pairs cost about 10¢ with JEV and 26–30¢ with Luna or Decisions. JEV judged them in about 11 seconds, Luna in about 2 minutes. The exploring agent itself costs 10–100× more than any judge.</li>
+    </ul>
+    <div class="toc">
+      <a href="#method">1 · How a walk works</a><a href="#earnings">2 · Earnings calls</a><a href="#personal">3 · Personal memory</a>
+      <a href="#kernelbench">4 · KernelBench</a><a href="#cost">5 · Cost and speed</a><a href="#verdict">6 · Verdict</a>
+    </div>
+  </div>
+
+  <!-- ================================================================== METHOD -->
+  <h2 id="method">
+<span class="num">1</span>How a walk works</h2>
+  <p>Each corpus is cut into <b>snippets</b>: a paragraph of an earnings call, one entry in someone's app log, one note from an earlier coding run. Two snippets get an <b>edge</b> when a judge model thinks they are worth reading together, because together they say something neither says alone. Snippets from the same company are never paired: links within a company are the obvious ones.</p>
+  <p>Nobody judges every pair in advance. The earnings corpus alone has 140,316 snippets, or about 10 billion pairs. So the agent grows the graph as it walks, with four commands:</p>
+  <ul class="plain">
+    <li>
+<code>random</code> draws snippets at random, optionally within a date range.</li>
+    <li>
+<code>view</code> shows a snippet, the previous and next snippet of its document, and every partner judged so far, strongest first.</li>
+    <li>
+<code>expand id K</code> makes sure the snippet has K judged partners. Missing ones are random snippets from <i>other</i> companies, scored by the judge. This is the only way new edges appear.</li>
+    <li>
+<code>log</code> lists what the agent has seen, so it can cite exact ids at the end.</li>
+  </ul>
+  <p>Try it on a toy corpus of 24 made-up snippets from six industries. Expand a snippet, then click a partner to walk there. Strong links tend to cross industries.</p>
+
+  <div class="panel" id="playground"></div>
+
+  <p>In the real runs each agent had a budget of <b>5,000 judged pairs</b> (the sum of every <code>expand</code>'s K) and had to spend all of it. The prompt said that an edge is noisy, and that a snippet should be judged by its top several partners together, never by one edge. Every run started from a <b>fresh, empty edge cache</b>, so no agent could follow another agent's trail. All agents in a round started from the same random snippet.</p>
+
+  <h3>Three judges, and a baseline with no graph</h3>
+  <p>The judge decides which pairs become edges. We tried three. The baseline agent gets the same model, the same time and the same corpus, but as plain files with search tools and no graph.</p>
+  <div class="panel" id="judges"></div>
+  <p>The exploring agents ran in sealed sandboxes, with no internet, no view of the repository and no way to see the other agents. On earnings they were <b>GPT-5.6 Sol</b> at high reasoning through <code>codex exec</code>, with 30 minutes each. On personal memory they were <b>Claude Opus 5.5</b>, with 20 minutes each. On KernelBench they were Claude Opus 5.5, with 3 hours and their own H100.</p>
+
+  <!-- ================================================================== EARNINGS -->
+  <h2 id="earnings">
+<span class="num">2</span>Earnings calls: a long-short portfolio</h2>
+  <p>The corpus is every earnings call that WRDS (S&amp;P Capital IQ) has from April to June 2026: the last full quarter before GPT-5.6 Sol came out on July 9. Each agent is a portfolio manager on <b>July 1, 2026</b>. It builds an equal-weight long-short portfolio from what the calls say, and picks its own buy and sell dates for each stock between July 1 and October 8. The prompt asks for <i>non-consensus</i> insight: a supplier and its customers telling different stories, a second-order effect on another industry, a contradiction between peers.</p>
+  <div class="chips">
+    <div class="fact">
+<b>140,316</b>snippets</div>
+<div class="fact">
+<b>7,259</b>calls, 7,030 companies</div>
+    <div class="fact">
+<b>3 rounds × 4 arms</b>12 agents</div>
+<div class="fact">
+<b>30 min</b>per agent</div>
+<div class="fact">
+<b>5,000</b>judged pairs per graph agent</div>
+  </div>
+
+  <h3>Returns</h3>
+  <p>The graph arms finished ahead of the files-only agent. The chart combines each arm's three portfolios with equal money. Over the same window the S&amp;P 500 (SPY) returned +4.5%. These portfolios hold longs and shorts, so they barely move with the market (beta 0.13–0.35).</p>
+  <div class="panel" id="nav"></div>
+  <p>Three rounds is a small sample, and each portfolio's result rests on two or three stocks. The Lumentum long (+39%) and the PBF long (+38%) did much of the work for Luna. HP shorts hurt three arms (−26% to −42% each). Four positions in other arms had no usable prices, so those arms' numbers are partial sums.</p>
+
+  <h3>Watch an agent walk</h3>
+  <p>Each dot is a snippet the agent opened, in the order it opened them. A line means the agent reached it from a list shown to it: <b>the partners of a snippet it had expanded or viewed</b> (colored), or the previous/next snippet of the same call (gray). Dots without a line came from <code>random</code> draws or ids the agent typed. Dark rings mark the snippets it cited in the final portfolio. The right panel shows what the agent was saying at the time.</p>
+  <div class="panel" id="replay"></div>
+  <p>The replays show a pattern we didn't design for. The agents spent the whole 5,000-pair budget in the first 1.5 to 5.5 minutes, in about ten huge expansions of 300–1,000 partners each. They then spent the remaining 25 minutes reading those partner lists, interleaved with many filtered <code>random</code> draws. So the walk was <b>wide, not deep</b>: few steps from the start, each looking at hundreds of candidates.</p>
+
+  <h3>Where the cited evidence came from</h3>
+  <p>For each call an agent cited, we traced how the agent first got into that call. Was it listed as a judged partner, or drawn at random? The graph supplied most of the evidence. This is the most direct sign that walking the graph mattered.</p>
+  <div class="panel col" id="sources"></div>
+
+  <h3>What kind of connections came up</h3>
+  <p>Every position below cites two or more companies. Badges show how the agent reached each snippet. The graph arms' connections tend to cross industries. The files-only agent's tend to follow a keyword through one industry: memory prices, tanker rates, athletic apparel.</p>
+  <ul class="plain">
+    <li>
+<span class="arm jev"><span>JEV</span></span> reached furthest: 20 of its 36 positions cite more than one company. It built commodity and logistics chains: EU fertilizer duties and Fertiglobe, lost Gulf cargoes lengthening LPG voyages, offshore vessels next to an under-supplied rig fleet. It also chained memory costs into PC makers (HP) and an Italian IoT maker, and fertilizer into wheat and a bread maker (Flowers Foods).</li>
+    <li>
+<span class="arm luna"><span>Luna</span></span> made fewer cross-company links (12 of 30), around one theme, "physical bottlenecks": a pump-laser shortage (Lumentum, with TE Connectivity), a frac-sand supplier selling bridge power, refining and product tankers. Its consumer shorts were refund-propped recoveries.</li>
+    <li>
+<span class="arm decisions"><span>Decisions</span></span> went along AI-infrastructure chains: optical networks (Ciena with Credo), data centers turning Caterpillar's standby engines into prime power (with Dell and Aquila), GE Vernova's paid slot reservations. It also shorted Lavoro, which had delisted from Nasdaq in February.</li>
+    <li>
+<span class="arm baseline"><span>Files only</span></span> searched for words like "shortage", "allocation" and "backlog". It cited as many companies per position as Decisions (15 of 30), but within themes a keyword finds: memory pricing, clean tankers, and GLP-1 coverage and GoodRx.</li>
+  </ul>
+  <div class="panel" id="conns"></div>
+
+  <h3>Were the connections less obvious?</h3>
+  <p>"Non-obvious" is hard to score, so we use two rough proxies. The first is <b>shared vocabulary</b>: for every pair of cited snippets from different companies in the same position, the TF-IDF cosine of their words. Keyword search finds pairs that share words. A judge can link pairs that don't.</p>
+  <div class="panel" id="lexical"></div>
+  <p>The second proxy is <b>crowding</b>: how often other portfolios picked the same name. On this measure the graph didn't help. Shorting Nike, whose quarter was flattered by a one-time tariff refund, appears in 8 of the 12 portfolios across all four arms. Lululemon, HP, Micron and Victoria's Secret appear in four or five each. <span class="arm jev"><span>JEV</span></span> (69%) and files only (67%) had the most names nobody else picked, ahead of <span class="arm luna"><span>Luna</span></span> (57%) and <span class="arm decisions"><span>Decisions</span></span> (43%).</p>
+
+  <!-- ================================================================== PERSONAL -->
+  <h2 id="personal">
+<span class="num">3</span>Personal memory: plan a surprise</h2>
+  <p>This corpus is the app history of one synthetic person from the <a href="https://wenyaxie023.github.io/DynamicMem/" rel="external nofollow noopener" target="_blank">DynamicMem</a> benchmark (user 002). Mira is a product designer in Amsterdam. Their history has <b>2,637 entries</b> from 16 apps, October 2023 to December 2024: WhatsApp, Maps, bank transactions, chats with an AI assistant, Notion, Spotify, Fitbit and more. The task: plan one surprise for early January 2025 that would make them happy, and explain it. Three graph agents (JEV, Luna and Decisions) each had 20 minutes and 5,000 judged pairs, over three rounds. This batch had no files-only agent; earlier rounds did.</p>
+  <div class="panel" id="ideas"></div>
+
+  <h3>The ideas concentrate</h3>
+  <p>Nine agents, four kinds of idea. The same few threads come back across every setup we ran, including the files-only agents. The table includes the eight earlier runs, which used a shared edge cache, and in runs 1–4 gave the graph agents the files too. Hover over a theme to highlight it.</p>
+  <div class="panel" id="history"></div>
+  <p>Three things concentrated the ideas.</p>
+  <ul class="plain">
+    <li>
+<b>The log has a few loud, unfinished threads.</b> Mira renders the same glass block with AI all year. They ask Lars for aged cheese before every game night. They paused their sauna "for the summer" and never went back. They search for fireside bistros every Friday. Any careful reader finds these. Most graph agents also read nearly the whole log through <code>view</code> loops: five of the nine opened 1,800 or more of the 2,637 entries.</li>
+    <li>
+<b>The judges have hubs.</b> In the JEV and Decisions graphs the glass-render entries score high against almost anything, so they rise to the top of unrelated partner lists. A walk that follows top partners drains into them. Luna's graph shows this much more weakly (chart below).</li>
+    <li>
+<b>A shared cache spread trails between runs.</b> With one shared edge cache, run 5's JEV agent found the glass thread. Its edges then put glass entries at the top of later runs' start snippets, and every JEV agent from run 5 to run 8 proposed glass (4 of 4). With a fresh cache per run, JEV proposed glass once in three runs and Decisions twice.</li>
+  </ul>
+  <div class="panel col" id="hubs"></div>
+
+  <h3>Follow one walk</h3>
+  <p>Each column is one <code>expand</code>, in time order. The big dot is the snippet the agent expanded. The ten squares under it are its strongest partners as the agent saw them, with glass-thread entries in pink. A curve means the agent picked its next snippet from an earlier partner list, which is walking the graph. A dark outline marks an entry it later cited. Hover for the text.</p>
+  <div class="panel" id="ribbon"></div>
+
+  <!-- ================================================================== KERNELBENCH -->
+  <h2 id="kernelbench">
+<span class="num">4</span>KernelBench: speeding up a GPU kernel with memory</h2>
+  <p>Here the corpus is <b>33,248 notes</b> from 823 earlier agent runs on KernelBench. Each note records one step of a run: what the agent tried, what happened and how its score moved. The task is open-ended engineering. In 3 hours on an H100, make one fused kernel for a Kimi-Linear decode step as fast as possible, scored as a speed-up over a PyTorch baseline. The public H100 record was 24.3×. On our faster H100 that record's code scores about 27×, and every agent with memory access starts by copying it.</p>
+  <p>In the <b>graph-only</b> run, the JEV and Luna agents had no memory files at all, only the <code>corpus</code> command with a 2,000-pair budget. Both started from the same random note, about a different kernel (a W4A16 matrix multiply on another GPU). The other runs used the memory as files, with or without the graph, or had no memory. The other runs had somewhat different prompts and are single runs, so read this as one rough comparison.</p>
+  <div class="panel" id="kb"></div>
+  <p>A walk adds little when the task names one problem. Both graph-only agents mostly read notes about the target kernel itself: 80 of the 102 notes the Luna agent read, and 131 of 133 for the JEV agent. Luna's other 21 notes came from two other problems. Both agents saw notes describing a 4-bit-weight, 8-bit-activation trick from an earlier run. Luna built its kernel around that trick and JEV didn't, a difference in what the agents chose to build, not in what the graph showed them. A <code>grep</code> over the files reaches a named problem's notes directly. The best score came from the files-only agent.</p>
+
+  <!-- ================================================================== COST -->
+  <h2 id="cost">
+<span class="num">5</span>Cost and speed</h2>
+  <p>The judges differ a lot in speed, and less in price. The race below replays how long each judge took to score an agent's 5,000 pairs on earnings, at 20× speed. JEV scores up to 50 partners in one call that takes about 0.7 seconds. Luna scores 10 per call in 5–7 seconds, and Decisions 20 per call in about 2 seconds. Every call can run in parallel, but an expansion waits for its slowest call.</p>
+  <div class="panel" id="race"></div>
+  <p>In practice the judge is cheap next to the exploring agent. A 20-minute Claude Opus 5.5 explorer cost $2–14 at API list prices, against $0.10–0.30 for its judge. A 30-minute GPT-5.6 Sol explorer read 38–62 million input tokens (98% from cache). The judge mostly costs time: Luna's 2 minutes of judging is 7% of a 30-minute run, and JEV's 11 seconds is under 1%.</p>
+  <div class="panel col" id="costs"></div>
+
+  <!-- ================================================================== VERDICT -->
+  <h2 id="verdict">
+<span class="num">6</span>Does walking the graph reveal less obvious connections?</h2>
+  <p><b>Partly, on earnings.</b> Evidence for it: the graph supplied most of the cited evidence, JEV's and Decisions' cross-company pairs share less vocabulary than keyword search finds, and all three graph arms beat files only on return, Sharpe and alpha. Evidence against it: the margins rest on a few stocks in three rounds, no alpha is significant, and the graph agents crowded into the same consensus shorts as everyone else.</p>
+  <p><b>Not on personal memory.</b> There the graph narrowed the search. Judge hubs and, before fresh caches, other agents' trails pulled walks toward the same glass thread. The other ideas match what a careful reader of the whole log finds anyway.</p>
+  <p><b>Not on KernelBench</b>, where the target is named and search reaches it directly.</p>
+  <p>What we would change next:</p>
+  <ul class="plain">
+    <li>
+<b>Correct for hubs.</b> Rank each snippet's partners by how unusual a score is for that partner, or keep only mutual top-k links, so one popular thread can't top every list.</li>
+    <li>
+<b>Make walks deep, not just wide.</b> Every agent spent its budget in the first few minutes on huge expansions. Smaller budgets per step, or a cap on K, would force multi-hop paths. Multi-hop paths are where non-obvious chains should come from.</li>
+    <li>
+<b>Score non-obviousness directly.</b> Have blind raters judge whether each cited connection is surprising and holds up, and run many more rounds, so differences of a few points can be told apart from luck.</li>
+  </ul>
+
+  <div class="foot">
+    <p><b>Setup details.</b> Earnings: Codex GPT-5.6 Sol (high), October 8, 2026, three rounds run in parallel over two accounts. Returns use Yahoo adjusted closes through October 7 in USD, equal weight per position, no trading or borrow costs. Alpha and Sharpe use daily excess returns against SPY and the 13-week T-bill. Personal memory: Claude Opus 5.5 (high), three rounds run in parallel, October 8. KernelBench: Claude Opus 5.5, 3 hours on an H100 80GB HBM3, regraded on a clean copy (median of three benchmark runs).</p>
+    <p><b>Judges.</b> JEV is TypeSafe's decision model (jev-1.13). Its edge weight is its yes-probability. Luna is gpt-6-luna with reasoning off through the OpenAI Responses API, writing a probability per partner. Decisions is the OpenAI Decisions API (gpt-6-luna), asked one predicate per partner. "Glass-thread entries" are those whose text mentions glass, permafrost, ice blocks, caustics, refraction, optics, prisms, the user's #0052FF blue or "20mm". That is 14% of the log.</p>
+    <p>Lexical overlap is TF-IDF cosine (sublinear tf, English stop words), fitted on 6,000 random snippets plus the cited ones. Example quotes are cut from the cited snippets. Theses are the agents' own words.</p>
+  </div>
+</div>
+<script src="data.js"></script>
+<script>
+(function () {
+"use strict";
+const D = window.WALKS;
+const ARMS = ["jev", "luna", "decisions", "baseline"];
+const CLI = ["jev", "luna", "decisions"];
+const COL = { jev: "#2a78d6", luna: "#eb6834", decisions: "#1baf7a", baseline: "#4a3aa7" };
+const INK = { jev: "#1c5cab", luna: "#b8461b", decisions: "#13865d", baseline: "#4a3aa7" };
+const NAME = { jev: "JEV", luna: "Luna", decisions: "Decisions", baseline: "Files only" };
+const GLASS = "#e87ba4", GRID = "#e6e9ed", AXIS = "#c3c8cf", MUTED = "#8c959f", TEXT = "#1f2328", TEXT2 = "#57606a";
+const SVGNS = "http://www.w3.org/2000/svg";
+const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ------------------------------------------------------------------ helpers
+function h(tag, attrs, ...kids) {
+  const e = document.createElement(tag);
+  for (const k in attrs || {}) {
+    if (k === "class") e.className = attrs[k];
+    else if (k === "html") e.innerHTML = attrs[k];
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), attrs[k]);
+    else if (k === "style" && typeof attrs[k] === "object") Object.assign(e.style, attrs[k]);
+    else e.setAttribute(k, attrs[k]);
+  }
+  for (const c of kids.flat()) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+}
+function s(tag, attrs, ...kids) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const k in attrs || {}) {
+    if (k.startsWith("on")) e.addEventListener(k.slice(2), attrs[k]);
+    else if (k === "text") e.textContent = attrs[k];
+    else e.setAttribute(k, attrs[k]);
+  }
+  for (const c of kids.flat()) if (c != null) e.append(c);
+  return e;
+}
+const esc = (t) => String(t == null ? "" : t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const pct = (x, d = 1) => (x == null ? "n/a" : (x >= 0 ? "+" : "−") + Math.abs(100 * x).toFixed(d) + "%");
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+function rng(seed) { return function () { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const tip = h("div", { class: "wk-tip" });
+document.body.appendChild(tip);
+function showTip(ev, html) {
+  tip.innerHTML = html; tip.style.opacity = 1;
+  const r = tip.getBoundingClientRect(); let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + r.width > window.innerWidth - 8) x = ev.clientX - r.width - 14;
+  if (y + r.height > window.innerHeight - 8) y = ev.clientY - r.height - 14;
+  tip.style.left = x + "px"; tip.style.top = y + "px";
+}
+function hideTip() { tip.style.opacity = 0; }
+function whenVisible(el, fn, once = true) {
+  if (!("IntersectionObserver" in window)) { fn(true); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { fn(true); if (once) io.disconnect(); } else if (!once) fn(false); }), { threshold: 0.15 });
+  io.observe(el);
+}
+function chips(options, current, onPick, cls) {
+  const wrap = h("div", { class: "ctrl" + (cls ? " " + cls : "") });
+  const btns = options.map((o) => {
+    const b = h("button", { class: "chip" + (o.key === current ? " on" : ""), onclick: () => { btns.forEach((x) => x.classList.remove("on")); b.classList.add("on"); onPick(o.key); } },
+      o.color ? h("span", { class: "dot", style: { background: o.color } }) : null, o.label);
+    return b;
+  });
+  if (options.label) wrap.append(h("span", { class: "lab" }, options.label));
+  wrap.append(...btns);
+  return wrap;
+}
+function title(el, t, sub) { el.append(h("div", { class: "ptitle" }, t)); if (sub) el.append(h("div", { class: "psub", html: sub })); }
+function legend(items) {
+  return h("div", { class: "legend" }, items.map((it) => h("span", {}, h("i", { class: "sw" + (it.sq ? " sq" : ""), style: Object.assign({ background: it.c }, it.style || {}) }), it.t)));
+}
+function niceTicks(lo, hi, n) {
+  const span = hi - lo, step0 = span / n, mag = Math.pow(10, Math.floor(Math.log10(step0)));
+  const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((m) => span / m <= n) || 10 * mag;
+  const out = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) out.push(+v.toFixed(10));
+  return out;
+}
+document.querySelectorAll(".wk h2, .wk h3").forEach((el) => { el.classList.add("reveal"); whenVisible(el, () => el.classList.add("in")); });
+
+// ------------------------------------------------------------------ hero
+(function hero() {
+  const cv = document.getElementById("hero"); if (!cv) return;
+  const ctx = cv.getContext("2d"); let W, H, dpr, nodes, walker, trail, phase, tPhase, cand, best, running = false, last = 0, R = rng(7);
+  function setup() {
+    dpr = window.devicePixelRatio || 1; W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    R = rng(7); nodes = [];
+    const n = Math.round(W * H / 5200);
+    for (let i = 0; i < n; i++) nodes.push({ x: 20 + R() * (W - 40), y: 16 + R() * (H - 32), p: R() * 6.28, r: 1.2 + R() * 1.6, v: 0 });
+    walker = { i: Math.floor(n / 2), x: 0, y: 0 }; walker.x = nodes[walker.i].x; walker.y = nodes[walker.i].y;
+    trail = []; phase = "expand"; tPhase = 0; cand = [];
+  }
+  function startExpand() {
+    cand = []; const used = new Set([walker.i]);
+    for (let k = 0; k < 14; k++) { let j; do { j = Math.floor(R() * nodes.length); } while (used.has(j)); used.add(j); cand.push({ j, w: Math.pow(R(), 2.2) }); }
+    cand.sort((a, b) => b.w - a.w); cand.forEach((c, k) => (c.d = k * 0.05)); best = cand[0].j; phase = "expand"; tPhase = 0;
+  }
+  function pos(nd, t) { return [nd.x + Math.sin(t * 0.0004 + nd.p) * 3, nd.y + Math.cos(t * 0.00035 + nd.p) * 3]; }
+  let force = false;
+  function frame(t) {
+    if (!running && !force) return;
+    const dt = clamp(t - (last || t), 0, 50); last = t; tPhase += dt / 1000;
+    ctx.clearRect(0, 0, W, H);
+    for (const tr of trail) { const [ax, ay] = pos(nodes[tr.a], t), [bx, by] = pos(nodes[tr.b], t);
+      ctx.strokeStyle = "rgba(86,160,255," + (0.18 + 0.5 * tr.life) + ")"; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke(); tr.life = Math.max(0, tr.life - dt / 9000); }
+    const [wx, wy] = pos(nodes[walker.i], t);
+    if (phase === "expand") {
+      for (const c of cand) { const k = clamp((tPhase - c.d) / 0.35, 0, 1); if (k <= 0) continue; const [cx, cy] = pos(nodes[c.j], t);
+        ctx.strokeStyle = "rgba(255,255,255," + (0.05 + 0.5 * c.w) * k + ")"; ctx.lineWidth = 0.6 + 2.2 * c.w * k; ctx.beginPath(); ctx.moveTo(wx, wy); ctx.lineTo(wx + (cx - wx) * k, wy + (cy - wy) * k); ctx.stroke(); }
+      const ring = (tPhase % 1.2) / 1.2; ctx.strokeStyle = "rgba(86,160,255," + (1 - ring) * 0.7 + ")"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(wx, wy, 6 + ring * 26, 0, 6.29); ctx.stroke();
+      if (tPhase > 1.9) { phase = "move"; tPhase = 0; }
+    } else {
+      const k = clamp(tPhase / 0.7, 0, 1), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; const [bx, by] = pos(nodes[best], t);
+      for (const c of cand.slice(0, 3)) { const [cx, cy] = pos(nodes[c.j], t); ctx.strokeStyle = "rgba(255,255,255," + 0.35 * (1 - k) + ")"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(wx, wy); ctx.lineTo(cx, cy); ctx.stroke(); }
+      ctx.strokeStyle = "rgba(86,160,255,0.9)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(wx, wy); ctx.lineTo(wx + (bx - wx) * e, wy + (by - wy) * e); ctx.stroke();
+      if (k >= 1) { trail.push({ a: walker.i, b: best, life: 1 }); nodes[best].v = 1; walker.i = best; if (trail.length > 26) { trail = []; nodes.forEach((n) => (n.v = 0)); } startExpand(); }
+    }
+    for (const nd of nodes) { const [x, y] = pos(nd, t); ctx.fillStyle = nd.v ? "rgba(120,180,255,0.95)" : "rgba(210,222,240,0.42)"; ctx.beginPath(); ctx.arc(x, y, nd.v ? nd.r + 1.4 : nd.r, 0, 6.29); ctx.fill(); }
+    ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.arc(wx, wy, 4.5, 0, 6.29); ctx.fill();
+    ctx.strokeStyle = "rgba(86,160,255,0.9)"; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(wx, wy, 8, 0, 6.29); ctx.stroke();
+    requestAnimationFrame(frame);
+  }
+  function still() { last = 0; force = true; for (let i = 0; i < 40; i++) frame(1 + i * 50); force = false; last = 0; }
+  setup(); startExpand(); still();
+  window.addEventListener("resize", () => { setup(); startExpand(); still(); });
+  if (reduce) return;
+  whenVisible(cv, (v) => { if (v && !running) { running = true; last = 0; requestAnimationFrame(frame); } else if (!v) running = false; }, false);
+})();
+
+// ------------------------------------------------------------------ playground
+(function playground() {
+  const root = document.getElementById("playground"); if (!root) return;
+  title(root, "Try a walk", "A toy corpus: 24 invented one-line snippets, 6 industries. Expanding asks the judge about 6 random partners from other companies and lists them, strongest first. Click a partner, in the list or on the map, to walk to it.");
+  const IND = [
+    ["Fertilizer", [["Fertiglobe", "EU duty on imports rises to €60/t in July"], ["CF", "US inventory liquidation masks a global shortage"], ["Yara", "Urea cargoes stranded in the Gulf"], ["Nutrien", "Potash demand steady into planting"]]],
+    ["Shipping", [["BW LPG", "Lost Gulf cargoes lengthen every voyage"], ["Hafnia", "Clean-tanker fleet is effectively shrinking"], ["Maersk", "Red Sea rerouting still adds two weeks"], ["Tidewater", "Offshore vessel fleet flat for a decade"]]],
+    ["Memory chips", [["Micron", "Take-or-pay contracts with price floors"], ["SK hynix", "DRAM sold out through 2027"], ["SanDisk", "NAND shortage spread in June"], ["Samsung", "HBM gets capacity first"]]],
+    ["PC makers", [["HP", "PC demand pulled forward into H1"], ["Dell", "Memory costs passed to customers"], ["Lenovo", "AI-PC mix rising fast"], ["Best Buy", "PC refresh cycle near its peak"]]],
+    ["Food & restaurants", [["Wingstop", "Traffic soft despite new units"], ["Texas Roadhouse", "Traffic up 4%, taking share"], ["McDonald's", "Value menu wins low-income guests"], ["Flowers Foods", "Shoppers trade down on core loaf"]]],
+    ["Apparel", [["Nike", "Tariff refund lifts this quarter's margin"], ["Lululemon", "Clearance rising in North America"], ["On", "Full-price demand still strong"], ["Dick's", "250 stores converted to new format"]]],
+  ];
+  const N = []; IND.forEach(([ind, items], g) => items.forEach(([co, tx]) => N.push({ g, ind, co, tx })));
+  const W = 760, H = 440, cx = W / 2, cy = H / 2;
+  const CEN = IND.map((_, g) => [130 + (g % 3) * 250, 120 + Math.floor(g / 3) * 210]);
+  const boxes = CEN.map(([gx, gy]) => s("rect", { x: gx - 112, y: gy - 62, width: 224, height: 104, rx: 12, fill: "#f7f9fb", stroke: "#eef1f4" }));
+  IND.forEach((_, g) => { const [gx, gy] = CEN[g];
+    N.filter((n) => n.g === g).forEach((n, k) => { n.col = k % 2; n.x = gx + (n.col ? 46 : -46); n.y = gy + (k < 2 ? -17 : 17); }); });
+  const idx = (co) => N.findIndex((n) => n.co === co);
+  const PLANT = [["Yara", "BW LPG", 0.92], ["Fertiglobe", "Hafnia", 0.81], ["Micron", "HP", 0.94], ["SK hynix", "Dell", 0.86], ["SanDisk", "Best Buy", 0.72], ["CF", "Flowers Foods", 0.84],
+    ["Nike", "Dick's", 0.88], ["Lululemon", "On", 0.83], ["Wingstop", "Texas Roadhouse", 0.86], ["McDonald's", "Flowers Foods", 0.71], ["Samsung", "Lenovo", 0.74], ["Tidewater", "Maersk", 0.63], ["Yara", "Fertiglobe", 0.66], ["Micron", "SK hynix", 0.6]];
+  const R = rng(11), Wt = {};
+  const key = (a, b) => (a < b ? a + "-" + b : b + "-" + a);
+  for (let a = 0; a < N.length; a++) for (let b = a + 1; b < N.length; b++) Wt[key(a, b)] = N[a].g === N[b].g ? 0.35 + R() * 0.25 : 0.04 + Math.pow(R(), 1.6) * 0.42;
+  PLANT.forEach(([a, b, w]) => (Wt[key(idx(a), idx(b))] = w));
+  let cur, judged, budget, seen, lines, busy;
+  const BUDGET = 36;
+
+  const stage = h("div", { class: "stage" }), svg = s("svg", { viewBox: `0 0 ${W} ${H}` }); stage.append(svg);
+  const term = h("div", { class: "term" }), plist = h("div", { class: "plist" }), meterI = h("i"), meterT = h("span", {}, "");
+  const meter = h("div", { class: "meter" }, h("span", {}, "Budget"), h("div", { class: "track" }, meterI), meterT);
+  const bExp = h("button", { class: "btn", onclick: () => expand(6) }, "expand  K=6"), bRand = h("button", { class: "btn ghost", onclick: randomJump }, "random"), bReset = h("button", { class: "btn ghost", onclick: reset }, "reset");
+  const right = h("div", {}, h("div", { class: "ctrl" }, bExp, bRand, bReset), meter, h("div", { style: { height: "10px" } }), term, plist);
+  root.append(h("div", { class: "pg" }, stage, right));
+  root.append(legend([{ c: "#1f2328", t: "where the agent is" }, { c: COL.jev, t: "strong judged edge (top 2 of an expansion)" }, { c: "#c9d1da", t: "weaker judged edge" }]));
+  const gEdges = s("g"), gNodes = s("g"), gLab = s("g"); svg.append(gLab, gEdges, gNodes);
+  boxes.forEach((b) => gLab.append(b));
+  IND.forEach(([ind], g) => { const [gx, gy] = CEN[g]; svg.insertBefore(s("text", { x: gx, y: gy - 44, "text-anchor": "middle", "font-size": 11.5, fill: MUTED, "font-weight": 650, "letter-spacing": ".06em", text: ind.toUpperCase() }), gEdges); });
+  const nodeEls = N.map((n, i) => {
+    const g = s("g", { transform: `translate(${n.x},${n.y})`, style: "cursor:pointer",
+      onclick: () => view(i), onmousemove: (e) => showTip(e, `<b>${esc(n.co)}</b> <span class="s">· ${esc(n.ind)}</span><br>${esc(n.tx)}`), onmouseleave: hideTip });
+    const c = s("circle", { r: 8, fill: "#fff", stroke: "#9aa4af", "stroke-width": 1.5 });
+    const t = s("text", { x: n.col ? 13 : -13, y: 4, "text-anchor": n.col ? "start" : "end", "font-size": 11.5, fill: TEXT2, text: n.co });
+    g.append(c, t); gNodes.append(g); return { g, c, t };
+  });
+  const ring = s("circle", { r: 14, fill: "none", stroke: TEXT, "stroke-width": 2 }); gNodes.append(ring);
+  function log(html) { term.append(h("div", { html })); term.scrollTop = term.scrollHeight; }
+  function paint() {
+    nodeEls.forEach((e, i) => { e.c.setAttribute("fill", i === cur ? TEXT : seen.has(i) ? "#dbe7f8" : "#fff"); e.c.setAttribute("stroke", i === cur ? TEXT : seen.has(i) ? COL.jev : "#9aa4af"); e.t.setAttribute("fill", i === cur ? TEXT : TEXT2); e.t.setAttribute("font-weight", i === cur ? 700 : 400); });
+    ring.setAttribute("cx", N[cur].x); ring.setAttribute("cy", N[cur].y);
+    meterI.style.width = (100 * (BUDGET - budget) / BUDGET) + "%"; meterT.textContent = `${BUDGET - budget}/${BUDGET} used`;
+    bExp.disabled = budget <= 0 || busy;
+  }
+  function partnersOf(i) { return Object.keys(judged).filter((k) => k.split("-").map(Number).includes(i)).map((k) => { const [a, b] = k.split("-").map(Number); return { j: a === i ? b : a, w: Wt[k] }; }).sort((x, y) => y.w - x.w); }
+  function drawList(i) {
+    plist.innerHTML = "";
+    const ps = partnersOf(i);
+    if (!ps.length) { plist.append(h("div", { style: { color: MUTED, padding: "6px" } }, `${N[i].co}: no judged partners yet. Expand it.`)); return; }
+    plist.append(h("div", { style: { fontWeight: 600, margin: "0 0 4px 4px" } }, `Partners of ${N[i].co}`));
+    ps.slice(0, 8).forEach((p, k) => {
+      const bar = h("i", { style: { width: "0%", background: k < 2 ? COL.jev : "#b7c0ca" } });
+      const row = h("div", { class: "row", onclick: () => view(p.j) }, h("span", { style: { color: MUTED } }, `[${k + 1}]`), h("span", {}, h("b", {}, N[p.j].co), h("span", { style: { color: TEXT2 } }, " · " + N[p.j].tx)), h("div", { class: "bar" }, bar));
+      plist.append(row); requestAnimationFrame(() => (bar.style.width = Math.round(100 * p.w) + "%"));
+    });
+  }
+  function edgeLine(a, b, w, strong) {
+    const l = s("line", { x1: N[a].x, y1: N[a].y, x2: N[a].x, y2: N[a].y, stroke: strong ? COL.jev : "#c9d1da", "stroke-width": strong ? 2.6 : 1, "stroke-linecap": "round", opacity: strong ? 0.95 : 0.8 });
+    gEdges.append(l); lines[key(a, b)] = l;
+    const t0 = performance.now(), dur = reduce ? 0 : 380;
+    (function step(t) { const k = dur ? clamp((t - t0) / dur, 0, 1) : 1; l.setAttribute("x2", N[a].x + (N[b].x - N[a].x) * k); l.setAttribute("y2", N[a].y + (N[b].y - N[a].y) * k); if (k < 1) requestAnimationFrame(step); })(t0);
+  }
+  function restyleEdges() {
+    for (const k in lines) lines[k].setAttribute("stroke", "#c9d1da"), lines[k].setAttribute("stroke-width", 1);
+    for (const k in judged) if (judged[k] === "strong" && lines[k]) lines[k].setAttribute("stroke", COL.jev), lines[k].setAttribute("stroke-width", 2.6);
+  }
+  function expand(K) {
+    if (budget <= 0 || busy) return;
+    const pool = N.map((_, j) => j).filter((j) => j !== cur && N[j].co !== N[cur].co && !judged[key(cur, j)]);
+    for (let i = pool.length - 1; i > 0; i--) { const j = Math.floor(R() * (i + 1)); [pool[i], pool[j]] = [pool[j], pool[i]]; }
+    const pick = pool.slice(0, Math.min(K, budget));
+    if (!pick.length) { log(`<span class="m">every partner of ${esc(N[cur].co)} is judged already</span>`); return; }
+    busy = true; budget -= pick.length;
+    log(`<span class="c">$ ./corpus expand ${esc(N[cur].co.replace(/\W/g, ""))} ${pick.length}</span>`);
+    const sorted = pick.map((j) => ({ j, w: Wt[key(cur, j)] })).sort((a, b) => b.w - a.w);
+    sorted.forEach((p, k) => { judged[key(cur, p.j)] = k < 2 && p.w > 0.5 ? "strong" : "weak"; });
+    pick.forEach((j, k) => setTimeout(() => { edgeLine(cur, j, Wt[key(cur, j)], judged[key(cur, j)] === "strong"); if (k === pick.length - 1) { busy = false; paint(); drawList(cur);
+      log(`<span class="m">judged ${pick.length} new partners; best: </span><span class="w">${esc(N[sorted[0].j].co)} ${sorted[0].w.toFixed(2)}</span>`); } }, reduce ? 0 : k * 120));
+    paint();
+  }
+  function view(i) {
+    if (busy) return;
+    cur = i; seen.add(i); log(`<span class="c">$ ./corpus view ${esc(N[i].co.replace(/\W/g, ""))}</span> <span class="m">· ${esc(N[i].ind)}</span>`); paint(); drawList(i);
+  }
+  function randomJump() { let j; do { j = Math.floor(R() * N.length); } while (j === cur); log(`<span class="c">$ ./corpus random 1</span>`); view(j); }
+  function reset() { gEdges.innerHTML = ""; term.innerHTML = ""; judged = {}; lines = {}; budget = BUDGET; seen = new Set(); busy = false; cur = idx("Yara"); seen.add(cur);
+    log(`<span class="m"># start: Yara · "Urea cargoes stranded in the Gulf"</span>`); paint(); drawList(cur); }
+  reset();
+})();
+
+// ------------------------------------------------------------------ judges
+(function judges() {
+  const root = document.getElementById("judges"); if (!root) return;
+  title(root, "The judges, one expansion of 50 partners", "Each dot is one partner. A dot lights up when its call returns. The animation runs in real time, using each judge's median call time on earnings.");
+  const spec = [
+    { k: "jev", name: "JEV", sub: "TypeSafe's decision model (jev-1.13)", per: 50, sec: 0.7, how: "Up to 50 partners per call. The edge weight is the model's probability of \"yes, worth reading together\". Median call 0.6–0.8 s." },
+    { k: "luna", name: "GPT-6-Luna", sub: "OpenAI Responses API, reasoning off", per: 10, sec: 5.8, how: "10 partners per call; the model writes a probability for each. Median call 5–7 s, so one expansion of 50 is five calls in parallel." },
+    { k: "decisions", name: "OpenAI Decisions", sub: "Decisions API, gpt-6-luna", per: 20, sec: 1.7, how: "One yes/no predicate per partner, 20 per call. The weight is the API's probability. Median call 1.5–2 s." },
+  ];
+  const grid = h("div", { class: "grid4" }); root.append(grid);
+  const anims = [];
+  spec.forEach((j) => {
+    const cv = h("canvas"); const card = h("div", { class: "card top judge", style: { "--c": COL[j.k] } }, h("h4", {}, j.name), h("div", { class: "k" }, j.sub), cv, h("div", { class: "how" }, j.how));
+    grid.append(card); anims.push({ cv, j });
+  });
+  const term = h("div", { class: "term", style: { height: "92px", margin: "8px 0", fontSize: "11.5px" } });
+  grid.append(h("div", { class: "card top", style: { "--c": COL.baseline } }, h("h4", {}, "Files only (baseline)"), h("div", { class: "k" }, "No graph, no judge"), term,
+    h("div", { class: "how" }, "The whole corpus as plain text, one file per call. The agent can search (rg, grep), read (cat, sed) and list files. It ran 140–210 searches per earnings run.")));
+  const QUERIES = (D.earnings.rounds["1"].arms.baseline.searches || []).map((x) => x.q).filter((q) => q.length < 70).slice(0, 12);
+  let qi = 0;
+  function typeQuery() { const q = QUERIES[qi++ % QUERIES.length] || "shortage|allocation"; term.innerHTML = '<span class="c">$ rg -i "</span>'; const span = h("span", { class: "w" }); term.append(span, h("span", { class: "c" }, '" corpus/docs')); let k = 0;
+    const iv = setInterval(() => { span.textContent = q.slice(0, ++k); if (k >= q.length) { clearInterval(iv); for (let i = 0; i < 2; i++) term.append(h("div", { class: "m" }, `docs/…_${Math.floor(1e9 + Math.random() * 9e8)}.txt: …${q.split("|")[0].replace(/[\\()^$.*+?]/g, "")}…`)); } }, 45); }
+  let start = null, running = false;
+  function frame(t) {
+    if (!running) return; if (start == null) start = t;
+    for (const a of anims) {
+      const cv = a.cv, dpr = window.devicePixelRatio || 1, w = cv.clientWidth, hh = cv.clientHeight; if (cv.width !== w * dpr) { cv.width = w * dpr; cv.height = hh * dpr; }
+      const c = cv.getContext("2d"); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, hh);
+      const cycle = a.j.sec * 1.0 + 1.2, el = ((t - start) / 1000) % cycle, calls = 50 / a.j.per;
+      const cols = 25, gap = (w - 4) / cols;
+      for (let i = 0; i < 50; i++) {
+        const call = Math.floor(i / a.j.per), jitter = 0.8 + 0.4 * ((call * 7919) % 10) / 10, done = el >= a.j.sec * (calls > 1 ? jitter : 1);
+        const x = 2 + gap * (i % cols) + gap / 2, y = 14 + Math.floor(i / cols) * 20;
+        c.beginPath(); c.arc(x, y, Math.min(5, gap / 2.6), 0, 6.29); c.fillStyle = done ? COL[a.j.k] : "#e3e8ee"; c.fill();
+      }
+      c.fillStyle = TEXT2; c.font = "11px Inter, sans-serif"; c.fillText(Math.min(el, a.j.sec * (calls > 1 ? 1.2 : 1)).toFixed(1) + " s", w - 34, hh - 4);
+    }
+    requestAnimationFrame(frame);
+  }
+  let qTimer = null;
+  whenVisible(root, (v) => { running = v; if (v) { start = null; requestAnimationFrame(frame); typeQuery(); qTimer = setInterval(typeQuery, 4200); } else clearInterval(qTimer); }, false);
+})();
+
+// ------------------------------------------------------------------ earnings: NAV + risk
+function earningsNav() {
+  const root = document.getElementById("nav"); if (!root) return;
+  title(root, "Cumulative return, July 1 to October 7, 2026", "Equal money in each round's portfolio. Partial sums (marked *) leave out positions that had no prices. Hover for values.");
+  let sel = "all";
+  const ctl = chips([{ key: "all", label: "All rounds" }, { key: "1", label: "Round 1" }, { key: "2", label: "Round 2" }, { key: "3", label: "Round 3" }], sel, (k) => { sel = k; draw(); });
+  const box = h("div"); root.append(ctl, box);
+  const risk = h("div", { class: "grid2", style: { marginTop: "18px" } }); root.append(risk);
+  function series(arm) {
+    const rs = sel === "all" ? ["1", "2", "3"] : [sel];
+    const navs = rs.map((r) => D.earnings.rounds[r].arms[arm].nav);
+    return navs[0].map((p, i) => [p[0], navs.reduce((s_, n) => s_ + n[i][1], 0) / navs.length]);
+  }
+  const partial = (arm) => (sel === "all" ? !D.earnings.aggregate[arm].complete : !D.earnings.rounds[sel].arms[arm].complete);
+  function draw() {
+    box.innerHTML = "";
+    const W = 1060, H = 340, m = { l: 52, r: 140, t: 14, b: 30 };
+    const S = ARMS.map((a) => ({ a, pts: series(a) }));
+    const all = S.flatMap((x) => x.pts.map((p) => p[1])), lo = Math.min(0, ...all) - 0.005, hi = Math.max(...all) + 0.005;
+    const n = S[0].pts.length, X = (i) => m.l + (W - m.l - m.r) * i / (n - 1), Y = (v) => m.t + (H - m.t - m.b) * (hi - v) / (hi - lo);
+    const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, style: "width:100%;height:auto;display:block;background:#fff;border-radius:10px" });
+    niceTicks(lo, hi, 5).forEach((v) => { svg.append(s("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: Math.abs(v) < 1e-9 ? AXIS : GRID, "stroke-width": 1 }), s("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end", "font-size": 11.5, fill: MUTED, text: (v > 0 ? "+" : v < 0 ? "−" : "") + +(Math.abs(v) * 100).toFixed(1) + "%" })); });
+    const months = { "07": "Jul", "08": "Aug", "09": "Sep", "10": "Oct" };
+    S[0].pts.forEach((p, i) => { if (i === 0 || p[0].slice(5, 7) !== S[0].pts[i - 1][0].slice(5, 7)) svg.append(s("text", { x: X(i), y: H - 8, "text-anchor": "middle", "font-size": 11.5, fill: MUTED, text: months[p[0].slice(5, 7)] + " " + (+p[0].slice(8)) })); });
+    const ends = [];
+    S.forEach(({ a, pts }) => {
+      const d = pts.map((p, i) => (i ? "L" : "M") + X(i).toFixed(1) + "," + Y(p[1]).toFixed(1)).join("");
+      const path = s("path", { d, fill: "none", stroke: COL[a], "stroke-width": 2.2, "stroke-linejoin": "round", "stroke-linecap": "round" });
+      svg.append(path);
+      if (!reduce) { path.style.strokeDasharray = "3000"; path.style.strokeDashoffset = "3000"; path.style.transition = "stroke-dashoffset 1.6s ease"; requestAnimationFrame(() => requestAnimationFrame(() => (path.style.strokeDashoffset = "0"))); }
+      ends.push({ a, y: Y(pts[n - 1][1]), v: pts[n - 1][1] });
+    });
+    ends.sort((p, q) => p.y - q.y); for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15;
+    ends.forEach((e) => { svg.append(s("circle", { cx: X(n - 1), cy: Y(S.find((x) => x.a === e.a).pts[n - 1][1]), r: 3.5, fill: COL[e.a], stroke: "#fff", "stroke-width": 1.5 }));
+      svg.append(s("text", { x: X(n - 1) + 9, y: e.y + 4, "font-size": 12.5, "font-weight": 600, fill: TEXT, text: `${NAME[e.a]} ${pct(e.v)}${partial(e.a) ? "*" : ""}` })); });
+    const cross = s("line", { y1: m.t, y2: H - m.b, stroke: AXIS, "stroke-width": 1, opacity: 0 }); svg.append(cross);
+    const hit = s("rect", { x: m.l, y: m.t, width: W - m.l - m.r, height: H - m.t - m.b, fill: "transparent" }); svg.append(hit);
+    hit.addEventListener("mousemove", (ev) => { const r = svg.getBoundingClientRect(), x = (ev.clientX - r.left) * W / r.width, i = clamp(Math.round((x - m.l) / (W - m.l - m.r) * (n - 1)), 0, n - 1);
+      cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.setAttribute("opacity", 1);
+      showTip(ev, `<b>${S[0].pts[i][0]}</b><br>` + S.slice().sort((p, q) => q.pts[i][1] - p.pts[i][1]).map(({ a, pts }) => `<span style="color:${COL[a]}">●</span> ${NAME[a]} <b>${pct(pts[i][1], 2)}</b>`).join("<br>")); });
+    hit.addEventListener("mouseleave", () => { cross.setAttribute("opacity", 0); hideTip(); });
+    box.append(svg);
+    drawRisk();
+  }
+  function dotPlot(el, key, label, fmt, lo, hi) {
+    el.innerHTML = ""; el.append(h("div", { style: { fontWeight: 600, fontSize: "14px", marginBottom: "4px" } }, label));
+    const W = 520, H = 170, m = { l: 82, r: 16, t: 8, b: 26 }, X = (v) => m.l + (W - m.l - m.r) * (v - lo) / (hi - lo);
+    const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, style: "width:100%;height:auto;display:block;background:#fff;border-radius:10px" });
+    niceTicks(lo, hi, 5).forEach((v) => svg.append(s("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, stroke: Math.abs(v) < 1e-9 ? AXIS : GRID }), s("text", { x: X(v), y: H - 8, "text-anchor": "middle", "font-size": 11, fill: MUTED, text: fmt(v) })));
+    ARMS.forEach((a, k) => { const y = m.t + 18 + k * 34;
+      svg.append(s("text", { x: m.l - 10, y: y + 4, "text-anchor": "end", "font-size": 12.5, fill: TEXT, "font-weight": 600, text: NAME[a] }));
+      ["1", "2", "3"].forEach((r) => { const v = D.earnings.rounds[r].arms[a][key]; svg.append(s("circle", { cx: X(clamp(v, lo, hi)), cy: y, r: 4, fill: "#fff", stroke: COL[a], "stroke-width": 1.6,
+        onmousemove: (e) => showTip(e, `${NAME[a]}, round ${r}: <b>${fmt(v)}</b>${D.earnings.rounds[r].arms[a].complete ? "" : " (partial)"}`), onmouseleave: hideTip })); });
+      const agg = D.earnings.aggregate[a][key]; svg.append(s("circle", { cx: X(agg), cy: y, r: 7, fill: COL[a], stroke: "#fff", "stroke-width": 2,
+        onmousemove: (e) => showTip(e, `${NAME[a]}, three rounds combined: <b>${fmt(agg)}</b>${D.earnings.aggregate[a].complete ? "" : " (partial)"}` + (key === "alpha" ? `<br><span class="s">t-statistic ${D.earnings.aggregate[a].t}</span>` : "")), onmouseleave: hideTip }));
+    });
+    el.append(svg);
+  }
+  function drawRisk() {
+    risk.innerHTML = ""; const a = h("div"), b = h("div"); risk.append(a, b);
+    dotPlot(a, "sharpe", "Sharpe ratio (annualized)", (v) => v.toFixed(1), -2, 2.5);
+    dotPlot(b, "alpha", "Alpha vs SPY (annualized)", (v) => (v > 0 ? "+" : "") + Math.round(v * 100) + "%", -0.3, 0.3);
+    risk.append(h("div", { class: "pnote", style: { gridColumn: "1/-1" } }, "Big dots: the three rounds combined. Small rings: single rounds. No combined alpha has |t| above 1 (Luna 0.39, files only −0.99)."));
+  }
+  draw();
+}
+
+// ------------------------------------------------------------------ earnings: walk replay
+function replay() {
+  const root = document.getElementById("replay"); if (!root) return;
+  let R = "1", A = "jev", T = 0, playing = false, raf = null;
+  const ctlR = chips([{ key: "1", label: "Round 1" }, { key: "2", label: "Round 2" }, { key: "3", label: "Round 3" }], R, (k) => { R = k; build(); });
+  const ctlA = chips(CLI.map((a) => ({ key: a, label: NAME[a], color: COL[a] })), A, (k) => { A = k; build(); });
+  const head = h("div", { class: "psub" });
+  const stage = h("div", { class: "stage" }), narr = h("div", { class: "narr" });
+  const playBtn = h("button", { class: "btn", onclick: () => (playing ? pause() : play()) }, "▶ Play"), slider = h("input", { type: "range", min: 0, max: 1800, value: 0, step: 1 }), clock = h("span", { style: { minWidth: "92px", fontVariantNumeric: "tabular-nums" } }, "0:00");
+  const stats = h("div", { class: "pnote" });
+  root.append(h("div", { class: "ptitle" }, "One agent's 30 minutes"), head, h("div", { style: { display: "flex", gap: "18px", flexWrap: "wrap" } }, ctlR, ctlA),
+    h("div", { class: "replay" }, h("div", {}, stage, h("div", { class: "scrub" }, playBtn, slider, clock)), narr), stats);
+  root.append(legend([{ c: "#111", t: "start" }, { c: COL.jev, t: "reached through a judged edge (color of the arm)" }, { c: "#aab3bd", t: "previous/next in the same call" }, { c: "#fff", t: "random draw or typed id", style: { border: "1.5px solid #9aa4af" } }, { c: "#fff", t: "cited in the portfolio", style: { border: "2.5px solid #111" } }]));
+  slider.addEventListener("input", () => { pause(); T = +slider.value; render(); });
+  let G;
+  function build() {
+    pause();
+    const a = D.earnings.rounds[R].arms[A], st = D.earnings.rounds[R].start;
+    head.innerHTML = `Start, shared by the round's four agents: <b>${esc(st.context)}</b>. “${esc(st.text.slice(0, 190))}…”`;
+    const nodes = a.nodes.map((n, i) => ({ i, n, first: null, parent: null, via: null, cited: false, k: 0 }));
+    const cites = new Set(a.positions.flatMap((p) => p.cites));
+    a.walk.forEach((st_, k) => { const nd = nodes[st_.n]; if (nd.first == null) { nd.first = st_.t; nd.via = st_.v; nd.parent = st_.p != null ? st_.p : null; nd.rank = st_.r; nd.w = st_.w; nd.order = k; } });
+    a.expansions.forEach((e) => { const nd = nodes.find((x) => x.n.id === e.id); if (nd) nd.k += e.k; });
+    nodes.forEach((nd) => (nd.cited = cites.has(nd.n.id)));
+    // layout: deterministic force simulation
+    const W = 760, H = 520, rand = rng(+R * 10 + CLI.indexOf(A));
+    nodes.forEach((nd, i) => { const ang = (nd.order || i) * 2.399, rad = 30 + 7 * Math.sqrt(nd.order || i); nd.x = W / 2 + Math.cos(ang) * rad; nd.y = H / 2 + Math.sin(ang) * rad * 0.8; nd.vx = 0; nd.vy = 0; });
+    const links = nodes.filter((nd) => nd.parent != null && (nd.via === "e" || nd.via === "d")).map((nd) => ({ a: nodes[nd.parent], b: nd, d: nd.via === "d" ? 14 : 34 }));
+    const byOrder = nodes.filter((nd) => nd.order != null).sort((p, q) => p.order - q.order);
+    const ghost = byOrder.filter((nd, k) => k && !(nd.parent != null && (nd.via === "e" || nd.via === "d"))).map((nd) => ({ a: byOrder[byOrder.indexOf(nd) - 1], b: nd, d: 46, ghost: true }));
+    // same-call neighbors attract
+    for (let it = 0; it < 320; it++) {
+      const alpha = 1 - it / 320;
+      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+        const p = nodes[i], q = nodes[j]; let dx = q.x - p.x, dy = q.y - p.y, d2 = dx * dx + dy * dy + 0.01; if (d2 > 40000) continue;
+        const f = 700 * alpha / d2, d = Math.sqrt(d2); dx /= d; dy /= d; p.vx -= dx * f; p.vy -= dy * f; q.vx += dx * f; q.vy += dy * f;
+      }
+      for (const l of links.concat(ghost)) { let dx = l.b.x - l.a.x, dy = l.b.y - l.a.y, d = Math.sqrt(dx * dx + dy * dy) + 0.01, f = (d - l.d) * 0.06 * alpha; dx /= d; dy /= d; l.a.vx += dx * f; l.a.vy += dy * f; l.b.vx -= dx * f; l.b.vy -= dy * f; }
+      for (const p of nodes) { p.vx += (W / 2 - p.x) * 0.002 * alpha; p.vy += (H / 2 - p.y) * 0.003 * alpha; p.x += p.vx; p.y += p.vy; p.vx *= 0.55; p.vy *= 0.55; }
+    }
+    { const q = (arr, f) => { const v = arr.slice().sort((a_, b_) => a_ - b_); return v[Math.floor(f * (v.length - 1))]; };
+      const xs = nodes.map((p) => p.x), ys = nodes.map((p) => p.y), x0 = q(xs, 0.02), x1 = q(xs, 0.98), y0 = q(ys, 0.02), y1 = q(ys, 0.98);
+      nodes.forEach((p) => { p.x = clamp(30 + (W - 120) * (p.x - x0) / Math.max(1, x1 - x0), 12, W - 70); p.y = clamp(24 + (H - 48) * (p.y - y0) / Math.max(1, y1 - y0), 12, H - 12); }); }
+    const labeled = new Set();
+    stage.innerHTML = "";
+    const svg = s("svg", { viewBox: `0 0 ${W} ${H}` }), gl = s("g"), gn = s("g"), gt = s("g"), gp = s("g"); svg.append(gl, gp, gn, gt); stage.append(svg);
+    links.forEach((l) => { l.el = s("line", { x1: l.a.x, y1: l.a.y, x2: l.b.x, y2: l.b.y, stroke: l.b.via === "e" ? COL[A] : "#c3cad2", "stroke-width": l.b.via === "e" ? 1.4 : 1, opacity: 0 }); gl.append(l.el); });
+    nodes.forEach((nd) => {
+      const r = nd.k ? 4 + Math.sqrt(nd.k) / 3.2 : nd.cited ? 5 : 3.6;
+      const fill = nd.via === "s" ? "#111" : nd.via === "e" ? COL[A] : nd.via === "d" ? "#aab3bd" : "#fff";
+      nd.el = s("circle", { cx: nd.x, cy: nd.y, r, fill, stroke: nd.cited ? "#111" : nd.via === "r" || nd.via === "t" ? "#9aa4af" : "#fff", "stroke-width": nd.cited ? 2.4 : 1.3, opacity: 0, style: "cursor:pointer;transition:opacity .25s" });
+      const how = nd.via === "e" ? `partner #${nd.rank} (weight ${nd.w}) of ${esc(nodes[nd.parent].n.g)}` : nd.via === "d" ? `next to ${esc(nodes[nd.parent].n.g)} in the same call` : nd.via === "r" ? "a random draw" : nd.via === "s" ? "the start" : "an id the agent typed";
+      nd.el.addEventListener("mousemove", (e) => showTip(e, `<b>${esc(nd.n.c || nd.n.g)}</b> <span class="s">${esc(nd.n.x)}</span><br>${esc(nd.n.text)}<br><span class="s">Reached as ${how}${nd.first != null ? ", at " + fmtT(nd.first) : ""}${nd.k ? ` · expanded, K=${nd.k}` : ""}${nd.cited ? " · <b>cited</b>" : ""}</span>`));
+      nd.el.addEventListener("mouseleave", hideTip); gn.append(nd.el);
+      if ((nd.cited && !labeled.has(nd.n.g)) || nd.via === "s") { labeled.add(nd.n.g); nd.lab = s("text", { x: nd.x + r + 3, y: nd.y + 4, "font-size": 10.5, "font-weight": nd.cited ? 650 : 500, fill: nd.cited ? TEXT : TEXT2, opacity: 0, text: nd.n.g, style: "pointer-events:none" }); gt.append(nd.lab); }
+    });
+    const pulse = s("circle", { r: 10, fill: "none", stroke: COL[A], "stroke-width": 2, opacity: 0 }); gp.append(pulse);
+    // narration
+    narr.innerHTML = ""; narr.append(h("div", { class: "who" }, `${NAME[A]} agent, round ${R}`));
+    const msgs = a.msgs.map((m) => { const el = h("div", { class: "msg future" }, m.text); narr.append(el); return { at: m.at, el }; });
+    const maxT = Math.max(60, ...a.walk.map((w) => w.t)); slider.max = Math.ceil(maxT);
+    G = { a, nodes, links, pulse, msgs, maxT, lastActive: -1 };
+    const e = a.expansions, cites2 = a.positions.flatMap((p) => p.cites);
+    stats.innerHTML = `${a.nodes.length} snippets opened · ${e.length} expansions (K ${Math.min(...e.map((x) => x.k))}–${Math.max(...e.map((x) => x.k))}) · budget spent by ${fmtT(a.budget_done_s)} · ${a.commands.random || 0} random draws · ${new Set(cites2).size} snippets cited. Portfolio: ${esc(a.title)} <b>${pct(a.ret)}${a.complete ? "" : "*"}</b>`;
+    T = 0; slider.value = 0; render();
+  }
+  function fmtT(t) { if (t == null) return "n/a"; t = Math.round(t); return Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0"); }
+  function render() {
+    if (!G) return; const { a, nodes, links, pulse, msgs } = G;
+    nodes.forEach((nd) => { const on = nd.first != null && nd.first <= T; nd.el.setAttribute("opacity", on ? 1 : 0); if (nd.lab) nd.lab.setAttribute("opacity", on ? 1 : 0); });
+    links.forEach((l) => l.el.setAttribute("opacity", l.b.first != null && l.b.first <= T ? 0.7 : 0));
+    let shown = 0; a.walk.forEach((w) => { if (w.t <= T) shown++; });
+    const ex = a.expansions.filter((e) => e.t <= T).pop();
+    if (ex && T - ex.t < 6) { const nd = nodes.find((x) => x.n.id === ex.id); if (nd) { const k = (T - ex.t) / 6; pulse.setAttribute("cx", nd.x); pulse.setAttribute("cy", nd.y); pulse.setAttribute("r", 8 + k * 50); pulse.setAttribute("opacity", 0.8 * (1 - k)); } } else pulse.setAttribute("opacity", 0);
+    let active = -1; msgs.forEach((m, i) => { const past = m.at <= shown; m.el.classList.toggle("future", !past); m.el.classList.remove("now"); if (past) active = i; });
+    if (active >= 0) { msgs[active].el.classList.add("now"); if (active !== G.lastActive) { G.lastActive = active; narr.scrollTo({ top: msgs[active].el.offsetTop - narr.offsetTop - 40, behavior: reduce ? "auto" : "smooth" }); } }
+    clock.textContent = fmtT(T) + " / " + fmtT(G.maxT);
+  }
+  function play() { if (T >= G.maxT) T = 0; playing = true; playBtn.textContent = "❚❚ Pause"; let last = null;
+    const speed = G.maxT / 32; // whole walk in ~32 s
+    function step(t) { if (!playing) return; if (last != null) T = Math.min(G.maxT, T + (t - last) / 1000 * speed); last = t; slider.value = T; render(); if (T < G.maxT) raf = requestAnimationFrame(step); else pause(); }
+    raf = requestAnimationFrame(step); }
+  function pause() { playing = false; playBtn.textContent = "▶ Play"; if (raf) cancelAnimationFrame(raf); }
+  build();
+  let autoplayed = false; whenVisible(stage, () => { if (!autoplayed && !reduce) { autoplayed = true; play(); } });
+}
+
+// ------------------------------------------------------------------ earnings: where evidence came from
+function sources() {
+  const root = document.getElementById("sources"); if (!root) return;
+  title(root, "How the agent first got into each call it cited", "Pooled over three rounds. A call counts once per portfolio.");
+  const W = 700, rowH = 46, H = 3 * rowH + 34, m = { l: 92, r: 20 };
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, style: "width:100%;height:auto;display:block" });
+  const cats = [["e", "judged edge", null], ["r", "random draw", "#c3cad2"], ["o", "start or typed id", "#e6e9ed"]];
+  CLI.forEach((arm, k) => {
+    const cnt = { e: 0, r: 0, o: 0 };
+    ["1", "2", "3"].forEach((r) => { const a = D.earnings.rounds[r].arms[arm]; const entry = {};
+      a.walk.forEach((w) => { const id = a.nodes[w.n].id, doc = id.slice(0, id.lastIndexOf("_")); if (!(doc in entry)) entry[doc] = w.v; });
+      new Set(a.positions.flatMap((p) => p.cites).map((c) => c.slice(0, c.lastIndexOf("_")))).forEach((d) => { const v = entry[d]; cnt[v === "e" ? "e" : v === "r" ? "r" : "o"]++; }); });
+    const tot = cnt.e + cnt.r + cnt.o, y = 8 + k * rowH; let x = m.l;
+    svg.append(s("text", { x: m.l - 10, y: y + 19, "text-anchor": "end", "font-size": 13, "font-weight": 600, fill: TEXT, text: NAME[arm] }));
+    cats.forEach(([c, lab, col]) => { const w = (W - m.l - m.r) * cnt[c] / tot; if (!w) return;
+      const rect = s("rect", { x: x + 1, y, width: Math.max(0, w - 2), height: 28, rx: 4, fill: col || COL[arm], onmousemove: (e) => showTip(e, `${NAME[arm]}: <b>${cnt[c]} of ${tot}</b> cited calls first reached by ${lab}`), onmouseleave: hideTip });
+      svg.append(rect); if (w > 60) svg.append(s("text", { x: x + 9, y: y + 19, "font-size": 12.5, "font-weight": 600, fill: c === "e" ? "#fff" : TEXT, text: c === "e" ? `${Math.round(100 * cnt[c] / tot)}% judged edge` : c === "r" ? `${Math.round(100 * cnt[c] / tot)}% random` : `${Math.round(100 * cnt[c] / tot)}%`, style: "pointer-events:none" })); x += w; });
+  });
+  svg.append(s("text", { x: m.l, y: H - 6, "font-size": 11.5, fill: MUTED, text: "Gray: random draw. Light gray: the start or an id typed by the agent." }));
+  root.append(svg);
+}
+
+// ------------------------------------------------------------------ earnings: connections gallery
+function connections() {
+  const root = document.getElementById("conns"); if (!root) return;
+  const ex = D.earnings.examples;
+  const FEAT = [["1", "jev", "TDW"], ["3", "jev", "FLO"], ["3", "luna", "LITE"], ["3", "luna", "AESI"], ["1", "decisions", "CAT"], ["3", "decisions", "INTC"], ["3", "baseline", "GDRX"], ["1", "baseline", "NTGR"]];
+  const isFeat = (e) => FEAT.some(([r, a, t]) => String(e.round) === r && e.arm === a && e.ticker.includes(t));
+  let F = "feat";
+  title(root, "Connections across companies", "Each card is one position whose evidence cites two or more companies. The thesis is the agent's own line; excerpts are cut from the cited snippets.");
+  root.append(chips([{ key: "feat", label: "Featured" }].concat(ARMS.map((a) => ({ key: a, label: NAME[a], color: COL[a] }))), F, (k) => { F = k; draw(); }));
+  const list = h("div"); root.append(list);
+  const VIA = { edge: ["edge", "judged edge"], random: ["random", "random draw"], doc: ["doc", "same call, next/prev"], typed: ["typed", "typed id"], start: ["typed", "start"] };
+  function card(e) {
+    const groups = []; e.snips.forEach((sn) => { const g = sn.id.split("_")[0]; if (!groups.find((x) => x.g === g)) groups.push({ g, sn }); });
+    const shown = groups.slice(0, 3);
+    const sn = h("div", { class: "sn" + (shown.length === 3 ? " n3" : "") });
+    shown.forEach((x, i) => {
+      if (i) sn.append(h("div", { class: "link", html: `<svg width="30" height="30" viewBox="0 0 30 30"><path d="M4 15h22M19 9l7 6-7 6" fill="none" stroke="${COL[e.arm]}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` }));
+      const v = x.sn.via ? VIA[x.sn.via[0]] : e.arm === "baseline" ? ["grep", "found by search"] : null;
+      sn.append(h("div", { class: "one" }, h("div", { class: "co" }, x.sn.company || x.g), h("div", { class: "cx" }, x.sn.context),
+        h("div", { html: "“" + esc(x.sn.text).replace(/\u27e6/g, "<mark>").replace(/\u27e7/g, "</mark>") + "”" }), v ? h("span", { class: "badge " + v[0] }, v[1] + (x.sn.via && x.sn.via[0] === "edge" ? ` · #${x.sn.via[2]}, ${x.sn.via[3]}` : "")) : null));
+    });
+    const r = e.ret; return h("div", { class: "conn" },
+      h("div", { class: "hd" }, h("span", {}, h("span", { class: "arm " + e.arm }, h("span", {}, NAME[e.arm])), "  ", h("b", {}, `${e.side === "long" ? "Long" : "Short"} ${e.company}`), h("span", { style: { color: TEXT2, fontSize: "13px" } }, ` · round ${e.round}`)),
+        h("span", { class: "ret " + (r == null ? "" : r >= 0 ? "up" : "dn") }, r == null ? "no price" : `position ${pct(r, 0)}`)),
+      h("p", { class: "th" }, e.thesis), sn);
+  }
+  function draw() {
+    list.innerHTML = "";
+    const items = ex.filter((e) => (F === "feat" ? isFeat(e) : e.arm === F));
+    const first = items.slice(0, F === "feat" ? 8 : 4); first.forEach((e) => list.append(card(e)));
+    if (items.length > first.length) { const b = h("button", { class: "btn ghost", onclick: () => { b.remove(); items.slice(first.length).forEach((e) => list.append(card(e))); } }, `Show all ${items.length}`); list.append(h("div", { class: "more" }, b)); }
+  }
+  draw();
+}
+
+// ------------------------------------------------------------------ earnings: lexical overlap
+function lexical() {
+  const root = document.getElementById("lexical"); if (!root) return;
+  title(root, "Shared vocabulary between the companies a position connects", "One dot per pair of cited snippets from different companies in the same position, all rounds. Lower means the two passages use different words. The line is each arm's median.");
+  const W = 1060, rowH = 58, m = { l: 96, r: 24, t: 12, b: 34 }, H = m.t + 4 * rowH + m.b, lo = 0, hi = 0.36;
+  const X = (v) => m.l + (W - m.l - m.r) * (Math.min(v, hi) - lo) / (hi - lo);
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, style: "width:100%;height:auto;display:block;background:#fff;border-radius:10px" });
+  niceTicks(lo, hi, 6).forEach((v) => svg.append(s("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, stroke: GRID }), s("text", { x: X(v), y: H - 12, "text-anchor": "middle", "font-size": 11.5, fill: MUTED, text: v.toFixed(2) })));
+  const rc = D.earnings.random_pair_cos.slice().sort((a, b) => a - b), rmed = rc[Math.floor(rc.length / 2)];
+  svg.append(s("line", { x1: X(rmed), x2: X(rmed), y1: m.t, y2: H - m.b, stroke: TEXT2, "stroke-width": 1 }), s("text", { x: X(rmed) + 5, y: m.t + 10, "font-size": 11, fill: TEXT2, text: "random pairs (median)" }));
+  const R = rng(3);
+  ARMS.forEach((a, k) => {
+    const pairs = ["1", "2", "3"].flatMap((r) => (D.earnings.pairs[`${r}:${a}`] || []).map((p) => Object.assign({ r }, p)));
+    const y = m.t + k * rowH + rowH / 2, vals = pairs.map((p) => p.cos).sort((x, z) => x - z), med = vals[Math.floor(vals.length / 2)];
+    svg.append(s("text", { x: m.l - 12, y: y + 4, "text-anchor": "end", "font-size": 13, "font-weight": 600, fill: TEXT, text: NAME[a] }));
+    pairs.forEach((p) => svg.append(s("circle", { cx: X(p.cos), cy: y + (R() - 0.5) * 30, r: 4.5, fill: COL[a], "fill-opacity": 0.55, stroke: "#fff", "stroke-width": 1,
+      onmousemove: (e) => showTip(e, `<b>${esc(p.a.split("_")[0])} ↔ ${esc(p.b.split("_")[0])}</b> <span class="s">· ${esc(p.ticker)}, round ${p.r}</span><br>TF-IDF cosine ${p.cos.toFixed(3)}`), onmouseleave: hideTip })));
+    svg.append(s("line", { x1: X(med), x2: X(med), y1: y - 19, y2: y + 19, stroke: INK[a], "stroke-width": 3, "stroke-linecap": "round" }), s("text", { x: X(med) + 6, y: y - 12, "font-size": 11.5, "font-weight": 650, fill: TEXT, text: med.toFixed(3) }));
+  });
+  root.append(svg);
+  root.append(h("div", { class: "pnote" }, "Pairs: JEV 28, Luna 20, Decisions 30, files only 32. A cosine above about 0.1 usually means a shared distinctive word (\"memory\", \"tanker\", \"Nike\"). Only 6 of the 78 graph-arm pairs were themselves judged edges: the agents assembled the links from separate partner lists."));
+}
+
+// ------------------------------------------------------------------ personal: ideas grid
+const THEME = { glass: "Glass object", cheese: "Cheese & game night", sauna: "Sauna restart", bistro: "Fireside dinner", other: "Other" };
+const MEM_THEME = { 1: { jev: "glass", luna: "bistro", decisions: "glass" }, 2: { jev: "cheese", luna: "cheese", decisions: "bistro" }, 3: { jev: "sauna", luna: "sauna", decisions: "glass" } };
+function ideas() {
+  const root = document.getElementById("ideas"); if (!root) return;
+  title(root, "Nine surprises", "The agent's own headline for each plan, cut short. Rounds differ only in the random starting entry.");
+  const g = h("div", { class: "ideas" }); root.append(g);
+  g.append(h("div"), ...CLI.map((a) => h("div", { class: "ch" }, h("span", { class: "arm " + a }, h("span", {}, NAME[a])))));
+  ["1", "2", "3"].forEach((r) => {
+    const st = D.personal[r].start; g.append(h("div", { class: "rh" }, h("span", {}, h("b", {}, `Round ${r}`), h("br"), st.context.split("·").slice(1).join("·").trim())));
+    CLI.forEach((a) => { const t = MEM_THEME[r][a], ti = D.personal[r].arms[a].title.replace(/\*/g, "");
+      g.append(h("div", { class: "idea" + (t === "glass" ? " glass" : "") }, h("span", { class: "tag" }, THEME[t]), h("div", {}, ti.length > 150 ? ti.slice(0, 148).replace(/\s\S*$/, "") + " …" : ti))); });
+  });
+}
+
+// ------------------------------------------------------------------ personal: theme history
+function history() {
+  const root = document.getElementById("history"); if (!root) return;
+  const rows = [
+    ["sep", "Runs 1–4 · graph and files, shared edge cache"],
+    ["1", ["cheese", "Reypenaer tasting + Jordaan bistro"], ["cheese", "Unpacking (Switch) + Reypenaer"], null, ["sauna", "Sauna ritual + fireside dinner"]],
+    ["2", ["sauna", "Spa Zuiver sauna restart"], ["bistro", "Fireside table at De Luwte"], null, ["sauna", "Sauna restart + Notion plan"]],
+    ["3", ["cheese", "Reypenaer + Everdell"], ["sauna", "Sauna restart + fireside dinner"], null, ["sauna", "Sauna, fireside dinner, film club"]],
+    ["4", ["cheese", "Reypenaer + Ticket to Ride"], ["other", "Dusk photo walk, Light Festival"], null, ["cheese", "Everdell for game night"]],
+    ["sep", "Runs 5–8 · graph only, shared edge cache"],
+    ["5", ["glass", "Glassblowing in cobalt blue"], ["cheese", "Reypenaer + Azul"], null, "na"],
+    ["6", ["glass", "Glass paperweight, cobalt core"], ["cheese", "Reypenaer + board game"], null, ["sauna", "Sauna + Eye film club"]],
+    ["7", ["glass", "Hot-glass workshop"], ["bistro", "Fireside table after drinks"], null, ["other", "Botany Manor (Switch)"]],
+    ["8", ["glass", "Leerdam glass workshop"], ["cheese", "Parks + Reypenaer"], null, ["other", "Photobook of the optics series"]],
+    ["sep", "Runs 9–11 · graph only, fresh edge cache per run (this batch)"],
+    ["9", ["glass", "Glass sphere, cobalt core"], ["bistro", "Fireside dinner at Belhamel"], ["glass", "Hot-glass session"], "na"],
+    ["10", ["cheese", "Reypenaer before game night"], ["cheese", "Parks for game night"], ["bistro", "Fireside table after drinks"], "na"],
+    ["11", ["sauna", "Spa Zuiver sauna restart"], ["sauna", "Sauna + game night"], ["glass", "Glass paperweight, cobalt core"], "na"],
+  ];
+  title(root, "Every personal-memory run so far", "Each cell is one agent's surprise, by theme. Empty cells are arms that weren't run. Hover a theme below.");
+  const lg = h("div", { class: "ctrl" }); root.append(lg);
+  const grid = h("div", { class: "hist" }); root.append(grid);
+  grid.append(h("div"), ...ARMS.map((a) => h("div", { class: "h" }, h("span", { class: "arm " + a }, h("span", {}, NAME[a])))));
+  const cells = [];
+  rows.forEach((row) => {
+    if (row[0] === "sep") { grid.append(h("div", { class: "sep" }, row[1])); return; }
+    grid.append(h("div", { class: "r" }, "Run " + row[0]));
+    row.slice(1).forEach((c) => { if (!c || c === "na") { grid.append(h("div", { class: "c na" }, "—")); return; }
+      const el = h("div", { class: "c t-" + c[0] }, c[1]); el.dataset.t = c[0]; cells.push(el); grid.append(el); });
+  });
+  const counts = {}; cells.forEach((c) => (counts[c.dataset.t] = (counts[c.dataset.t] || 0) + 1));
+  Object.keys(THEME).forEach((t) => { const b = h("button", { class: "chip" }, `${THEME[t]} · ${counts[t] || 0}`);
+    b.addEventListener("mouseenter", () => cells.forEach((c) => c.classList.toggle("dim", c.dataset.t !== t)));
+    b.addEventListener("mouseleave", () => cells.forEach((c) => c.classList.remove("dim"))); lg.append(b); });
+  root.append(h("div", { class: "pnote" }, "Runs 1–4 gave the graph agents the plain files too. Runs 1 and 4 ran 10 minutes, the rest 20. Runs 5–8 shared one growing edge cache per judge. Runs 9–11 started each agent from an empty cache."));
+}
+
+// ------------------------------------------------------------------ personal: hubs
+function hubs() {
+  const root = document.getElementById("hubs"); if (!root) return;
+  title(root, "Glass-thread entries among an expanded entry's 10 strongest partners", "Averaged over each agent's expansions, runs 9–11. If partners were unrelated to the glass thread, about 1.4 of 10 would be glass entries (they are 14% of the log).");
+  const W = 700, rowH = 44, m = { l: 92, r: 30, t: 10, b: 30 }, H = m.t + 3 * rowH + m.b, lo = 0, hi = 7, X = (v) => m.l + (W - m.l - m.r) * v / hi;
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, style: "width:100%;height:auto;display:block" });
+  for (let v = 0; v <= hi; v++) svg.append(s("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, stroke: GRID }), s("text", { x: X(v), y: H - 10, "text-anchor": "middle", "font-size": 11.5, fill: MUTED, text: v }));
+  const exp = D.personal.glass_base_rate * 10;
+  svg.append(s("line", { x1: X(exp), x2: X(exp), y1: m.t, y2: H - m.b, stroke: TEXT2, "stroke-width": 1.2 }), s("text", { x: X(exp) + 5, y: m.t + 10, "font-size": 11, fill: TEXT2, text: `expected ${exp.toFixed(1)}` }));
+  CLI.forEach((a, k) => { const y = m.t + k * rowH + rowH / 2;
+    svg.append(s("text", { x: m.l - 10, y: y + 4, "text-anchor": "end", "font-size": 13, "font-weight": 600, fill: TEXT, text: NAME[a] }));
+    ["1", "2", "3"].forEach((r) => { const ar = D.personal[r].arms[a], v = ar.glass_top10_mean, theme = MEM_THEME[r][a];
+      svg.append(s("circle", { cx: X(v), cy: y, r: 7, fill: theme === "glass" ? GLASS : COL[a], stroke: "#fff", "stroke-width": 2,
+        onmousemove: (e) => showTip(e, `${NAME[a]}, round ${r}: <b>${v.toFixed(1)}</b> of 10<br><span class="s">Surprise: ${THEME[theme]}</span>`), onmouseleave: hideTip })); });
+  });
+  root.append(svg, legend([{ c: GLASS, t: "the agent's surprise was a glass object" }, { c: "#9aa4af", t: "another surprise (in the arm's color)" }]));
+}
+
+// ------------------------------------------------------------------ personal: expansion ribbon
+function ribbon() {
+  const root = document.getElementById("ribbon"); if (!root) return;
+  let R = "1", A = "jev";
+  title(root, "One agent's expansions, in order");
+  root.append(h("div", { style: { display: "flex", gap: "18px", flexWrap: "wrap" } },
+    chips([{ key: "1", label: "Round 1" }, { key: "2", label: "Round 2" }, { key: "3", label: "Round 3" }], R, (k) => { R = k; draw(); }),
+    chips(CLI.map((a) => ({ key: a, label: NAME[a], color: COL[a] })), A, (k) => { A = k; draw(); })));
+  const idea = h("div", { class: "psub" }), box = h("div", { class: "ribbon" }); root.append(idea, box);
+  root.append(legend([{ c: GLASS, t: "glass-thread entry", sq: true }, { c: "#dfe3e8", t: "other entry", sq: true }, { c: "#fff", t: "cited in the plan", sq: true, style: { border: "2px solid #111" } }, { c: "#6e7781", t: "expanded entry (arm color, pink if glass)" }]));
+  function draw() {
+    const a = D.personal[R].arms[A], ch = a.chain;
+    idea.innerHTML = `<b>Plan:</b> ${esc(a.title.replace(/\*/g, ""))}<br><span>${ch.length} expansions, budget spent by ${Math.floor(a.budget_done_s / 60)}:${String(Math.round(a.budget_done_s % 60)).padStart(2, "0")}. The agent opened ${a.seen.toLocaleString()} of 2,637 entries.</span>`;
+    const cw = 50, W = Math.max(700, 40 + ch.length * cw), H = 330, top = 120;
+    const svg = s("svg", { width: W, height: H, viewBox: `0 0 ${W} ${H}` }); box.innerHTML = ""; box.append(svg);
+    const X = (i) => 34 + i * cw;
+    ch.forEach((c, i) => {
+      const g = s("g", { opacity: reduce ? 1 : 0, style: "transition:opacity .35s" });
+      if (c.from != null) { const x0 = X(c.from), x1 = X(i), mid = (x0 + x1) / 2, hgt = Math.min(95, 16 + (x1 - x0) * 0.35);
+        g.append(s("path", { d: `M${x0},${top - 12} Q${mid},${top - 12 - hgt * 2} ${x1},${top - 12}`, fill: "none", stroke: COL[A], "stroke-width": 1.6, opacity: 0.8 })); }
+      g.append(s("circle", { cx: X(i), cy: top, r: 4 + Math.sqrt(c.k) / 4, fill: c.glass ? GLASS : COL[A], stroke: c.cited ? "#111" : "#fff", "stroke-width": c.cited ? 2.2 : 1.5, style: "cursor:pointer",
+        onmousemove: (e) => showTip(e, `<b>expand K=${c.k}</b> at ${Math.floor(c.t / 60)}:${String(Math.round(c.t % 60)).padStart(2, "0")}${c.from != null ? " · picked from an earlier partner list" : ""}<br><span class="s">${esc(c.d)} · ${esc(c.app)}</span><br>${esc(c.text)}`), onmouseleave: hideTip }));
+      c.top.forEach((p, k) => g.append(s("rect", { x: X(i) - 8, y: top + 22 + k * 17, width: 16, height: 14, rx: 3, fill: p.glass ? GLASS : "#dfe3e8", stroke: p.cited ? "#111" : "none", "stroke-width": 2, style: "cursor:pointer",
+        onmousemove: (e) => showTip(e, `<b>Partner #${k + 1}</b>, weight ${p.w}<br><span class="s">${esc(p.d)} · ${esc(p.app)}</span><br>${esc(p.text)}`), onmouseleave: hideTip })));
+      g.append(s("text", { x: X(i), y: H - 6, "text-anchor": "middle", "font-size": 10.5, fill: MUTED, text: Math.floor(c.t / 60) + ":" + String(Math.round(c.t % 60)).padStart(2, "0") }));
+      svg.append(g); if (!reduce) setTimeout(() => g.setAttribute("opacity", 1), 60 + i * 70);
+    });
+  }
+  whenVisible(root, draw);
+}
+
+// ------------------------------------------------------------------ KernelBench
+function kernelbench() {
+  const root = document.getElementById("kb"); if (!root) return;
+  const K = D.kernelbench;
+  const SER = [
+    { k: "luna", src: K.cli.luna, name: "Luna, graph only", col: COL.luna, w: 2.6 },
+    { k: "files", src: K.other.files, name: "Files only", col: COL.baseline, w: 2.6 },
+    { k: "jev", src: K.cli.jev, name: "JEV, graph only", col: COL.jev, w: 2.6 },
+    { k: "luna_files", src: K.other.luna_files, name: "Luna, graph + files", col: "#b9a79c", w: 1.6 },
+    { k: "jev_files", src: K.other.jev_files, name: "JEV, graph + files", col: "#9fb2c8", w: 1.6 },
+    { k: "nomem", src: K.other.nomem, name: "No memory", col: "#b4b9bf", w: 1.6 },
+  ].filter((x) => x.src);
+  title(root, "Best passing score so far during the 3 hours (speed-up ×)", "In-run benchmark results, best so far. Dots at 3 h: the regraded final score on a clean copy. Bottom rows: each graph-only agent's expansions (tick height = K).");
+  const W = 1060, H = 410, m = { l: 48, r: 170, t: 14, b: 96 }, X = (t) => m.l + (W - m.l - m.r) * t / 180, lo = 10, hi = 50, Y = (v) => m.t + (H - m.t - m.b) * (hi - v) / (hi - lo);
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, style: "width:100%;height:auto;display:block;background:#fff;border-radius:10px" });
+  for (let v = lo; v <= hi; v += 10) svg.append(s("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: GRID }), s("text", { x: m.l - 8, y: Y(v) + 4, "text-anchor": "end", "font-size": 11.5, fill: MUTED, text: v + "×" }));
+  for (let t = 0; t <= 180; t += 30) svg.append(s("text", { x: X(t), y: H - m.b + 18, "text-anchor": "middle", "font-size": 11.5, fill: MUTED, text: t === 0 ? "0" : t % 60 ? (t / 60).toFixed(1) + " h" : t / 60 + " h" }));
+  [[24.29, "public H100 record 24.3×"], [27, "that record's code here ≈ 27×"]].forEach(([v, lab]) => svg.append(s("line", { x1: m.l, x2: W - m.r, y1: Y(v), y2: Y(v), stroke: AXIS, "stroke-width": 1 }), s("text", { x: W - m.r - 6, y: Y(v) + (v < 26 ? 13 : -4), "text-anchor": "end", "font-size": 10.5, fill: MUTED, text: lab })));
+  const ends = [];
+  SER.forEach((sr) => {
+    const pts = sr.src.points.filter((p) => p[0] >= 0 && p[0] <= 185).sort((a, b) => a[0] - b[0]); let best = 0; const st = [];
+    pts.forEach((p) => { if (p[1] > best) { if (st.length) st.push([p[0], best]); best = p[1]; st.push([p[0], best]); } });
+    if (!st.length) return; st.push([180, best]);
+    const d = st.map((p, i) => (i ? "L" : "M") + X(Math.min(p[0], 180)).toFixed(1) + "," + Y(clamp(p[1], lo, hi)).toFixed(1)).join("");
+    const path = s("path", { d, fill: "none", stroke: sr.col, "stroke-width": sr.w, "stroke-linejoin": "round" }); svg.append(path);
+    if (!reduce) { path.style.strokeDasharray = "3000"; path.style.strokeDashoffset = "3000"; path.style.transition = "stroke-dashoffset 2.2s ease"; whenVisible(root, () => (path.style.strokeDashoffset = "0")); }
+    const fin = sr.src.regrade_median; if (fin) { svg.append(s("circle", { cx: X(180), cy: Y(fin), r: 5, fill: sr.col, stroke: "#fff", "stroke-width": 2, onmousemove: (e) => showTip(e, `<b>${sr.name}</b>: regraded ${fin.toFixed(2)}×`), onmouseleave: hideTip })); ends.push({ y: Y(fin), t: `${sr.name} ${fin.toFixed(1)}×`, c: sr.col, bold: sr.w > 2 }); }
+  });
+  ends.sort((a, b) => a.y - b.y); for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 14) ends[i].y = ends[i - 1].y + 14;
+  ends.forEach((e) => svg.append(s("text", { x: X(180) + 10, y: e.y + 4, "font-size": 12, "font-weight": e.bold ? 650 : 400, fill: e.bold ? TEXT : TEXT2, text: e.t })));
+  [["luna", "Luna"], ["jev", "JEV"]].forEach(([k, lab], i) => { const y = H - m.b + 40 + i * 24;
+    svg.append(s("text", { x: m.l - 8, y: y + 2, "text-anchor": "end", "font-size": 11.5, fill: TEXT2, text: lab }), s("line", { x1: m.l, x2: W - m.r, y1: y + 4, y2: y + 4, stroke: GRID }));
+    K.cli[k].corpus.filter((c) => c[1] === "expand").forEach((c) => svg.append(s("line", { x1: X(c[0]), x2: X(c[0]), y1: y + 4, y2: y + 4 - Math.max(3, Math.sqrt(c[2]) * 1.6), stroke: COL[k], "stroke-width": 1.5 })));
+  });
+  root.append(svg);
+  root.append(h("div", { class: "pnote" }, "Single runs with slightly different prompts. Luna, graph + files, lost 56 minutes to an account limit and was resumed; the chart cuts that pause out. JEV, graph + files, lost about 10 minutes when its GPU job was cancelled."));
+}
+
+// ------------------------------------------------------------------ cost: race + bars
+function race() {
+  const root = document.getElementById("race"); if (!root) return;
+  title(root, "Judging 5,000 pairs, replayed at 20× speed", "Time the agent spent waiting on its judge in each earnings round. The bar fills as pairs are judged.");
+  const rows = []; CLI.forEach((a) => ["1", "2", "3"].forEach((r) => { const e = D.earnings.rounds[r].arms[a].expansions; rows.push({ a, r, sec: e.reduce((x, y) => x + y.judge_s, 0), n: e.reduce((x, y) => x + y.judged, 0) }); }));
+  const box = h("div"); root.append(box);
+  const els = rows.map((rw) => { const fill = h("div", { style: { height: "100%", width: "0%", background: COL[rw.a], borderRadius: "4px" } }), lab = h("span", { style: { fontVariantNumeric: "tabular-nums", minWidth: "120px", textAlign: "right", fontSize: "13px" } }, "");
+    box.append(h("div", { style: { display: "grid", gridTemplateColumns: "130px 1fr 120px", gap: "10px", alignItems: "center", margin: "6px 0" } },
+      h("span", { style: { fontSize: "13px" } }, h("b", {}, NAME[rw.a]), h("span", { style: { color: TEXT2 } }, ` · round ${rw.r}`)), h("div", { style: { height: "14px", background: "#e6eaef", borderRadius: "4px", overflow: "hidden" } }, fill), lab));
+    return { rw, fill, lab }; });
+  const btn = h("button", { class: "btn ghost", style: { marginTop: "10px" }, onclick: run }, "↻ Replay"); root.append(btn);
+  let raf;
+  function run() { cancelAnimationFrame(raf); const t0 = performance.now();
+    (function step(t) { const el = (t - t0) / 1000 * 20; let live = false;
+      els.forEach(({ rw, fill, lab }) => { const k = clamp(el / rw.sec, 0, 1); fill.style.width = (100 * k) + "%"; lab.textContent = k < 1 ? `${Math.round(k * rw.n).toLocaleString()} pairs` : `${rw.sec.toFixed(0)} s · done`; if (k < 1) live = true; });
+      if (live) raf = requestAnimationFrame(step); })(t0); }
+  whenVisible(root, run);
+  root.append(h("div", { class: "pnote" }, "Decisions was much slower in rounds 1 and 2 (about 250 s) than in round 3 (22 s), so its API speed varied a lot from one run to the next. Luna was steady at about 124 s."));
+}
+function costs() {
+  const root = document.getElementById("costs"); if (!root) return;
+  title(root, "What one agent run costs", "Judge: API spend for the 5,000 pairs. Explorer: the Claude Opus 5.5 agent itself on personal memory, at API list prices. Means of three runs.");
+  const grid = h("div", { class: "grid2" }); root.append(grid);
+  function bars(el, label, vals, fmt, max) {
+    el.append(h("div", { style: { fontWeight: 600, fontSize: "14px", margin: "4px 0 6px" } }, label));
+    vals.forEach(([a, v]) => el.append(h("div", { style: { display: "grid", gridTemplateColumns: "80px 1fr 64px", gap: "8px", alignItems: "center", margin: "6px 0", fontSize: "13px" } },
+      h("b", {}, NAME[a]), h("div", { style: { height: "14px", background: "#eef1f4", borderRadius: "4px" } }, h("div", { style: { height: "100%", width: (100 * v / max) + "%", background: COL[a], borderRadius: "4px" } })), h("span", { style: { textAlign: "right", fontVariantNumeric: "tabular-nums" } }, fmt(v)))));
+  }
+  const mean = (f) => (f("1") + f("2") + f("3")) / 3;
+  const a = h("div"), b = h("div"); grid.append(a, b);
+  const judge = CLI.map((x) => [x, (mean((r) => D.earnings.rounds[r].arms[x].judge.usd) + mean((r) => D.personal[r].arms[x].judge.usd)) / 2]);
+  const expl = CLI.map((x) => [x, mean((r) => D.personal[r].arms[x].explorer_usd)]);
+  bars(a, "Judge, per run", judge, (v) => "$" + v.toFixed(2), 0.35);
+  bars(b, "Explorer agent, per 20-minute run", expl, (v) => "$" + v.toFixed(2), 12);
+  root.append(h("div", { class: "pnote" }, "The JEV-walking explorers cost the most, because they spent more turns reading. On earnings the Codex explorers ran on subscription quota: 38–62 million input tokens each, almost all from cache, and 55–93 thousand output tokens."));
+}
+
+[earningsNav, replay, sources, connections, lexical, ideas, history, hubs, ribbon, kernelbench, race, costs].forEach((f) => { try { f(); } catch (e) { console.error(f.name, e); } });
+})();
+
+</script>
+
+</div>
+
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="/assets/js/mdb.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    
+
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
+
+
+
+<!-- Bootstrap Table -->
+
+
+<!-- Load Common JS -->
+<script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script>
+<script defer src="/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
+
+<!-- Jupyter Open External Links New Tab -->
+<script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script>
+
+
+
+    
+
+
+
+    
+  <!-- Scrolling Progress Bar -->
+  <script type="text/javascript">
+    /*
+     * This JavaScript code has been adapted from the article
+     * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar,
+     * published on the website https://css-tricks.com on the 7th of May, 2014.
+     * Couple of changes were made to the original code to make it compatible
+     * with the `al-foio` theme.
+     */
+    const progressBar = $('#progress');
+    /*
+     * We set up the bar after all elements are done loading.
+     * In some cases, if the images in the page are larger than the intended
+     * size they'll have on the page, they'll be resized via CSS to accomodate
+     * the desired size. This mistake, however, breaks the computations as the
+     * scroll size is computed as soon as the elements finish loading.
+     * To account for this, a minimal delay was introduced before computing the
+     * values.
+     */
+    window.onload = function () {
+      setTimeout(progressBarSetup, 50);
+    };
+    /*
+     * We set up the bar according to the browser.
+     * If the browser supports the progress element we use that.
+     * Otherwise, we resize the bar thru CSS styling
+     */
+    function progressBarSetup() {
+      if ('max' in document.createElement('progress')) {
+        initializeProgressElement();
+        $(document).on('scroll', function () {
+          progressBar.attr({ value: getCurrentScrollPosition() });
+        });
+        $(window).on('resize', initializeProgressElement);
+      } else {
+        resizeProgressBar();
+        $(document).on('scroll', resizeProgressBar);
+        $(window).on('resize', resizeProgressBar);
+      }
+    }
+    /*
+     * The vertical scroll position is the same as the number of pixels that
+     * are hidden from view above the scrollable area. Thus, a value > 0 is
+     * how much the user has scrolled from the top
+     */
+    function getCurrentScrollPosition() {
+      return $(window).scrollTop();
+    }
+
+    function initializeProgressElement() {
+      let navbarHeight = $('#navbar').outerHeight(true);
+      $('body').css({ 'padding-top': navbarHeight });
+      $('progress-container').css({ 'padding-top': navbarHeight });
+      progressBar.css({ top: navbarHeight });
+      progressBar.attr({
+        max: getDistanceToScroll(),
+        value: getCurrentScrollPosition(),
+      });
+    }
+    /*
+     * The offset between the html document height and the browser viewport
+     * height will be greater than zero if vertical scroll is possible.
+     * This is the distance the user can scroll
+     */
+    function getDistanceToScroll() {
+      return $(document).height() - $(window).height();
+    }
+
+    function resizeProgressBar() {
+      progressBar.css({ width: getWidthPercentage() + '%' });
+    }
+    // The scroll ratio equals the percentage to resize the bar
+    function getWidthPercentage() {
+      return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+    }
+  </script>
+
+
+    
+
+  </body>
+</html>
