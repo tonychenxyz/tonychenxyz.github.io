@@ -202,13 +202,13 @@ sitemap: false
 
   <div class="tldr">
     <h4>In short</h4>
-    <p class="verdict">Not proven. The graph changed where agents looked, and on earnings that came with better portfolios. It also pulled walks toward a few hub topics.</p>
+    <p class="verdict">Not proven. The graph changed where agents looked. On earnings, two of the three graph-walking arms did better than the files-only agent and one did worse. The graph also pulled walks toward a few hub topics.</p>
     <ul>
-      <li><b>Earnings calls (12 agents, 3 rounds).</b> All three graph-walking arms beat the files-only agent on return, Sharpe and alpha over July–October 2026, Decisions only narrowly. <span class="arm luna"><span>Luna</span></span> did best: +4.0% mean return and +9% annualized alpha, against −19% for files only. Three rounds are too few: no alpha is statistically significant.</li>
-      <li><b>The walk did find the evidence.</b> Half to two-thirds of the calls the graph agents cited were first reached through a judged edge. The cross-company pairs that <span class="arm jev"><span>JEV</span></span> and <span class="arm decisions"><span>Decisions</span></span> cited share about a third less vocabulary than the files-only agent's, which it found with keyword search.</li>
+      <li><b>Earnings calls (24 agents, 6 rounds).</b> Over all six rounds, <span class="arm luna"><span>Luna</span></span> was the only arm with positive alpha (+2.4% annualized, Sharpe 0.40). <span class="arm jev"><span>JEV</span></span> came second (−13%), ahead of files only (−21%). <span class="arm decisions"><span>Decisions</span></span> came last (−30%). The first three rounds looked better for the graph (Luna +9%). The next three were worse for every arm, and none of the alphas is statistically significant.</li>
+      <li><b>The walk did find the evidence.</b> 57–65% of the calls the graph agents cited were first reached through a judged edge. The cross-company pairs <span class="arm jev"><span>JEV</span></span> cited share about 28% less vocabulary than the files-only agent's, which it found with keyword search. Luna's and Decisions' pairs share only slightly less.</li>
       <li><b>Personal memory (9 agents).</b> The ideas concentrated. Three of the nine surprises were a hand-made glass object. The other six were a game night, a fireside dinner or a sauna restart: the same four threads that earlier runs kept finding. The JEV and Decisions graphs rate the user's "glass render" entries high against almost everything, so walks drain into them.</li>
       <li><b>KernelBench (a 3-hour GPU task).</b> No clear help. With the graph as its only way into memory, the Luna agent reached 45.6×, close to the files-only agent's 46.1×. The JEV agent reached 34.6×, below an agent with no memory at all.</li>
-      <li><b>Cost and speed.</b> Judging 5,000 pairs cost about 10¢ with JEV and 26–30¢ with Luna or Decisions. JEV judged them in about 11 seconds, Decisions in 17–22 seconds and Luna in about 2 minutes, leaving out a few Decisions calls that stalled. The exploring agent itself costs 10–100× more than any judge.</li>
+      <li><b>Cost and speed.</b> Judging 5,000 pairs cost about 10¢ with JEV and 26–31¢ with Luna or Decisions. JEV judged them in 10–15 seconds, Decisions in 17–36 seconds and Luna in 2–2.5 minutes, leaving out a few Decisions calls that stalled. The exploring agent itself costs 10–100× more than any judge.</li>
     </ul>
     <div class="toc">
       <a href="#method">1 · How a walk works</a><a href="#earnings">2 · Earnings calls</a><a href="#personal">3 · Personal memory</a>
@@ -242,18 +242,18 @@ sitemap: false
   <p>The corpus is every earnings call that WRDS (S&amp;P Capital IQ) has from April to June 2026: the last full quarter before GPT-5.6 Sol came out on July 9. Each agent is a portfolio manager on <b>July 1, 2026</b>. It builds an equal-weight long-short portfolio from what the calls say, and picks its own buy and sell dates for each stock between July 1 and October 8. The prompt asks for <i>non-consensus</i> insight: a supplier and its customers telling different stories, a second-order effect on another industry, a contradiction between peers.</p>
   <div class="chips">
     <div class="fact"><b>140,316</b>snippets</div><div class="fact"><b>7,259</b>calls, 7,030 companies</div>
-    <div class="fact"><b>3 rounds × 4 arms</b>12 agents</div><div class="fact"><b>30 min</b>per agent</div><div class="fact"><b>5,000</b>judged pairs per graph agent</div>
+    <div class="fact"><b>6 rounds × 4 arms</b>24 agents</div><div class="fact"><b>30 min</b>per agent</div><div class="fact"><b>5,000</b>judged pairs per graph agent</div>
   </div>
 
   <h3>Returns</h3>
-  <p>The graph arms finished ahead of the files-only agent. The chart combines each arm's three portfolios with equal money. Over the same window the S&amp;P 500 (SPY) returned +4.5%. These portfolios hold longs and shorts, so they barely move with the market (beta 0.13–0.35).</p>
+  <p>Six rounds ran in two batches of three, each round from its own random start. The chart combines each arm's six portfolios with equal money; the chips show single rounds. Over the same window the S&amp;P 500 (SPY) returned +4.5%. These portfolios hold longs and shorts, so they barely move with the market (beta 0.19–0.37 pooled).</p>
   <div class="panel" id="nav"></div>
-  <p>Three rounds is a small sample, and each portfolio's result rests on two or three stocks. The Lumentum long (+39%) and the PBF long (+38%) did much of the work for Luna. HP shorts hurt three arms (−26% to −42% each). Four positions in other arms had no usable prices, so those arms' numbers are partial sums.</p>
+  <p>The ranking changed with more rounds. After three rounds, all three graph arms led files only. Rounds 4–6 were weaker for every arm, and Decisions lost the most (−8%, −4% and −15%). Luna stayed ahead because of a few big winners: Lumentum (+39%), AXT (+45%) and PBF (+38%) longs. One trade decided a lot everywhere. Shorting Nike, whose quarter was flattered by a one-time tariff refund, made money all 12 times it was picked. Shorting HP lost money all 9 times (−20% to −49% each). Some positions in every arm had no usable prices, so all four results are partial sums.</p>
 
   <h3>Watch an agent walk</h3>
   <p>Each dot is a snippet the agent opened, in the order it opened them. A line means the agent reached it from a list shown to it: <b>the partners of a snippet it had expanded or viewed</b> (colored), or the previous/next snippet of the same call (gray). Dots without a line came from <code>random</code> draws or ids the agent typed. Dark rings mark the snippets it cited in the final portfolio. The right panel shows what the agent was saying at the time.</p>
   <div class="panel" id="replay"></div>
-  <p>The replays show a pattern we didn't design for. The agents spent the whole 5,000-pair budget in the first 1.5 to 5.5 minutes, in about ten huge expansions of 300–1,000 partners each. They then spent the remaining 25 minutes reading those partner lists, interleaved with many filtered <code>random</code> draws. So the walk was <b>wide, not deep</b>: few steps from the start, each looking at hundreds of candidates.</p>
+  <p>The replays show a pattern we didn't design for. The agents spent the whole 5,000-pair budget in the first 1.3 to 6 minutes, in 5 to 25 huge expansions of 200–1,000 partners each. They then spent the rest of the 30 minutes reading those partner lists, interleaved with many filtered <code>random</code> draws. So the walk was <b>wide, not deep</b>: few steps from the start, each looking at hundreds of candidates.</p>
 
   <h3>Where the cited evidence came from</h3>
   <p>For each call an agent cited, we traced how the agent first got into that call. Was it listed as a judged partner, or drawn at random? The graph supplied most of the evidence. This is the most direct sign that walking the graph mattered.</p>
@@ -262,17 +262,17 @@ sitemap: false
   <h3>What kind of connections came up</h3>
   <p>Every position below cites two or more companies. Badges show how the agent reached each snippet. The graph arms' connections tend to cross industries. The files-only agent's tend to follow a keyword through one industry: memory prices, tanker rates, athletic apparel.</p>
   <ul class="plain">
-    <li><span class="arm jev"><span>JEV</span></span> reached furthest: 20 of its 36 positions cite more than one company. It built commodity and logistics chains: EU fertilizer duties and Fertiglobe, lost Gulf cargoes lengthening LPG voyages, offshore vessels next to an under-supplied rig fleet. It also chained memory costs into PC makers (HP) and an Italian IoT maker, and fertilizer into wheat and a bread maker (Flowers Foods).</li>
-    <li><span class="arm luna"><span>Luna</span></span> made fewer cross-company links (12 of 30), around one theme, "physical bottlenecks": a pump-laser shortage (Lumentum, with TE Connectivity), a frac-sand supplier selling bridge power, refining and product tankers. Its consumer shorts were refund-propped recoveries.</li>
-    <li><span class="arm decisions"><span>Decisions</span></span> went along AI-infrastructure chains: optical networks (Ciena with Credo), data centers turning Caterpillar's standby engines into prime power (with Dell and Aquila), GE Vernova's paid slot reservations. It also shorted Lavoro, which had delisted from Nasdaq in February.</li>
-    <li><span class="arm baseline"><span>Files only</span></span> searched for words like "shortage", "allocation" and "backlog". It cited as many companies per position as Decisions (15 of 30), but within themes a keyword finds: memory pricing, clean tankers, and GLP-1 coverage and GoodRx.</li>
+    <li><span class="arm jev"><span>JEV</span></span> (31 of 66 positions cite more than one company) built commodity and logistics chains: EU fertilizer duties and Fertiglobe, lost Gulf cargoes lengthening LPG voyages, gas pipelines for behind-the-meter AI power (Welspun, with Emerson). It also chained memory costs into PC makers (HP) and an Italian IoT maker, and fertilizer into wheat and a bread maker (Flowers Foods).</li>
+    <li><span class="arm luna"><span>Luna</span></span> (34 of 66) kept returning to "physical bottlenecks": a pump-laser shortage (Lumentum, with TE Connectivity), indium-phosphide wafers behind optical parts (AXT, with Celestica), tanker spot rates (MISC, read through an Indian refiner), caustic soda (Olin, through Westlake's outages) and refining (PBF). Its shorts were mostly companies absorbing those costs.</li>
+    <li><span class="arm decisions"><span>Decisions</span></span> (23 of 57) went along AI-infrastructure chains: optical networks (Ciena with Credo), Caterpillar's standby engines turning into data-center prime power, Seagate's nearline drives allocated through 2027. It also shorted AI-exposed service firms (Concentrix, Upwork, ASGN). The ASGN short lost 75%, its worst trade, and its Lavoro short had delisted from Nasdaq in February.</li>
+    <li><span class="arm baseline"><span>Files only</span></span> (27 of 66) searched for words like "shortage", "allocation" and "backlog", 140–210 times per run. Its links follow a keyword through a theme: memory pricing (SanDisk, Netgear, indie, Corsair), clean tankers, and GLP-1 coverage and GoodRx.</li>
   </ul>
   <div class="panel" id="conns"></div>
 
   <h3>Were the connections less obvious?</h3>
   <p>"Non-obvious" is hard to score, so we use two rough proxies. The first is <b>shared vocabulary</b>: for every pair of cited snippets from different companies in the same position, the TF-IDF cosine of their words. Keyword search finds pairs that share words. A judge can link pairs that don't.</p>
   <div class="panel" id="lexical"></div>
-  <p>The second proxy is <b>crowding</b>: how often other portfolios picked the same name. On this measure the graph didn't help. Shorting Nike, whose quarter was flattered by a one-time tariff refund, appears in 8 of the 12 portfolios across all four arms. Lululemon, HP, Micron and Victoria's Secret appear in four or five each. <span class="arm jev"><span>JEV</span></span> (69%) and files only (67%) had the most names nobody else picked, ahead of <span class="arm luna"><span>Luna</span></span> (57%) and <span class="arm decisions"><span>Decisions</span></span> (43%).</p>
+  <p>The second proxy is <b>crowding</b>: how often the other 23 portfolios picked the same name. Here the graph helped a little. Names nobody else picked made up 59% of the JEV and Luna positions, 56% of the Decisions positions and 53% of the files-only positions. But every arm crowded into the same few trades: shorting Nike (12 of 24 portfolios), shorting HP (9), buying Micron (7) and shorting Lululemon (6).</p>
 
   <!-- ================================================================== PERSONAL -->
   <h2 id="personal"><span class="num">3</span>Personal memory: plan a surprise</h2>
@@ -303,14 +303,14 @@ sitemap: false
 
   <!-- ================================================================== COST -->
   <h2 id="cost"><span class="num">5</span>Cost and speed</h2>
-  <p>The judges differ a lot in speed, and less in price. The fastest is JEV, then Decisions, with Luna about ten times slower than JEV. The race below replays how long each judge took to score an agent's 5,000 pairs on earnings, at 20× speed. JEV scores up to 50 partners in one call that takes about 0.7 seconds. Decisions scores 20 per call in about 2 seconds, and Luna 10 per call in 5–7 seconds. Every call can run in parallel, but an expansion waits for its slowest call.</p>
+  <p>The judges differ a lot in speed, and less in price. The fastest is JEV, then Decisions, with Luna about ten times slower than JEV. The race below replays how long each judge took to score an agent's 5,000 pairs on earnings, at 20× speed. JEV scores up to 50 partners in one call that takes 0.6–1.2 seconds. Decisions scores 20 per call in 1–2.5 seconds, and Luna 10 per call in 5–7 seconds. Every call can run in parallel, but an expansion waits for its slowest call.</p>
   <div class="panel" id="race"></div>
-  <p>In practice the judge is cheap next to the exploring agent. A 20-minute Claude Opus 5.5 explorer cost $2–14 at API list prices, against $0.10–0.30 for its judge. A 30-minute GPT-5.6 Sol explorer read 38–62 million input tokens (98% from cache). The judge mostly costs time: Luna's 2 minutes of judging is 7% of a 30-minute run, and JEV's 11 seconds is under 1%.</p>
+  <p>In practice the judge is cheap next to the exploring agent. A 20-minute Claude Opus 5.5 explorer cost $2–14 at API list prices, against $0.10–0.30 for its judge. A 30-minute GPT-5.6 Sol explorer read 37–62 million input tokens (98% from cache). The judge mostly costs time: Luna's 2–2.5 minutes of judging is 7–8% of a 30-minute run, and JEV's 10–15 seconds is under 1%.</p>
   <div class="panel col" id="costs"></div>
 
   <!-- ================================================================== VERDICT -->
   <h2 id="verdict"><span class="num">6</span>Does walking the graph reveal less obvious connections?</h2>
-  <p><b>Partly, on earnings.</b> Evidence for it: the graph supplied most of the cited evidence, JEV's and Decisions' cross-company pairs share less vocabulary than keyword search finds, and all three graph arms beat files only on return, Sharpe and alpha. Evidence against it: the margins rest on a few stocks in three rounds, no alpha is significant, and the graph agents crowded into the same consensus shorts as everyone else.</p>
+  <p><b>Partly, on earnings.</b> Evidence for it: the graph supplied most of the cited evidence, JEV's cross-company pairs share less vocabulary than keyword search finds, the graph arms picked slightly more names nobody else did, and Luna and JEV beat files only on alpha and Sharpe over six rounds. Evidence against it: Decisions did worst of all, the first three rounds' lead shrank with three more, no alpha is significant, and every arm crowded into the same Nike and HP shorts.</p>
   <p><b>Not on personal memory.</b> There the graph narrowed the search. Judge hubs and, before fresh caches, other agents' trails pulled walks toward the same glass thread. The other ideas match what a careful reader of the whole log finds anyway.</p>
   <p><b>Not on KernelBench</b>, where the target is named and search reaches it directly.</p>
   <p>What we would change next:</p>
@@ -321,7 +321,7 @@ sitemap: false
   </ul>
 
   <div class="foot">
-    <p><b>Setup details.</b> Earnings: Codex GPT-5.6 Sol (high), October 8, 2026, three rounds run in parallel over two accounts. Returns use Yahoo adjusted closes through October 7 in USD, equal weight per position, no trading or borrow costs. Alpha and Sharpe use daily excess returns against SPY and the 13-week T-bill. Personal memory: Claude Opus 5.5 (high), three rounds run in parallel, October 8. KernelBench: Claude Opus 5.5, 3 hours on an H100 80GB HBM3, regraded on a clean copy (median of three benchmark runs).</p>
+    <p><b>Setup details.</b> Earnings: Codex GPT-5.6 Sol (high), October 8, 2026, six rounds in two batches of three, run in parallel over two accounts. Returns use Yahoo adjusted closes through October 7 in USD, equal weight per position, no trading or borrow costs. Positions with no usable prices keep their weight and count as zero. Alpha and Sharpe use daily excess returns against SPY and the 13-week T-bill. The files-only agent of round 4 cited calls only by abbreviated ids, so its citations are not in the evidence charts. Personal memory: Claude Opus 5.5 (high), three rounds run in parallel, October 8. KernelBench: Claude Opus 5.5, 3 hours on an H100 80GB HBM3, regraded on a clean copy (median of three benchmark runs).</p>
     <p><b>Judges.</b> JEV is TypeSafe's decision model (jev-1.13). Its edge weight is its yes-probability. Luna is gpt-6-luna with reasoning off through the OpenAI Responses API, writing a probability per partner. Decisions is the OpenAI Decisions API (gpt-6-luna), asked one predicate per partner. "Glass-thread entries" are those whose text mentions glass, permafrost, ice blocks, caustics, refraction, optics, prisms, the user's #0052FF blue or "20mm". That is 14% of the log.</p>
     <p>Lexical overlap is TF-IDF cosine (sublinear tf, English stop words), fitted on 6,000 random snippets plus the cited ones. Example quotes are cut from the cited snippets. Theses are the agents' own words.</p>
   </div>
@@ -338,6 +338,7 @@ const INK = { jev: "#1c5cab", luna: "#b8461b", decisions: "#13865d", baseline: "
 const NAME = { jev: "JEV", luna: "Luna", decisions: "Decisions", baseline: "Files only" };
 const GLASS = "#e87ba4", GRID = "#e6e9ed", AXIS = "#c3c8cf", MUTED = "#8c959f", TEXT = "#1f2328", TEXT2 = "#57606a";
 const SVGNS = "http://www.w3.org/2000/svg";
+const ER = Object.keys(D.earnings.rounds).sort();   // earnings rounds
 const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // ------------------------------------------------------------------ helpers
@@ -558,9 +559,9 @@ document.querySelectorAll(".wk h2, .wk h3").forEach((el) => { el.classList.add("
   const root = document.getElementById("judges"); if (!root) return;
   title(root, "The judges, one expansion of 50 partners", "Each dot is one partner. A dot lights up when its call returns. The animation runs in real time, using each judge's median call time on earnings.");
   const spec = [
-    { k: "jev", name: "JEV", sub: "TypeSafe's decision model (jev-1.13)", per: 50, sec: 0.7, how: "Up to 50 partners per call. The edge weight is the model's probability of \"yes, worth reading together\". Median call 0.6–0.8 s." },
-    { k: "luna", name: "GPT-6-Luna", sub: "OpenAI Responses API, reasoning off", per: 10, sec: 5.8, how: "10 partners per call; the model writes a probability for each. Median call 5–7 s, so one expansion of 50 is five calls in parallel." },
-    { k: "decisions", name: "OpenAI Decisions", sub: "Decisions API, gpt-6-luna", per: 20, sec: 1.7, how: "One yes/no predicate per partner, 20 per call. The weight is the API's probability. Median call 1.5–2 s." },
+    { k: "jev", name: "JEV", sub: "TypeSafe's decision model (jev-1.13)", per: 50, sec: 0.7, how: "Up to 50 partners per call. The edge weight is the model's probability of \"yes, worth reading together\". Median call 0.6–1.2 s." },
+    { k: "luna", name: "GPT-6-Luna", sub: "OpenAI Responses API, reasoning off", per: 10, sec: 5.8, how: "10 partners per call; the model writes a probability for each. Median call 5–9 s, so one expansion of 50 is five calls in parallel." },
+    { k: "decisions", name: "OpenAI Decisions", sub: "Decisions API, gpt-6-luna", per: 20, sec: 1.7, how: "One yes/no predicate per partner, 20 per call. The weight is the API's probability. Median call 0.9–2.5 s." },
   ];
   const grid = h("div", { class: "grid4" }); root.append(grid);
   const anims = [];
@@ -601,11 +602,11 @@ function earningsNav() {
   const root = document.getElementById("nav"); if (!root) return;
   title(root, "Cumulative return, July 1 to October 7, 2026", "Equal money in each round's portfolio. Partial sums (marked *) leave out positions that had no prices. Hover for values.");
   let sel = "all";
-  const ctl = chips([{ key: "all", label: "All rounds" }, { key: "1", label: "Round 1" }, { key: "2", label: "Round 2" }, { key: "3", label: "Round 3" }], sel, (k) => { sel = k; draw(); });
+  const ctl = chips([{ key: "all", label: "All rounds" }].concat(ER.map((r) => ({ key: r, label: "Round " + r }))), sel, (k) => { sel = k; draw(); });
   const box = h("div"); root.append(ctl, box);
   const risk = h("div", { class: "grid2", style: { marginTop: "18px" } }); root.append(risk);
   function series(arm) {
-    const rs = sel === "all" ? ["1", "2", "3"] : [sel];
+    const rs = sel === "all" ? ER : [sel];
     const navs = rs.map((r) => D.earnings.rounds[r].arms[arm].nav);
     return navs[0].map((p, i) => [p[0], navs.reduce((s_, n) => s_ + n[i][1], 0) / navs.length]);
   }
@@ -647,18 +648,18 @@ function earningsNav() {
     niceTicks(lo, hi, 5).forEach((v) => svg.append(s("line", { x1: X(v), x2: X(v), y1: m.t, y2: H - m.b, stroke: Math.abs(v) < 1e-9 ? AXIS : GRID }), s("text", { x: X(v), y: H - 8, "text-anchor": "middle", "font-size": 11, fill: MUTED, text: fmt(v) })));
     ARMS.forEach((a, k) => { const y = m.t + 18 + k * 34;
       svg.append(s("text", { x: m.l - 10, y: y + 4, "text-anchor": "end", "font-size": 12.5, fill: TEXT, "font-weight": 600, text: NAME[a] }));
-      ["1", "2", "3"].forEach((r) => { const v = D.earnings.rounds[r].arms[a][key]; svg.append(s("circle", { cx: X(clamp(v, lo, hi)), cy: y, r: 4, fill: "#fff", stroke: COL[a], "stroke-width": 1.6,
+      ER.forEach((r) => { const v = D.earnings.rounds[r].arms[a][key]; svg.append(s("circle", { cx: X(clamp(v, lo, hi)), cy: y, r: 4, fill: "#fff", stroke: COL[a], "stroke-width": 1.6,
         onmousemove: (e) => showTip(e, `${NAME[a]}, round ${r}: <b>${fmt(v)}</b>${D.earnings.rounds[r].arms[a].complete ? "" : " (partial)"}`), onmouseleave: hideTip })); });
       const agg = D.earnings.aggregate[a][key]; svg.append(s("circle", { cx: X(agg), cy: y, r: 7, fill: COL[a], stroke: "#fff", "stroke-width": 2,
-        onmousemove: (e) => showTip(e, `${NAME[a]}, three rounds combined: <b>${fmt(agg)}</b>${D.earnings.aggregate[a].complete ? "" : " (partial)"}` + (key === "alpha" ? `<br><span class="s">t-statistic ${D.earnings.aggregate[a].t}</span>` : "")), onmouseleave: hideTip }));
+        onmousemove: (e) => showTip(e, `${NAME[a]}, six rounds combined: <b>${fmt(agg)}</b>${D.earnings.aggregate[a].complete ? "" : " (partial)"}` + (key === "alpha" ? `<br><span class="s">t-statistic ${D.earnings.aggregate[a].t}</span>` : "")), onmouseleave: hideTip }));
     });
     el.append(svg);
   }
   function drawRisk() {
     risk.innerHTML = ""; const a = h("div"), b = h("div"); risk.append(a, b);
-    dotPlot(a, "sharpe", "Sharpe ratio (annualized)", (v) => v.toFixed(1), -2, 2.5);
-    dotPlot(b, "alpha", "Alpha vs SPY (annualized)", (v) => (v > 0 ? "+" : "") + Math.round(v * 100) + "%", -0.3, 0.3);
-    risk.append(h("div", { class: "pnote", style: { gridColumn: "1/-1" } }, "Big dots: the three rounds combined. Small rings: single rounds. No combined alpha has |t| above 1 (Luna 0.39, files only −0.99)."));
+    dotPlot(a, "sharpe", "Sharpe ratio (annualized)", (v) => v.toFixed(1), -3.5, 2.5);
+    dotPlot(b, "alpha", "Alpha vs SPY (annualized)", (v) => (v > 0 ? "+" : "") + Math.round(v * 100) + "%", -0.75, 0.3);
+    risk.append(h("div", { class: "pnote", style: { gridColumn: "1/-1" } }, "Big dots: the six rounds combined. Small rings: single rounds. No combined alpha has |t| above 1.5 (Luna 0.13, Decisions −1.45)."));
   }
   draw();
 }
@@ -667,7 +668,7 @@ function earningsNav() {
 function replay() {
   const root = document.getElementById("replay"); if (!root) return;
   let R = "1", A = "jev", T = 0, playing = false, raf = null;
-  const ctlR = chips([{ key: "1", label: "Round 1" }, { key: "2", label: "Round 2" }, { key: "3", label: "Round 3" }], R, (k) => { R = k; build(); });
+  const ctlR = chips(ER.map((r) => ({ key: r, label: "Round " + r })), R, (k) => { R = k; build(); });
   const ctlA = chips(CLI.map((a) => ({ key: a, label: NAME[a], color: COL[a] })), A, (k) => { A = k; build(); });
   const head = h("div", { class: "psub" });
   const stage = h("div", { class: "stage" }), narr = h("div", { class: "narr" });
@@ -753,13 +754,13 @@ function replay() {
 // ------------------------------------------------------------------ earnings: where evidence came from
 function sources() {
   const root = document.getElementById("sources"); if (!root) return;
-  title(root, "How the agent first got into each call it cited", "Pooled over three rounds. A call counts once per portfolio.");
+  title(root, "How the agent first got into each call it cited", "Pooled over six rounds. A call counts once per portfolio.");
   const W = 700, rowH = 46, H = 3 * rowH + 34, m = { l: 92, r: 20 };
   const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, style: "width:100%;height:auto;display:block" });
   const cats = [["e", "judged edge", null], ["r", "random draw", "#c3cad2"], ["o", "start or typed id", "#e6e9ed"]];
   CLI.forEach((arm, k) => {
     const cnt = { e: 0, r: 0, o: 0 };
-    ["1", "2", "3"].forEach((r) => { const a = D.earnings.rounds[r].arms[arm]; const entry = {};
+    ER.forEach((r) => { const a = D.earnings.rounds[r].arms[arm]; const entry = {};
       a.walk.forEach((w) => { const id = a.nodes[w.n].id, doc = id.slice(0, id.lastIndexOf("_")); if (!(doc in entry)) entry[doc] = w.v; });
       new Set(a.positions.flatMap((p) => p.cites).map((c) => c.slice(0, c.lastIndexOf("_")))).forEach((d) => { const v = entry[d]; cnt[v === "e" ? "e" : v === "r" ? "r" : "o"]++; }); });
     const tot = cnt.e + cnt.r + cnt.o, y = 8 + k * rowH; let x = m.l;
@@ -776,7 +777,7 @@ function sources() {
 function connections() {
   const root = document.getElementById("conns"); if (!root) return;
   const ex = D.earnings.examples;
-  const FEAT = [["1", "jev", "TDW"], ["3", "jev", "FLO"], ["3", "luna", "LITE"], ["3", "luna", "AESI"], ["1", "decisions", "CAT"], ["3", "decisions", "INTC"], ["3", "baseline", "GDRX"], ["1", "baseline", "NTGR"]];
+  const FEAT = [["1", "jev", "TDW"], ["3", "jev", "FLO"], ["3", "luna", "LITE"], ["3", "luna", "AESI"], ["1", "decisions", "CAT"], ["3", "decisions", "INTC"], ["5", "luna", "AXT"], ["3", "baseline", "GDRX"], ["1", "baseline", "NTGR"]];
   const isFeat = (e) => FEAT.some(([r, a, t]) => String(e.round) === r && e.arm === a && e.ticker.includes(t));
   let F = "feat";
   title(root, "Connections across companies", "Each card is one position whose evidence cites two or more companies. The thesis is the agent's own line; excerpts are cut from the cited snippets.");
@@ -819,7 +820,7 @@ function lexical() {
   svg.append(s("line", { x1: X(rmed), x2: X(rmed), y1: m.t, y2: H - m.b, stroke: TEXT2, "stroke-width": 1 }), s("text", { x: X(rmed) + 5, y: m.t + 10, "font-size": 11, fill: TEXT2, text: "random pairs (median)" }));
   const R = rng(3);
   ARMS.forEach((a, k) => {
-    const pairs = ["1", "2", "3"].flatMap((r) => (D.earnings.pairs[`${r}:${a}`] || []).map((p) => Object.assign({ r }, p)));
+    const pairs = ER.flatMap((r) => (D.earnings.pairs[`${r}:${a}`] || []).map((p) => Object.assign({ r }, p)));
     const y = m.t + k * rowH + rowH / 2, vals = pairs.map((p) => p.cos).sort((x, z) => x - z), med = vals[Math.floor(vals.length / 2)];
     svg.append(s("text", { x: m.l - 12, y: y + 4, "text-anchor": "end", "font-size": 13, "font-weight": 600, fill: TEXT, text: NAME[a] }));
     pairs.forEach((p) => svg.append(s("circle", { cx: X(p.cos), cy: y + (R() - 0.5) * 30, r: 4.5, fill: COL[a], "fill-opacity": 0.55, stroke: "#fff", "stroke-width": 1,
@@ -827,7 +828,7 @@ function lexical() {
     svg.append(s("line", { x1: X(med), x2: X(med), y1: y - 19, y2: y + 19, stroke: INK[a], "stroke-width": 3, "stroke-linecap": "round" }), s("text", { x: X(med) + 6, y: y - 12, "font-size": 11.5, "font-weight": 650, fill: TEXT, text: med.toFixed(3) }));
   });
   root.append(svg);
-  root.append(h("div", { class: "pnote" }, "Pairs: JEV 28, Luna 20, Decisions 30, files only 32. A cosine above about 0.1 usually means a shared distinctive word (\"memory\", \"tanker\", \"Nike\"). Only 6 of the 78 graph-arm pairs were themselves judged edges: the agents assembled the links from separate partner lists."));
+  root.append(h("div", { class: "pnote" }, "Pairs: JEV 44, Luna 49, Decisions 44, files only 54. A cosine above about 0.1 usually means a shared distinctive word (\"memory\", \"tanker\", \"Nike\"). Only 16 of the 137 graph-arm pairs were themselves judged edges: the agents assembled the links from separate partner lists."));
 }
 
 // ------------------------------------------------------------------ personal: ideas grid
@@ -973,7 +974,7 @@ function kernelbench() {
 function race() {
   const root = document.getElementById("race"); if (!root) return;
   title(root, "Judging 5,000 pairs, replayed at 20× speed", "Time the agent spent waiting on its judge in each earnings round, leaving out stalled calls (below). The bar fills as pairs are judged.");
-  const rows = []; CLI.forEach((a) => ["1", "2", "3"].forEach((r) => { const e = D.earnings.rounds[r].arms[a].expansions; rows.push({ a, r, sec: e.reduce((x, y) => x + (y.judge_s_ok ?? y.judge_s), 0), n: e.reduce((x, y) => x + y.judged, 0) }); }));
+  const rows = []; CLI.forEach((a) => ER.forEach((r) => { const e = D.earnings.rounds[r].arms[a].expansions; rows.push({ a, r, sec: e.reduce((x, y) => x + (y.judge_s_ok ?? y.judge_s), 0), n: e.reduce((x, y) => x + y.judged, 0) }); }));
   const box = h("div"); root.append(box);
   const els = rows.map((rw) => { const fill = h("div", { style: { height: "100%", width: "0%", background: COL[rw.a], borderRadius: "4px" } }), lab = h("span", { style: { fontVariantNumeric: "tabular-nums", minWidth: "120px", textAlign: "right", fontSize: "13px" } }, "");
     box.append(h("div", { style: { display: "grid", gridTemplateColumns: "130px 1fr 120px", gap: "10px", alignItems: "center", margin: "6px 0" } },
@@ -986,11 +987,11 @@ function race() {
       els.forEach(({ rw, fill, lab }) => { const k = clamp(el / rw.sec, 0, 1); fill.style.width = (100 * k) + "%"; lab.textContent = k < 1 ? `${Math.round(k * rw.n).toLocaleString()} pairs` : `${rw.sec.toFixed(0)} s · done`; if (k < 1) live = true; });
       if (live) raf = requestAnimationFrame(step); })(t0); }
   whenVisible(root, run);
-  root.append(h("div", { class: "pnote" }, "Stalled calls are left out. Now and then a Decisions call never returned, and the CLI waited for its 120 s limit before leaving those 20 pairs unjudged. That happened twice in each of earnings rounds 1 and 2 (8 of about 1,320 Decisions calls across earnings and personal memory). With the stalls, Decisions waited about 250 s in those two rounds. Luna and JEV never stalled. A separate benchmark of about 530 Decisions calls had no stalls."));
+  root.append(h("div", { class: "pnote" }, "Stalled calls are left out. Now and then a Decisions call never returned, and the CLI waited for its 120 s limit before leaving those 20 pairs unjudged. That happened twice in each of earnings rounds 1 and 2 (8 of about 2,080 Decisions calls across earnings and personal memory). With the stalls, Decisions waited about 250 s in those two rounds. Luna and JEV never stalled. A separate benchmark of about 530 Decisions calls had no stalls."));
 }
 function costs() {
   const root = document.getElementById("costs"); if (!root) return;
-  title(root, "What one agent run costs", "Judge: API spend for the 5,000 pairs. Explorer: the Claude Opus 5.5 agent itself on personal memory, at API list prices. Means of three runs.");
+  title(root, "What one agent run costs", "Judge: API spend for the 5,000 pairs. Explorer: the Claude Opus 5.5 agent itself on personal memory, at API list prices. Means over runs.");
   const grid = h("div", { class: "grid2" }); root.append(grid);
   function bars(el, label, vals, fmt, max) {
     el.append(h("div", { style: { fontWeight: 600, fontSize: "14px", margin: "4px 0 6px" } }, label));
@@ -999,11 +1000,12 @@ function costs() {
   }
   const mean = (f) => (f("1") + f("2") + f("3")) / 3;
   const a = h("div"), b = h("div"); grid.append(a, b);
-  const judge = CLI.map((x) => [x, (mean((r) => D.earnings.rounds[r].arms[x].judge.usd) + mean((r) => D.personal[r].arms[x].judge.usd)) / 2]);
+  const emean = (f) => ER.reduce((t, r) => t + f(r), 0) / ER.length;
+  const judge = CLI.map((x) => [x, (emean((r) => D.earnings.rounds[r].arms[x].judge.usd) + mean((r) => D.personal[r].arms[x].judge.usd)) / 2]);
   const expl = CLI.map((x) => [x, mean((r) => D.personal[r].arms[x].explorer_usd)]);
   bars(a, "Judge, per run", judge, (v) => "$" + v.toFixed(2), 0.35);
   bars(b, "Explorer agent, per 20-minute run", expl, (v) => "$" + v.toFixed(2), 12);
-  root.append(h("div", { class: "pnote" }, "The JEV-walking explorers cost the most, because they spent more turns reading. On earnings the Codex explorers ran on subscription quota: 38–62 million input tokens each, almost all from cache, and 55–93 thousand output tokens."));
+  root.append(h("div", { class: "pnote" }, "The JEV-walking explorers cost the most, because they spent more turns reading. On earnings the Codex explorers ran on subscription quota: 37–62 million input tokens each, almost all from cache, and 52–93 thousand output tokens."));
 }
 
 [earningsNav, replay, sources, connections, lexical, ideas, history, hubs, ribbon, kernelbench, race, costs].forEach((f) => { try { f(); } catch (e) { console.error(f.name, e); } });
