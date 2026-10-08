@@ -208,7 +208,7 @@ sitemap: false
       <li><b>The walk did find the evidence.</b> Half to two-thirds of the calls the graph agents cited were first reached through a judged edge. The cross-company pairs that <span class="arm jev"><span>JEV</span></span> and <span class="arm decisions"><span>Decisions</span></span> cited share about a third less vocabulary than the files-only agent's, which it found with keyword search.</li>
       <li><b>Personal memory (9 agents).</b> The ideas concentrated. Three of the nine surprises were a hand-made glass object. The other six were a game night, a fireside dinner or a sauna restart: the same four threads that earlier runs kept finding. The JEV and Decisions graphs rate the user's "glass render" entries high against almost everything, so walks drain into them.</li>
       <li><b>KernelBench (a 3-hour GPU task).</b> No clear help. With the graph as its only way into memory, the Luna agent reached 45.6×, close to the files-only agent's 46.1×. The JEV agent reached 34.6×, below an agent with no memory at all.</li>
-      <li><b>Cost and speed.</b> Judging 5,000 pairs cost about 10¢ with JEV and 26–30¢ with Luna or Decisions. JEV judged them in about 11 seconds, Luna in about 2 minutes. The exploring agent itself costs 10–100× more than any judge.</li>
+      <li><b>Cost and speed.</b> Judging 5,000 pairs cost about 10¢ with JEV and 26–30¢ with Luna or Decisions. JEV judged them in about 11 seconds, Decisions in 17–22 seconds and Luna in about 2 minutes, leaving out a few Decisions calls that stalled. The exploring agent itself costs 10–100× more than any judge.</li>
     </ul>
     <div class="toc">
       <a href="#method">1 · How a walk works</a><a href="#earnings">2 · Earnings calls</a><a href="#personal">3 · Personal memory</a>
@@ -303,7 +303,7 @@ sitemap: false
 
   <!-- ================================================================== COST -->
   <h2 id="cost"><span class="num">5</span>Cost and speed</h2>
-  <p>The judges differ a lot in speed, and less in price. The race below replays how long each judge took to score an agent's 5,000 pairs on earnings, at 20× speed. JEV scores up to 50 partners in one call that takes about 0.7 seconds. Luna scores 10 per call in 5–7 seconds, and Decisions 20 per call in about 2 seconds. Every call can run in parallel, but an expansion waits for its slowest call.</p>
+  <p>The judges differ a lot in speed, and less in price. The fastest is JEV, then Decisions, with Luna about ten times slower than JEV. The race below replays how long each judge took to score an agent's 5,000 pairs on earnings, at 20× speed. JEV scores up to 50 partners in one call that takes about 0.7 seconds. Decisions scores 20 per call in about 2 seconds, and Luna 10 per call in 5–7 seconds. Every call can run in parallel, but an expansion waits for its slowest call.</p>
   <div class="panel" id="race"></div>
   <p>In practice the judge is cheap next to the exploring agent. A 20-minute Claude Opus 5.5 explorer cost $2–14 at API list prices, against $0.10–0.30 for its judge. A 30-minute GPT-5.6 Sol explorer read 38–62 million input tokens (98% from cache). The judge mostly costs time: Luna's 2 minutes of judging is 7% of a 30-minute run, and JEV's 11 seconds is under 1%.</p>
   <div class="panel col" id="costs"></div>
@@ -972,8 +972,8 @@ function kernelbench() {
 // ------------------------------------------------------------------ cost: race + bars
 function race() {
   const root = document.getElementById("race"); if (!root) return;
-  title(root, "Judging 5,000 pairs, replayed at 20× speed", "Time the agent spent waiting on its judge in each earnings round. The bar fills as pairs are judged.");
-  const rows = []; CLI.forEach((a) => ["1", "2", "3"].forEach((r) => { const e = D.earnings.rounds[r].arms[a].expansions; rows.push({ a, r, sec: e.reduce((x, y) => x + y.judge_s, 0), n: e.reduce((x, y) => x + y.judged, 0) }); }));
+  title(root, "Judging 5,000 pairs, replayed at 20× speed", "Time the agent spent waiting on its judge in each earnings round, leaving out stalled calls (below). The bar fills as pairs are judged.");
+  const rows = []; CLI.forEach((a) => ["1", "2", "3"].forEach((r) => { const e = D.earnings.rounds[r].arms[a].expansions; rows.push({ a, r, sec: e.reduce((x, y) => x + (y.judge_s_ok ?? y.judge_s), 0), n: e.reduce((x, y) => x + y.judged, 0) }); }));
   const box = h("div"); root.append(box);
   const els = rows.map((rw) => { const fill = h("div", { style: { height: "100%", width: "0%", background: COL[rw.a], borderRadius: "4px" } }), lab = h("span", { style: { fontVariantNumeric: "tabular-nums", minWidth: "120px", textAlign: "right", fontSize: "13px" } }, "");
     box.append(h("div", { style: { display: "grid", gridTemplateColumns: "130px 1fr 120px", gap: "10px", alignItems: "center", margin: "6px 0" } },
@@ -986,7 +986,7 @@ function race() {
       els.forEach(({ rw, fill, lab }) => { const k = clamp(el / rw.sec, 0, 1); fill.style.width = (100 * k) + "%"; lab.textContent = k < 1 ? `${Math.round(k * rw.n).toLocaleString()} pairs` : `${rw.sec.toFixed(0)} s · done`; if (k < 1) live = true; });
       if (live) raf = requestAnimationFrame(step); })(t0); }
   whenVisible(root, run);
-  root.append(h("div", { class: "pnote" }, "Decisions was much slower in rounds 1 and 2 (about 250 s) than in round 3 (22 s), so its API speed varied a lot from one run to the next. Luna was steady at about 124 s."));
+  root.append(h("div", { class: "pnote" }, "Stalled calls are left out. Now and then a Decisions call never returned, and the CLI waited for its 120 s limit before leaving those 20 pairs unjudged. That happened twice in each of earnings rounds 1 and 2 (8 of about 1,320 Decisions calls across earnings and personal memory). With the stalls, Decisions waited about 250 s in those two rounds. Luna and JEV never stalled. A separate benchmark of about 530 Decisions calls had no stalls."));
 }
 function costs() {
   const root = document.getElementById("costs"); if (!root) return;
