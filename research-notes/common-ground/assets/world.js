@@ -7,7 +7,7 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const pct = s => s.total ? (100 * s.passed / s.total).toFixed(1) : '—';
   const cache = new Map();
-  let data = null, speaker = null, query = '', outcome = 'all', category = 'all';
+  let data = null, speaker = null, query = '', outcome = 'all', category = 'all', focus = null;
 
   const build = document.documentElement.dataset.build || '';
   function fetchJSON(path) {
@@ -22,8 +22,17 @@
   const color = m => data.providers[m.provider].color;
   const time = s => Number.isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '';
 
-  function mark(pass, m) {
-    return `<span class="verdict-mark ${pass ? 'pass' : 'fail'}" title="${esc(m.name)}: ${pass ? 'Pass' : 'Fail'}" aria-label="${esc(m.name)}: ${pass ? 'Pass' : 'Fail'}"><span aria-hidden="true">${pass ? '✓' : '×'}</span><span class="mobile-label" aria-hidden="true">${esc(m.name)}</span></span>`;
+  const focused = () => data.models.find(m => m.id === focus);
+
+  function chip(m) {
+    return `<span class="model-chip ${focus === m.id ? 'focused' : ''}"><span class="model-dot" style="--model:${color(m)}"></span>${esc(m.name)}</span>`;
+  }
+
+  // Each rubric lists the models that passed and missed it by name, instead of a 13-column grid.
+  function verdictRows(r) {
+    const passed = data.models.filter(m => r.passes[m.id]), missed = data.models.filter(m => !r.passes[m.id]);
+    const row = (kind, icon, label, models) => `<div class="verdict-row ${kind}"><span class="verdict-label"><span aria-hidden="true">${icon}</span> ${label} <b>${models.length}</b></span><span class="model-chips">${models.length ? models.map(chip).join('') : '<span class="none">none</span>'}</span></div>`;
+    return row('pass', '✓', 'Passed', passed) + row('fail', '×', 'Missed', missed);
   }
 
   const currentStats = owner => category === 'all' ? owner.stats : owner.categories.find(c => c.id === category).stats;
@@ -40,7 +49,7 @@
       const models = data.models.filter(m => m.provider === pid);
       return `<div class="world-provider"><div class="world-provider-label"><span class="model-dot" style="--model:${p.color}"></span>${esc(p.name)} <span>· ${esc(p.harness)}</span></div><div class="scores world-scores" style="--world-cols:${models.length}">${models.map(m => {
         const s = stats[m.id];
-        return `<article class="score-card" style="--model:${p.color}" aria-label="${esc(m.name)}: ${pct(s)}% pass rate"><span class="score-name"><span class="model-dot"></span>${esc(m.name)}<small class="model-effort">${esc(m.effort)}</small></span><span class="score-number">${pct(s)}<em>%</em></span><span class="score-fraction">${s.passed} / ${s.total} passed</span><span class="score-bar" aria-hidden="true"><span style="width:${pct(s)}%"></span></span></article>`;
+        return `<button class="score-card world-score ${focus === m.id ? 'active' : ''}" style="--model:${p.color}" data-world-model="${m.id}" aria-pressed="${focus === m.id}" aria-label="${esc(m.name)}: ${pct(s)}% pass rate. ${focus === m.id ? 'Focused; click to clear.' : 'Click to focus this model.'}"><span class="score-name"><span class="model-dot"></span>${esc(m.name)}<small class="model-effort">${esc(m.effort)}</small></span><span class="score-number">${pct(s)}<em>%</em></span><span class="score-fraction">${s.passed} / ${s.total} passed</span><span class="score-bar" aria-hidden="true"><span style="width:${pct(s)}%"></span></span></button>`;
       }).join('')}</div></div>`;
     }).join('');
   }
@@ -51,6 +60,7 @@
     const text = [item.question, item.object, item.reference, ...item.rubrics.map(r => r.text)].join(' ').toLowerCase();
     if (q && !text.includes(q)) return false;
     if (outcome === 'all') return true;
+    if (outcome === 'focus-pass' || outcome === 'focus-miss') return item.rubrics.some(r => !!r.passes[focus] === (outcome === 'focus-pass'));
     return item.rubrics.some(r => {
       const n = data.models.filter(m => r.passes[m.id]).length;
       return (outcome === 'mixed' && n > 0 && n < data.models.length) || (outcome === 'all-pass' && n === data.models.length) || (outcome === 'all-fail' && n === 0);
@@ -58,9 +68,10 @@
   }
 
   function itemHTML(item) {
-    const header = `<div class="turn-rubric-heading"><span>Rubrics</span><span class="model-columns">${data.models.map(m => `<span title="${esc(m.name)}">${esc(m.family)}<br>${esc(m.version)}</span>`).join('')}</span></div>`;
+    const f = focused();
+    const header = `<div class="turn-rubric-heading"><span>Rubrics</span>${f && item.rubrics.length ? `<span class="focus-score">${chip(f)} ${item.rubrics.filter(r => r.passes[f.id]).length} / ${item.rubrics.length} passed</span>` : ''}</div>`;
     const rubrics = item.rubrics.length
-      ? `<div class="turn-rubrics">${header}${item.rubrics.map(r => `<div class="transcript-rubric"><div class="rubric-copy"><button class="rubric-open" data-world-open="${item.id}" data-rubric-focus="${r.rubricId}"><span class="rubric-code">${r.rubricId}</span><span>${esc(r.text)}</span></button></div><div class="verdicts">${data.models.map(m => mark(r.passes[m.id], m)).join('')}</div></div>`).join('')}</div>`
+      ? `<div class="turn-rubrics">${header}${item.rubrics.map(r => `<div class="world-rubric"><button class="rubric-open" data-world-open="${item.id}" data-rubric-focus="${r.rubricId}"><span class="rubric-code">${r.rubricId}</span><span>${esc(r.text)}</span></button>${verdictRows(r)}</div>`).join('')}</div>`
       : '<div class="turn-status">No rubrics for this answer · unscored</div>';
     return `<article class="world-item" id="q-${item.id}">
       <header class="turn-head"><span class="turn-name">Question</span><span class="turn-time">${time(item.startTime)} <span aria-hidden="true">·</span> <button class="turn-link" data-world-turn="${item.start}" title="Show the source turns in the transcript">Turns ${item.start}–${item.end} ↗</button></span></header>
@@ -74,11 +85,11 @@
   }
 
   function comparisonHTML(item, detail) {
-    return `<div class="comparison-meta">${item.rubrics.length ? `Scores cover all ${item.rubrics.length} rubric${item.rubrics.length === 1 ? '' : 's'} above.` : 'No rubrics for this answer. Responses are unscored.'} Each model saw only a one-line host introduction and this question.</div><div class="all-models">${data.models.map(m => {
+    return `<div class="comparison-meta">${item.rubrics.length ? `Scores cover all ${item.rubrics.length} rubric${item.rubrics.length === 1 ? '' : 's'} above.` : 'No rubrics for this answer. Responses are unscored.'} Each model saw only a one-line host introduction and this question.</div><div class="all-models">${[...data.models].sort((a, b) => (b.id === focus) - (a.id === focus)).map(m => {
       const c = detail.models[m.id];
       if (!c) return `<article class="model-answer not-run" style="--model:${color(m)}"><header class="model-answer-head"><h3><span class="model-dot"></span>${esc(m.name)}</h3><span class="model-turn-score">Not run</span></header></article>`;
       const passed = Object.values(c.judgments).filter(j => j.pass).length;
-      return `<article class="model-answer" style="--model:${color(m)}"><header class="model-answer-head"><h3><span class="model-dot"></span>${esc(m.name)}</h3><span class="model-turn-score">${item.rubrics.length ? `${passed} / ${item.rubrics.length} passed` : 'N/A'}</span></header><div class="answer-content"><div class="block-label">Response</div><div class="candidate-text" id="wanswer-${item.id}-${m.id}">${esc(c.text)}</div><button class="read-response" aria-expanded="false" aria-controls="wanswer-${item.id}-${m.id}">Read full response</button>${item.rubrics.length ? `<div class="block-label judge-heading">${esc(data.judge.name)} judgments</div>` : ''}${item.rubrics.map(r => {
+      return `<article class="model-answer ${m.id === focus ? 'focused-answer' : ''}" style="--model:${color(m)}"><header class="model-answer-head"><h3><span class="model-dot"></span>${esc(m.name)}</h3><span class="model-turn-score">${item.rubrics.length ? `${passed} / ${item.rubrics.length} passed` : 'N/A'}</span></header><div class="answer-content"><div class="block-label">Response</div><div class="candidate-text" id="wanswer-${item.id}-${m.id}">${esc(c.text)}</div><button class="read-response" aria-expanded="false" aria-controls="wanswer-${item.id}-${m.id}">Read full response</button>${item.rubrics.length ? `<div class="block-label judge-heading">${esc(data.judge.name)} judgments</div>` : ''}${item.rubrics.map(r => {
         const j = c.judgments[r.rubricId];
         return `<section class="model-judgment ${j.pass ? 'passed' : 'missed'}" data-judged-rubric="${r.rubricId}"><div class="judge-meta"><span>${r.rubricId}</span><span class="judge-verdict">${j.pass ? 'PASS' : 'FAIL'}</span></div><p class="judged-criterion">${esc(r.text)}</p><p class="judge-rationale">${esc(j.rationale)}</p></section>`;
       }).join('')}</div></article>`;
@@ -119,7 +130,13 @@
     const c = category === 'all' ? null : categoryOf(category);
     $('world-scores').innerHTML = scoreCards(speaker);
     $('world-categories').innerHTML = categoryButtons(speaker);
+    const f = focused();
     $('world-caption').textContent = `Rubric pass rate on ${c ? `${c.name.toLowerCase()} questions: ${c.description.charAt(0).toLowerCase() + c.description.slice(1).replace(/\.$/, '')}` : 'all of this guest\'s questions'} · same rubrics for every model · ${data.judge.name} judge · no browsing or tools`;
+    $('world-focus').innerHTML = f ? `Focused on ${chip(f)} · highlighted in every rubric below · <button data-world-model="${f.id}">Clear</button>` : 'Click a model to focus it: its verdicts are highlighted and you can filter to what it passed or missed.';
+    if (!f && outcome.startsWith('focus-')) outcome = 'all';
+    const outcomes = [['all', 'All outcomes'], ['mixed', 'Models disagree'], ['all-pass', 'All pass'], ['all-fail', 'All miss'],
+      ...(f ? [['focus-pass', `${f.name} passed`], ['focus-miss', `${f.name} missed`]] : [])];
+    $('world-outcomes').innerHTML = outcomes.map(([id, label]) => `<button class="outcome-button" data-world-outcome="${id}">${esc(label)}</button>`).join('');
     document.querySelectorAll('[data-world-outcome]').forEach(b => {
       const active = b.dataset.worldOutcome === outcome;
       b.classList.toggle('active', active);
@@ -139,8 +156,9 @@
       <div class="section-heading"><div><div class="eyebrow">WORLD UNDERSTANDING</div><h2>How ${esc(owner.name)} sees things</h2><p>Each question asks ${esc(owner.name)} about an entity or event in the conversation, written so it stands alone. The answer is synthesized from ${esc(owner.name)}'s reply in the episode, with verbatim quotes alongside. Each model answered as the guest from the question alone. Rubrics capture the ideas in the guest's actual answer.</p></div><span class="count-tag">${owner.items.length} questions · ${total} rubrics</span></div>
       <div id="world-scores">${scoreCards(owner)}</div>
       <div class="score-caption" id="world-caption"></div>
+      <div class="world-focus" id="world-focus" role="status" aria-live="polite"></div>
       <section class="category-nav transcript-filters" aria-label="Question categories"><div class="nav-label category-label">CATEGORIES</div><nav id="world-categories">${categoryButtons(owner)}</nav></section>
-      <div class="toolbar"><label class="search"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="world-search" type="search" placeholder="Find a question or rubric…" aria-label="Search questions and rubrics" value="${esc(query)}"></label><div class="outcome-filters" role="group" aria-label="Filter by model verdict"><button class="outcome-button" data-world-outcome="all">All outcomes</button><button class="outcome-button" data-world-outcome="mixed">Models disagree</button><button class="outcome-button" data-world-outcome="all-pass">All pass</button><button class="outcome-button" data-world-outcome="all-fail">All miss</button></div></div>
+      <div class="toolbar"><label class="search"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="world-search" type="search" placeholder="Find a question or rubric…" aria-label="Search questions and rubrics" value="${esc(query)}"></label><div class="outcome-filters" id="world-outcomes" role="group" aria-label="Filter by model verdict"></div></div>
       <div class="transcript-heading"><span id="world-count" role="status" aria-live="polite"></span></div>
       <div id="world-items"></div>
       <footer class="world-foot">${data.about.map(p => `<p>${esc(p)}</p>`).join('')}</footer>`;
@@ -152,6 +170,7 @@
     const b = event.target.closest('button');
     if (!b || !data || $('world-view').hidden) return;
     if (b.dataset.worldOutcome) {outcome = b.dataset.worldOutcome; renderItems();}
+    if (b.dataset.worldModel) {focus = focus === b.dataset.worldModel ? null : b.dataset.worldModel; renderItems();}
     if (b.dataset.worldCategory) {category = b.dataset.worldCategory; renderItems(); $('world-categories').scrollIntoView({block: 'nearest'});}
     if (b.dataset.worldTurn) window.commonGround.openTurn(Number(b.dataset.worldTurn));
     if (b.dataset.worldOpen) {
