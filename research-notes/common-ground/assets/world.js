@@ -7,7 +7,7 @@
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const pct = s => s.total ? (100 * s.passed / s.total).toFixed(1) : '—';
   const cache = new Map();
-  let data = null, speaker = null, query = '', outcome = 'all';
+  let data = null, speaker = null, query = '', outcome = 'all', category = 'all';
 
   function fetchJSON(path) {
     if (!cache.has(path)) cache.set(path, fetch(path).then(r => {
@@ -24,17 +24,27 @@
     return `<span class="verdict-mark ${pass ? 'pass' : 'fail'}" title="${esc(m.name)}: ${pass ? 'Pass' : 'Fail'}" aria-label="${esc(m.name)}: ${pass ? 'Pass' : 'Fail'}"><span aria-hidden="true">${pass ? '✓' : '×'}</span><span class="mobile-label" aria-hidden="true">${esc(m.name)}</span></span>`;
   }
 
+  const currentStats = owner => category === 'all' ? owner.stats : owner.categories.find(c => c.id === category).stats;
+  const categoryOf = id => speaker.categories.find(c => c.id === id);
+
+  function categoryButtons(owner) {
+    const all = {id: 'all', name: 'All questions', count: owner.items.length};
+    return [all, ...owner.categories].map(c => `<button class="category-button ${category === c.id ? 'active' : ''}" data-world-category="${c.id}" aria-pressed="${category === c.id}" ${c.description ? `title="${esc(c.description)}"` : ''}><span class="category-top"><span class="category-name">${esc(c.name)}</span><span class="category-rate">${c.count}</span></span></button>`).join('');
+  }
+
   function scoreCards(owner) {
+    const stats = currentStats(owner);
     return Object.entries(data.providers).map(([pid, p]) => {
       const models = data.models.filter(m => m.provider === pid);
       return `<div class="world-provider"><div class="world-provider-label"><span class="model-dot" style="--model:${p.color}"></span>${esc(p.name)} <span>· ${esc(p.harness)}</span></div><div class="scores world-scores" style="--world-cols:${models.length}">${models.map(m => {
-        const s = owner.stats[m.id];
+        const s = stats[m.id];
         return `<article class="score-card" style="--model:${p.color}" aria-label="${esc(m.name)}: ${pct(s)}% pass rate"><span class="score-name"><span class="model-dot"></span>${esc(m.name)}<small class="model-effort">${esc(m.effort)}</small></span><span class="score-number">${pct(s)}<em>%</em></span><span class="score-fraction">${s.passed} / ${s.total} passed</span><span class="score-bar" aria-hidden="true"><span style="width:${pct(s)}%"></span></span></article>`;
       }).join('')}</div></div>`;
     }).join('');
   }
 
   function matches(item) {
+    if (category !== 'all' && item.category !== category) return false;
     const q = query.trim().toLowerCase();
     const text = [item.question, item.object, item.reference, ...item.rubrics.map(r => r.text)].join(' ').toLowerCase();
     if (q && !text.includes(q)) return false;
@@ -53,8 +63,9 @@
     return `<article class="world-item" id="q-${item.id}">
       <header class="turn-head"><span class="turn-name">Question</span><span class="turn-time">${time(item.startTime)} <span aria-hidden="true">·</span> <button class="turn-link" data-world-turn="${item.start}" title="Show the source turns in the transcript">Turns ${item.start}–${item.end} ↗</button></span></header>
       <h3 class="world-question">${esc(item.question)}</h3>
-      <div class="world-object"><span>Object</span>${esc(item.object)}</div>
-      <details class="original-wording world-reference"><summary>${esc(speaker.name)}'s answer · ${item.reference.split(/\s+/).length} words</summary><div>${esc(item.reference)}</div></details>
+      <div class="world-object"><span>Object</span>${esc(item.object)}<button class="world-chip" data-world-category="${item.category}" title="Show only ${esc(categoryOf(item.category).name)}">${esc(categoryOf(item.category).name)}</button></div>
+      <details class="original-wording world-reference"><summary>${esc(speaker.name)}'s answer <span class="synth-badge">Synthesized</span> · ${item.reference.split(/\s+/).length} words</summary><p class="synth-note">Not a verbatim quote. ${esc(data.synthesis)} Source: turns ${item.start}–${item.end}.</p><div>${esc(item.reference)}</div></details>
+      <details class="original-wording world-quotes"><summary>Transcript quotes · ${item.quotes.length} verbatim</summary><ul>${item.quotes.map(q => `<li>“${esc(q)}”</li>`).join('')}</ul></details>
       ${rubrics}
       <details class="turn-comparison" data-world-item="${item.id}" id="wcompare-${item.id}"><summary><span class="comparison-icon" aria-hidden="true">+</span>Compare model responses<span class="comparison-arrow" aria-hidden="true">↗</span></summary><div class="comparison-body"><div class="loading" role="status">Loading model responses…</div></div></details>
     </article>`;
@@ -103,6 +114,10 @@
   }
 
   function renderItems() {
+    const c = category === 'all' ? null : categoryOf(category);
+    $('world-scores').innerHTML = scoreCards(speaker);
+    $('world-categories').innerHTML = categoryButtons(speaker);
+    $('world-caption').textContent = `Rubric pass rate on ${c ? `${c.name.toLowerCase()} questions: ${c.description.charAt(0).toLowerCase() + c.description.slice(1).replace(/\.$/, '')}` : 'all of this guest\'s questions'} · same rubrics for every model · ${data.judge.name} judge · no browsing or tools`;
     document.querySelectorAll('[data-world-outcome]').forEach(b => {
       const active = b.dataset.worldOutcome === outcome;
       b.classList.toggle('active', active);
@@ -119,9 +134,10 @@
     const owner = speaker;
     const total = owner.items.reduce((n, i) => n + i.rubrics.length, 0);
     $('world-view').innerHTML = `
-      <div class="section-heading"><div><div class="eyebrow">WORLD UNDERSTANDING</div><h2>How ${esc(owner.name)} sees things</h2><p>Each question asks ${esc(owner.name)} about an entity or event in the conversation, written so it stands alone. The answer is ${esc(owner.name)}'s own reply from the episode, lightly cleaned. Each model answered as the guest from the question alone. Rubrics capture the ideas in the guest's actual answer.</p></div><span class="count-tag">${owner.items.length} questions · ${total} rubrics</span></div>
-      ${scoreCards(owner)}
-      <div class="score-caption">Rubric pass rate on this guest's questions · same rubrics for every model · ${esc(data.judge.name)} judge · no browsing or tools</div>
+      <div class="section-heading"><div><div class="eyebrow">WORLD UNDERSTANDING</div><h2>How ${esc(owner.name)} sees things</h2><p>Each question asks ${esc(owner.name)} about an entity or event in the conversation, written so it stands alone. The answer is synthesized from ${esc(owner.name)}'s reply in the episode, with verbatim quotes alongside. Each model answered as the guest from the question alone. Rubrics capture the ideas in the guest's actual answer.</p></div><span class="count-tag">${owner.items.length} questions · ${total} rubrics</span></div>
+      <div id="world-scores">${scoreCards(owner)}</div>
+      <div class="score-caption" id="world-caption"></div>
+      <section class="category-nav transcript-filters" aria-label="Question categories"><div class="nav-label category-label">CATEGORIES</div><nav id="world-categories">${categoryButtons(owner)}</nav></section>
       <div class="toolbar"><label class="search"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="world-search" type="search" placeholder="Find a question or rubric…" aria-label="Search questions and rubrics" value="${esc(query)}"></label><div class="outcome-filters" role="group" aria-label="Filter by model verdict"><button class="outcome-button" data-world-outcome="all">All outcomes</button><button class="outcome-button" data-world-outcome="mixed">Models disagree</button><button class="outcome-button" data-world-outcome="all-pass">All pass</button><button class="outcome-button" data-world-outcome="all-fail">All miss</button></div></div>
       <div class="transcript-heading"><span id="world-count" role="status" aria-live="polite"></span></div>
       <div id="world-items"></div>
@@ -134,6 +150,7 @@
     const b = event.target.closest('button');
     if (!b || !data || $('world-view').hidden) return;
     if (b.dataset.worldOutcome) {outcome = b.dataset.worldOutcome; renderItems();}
+    if (b.dataset.worldCategory) {category = b.dataset.worldCategory; renderItems(); $('world-categories').scrollIntoView({block: 'nearest'});}
     if (b.dataset.worldTurn) window.commonGround.openTurn(Number(b.dataset.worldTurn));
     if (b.dataset.worldOpen) {
       const el = $(`wcompare-${b.dataset.worldOpen}`);
@@ -149,7 +166,7 @@
       try {
         if (!data) {view.innerHTML = '<div class="loading" role="status">Loading questions…</div>'; data = await fetchJSON('data/world/index.json');}
         const next = data.speakers[owner.id];
-        if (speaker?.id !== owner.id) {query = ''; outcome = 'all';}
+        if (speaker?.id !== owner.id) {query = ''; outcome = 'all'; category = 'all';}
         speaker = {...next, id: owner.id, name: owner.name};
         renderSpeaker();
       } catch (error) {
