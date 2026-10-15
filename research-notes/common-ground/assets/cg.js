@@ -35,12 +35,14 @@
     if (S.test === 'turns') {
       const counts = {};
       meta.rubrics.forEach(r => {counts[r.category] = (counts[r.category] || 0) + 1;});
-      return {meta, data: RAW, models: RAW.models, stats: meta.stats, units: meta.caseCount,
+      const models = meta.modelsRun ? RAW.models.filter(m => meta.modelsRun.includes(m.id)) : RAW.models;
+      return {meta, data: RAW, models, notRun: (meta.notRun || []).map(n => ({...RAW.models.find(m => m.id === n.id), reason: n.reason})),
+              stats: meta.stats, units: meta.caseCount,
               topics: meta.categories.map(c => ({...c, count: counts[c.id] || 0})).filter(c => c.count),
               rubrics: meta.rubrics.map(r => ({...r, topic: r.category}))};
     }
     const w = WORLD.speakers[S.guest];
-    return {meta, data: WORLD, models: WORLD.models, stats: w.stats, units: w.items.length, items: w.items,
+    return {meta, data: WORLD, models: WORLD.models, notRun: [], stats: w.stats, units: w.items.length, items: w.items,
             topics: w.categories, rubrics: w.items.flatMap(i => i.rubrics.map(r => ({...r, topic: i.category, item: i.id})))};
   }
   const color = (c, m) => c.data.providers[m.provider].color;
@@ -91,7 +93,8 @@
         <span class="meta">${s.caseCount} scored turns · ${w.items.length} questions</span></span></button>`;
     }).join('');
     const meta = RAW.speakers.find(s => s.id === S.guest);
-    const counts = {turns: [RAW.models.length, meta.caseCount, 'full transcript with audio'],
+    const runCount = meta.modelsRun ? meta.modelsRun.length : RAW.models.length;
+    const counts = {turns: [runCount, meta.caseCount, meta.audio === false ? 'full transcript' : 'full transcript with audio'],
                     questions: [WORLD.models.length, WORLD.speakers[S.guest].items.length, 'guest\'s answer and quotes']};
     $('tests').innerHTML = Object.entries(TESTS).map(([id, t]) => `<button class="option test-option ${S.test === id ? 'active' : ''}" data-test="${id}" aria-pressed="${S.test === id}">
         <span class="option-body"><strong>${t.title}</strong><small>${t.blurb}</small>
@@ -117,6 +120,7 @@
           <span class="bar" aria-hidden="true"><span style="width:${rate(s)}%;--c:${color(c, m)}"></span></span>
           <span class="bval">${pct(s)}</span><span class="bfrac">${s.passed} / ${s.total}</span></button></li>`;
       }).join('')}</ol>
+      ${c.notRun.length ? `<p class="fine">Not run for ${esc(c.meta.name)} yet: ${c.notRun.map(m => `${esc(m.name)} (${esc(m.reason)})`).join('; ')}.</p>` : ''}
       <p class="fine">Judge: ${esc(c.data.judge.name)}. Every model is scored on the same ideas. Scores show coverage of the guest's ideas, not overall answer quality. <a href="#how">How it works</a></p>`;
   }
 
@@ -124,7 +128,7 @@
   function renderExploreShell() {
     const c = ctx(), t = TESTS[S.test];
     const intro = S.test === 'turns'
-      ? `The whole episode. In each <span class="tag scored">scored turn</span>, models had to write what ${esc(c.meta.name)} says next. Under the real turn you can see which of its ideas each model came up with, and open every model's answer. Press <b>▶ Listen</b> to hear the original audio.`
+      ? `The whole episode. In each <span class="tag scored">scored turn</span>, models had to write what ${esc(c.meta.name)} says next. Under the real turn you can see which of its ideas each model came up with, and open every model's answer.${c.meta.audio === false ? '' : ' Press <b>▶ Listen</b> to hear the original audio.'}`
       : `One card per question. Each card lists the ideas from ${esc(c.meta.name)}'s real answer and which models came up with them. Open a card's sections to read the guest's answer, the transcript quotes behind it, and every model's answer.`;
     $('explore').innerHTML = `
       <div class="block-head"><h2>${S.test === 'turns' ? 'Read the conversation' : 'Browse the questions'}</h2><p>${intro}</p></div>
