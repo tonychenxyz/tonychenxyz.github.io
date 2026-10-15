@@ -9,7 +9,9 @@
   const cache = new Map();
   let data = null, speaker = null, query = '', outcome = 'all', category = 'all';
 
+  const build = document.documentElement.dataset.build || '';
   function fetchJSON(path) {
+    path = build ? `${path}?v=${build}` : path;
     if (!cache.has(path)) cache.set(path, fetch(path).then(r => {
       if (!r.ok) throw Error(`Unable to load results (${r.status}).`);
       return r.json();
