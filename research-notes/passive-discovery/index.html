@@ -329,11 +329,27 @@ sitemap: false
 .pd .concl .crole { font-size: 14.5px; line-height: 1.58; color: var(--text-2); border-top: 1px solid #ccdcf6;
                     margin-top: 12px; padding-top: 10px; }
 .pd .concl .crole b { color: var(--text); font-weight: 650; }
+.pd .concl .chead { font-size: 17px; font-weight: 640; line-height: 1.45; margin: 0 0 10px; }
+.pd .chain { margin: 4px 0 12px; }
+.pd .chain .lk { display: grid; grid-template-columns: 112px 1fr; gap: 12px; align-items: start; padding: 6px 0; font-size: 15px; line-height: 1.55; }
+.pd .chain .lk + .lk { border-top: 1px dashed #dbe5f5; }
+.pd .chain .tag { font-size: 11.5px; font-weight: 650; color: #fff; background: var(--c); border-radius: 6px; padding: 2px 8px; text-align: center; margin-top: 2px; }
+.pd .chain .tag.bg { background: #fff; color: var(--text-2); border: 1px solid #d0d7de; }
+.pd .chain .lk.res .tag { background: var(--text); }
+.pd .chain .lk.res { font-weight: 600; }
 .pd .why { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 22px; margin-top: 16px; }
 @media (max-width: 820px) { .pd .why { grid-template-columns: 1fr; } }
 .pd .why .w { font-size: 14.5px; line-height: 1.56; color: var(--text-2); }
 .pd .why .w b { font-weight: 650; color: var(--text); }
 .pd .katex { font-size: 1em; }
+.pd .exlead { font-size: 16.5px; margin: 34px 0 0; }
+.pd .ctx { font-size: 14.5px; line-height: 1.6; color: var(--text-2); margin: 0 0 4px; }
+.pd .ctx b { color: var(--text); font-weight: 640; }
+.pd .src .plain { font-size: 13.5px; line-height: 1.56; border-top: 1px dashed var(--border); padding-top: 9px; margin-top: auto; }
+.pd .src .plain .pk, .pd .hard .pk { display: block; font: 650 10.5px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); margin-bottom: 4px; }
+.pd .hard { background: var(--panel); border-radius: 12px; padding: 12px 16px; margin-top: 14px; font-size: 15px; line-height: 1.6; }
+.pd .concl .sub { font-size: 15px; line-height: 1.6; color: var(--text); border-top: 1px solid #ccdcf6; margin-top: 10px; padding-top: 9px; }
+.pd .concl .sub .pk { display: block; font: 650 10.5px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: #1b55ad; margin-bottom: 3px; }
 </style>
 <article class="pd" id="pd">
 <div class="meta">Research note · October 2026</div>
@@ -407,129 +423,121 @@ where that isn't true. We ran the identical setup &mdash; same judge, same singl
 <b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below, each
 shown with the documents it was built from.</p>
 
+<p class="exlead">First, three research papers in operator algebras, the mathematics behind quantum systems.</p>
 <div class="ex">
-  <div class="exhead"><span class="exfield">Operator algebras &middot; three papers, three separate problems</span>
-    <span class="badge new">not found in the literature</span></div>
-  <div class="extitle">A system is maximally infinite exactly when you cannot measure it &mdash; not even sloppily</div>
+  <p class="ctx">Two ideas recur in all three. Some systems have a <b>way to measure size</b>: how much of the whole
+    each piece takes up. Others are <b>infinite in the Hilbert's-hotel sense</b>: they can be split into two pieces,
+    each as big as the whole.</p>
   <div class="srcs">
     <div class="src" style="--c: var(--real)">
-      <div class="prov"><i></i>Manuscript &middot; 23 Sep 2026</div>
-      <img class="shot" src="assets/paper-kaplansky.png" alt="First page of the manuscript: title, author and abstract.">
-      <div class="cap">Page 1 of the source manuscript.</div>
-      <div class="role">Its job in the field: <b>to close a conjecture</b> by exhibiting one object that breaks it.
-        A cabinet of curiosities, not a toolbox.</div>
-      <div class="quote"><span class="qk">theorem</span>&ldquo;A unital \(C^*\)-algebra \(C\) admits a normalized
-        \(2\)-quasitrace if and only if \(M_m(C)\) is not properly infinite for every positive integer
-        \(m\).&rdquo;</div>
-      <div class="gives">Not its result &mdash; a classical fact it recites in passing: <b>no notion of size at
-        all</b> is the same thing as splitting into two copies of itself once you bundle \(m\) copies.</div>
+      <div class="stitle">A counterexample to Kaplansky's quasitrace conjecture</div>
+      <div class="quote"><span class="qk">from the paper &middot; theorem</span>&ldquo;A unital \(C^*\)-algebra \(C\)
+        <mark>admits a normalized \(2\)-quasitrace if and only if \(M_m(C)\) is not properly infinite</mark> for every
+        positive integer \(m\).&rdquo;</div>
+      <div class="plain"><span class="pk">In plain words</span>The paper's aim is to break an old conjecture with one
+        strange example. On the way it quotes a classical fact: a system has a way to measure size exactly when no stack
+        of copies of it can be split hotel-style. So if there is no measure, then some stack of \(m\) copies splits.</div>
     </div>
     <div class="src" style="--c: var(--tidy)">
-      <div class="prov"><i></i>Manuscript &middot; 25 Sep 2026</div>
-      <img class="shot" src="assets/paper-character.png" alt="First page of the manuscript: title, author and abstract.">
-      <div class="cap">Page 1 of the source manuscript.</div>
-      <div class="role">Its job in the field: to settle a named open question on the <b>tame</b> half of the
-        classification programme &mdash; when is a system infinitely divisible?</div>
-      <div class="quote"><span class="qk">theorem</span>&ldquo;Let \(A\) be a nonzero unital separable complex
-        \(C^*\)-algebra, and let \(\omega\) be any free ultrafilter on \(\mathbb{N}\). Then \(F_\omega(A)\)
-        has no characters \(\iff A \cong A \otimes_{\min} \mathcal{Z}\).&rdquo;</div>
-      <div class="gives">No &ldquo;one-dimensional shadow&rdquo; means the system is <b>sand, not bricks</b> &mdash;
-        divisible as finely as you like.</div>
+      <div class="stitle">The Kirchberg&ndash;R&oslash;rdam character criterion</div>
+      <div class="quote"><span class="qk">from the paper &middot; theorem</span>&ldquo;Let \(A\) be a nonzero unital
+        separable complex \(C^*\)-algebra, and let \(\omega\) be any free ultrafilter on \(\mathbb{N}\). Then
+        <mark>\(F_\omega(A)\) has no characters \(\iff A \cong A \otimes_{\min} \mathcal{Z}\)</mark>.&rdquo;</div>
+      <div class="plain"><span class="pk">In plain words</span>When is a system like sand rather than bricks, divisible
+        as finely as you like? Exactly when a certain shadow of it has no one-dimensional pieces. This is the tame side
+        of the subject.</div>
     </div>
     <div class="src" style="--c: var(--render)">
-      <div class="prov"><i></i>Manuscript &middot; 25 Sep 2026</div>
-      <img class="shot" src="assets/paper-infinity.png" alt="First page of the manuscript: title, author and abstract.">
-      <div class="cap">Page 1 of the source manuscript.</div>
-      <div class="role">Its job in the field: the mirror question on the <b>infinite</b> half &mdash; how weak a form
-        of self-duplication still forces the strongest one.</div>
-      <div class="quote"><span class="qk">corollary</span>&ldquo;Let \(A\) be a separable nuclear complex
-        \(C^*\)-algebra. If there is one integer \(n\ge 1\) such that \(h^{\oplus n}\) is properly infinite
-        for every \(h\in A_+\), then \(A\cong A\otimes_{\min}\mathcal{O}_\infty\).&rdquo;</div>
-      <div class="gives">Splitting <i>after</i> bundling already forces <b>maximal infiniteness</b>.</div>
+      <div class="stitle">Weak pure infiniteness and O-infinity absorption</div>
+      <div class="quote"><span class="qk">from the paper &middot; corollary</span>&ldquo;Let \(A\) be a separable nuclear
+        complex \(C^*\)-algebra. If there is one integer \(n\ge 1\) such that <mark>\(h^{\oplus n}\) is properly infinite
+        for every \(h\in A_+\)</mark>, then <mark>\(A\cong A\otimes_{\min}\mathcal{O}_\infty\)</mark>.&rdquo;</div>
+      <div class="plain"><span class="pk">In plain words</span>The mirror question on the wild side: how little
+        infiniteness is enough to make a system as infinite as possible? Enough: every piece splits once you bundle a
+        fixed number of copies of it. That strongest kind of infinite is what the big classification theorems need.</div>
     </div>
   </div>
+  <div class="hard"><span class="pk">Why the link is hard to see</span>The three papers answer three different
+    questions. The second sits on the tame side of the subject and the third on the wild side, and people who work on
+    one rarely read the other. The line that matters in the first paper is not its result but a classical fact it
+    quotes in passing. Papers are found by their main theorems, so searching for the first paper's topic would never
+    surface that line.</div>
   <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
-  <div class="concl"><div class="lab">The conclusion</div>The \(m\) disappears. Being unmeasurable forces the system
-    to be sand, and sand lets you divide through by \(m\) &mdash; so splitting only after bundling was never the
-    weaker property it looked like.
-    <div class="crole"><b>Its job in the field:</b> a gateway test. The classification theorems only apply to systems
-      that are maximally infinite, and that condition is written as an isomorphism, so checking it means
-      <i>building</i> something. This swaps it for ruling something out: show no measure exists.</div></div>
-  <div class="why">
-    <div class="w"><b>Opposite halves of one programme.</b> The second paper is the tame side, the third the infinite
-      side, and they are rarely read together. The argument runs the unexpected way: the tame-side tool is what makes
-      the infinite-side conclusion work.</div>
-    <div class="w"><b>The key line is nobody's headline.</b> The first paper is mined for a sentence it merely quotes
-      in passing. Papers are indexed by their main theorem, so that line is invisible from outside.</div>
+  <div class="concl"><div class="lab">The conclusion</div>
+    <div class="chead">For these systems, having no way to measure size is already enough to be as infinite as possible.</div>
+    <div class="chain">
+      <div class="lk"><span class="tag" style="--c: var(--real)">paper 1</span><span>No measure means some stack of
+        \(m\) copies splits hotel-style.</span></div>
+      <div class="lk"><span class="tag" style="--c: var(--tidy)">paper 2</span><span>The same missing measure makes the
+        system sand, so the stack of \(m\) can be divided back out.</span></div>
+      <div class="lk"><span class="tag" style="--c: var(--render)">paper 3</span><span>Splitting after bundling already
+        forces the strongest kind of infiniteness.</span></div>
+      <div class="lk res"><span class="tag">together</span><span>The \(m\) disappears: no measure &rArr; splits &rArr; as
+        infinite as possible.</span></div>
+    </div>
+    <div class="sub"><span class="pk">Why it's surprising</span>A purely negative fact, that size can't be measured,
+      turns out to deliver the strongest positive kind of infiniteness. And the step that makes it work comes from the
+      tame side of the subject, which you would not think to consult about infinite systems.</div>
+    <div class="sub"><span class="pk">Why it matters</span>Mostly as a shortcut. The classification theorems only apply
+      to the most infinite systems, and checking that condition normally means building something. This would let you
+      check it by ruling something out: show that no measure exists. It is a short combination of published results
+      assembled by the reader, not a new theorem, and has not been checked by a specialist.</div>
   </div>
 </div>
 
+<p class="exlead">Then, two medical evidence reviews from different specialties.</p>
 <div class="ex">
-  <div class="exhead"><span class="exfield">Medicine &middot; two reviews, two specialties</span>
-    <span class="badge known">known biology, never applied here</span></div>
-  <div class="extitle">A drug given to help embryos implant may be working against itself, through a side pathway
-    nobody measures</div>
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
     <div class="src" style="--c: var(--theme)">
-      <div class="prov"><i></i>Cochrane review &middot; 2025 &middot; respiratory allergy</div>
-      <div class="outline">
-      <div class="ol on">Background</div>
-      <div class="ol">Objectives</div>
-      <div class="ol">Search methods</div>
-      <div class="ol">Selection criteria</div>
-      <div class="ol">Data collection and analysis</div>
-      <div class="ol">Main results</div>
-      <div class="ol">Authors' conclusions</div>
-      </div>
-      <div class="cap">The review's seven abstract sections; the one used is highlighted.</div>
-      <div class="stitle">Oral and intranasal aspirin desensitisation for NSAID-exacerbated respiratory disease</div>
-      <div class="role">Its job in the field: the reference account of a group &mdash; about 2% of people &mdash; in
-        whom blocking one arm of the inflammatory pathway reliably sends traffic down the other.</div>
-      <div class="quote"><span class="qk">background</span>&ldquo;N-ERD is a hypersensitivity to non-steroidal
-        anti-inflammatory drugs&hellip; The clinical benefit of aspirin might occur through inhibition of interleukin 4
-        and a reduction in prostaglandin D2.&rdquo;</div>
-      <div class="gives">Evidence that in people, blocking COX does not merely remove prostaglandins &mdash; it
-        <b>redirects the same raw material</b> down the leukotriene branch, by an amount that differs between people
-        and shows up in urine.</div>
+      <div class="stitle">Oral and intranasal aspirin desensitisation for NSAID-exacerbated respiratory disease (2025)</div>
+      <div class="quote"><span class="qk">from the review &middot; background</span>&ldquo;<mark>NSAID-exacerbated
+        respiratory disease (N-ERD) is a hypersensitivity to non-steroidal anti-inflammatory drugs (NSAIDs), such as
+        aspirin or ibuprofen</mark>, accompanied by chronic rhinosinusitis (with or without nasal polyps) or asthma.
+        <mark>The prevalence of hypersensitivity to NSAIDs is estimated to be 2%.</mark>&rdquo;</div>
+      <div class="plain"><span class="pk">In plain words</span>About 2 in 100 people react badly to everyday painkillers
+        like aspirin and ibuprofen: their sinuses and airways flare up. The review asks whether slowly getting them used
+        to aspirin helps. What matters here: these painkillers are not neutral for everyone. In some people they set off
+        a different kind of inflammation.</div>
     </div>
     <div class="src" style="--c: var(--agent)">
-      <div class="prov"><i></i>Cochrane review &middot; 2019 &middot; reproductive medicine</div>
-      <div class="outline">
-      <div class="ol on">Background</div>
-      <div class="ol">Objectives</div>
-      <div class="ol">Search methods</div>
-      <div class="ol">Selection criteria</div>
-      <div class="ol">Data collection and analysis</div>
-      <div class="ol">Main results</div>
-      <div class="ol">Authors' conclusions</div>
-      </div>
-      <div class="cap">The same seven sections, from a different specialty.</div>
-      <div class="stitle">Nonsteroidal anti-inflammatory drugs for assisted reproductive technology</div>
-      <div class="role">Its job in the field: the evidence base for a common IVF add-on, and the record of why its
-        benefit has never quite appeared.</div>
-      <div class="quote"><span class="qk">background</span>&ldquo;prostaglandins may increase uterine contractions and
-        decrease uterine receptivity&hellip; In this context, nonsteroidal anti-inflammatory drugs have been employed
-        to inhibit the negative prostaglandin effect.&rdquo;</div>
-      <div class="gives">The drug is given on the assumption that lowering prostaglandins is <b>its only relevant
-        action</b> &mdash; and across 11 trials the benefit stays uncertain.</div>
+      <div class="stitle">Nonsteroidal anti-inflammatory drugs for assisted reproductive technology (2019)</div>
+      <div class="quote"><span class="qk">from the review &middot; background</span>&ldquo;Local inflammatory response is
+        believed to contribute to implantation failure, where <mark>prostaglandins may increase uterine contractions and
+        decrease uterine receptivity</mark>, decreasing the possibility of an IVF cycle leading to successful embryo
+        transfer. In this context, <mark>nonsteroidal anti-inflammatory drugs (NSAIDs) have been employed to inhibit the
+        negative prostaglandin effect</mark>. They are often offered in clinical practice to improve ART outcomes, but
+        <mark>current robust evidence on their efficacy is lacking</mark>.&rdquo;</div>
+      <div class="plain"><span class="pk">In plain words</span>In IVF, many embryos fail to implant. One idea is that
+        local inflammation makes the womb contract and less welcoming, so clinics give the same family of painkillers
+        around embryo transfer to calm it. Whether this actually helps is still unproven.</div>
     </div>
   </div>
+  <div class="hard"><span class="pk">Why the link is hard to see</span>One review is about sinus and asthma patients
+    who react to aspirin; the other is about IVF. Different specialty, organ, patients and journals. The only thing they
+    share is a drug family, and each mentions it for its own reason, so nobody reading one would think to open the other.</div>
   <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
-  <div class="concl"><div class="lab">The conclusion</div>Leukotrienes contract the uterus and oppose the lining's
-    preparation for an embryo. So the drug may be partly undoing its own purpose &mdash; subtracting the prostaglandins
-    it targets while generating the signals it does not &mdash; by an amount set by each woman's own leukotriene tone.
-    That would explain an average effect that keeps coming out flat.
-    <div class="crole"><b>The mechanism itself is textbook.</b> That blocking COX pushes the same substrate down the
-      leukotriene branch is long established, and a leukotriene blocker was proposed as a way to quiet the uterus back
-      in 2014. What is absent from the literature is anyone joining that to this drug in this setting: the IVF work
-      reasons entirely in prostaglandins. The contribution is the link, not the biology &mdash; and it comes with a
-      test. Measure leukotrienes in uterine fluid on and off the drug, split women by that marker, and see whether
-      blocking the side pathway restores the benefit.</div></div>
-  <div class="why">
-    <div class="w"><b>Neither specialty reads the other.</b> One document is sinus disease, the other IVF. No shared
-      organ, patient or journal. The link is a single branch point in fat metabolism.</div>
-    <div class="w"><b>Why it is testable, not just a story.</b> The allergy document supplies the missing quantity:
-      that the redirect is large in humans, varies between them, and has a urine marker.</div>
+  <div class="concl"><div class="lab">The conclusion</div>
+    <div class="chead">The IVF painkiller may be partly undoing its own purpose, more in some women than in others.</div>
+    <div class="chain">
+      <div class="lk"><span class="tag" style="--c: var(--theme)">allergy review</span><span>These painkillers don't act
+        the same in everyone: in about 2% of people they trigger airway inflammation.</span></div>
+      <div class="lk"><span class="tag bg">textbook</span><span>That happens because blocking prostaglandins diverts the
+        same raw material into leukotrienes, a different family of inflammatory signals.</span></div>
+      <div class="lk"><span class="tag" style="--c: var(--agent)">IVF review</span><span>IVF uses these painkillers to
+        lower prostaglandins, which make the womb contract; the benefit is still unproven.</span></div>
+      <div class="lk"><span class="tag bg">textbook</span><span>Leukotrienes also make the womb contract and work against
+        its readiness for an embryo.</span></div>
+      <div class="lk res"><span class="tag">together</span><span>In some women the drug may remove one contraction signal
+        while adding another, which would make the average benefit look flat.</span></div>
+    </div>
+    <div class="sub"><span class="pk">Why it's surprising</span>The drug is assumed to do one helpful thing. Its second
+      effect is invisible from inside IVF research, which only thinks about prostaglandins. It is the allergy patients
+      who reveal that this drug family can push the body the other way.</div>
+    <div class="sub"><span class="pk">Why it matters</span>Potentially a lot, for a common treatment. If it is right, the
+      flat results hide women who benefit and women who don't, and a measurable signal could tell them apart. It is a
+      hypothesis, not a finding: the biology is long established, and what the reader found missing is the link to this
+      drug in IVF. It has a direct test: measure leukotrienes in the womb on and off the drug, split women by that, and
+      see whether also blocking leukotrienes brings the benefit back.</div>
   </div>
 </div>
 
@@ -559,7 +567,7 @@ self&#8209;contained opening passages, and each reader one <code>claude -p</code
 in the medical example is a hypothesis assembled from the two reviews, not a finding either one reports; its component
 steps are published separately, and the combination is what the search surfaced.</p>
 </article>
-<script src="data.js?v=aa05cbd2e4"></script>
+<script src="data.js?v=29e88be25f"></script>
 <script>
 (function () {
 "use strict";
