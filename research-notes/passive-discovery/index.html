@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792115182">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792115350">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -553,7 +553,7 @@ are shown with the line it used highlighted.</p>
 entries; the grep agent is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob). "Uses the anchor's words" means
 the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or crystal.</p>
 </article>
-<script src="data.js"></script>
+<script src="data.js?v=9a2fe1139a"></script>
 <script>
 (function () {
 "use strict";
@@ -574,6 +574,8 @@ const fcut = (s, n, hl) => { s = String(s == null ? "" : s); if (!hl || s.length
   const start = Math.max(0, at - Math.round(n * .35)); return "…" + cut(s.slice(start).replace(/^\S*\s/, ""), n); };
 const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 const $ = id => document.getElementById(id);
+/* each figure runs on its own: one failing figure must not stop the others */
+function section(fn) { try { fn(); } catch (e) { console.error("figure failed:", e); } }
 
 /* tooltip */
 const tip = document.createElement("div"); tip.className = "pd-tip"; document.body.appendChild(tip);
@@ -698,7 +700,7 @@ const firstQuote = t => { const m = /“([^”]+)”/.exec(t); return m ? m[1] :
 const ID_OF = new Map(D.entries.map((e, i) => [e[0], i]));
 
 /* ---------- 1. the data ---------- */
-(function () {
+section(function () {
   const f = new Field($("d-canvas")); let sel = null;
   const queue = ["LLM Assistant", "Fitbit", "WhatsApp"].filter(a => D.app_examples[a] != null);
   const count = a => D.entries.filter(e => D.apps[e[2]] === a).length;
@@ -709,10 +711,10 @@ const ID_OF = new Map(D.entries.map((e, i) => [e[0], i]));
   $("d-legend").querySelectorAll("button").forEach(b => b.onclick = () => { const a = b.dataset.a;
     sel = sel === a ? null : a; if (sel && D.app_examples[a] != null) { const k = queue.indexOf(a); if (k >= 0) queue.splice(k, 1); queue.unshift(a); } render(); });
   render();
-})();
+});
 
 /* ---------- 3. idea map (final state) ---------- */
-(function () {
+section(function () {
   const a = D.anchor, svg = $("m-svg"), NS = "http://www.w3.org/2000/svg";
   const mk = (tag, at, parent = svg) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); parent.appendChild(e); return e; };
   const AX = 50, AY = 240;
@@ -734,14 +736,19 @@ const ID_OF = new Map(D.entries.map((e, i) => [e[0], i]));
     c.addEventListener("click", () => panelCard(t.r)); });
   const an = mk("circle", { cx: AX, cy: AY, r: 11, fill: C.ink, style: "cursor:pointer" }, gN); an.addEventListener("click", () => panelCard(0));
   mk("text", { x: AX, y: AY - 20, "text-anchor": "middle", "font-size": 13, "font-weight": 650, fill: C.ink }, gN).textContent = "anchor";
-  const box = (x, y, w, h, html, col, cls, onclick) => { const fo = mk("foreignObject", { x, y, width: w, height: h }, gB);
-    fo.innerHTML = `<div xmlns="http://www.w3.org/1999/xhtml" class="box ${cls || ""}" style="--c:${col}">${html}</div>`; fo.firstChild.onclick = onclick; };
+  const box = (x, y, w, h, text, col, cls, onclick) => { const g = mk("g", { style: "cursor:pointer" }, gB), idea = cls === "idea";
+    mk("rect", { x, y, width: w, height: h, rx: 12, fill: idea ? C.theme : "#fff", stroke: col, "stroke-width": 1.5 }, g);
+    const words = String(text).split(/\s+/), per = Math.floor((w - 20) / 7.1), lines = [];
+    words.forEach(wd => { const last = lines[lines.length - 1]; if (last && (last + " " + wd).length <= per) lines[lines.length - 1] = last + " " + wd; else lines.push(wd); });
+    const lh = 17, y0 = y + h / 2 - (lines.length - 1) * lh / 2 + 4.5;
+    lines.forEach((ln, k) => mk("text", { x: x + 10, y: y0 + k * lh, "font-size": 13.5, "font-weight": 600, fill: idea ? "#fff" : C.ink }, g).textContent = ln);
+    g.addEventListener("click", onclick); };
   const flow = (x1, y1, x2, y2, col) => mk("path", { d: `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}`, fill: "none", stroke: col, "stroke-width": 2.2, "stroke-opacity": .75 }, gF);
   const BX = 420, BW = 205, BH = 64, M1 = { x: 668, y: 160, w: 175, h: 96 }, M2 = { x: 875, y: 250, w: 150, h: 80 }, ID = { x: 1048, y: 245, w: 142, h: 90 };
-  D.groups.forEach((gr, k) => { const c = G[gr.k]; box(BX, c.y - BH / 2, BW, BH, esc(gr.c), C[gr.k], "", () => panelGroup(k)); flow(c.x + c.r, c.y, BX, c.y, C[gr.k]); });
-  box(M1.x, M1.y, M1.w, M1.h, esc(D.merges[0].c), C.ink, "", () => panelMerge(0));
-  box(M2.x, M2.y, M2.w, M2.h, esc(D.merges[1].c), C.ink, "", () => panelMerge(1));
-  box(ID.x, ID.y, ID.w, ID.h, esc(D.ideas.judge.title), C.theme, "idea", () => panelIdea());
+  D.groups.forEach((gr, k) => { const c = G[gr.k]; box(BX, c.y - BH / 2, BW, BH, gr.c, C[gr.k], "", () => panelGroup(k)); flow(c.x + c.r, c.y, BX, c.y, C[gr.k]); });
+  box(M1.x, M1.y, M1.w, M1.h, D.merges[0].c, C.ink, "", () => panelMerge(0));
+  box(M2.x, M2.y, M2.w, M2.h, D.merges[1].c, C.ink, "", () => panelMerge(1));
+  box(ID.x, ID.y, ID.w, ID.h, D.ideas.judge.title, C.theme, "idea", () => panelIdea());
   flow(BX + BW, G.render.y, M1.x, M1.y + 30, C.render); flow(BX + BW, G.real.y, M1.x, M1.y + 66, C.real);
   flow(M1.x + M1.w, M1.y + 48, M2.x, M2.y + 28, C.ink); flow(BX + BW, G.tidy.y, M2.x, M2.y + 56, C.tidy); flow(M2.x + M2.w, M2.y + 40, ID.x, ID.y + 45, C.theme);
   function panelCard(r) { const t = r === 0 ? { i: a.i } : byRank.get(r);
@@ -753,7 +760,7 @@ const ID_OF = new Map(D.entries.map((e, i) => [e[0], i]));
     P.innerHTML = `<div class="cap">${esc(m.c)}</div><p>Combines ${m.from.map(x => x === "m0" ? "" + esc(D.merges[0].c) + "" : "" + esc(D.groups.find(g => g.k === x).c) + "").join(" and ")}.</p>`; }
   function panelIdea() { const I = D.ideas.judge; P.innerHTML = `<div class="cap" style="color:${C.theme}">${esc(I.title)}</div><p><b>${esc(I.so)}</b></p><ul>${I.gift.map(g => `<li>${esc(g)}</li>`).join("")}</ul>`; }
   P.innerHTML = `<div class="rk"><b>Click a dot</b> to read one entry, or <b>a box</b> to see the entries behind a conclusion. Below: the anchor.</div>` + appCard(a.i, 1400);
-})();
+});
 
 /* ---------- idea write-ups ---------- */
 function renderIdea(el, I, color, lab, by) {
@@ -765,9 +772,9 @@ function renderIdea(el, I, color, lab, by) {
   el.querySelectorAll(".ref").forEach(b => b.onclick = () => { const k = +b.dataset.k, box = el.querySelector(`.open[data-k="${k}"]`), [t, ref] = I.why[k];
     const on = !b.classList.contains("on"); b.classList.toggle("on", on); box.innerHTML = on ? appCard(ID_OF.get(ref), 700, firstQuote(t)) : ""; });
 }
-renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entries", "Written by Claude Opus 5.5 after reading the 31 entries. Click a date to open the entry.");
+section(() => renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entries", "Written by Claude Opus 5.5 after reading the 31 entries. Click a date to open the entry."));
 /* ---------- 3. the method ---------- */
-(function () {
+section(function () {
   const f = new Field($("p-canvas"), { minH: 300 }), A = D.anchor.i;
   const rank = new Map(D.pool.map((p, k) => [p[0], k])), w = new Map(D.pool.map(p => [p[0], p[1]]));
   const top = new Map(D.top.map(t => [t.i, t]));
@@ -805,11 +812,11 @@ renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entri
     playing = setInterval(() => { if (ph >= 4) return stop(); go(ph + 1); }, 3200); }
   $("p-play").onclick = play; f.animate(() => ({ s: .7, a: .22 }), null, 1); go(0);
   onView($("fig-pipe"), () => { ph = -1; play(); });
-})();
+});
 
 
 /* prompt, light */
-(function () { const a = D.anchor;
+section(function () { const a = D.anchor;
   $("prompt").innerHTML = `<span class="m">input</span>
   Excerpt A — ${esc(a.t)} · ${esc(a.app)} · ${esc(a.api)}:
   """${esc(a.text.slice(0, 150))}…"""
@@ -819,10 +826,10 @@ renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entri
 <span class="m">questions</span>   one per partner, B1 … B20:
   <span class="q">${esc(D.question)}</span>
 
-<span class="m">answer</span>   the probability that the answer is yes, for each B`; })();
+<span class="m">answer</span>   the probability that the answer is yes, for each B`; });
 
 /* ---------- 5. the grep agent ---------- */
-(function () {
+section(function () {
   const A = D.agent;
   const short = c => c.replace(/\^\\\[log_\S*/g, "(entry headers)").replace(/\^request: \.\{0,\d+\}/g, "(requests)").replace(/\.\{0,\d+\}/g, "")
     .replace(/toolu_\w+\.txt/g, "(its saved search output)").replace(/^(grep|read)\s+/, (m, v) => `<b>${v}</b> `);
@@ -832,10 +839,10 @@ renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entri
     return `<div class="sitem"><div class="sn">${lab}</div><div class="sb"><div class="st">${esc(st.t)}</div><div class="sd">${quoteMarks(esc(st.d))}</div>${cmds}${st.cards.map(([i, hl]) => appCard(i, 360, hl)).join("")}</div></div>`; }).join("") +
     `<div class="sitem end"><div class="sn">answer</div><div class="sb"><div class="st">Writes its idea</div></div></div>`;
   renderIdea($("idea-grep"), D.ideas.grep, C.agent, "The grep agent's idea", `Condensed from the agent's own report (${A.steps.length} tool calls, ${A.secs} s, $${A.usd.toFixed(2)}). Click a date to open the entry.`);
-})();
+});
 
 /* ---------- 6. comparison across the year ---------- */
-(function () {
+section(function () {
   const X = D.compare, f = new Field($("c-canvas")), seen = new Set(X.seen), used = new Set(X.used), top = new Set(D.top.map(t => t.i));
   const KJ = X.key_judge, KG = X.key_grep; let mode = 0;
   const own = l => l.filter(([, o]) => o).length;
@@ -857,10 +864,10 @@ renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entri
     if (k === 2) f.animate(() => ({ s: .55, a: .08 }), null, 400); }
   chips.forEach((c, k) => c.onclick = () => { clearInterval(auto); set(k); });
   set(0); let auto = null; onView($("fig-cmp"), () => { let k = 0; auto = setInterval(() => { k++; if (k > 2) return clearInterval(auto); set(k); }, 3500); });
-})();
+});
 
 /* ---------- 7. what's different ---------- */
-(function () {
+section(function () {
   const X = D.compare, own = l => l.filter(([, o]) => o).length;
   const card = (c, h, rows) => `<div class="card" style="--c:${c}"><h4>${h}</h4><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div>`;
   $("diff").innerHTML =
@@ -878,7 +885,7 @@ renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entri
   $("verdict").innerHTML = `Grep reads widely but thinks in the anchor's vocabulary, so its idea stays on the anchor's topic and makes it physical. ` +
     `Its one non-obvious fact, a camera boxed for the light, is real and useful. Our method's packet is not off-topic overall (${X.own_used} of the ${X.used.length} entries the idea map uses share the anchor's words, against ${X.own_seen} of the ${X.seen.length} grep read). ` +
     `The difference is in the entries that change the subject: the cancelled AI subscription, the photo walks, the record-sorting puzzle. None of them uses the anchor's words, so no search built from the anchor reaches them.`;
-})();
+});
 })();
 
 </script>
