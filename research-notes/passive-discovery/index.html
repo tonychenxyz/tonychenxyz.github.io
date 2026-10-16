@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792125758">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792126285">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -488,11 +488,27 @@
 .pd .srcs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0 0; }
 @media (max-width: 760px) { .pd .srcs { grid-template-columns: 1fr; } }
 .pd .src { border: 1px solid var(--border); border-radius: 12px; padding: 12px 13px; background: var(--panel); }
+.pd .src { display: flex; flex-direction: column; }
 .pd .src .tag { display: inline-block; font: 650 11px/1 var(--mono); letter-spacing: .04em; color: #fff;
-                background: var(--c, var(--other)); border-radius: 5px; padding: 4px 6px; margin-bottom: 8px; }
-.pd .src .looks { font-size: 13.5px; color: var(--text-2); line-height: 1.5; margin-bottom: 8px; }
-.pd .src .gives { font-size: 14px; line-height: 1.52; border-top: 1px dashed var(--border); padding-top: 8px; }
+                background: var(--c, var(--other)); border-radius: 5px; padding: 4px 6px; }
+.pd .src .prov { font: 650 10.5px/1.3 var(--sans); letter-spacing: .07em; text-transform: uppercase;
+                 color: var(--c, var(--text-2)); margin: 8px 0 3px; }
+.pd .src .stitle { font-size: 13.5px; font-weight: 650; line-height: 1.38; margin-bottom: 7px; }
+.pd .src .role { font-size: 12.5px; line-height: 1.5; color: var(--text-2); margin-bottom: 9px; }
+.pd .src .role i { font-style: normal; font-weight: 650; color: var(--text); }
+.pd .src .quote { border-left: 2.5px solid var(--c, var(--border)); background: #fff; border-radius: 0 6px 6px 0;
+                  padding: 8px 10px; margin-bottom: 9px; }
+.pd .src .quote .qk { font: 650 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+                      color: var(--muted); display: block; margin-bottom: 5px; }
+.pd .src .quote .qt { font-size: 12.5px; line-height: 1.52; color: var(--text); }
+.pd .src .gives { font-size: 13.5px; line-height: 1.5; border-top: 1px dashed var(--border); padding-top: 8px;
+                  margin-top: auto; }
+.pd .src .gives .gl { font: 650 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
+                      color: var(--muted); display: block; margin-bottom: 5px; }
 .pd .src .gives b { font-weight: 650; }
+.pd .concl .crole { font-size: 14px; line-height: 1.55; color: var(--text-2); border-top: 1px solid #d6e4fa;
+                    margin-top: 11px; padding-top: 9px; }
+.pd .concl .crole b { color: var(--text); font-weight: 650; }
 .pd .merge { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 12px 0 2px; }
 .pd .merge .arrow { width: 1px; height: 16px; background: var(--border); }
 .pd .merge .mcap { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; font-weight: 650; color: var(--muted); }
@@ -585,37 +601,65 @@ are shown with the line it used highlighted.</p>
 <span class="num">8</span>The same question, on other libraries</h2>
 <p>An app log is forgiving: almost any two entries can be read together somehow. The interesting test is a library
 where that isn't true. We ran the identical setup — same judge, same single open question — on
-<b>719 research-mathematics manuscripts</b> across 17 fields (<a href="https://github.com/openai/math" rel="external nofollow noopener" target="_blank">openai/math</a>)
-and on <b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below.
-Each one is built from documents that share no topic, no vocabulary, and no audience.</p>
+<b>719 research-mathematics manuscripts</b> (<a href="https://github.com/openai/math" rel="external nofollow noopener" target="_blank">openai/math</a>) and on
+<b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below, with the
+source passages as they actually appear.</p>
 
 <div class="ex">
   <div class="exhead">
-<span class="exfield">Mathematics · 3 manuscripts, 3 subfields</span>
+<span class="exfield">Operator algebras · three papers, three separate problems</span>
     <span class="badge new">not found in the literature</span>
 </div>
   <div class="extitle">A system is maximally infinite exactly when you cannot measure it — not even sloppily</div>
-  <p class="exsub">Two of the three inputs carry machine‑checked proofs in the source repository.</p>
   <div class="srcs">
     <div class="src" style="--c: var(--real)">
       <span class="tag">A</span>
-      <div class="looks">Reads like a curiosity: <i>here is a strange object that breaks a conjecture from the
-        1960s</i>.</div>
-      <div class="gives">The sentence that matters isn't its result — it's a classical fact it recites in
-        passing: a system has <b>no notion of size at all</b> exactly when it splits into two copies of itself,
-        provided you first bundle <i>m</i> copies together.</div>
+      <div class="prov">Manuscript · 23 Sep 2026</div>
+      <div class="stitle">A counterexample to Kaplansky's quasitrace conjecture</div>
+      <div class="role">
+<i>Its job in the field:</i> to close a conjecture by exhibiting one object that breaks it.
+        A cabinet of curiosities, not a toolbox.</div>
+      <div class="quote">
+<span class="qk">theorem</span><span class="qt">“A unital C*‑algebra C admits a
+        normalized 2‑quasitrace if and only if M<sub>m</sub>(C) is not properly infinite for every positive
+        integer m.”</span>
+</div>
+      <div class="gives">
+<span class="gl">what it lends</span>Not its result — a classical fact it recites in
+        passing: <b>no notion of size at all</b> is the same thing as splitting into two copies of itself once you
+        bundle <i>m</i> copies.</div>
     </div>
     <div class="src" style="--c: var(--tidy)">
       <span class="tag">B</span>
-      <div class="looks">About when a system is <b>infinitely divisible</b> — sand rather than bricks.</div>
-      <div class="gives">If a certain derived object casts no “one‑dimensional shadow”, the system
-        is <b>sand</b>.</div>
+      <div class="prov">Manuscript · 25 Sep 2026</div>
+      <div class="stitle">The Kirchberg–Rørdam character criterion</div>
+      <div class="role">
+<i>Its job in the field:</i> to settle a named open question on the <b>tame</b> half of the
+        classification programme — when is a system infinitely divisible?</div>
+      <div class="quote">
+<span class="qk">theorem</span><span class="qt">“Let A be a nonzero unital separable complex
+        C*‑algebra… Then F<sub>ω</sub>(A) has no characters ⇔
+        A ≅ A ⊗ <i>Z</i>.”</span>
+</div>
+      <div class="gives">
+<span class="gl">what it lends</span>No “one‑dimensional shadow” means the
+        system is <b>sand, not bricks</b> — divisible as finely as you like.</div>
     </div>
     <div class="src" style="--c: var(--render)">
       <span class="tag">C</span>
-      <div class="looks">About the opposite case: when a system contains two complete copies of <i>itself</i>, like
-        Hilbert's hotel.</div>
-      <div class="gives">Bundled splitting already forces the <b>strongest form</b> of that self‑duplication.</div>
+      <div class="prov">Manuscript · 25 Sep 2026</div>
+      <div class="stitle">Weak pure infiniteness and O‑infinity absorption</div>
+      <div class="role">
+<i>Its job in the field:</i> the mirror question on the <b>infinite</b> half — how weak
+        a form of self‑duplication still forces the strongest one.</div>
+      <div class="quote">
+<span class="qk">corollary</span><span class="qt">“Let A be a separable nuclear complex
+        C*‑algebra. If there is one integer n ≥ 1 such that h<sup>⊕n</sup> is properly
+        infinite for every h ∈ A<sub>+</sub>, then A ≅ A ⊗ <i>O</i><sub>∞</sub>.”</span>
+</div>
+      <div class="gives">
+<span class="gl">what it lends</span>Splitting <i>after</i> bundling already forces
+        <b>maximal infiniteness</b>.</div>
     </div>
   </div>
   <div class="merge">
@@ -624,54 +668,71 @@ Each one is built from documents that share no topic, no vocabulary, and no audi
 <div class="arrow"></div>
 </div>
   <div class="concl">
-<div class="lab">The conclusion</div>Having no notion of size — the weakest imaginable
-    failure — already forces the strongest form of self‑duplication. And the <i>m</i> disappears: needing
-    to bundle <i>m</i> copies looks strictly weaker than splitting outright, but being unmeasurable forces the system
-    to be sand, and sand lets you divide through by <i>m</i>. The weaker‑looking condition was never weaker.</div>
+<div class="lab">The conclusion</div>The <i>m</i> disappears. Being unmeasurable forces the
+    system to be sand, and sand lets you divide the inequality through by <i>m</i> — so splitting only after
+    bundling was never the weaker property it looked like.
+    <div class="crole">
+<b>Its job in the field:</b> a gateway test. The classification theorems only apply to systems
+      that are maximally infinite, and that condition is written as an isomorphism, which means checking it requires
+      <i>building</i> something. This swaps it for ruling something out: show no measure exists. Usually far easier.</div>
+</div>
   <div class="why">
     <div class="w">
-<span class="wh">Opposite sides of the field</span><span class="wb">B and C sit across the main
-      divide between finite and infinite behaviour, and the argument runs the unexpected way: a finite‑world
-      tool settles an infinite‑world question.</span>
+<span class="wh">Opposite halves of one programme</span><span class="wb">B is the tame side,
+      C the infinite side, and they are rarely read together. The argument runs the unexpected way: the tame‑side
+      tool is exactly what makes the infinite‑side conclusion work.</span>
 </div>
     <div class="w">
-<span class="wh">Used off‑headline</span><span class="wb">A is mined for a line it only
-      quotes in passing. People index papers by their main theorem, so that sentence is effectively invisible.</span>
-</div>
-    <div class="w">
-<span class="wh">Three dialects, one idea</span><span class="wb">“No measure”,
-      “no shadow” and “swallows a factor” sound like three unrelated notions. They are three
-      views of a single question.</span>
-</div>
-    <div class="w">
-<span class="wh">Never read side by side</span><span class="wb">All three appeared within 48 hours
-      of each other inside a drop of 719 papers.</span>
+<span class="wh">The key line is nobody's headline</span><span class="wb">A is mined for a sentence
+      it merely quotes in passing. Papers are indexed by their main theorem, so that line is invisible from the
+      outside.</span>
 </div>
   </div>
 </div>
 
 <div class="ex">
   <div class="exhead">
-<span class="exfield">Medicine · 2 reviews, 2 specialties</span>
-    <span class="badge known">already known to the field</span>
+<span class="exfield">Medicine · two reviews, two specialties</span>
+    <span class="badge known">a mechanism to test</span>
 </div>
-  <div class="extitle">A vitamin given to clear a toxin in the drinking water can blunt an antimalarial drug</div>
-  <p class="exsub">Worth knowing because the two programmes meet in the same villages — and because the fix is
-    already named.</p>
+  <div class="extitle">A drug given to help embryos implant may be working against itself, through a side pathway
+    nobody measures</div>
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
     <div class="src" style="--c: var(--theme)">
       <span class="tag">A</span>
-      <div class="looks">Reads like obstetric nutrition: folic acid, the supplement taken in pregnancy
-        everywhere.</div>
-      <div class="gives">Antimalarials such as sulfadoxine‑pyrimethamine work by <b>starving the parasite of
-        folate</b> — and the parasite can scavenge folate straight from the host's blood.</div>
+      <div class="prov">Cochrane review · 2025 · ENT / respiratory allergy</div>
+      <div class="stitle">Oral and intranasal aspirin desensitisation for NSAID‑exacerbated respiratory
+        disease</div>
+      <div class="role">
+<i>Its job in the field:</i> the reference account of a group of people — about 2% of
+        the population — in whom blocking one arm of the inflammatory pathway reliably sends traffic down the
+        other.</div>
+      <div class="quote">
+<span class="qk">background</span><span class="qt">“N‑ERD is a hypersensitivity
+        to non‑steroidal anti‑inflammatory drugs… The clinical benefit of aspirin might occur
+        through inhibition of interleukin 4 and a reduction in prostaglandin D2.”</span>
+</div>
+      <div class="gives">
+<span class="gl">what it lends</span>Proof that in people, blocking COX does not merely
+        remove prostaglandins — it <b>redirects the same raw material</b> down the leukotriene branch, by an
+        amount that differs from person to person and shows up in urine.</div>
     </div>
     <div class="src" style="--c: var(--agent)">
       <span class="tag">B</span>
-      <div class="looks">Reads like environmental toxicology: arsenic in well water, a problem about
-        geology and plumbing.</div>
-      <div class="gives">The body clears arsenic through a <b>folate‑dependent</b> pathway, so folic acid
-        measurably lowers blood arsenic — which is why it is proposed where wells are contaminated.</div>
+      <div class="prov">Cochrane review · 2019 · reproductive medicine</div>
+      <div class="stitle">Nonsteroidal anti‑inflammatory drugs for assisted reproductive technology</div>
+      <div class="role">
+<i>Its job in the field:</i> the evidence base for a common IVF add‑on, and the record
+        of why its benefit has never quite appeared.</div>
+      <div class="quote">
+<span class="qk">background</span><span class="qt">“prostaglandins may increase uterine
+        contractions and decrease uterine receptivity… In this context, nonsteroidal anti‑inflammatory
+        drugs have been employed to inhibit the negative prostaglandin effect.”</span>
+</div>
+      <div class="gives">
+<span class="gl">what it lends</span>The drug is given on the assumption that lowering
+        prostaglandins is <b>its only relevant action</b> — and across 11 trials the benefit stays
+        uncertain.</div>
     </div>
   </div>
   <div class="merge">
@@ -680,46 +741,51 @@ Each one is built from documents that share no topic, no vocabulary, and no audi
 <div class="arrow"></div>
 </div>
   <div class="concl">
-<div class="lab">The conclusion</div>Two public‑health efforts collide at a single
-    molecule. Folic acid handed out to reduce arsenic burden lands in regions where children also receive monthly
-    antifolate antimalarials — and spare folate is exactly what lets the parasite step around the drug. One
-    intervention can quietly subtract from the other.</div>
+<div class="lab">The conclusion</div>Leukotrienes make the uterus contract and oppose the lining's
+    preparation for an embryo. So the drug may be partly undoing its own purpose — subtracting the prostaglandins
+    it targets while generating the very signals it does not — by an amount set by each woman's own leukotriene
+    tone. That would explain an average effect that keeps coming out flat.
+    <div class="crole">
+<b>Its job in the field:</b> it turns a stubborn null result into something testable. Measure
+      leukotrienes in uterine fluid on and off the drug, split women by that biomarker, and see whether blocking the
+      side pathway rescues the benefit.</div>
+</div>
   <div class="why">
     <div class="w">
-<span class="wh">Nothing shared on the surface</span><span class="wb">No disease, no drug, no
-      organ, no specialty in common. One document is about mosquitoes, the other about wells. The only thing joining
-      them is a single molecule both pathways compete for.</span>
+<span class="wh">Neither specialty reads the other</span><span class="wb">One document is sinus
+      disease, the other is IVF. No shared organ, patient or journal. The link is a single branch point in fat
+      metabolism.</span>
 </div>
     <div class="w">
-<span class="wh">And the field already knows</span><span class="wb">This is settled ground, with a
-      dedicated paper on folate supplementation reducing sulfadoxine‑pyrimethamine efficacy — and a fix:
-      5‑methyl‑tetrahydrofolate, a form that does not rescue the parasite. A good sign for the method, and a reminder
-      that every candidate has to be checked against the literature before anyone calls it new.</span>
+<span class="wh">Why it is testable, not just a story</span><span class="wb">The allergy document
+      supplies the missing quantity: that the redirect is large in humans, varies between them, and has a urine
+      marker. Without it this is a textbook footnote.</span>
 </div>
   </div>
 </div>
 
-<p>Both are the same shape as the gift in section 3: the link is carried by one shared thing sitting underneath
-documents that look unrelated from above — a material in one case, a molecule in another, a single question
-about size in the third. None of them is reachable by searching for a word, because no word spans both documents.</p>
+<p>Both have the same shape as the gift in section 3. The link is carried by one thing sitting underneath documents
+that look unrelated from above — a material, a branch point in metabolism, a single question about size —
+and none of it is reachable by searching for a word, because no word spans both documents.</p>
 
 <p class="foot">Data: DynamicMem user 002 (synthetic, MIT). Judge: OpenAI Decisions (gpt-6-luna) through the AI Sandbox,
 1,000 partners per anchor. The groups, conclusions and our idea were written by Claude Opus 5.5 after reading the 31
 entries; the grep agent is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob). "Uses the anchor's words" means
 the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or crystal.
 <br><br>Section 8, mathematics: 127,584 passages from the 719 manuscripts of
-<a href="https://github.com/openai/math" rel="external nofollow noopener" target="_blank">openai/math</a> (Apache‑2.0, commit <code>fd4aeeb</code>), 10,000
-partners per anchor, anchors drawn at random from self‑contained abstract and introduction statements. The three
-papers are <i>A counterexample to Kaplansky's quasitrace conjecture</i>, <i>The Kirchberg–Rørdam character
-criterion</i> and <i>Weak pure infiniteness and O‑infinity absorption</i>; the first two have Lean formalizations
-in that repo. Section 8, medicine: 68,201 abstract sections from Cochrane reviews, 10,000 partners per anchor; the two
-reviews are <i>Folic acid supplementation and malaria susceptibility and severity among people taking antifolate
-antimalarial drugs in endemic areas</i> (2026) and <i>Provision of folic acid for reducing arsenic toxicity in
-arsenic‑exposed children and adults</i> (2021). In both, each reader is one <code>claude -p</code> session
-(Opus 5.5) given the top 100 partners in full, the corpus as files, and web search, and every candidate was checked
-against the published literature before being written up here.</p>
+<a href="https://github.com/openai/math" rel="external nofollow noopener" target="_blank">openai/math</a> (Apache‑2.0, commit <code>fd4aeeb</code>). The three
+papers are <i>A counterexample to Kaplansky's quasitrace conjecture and failure of tensor‑product stable
+finiteness</i>, <i>The Kirchberg–Rørdam character criterion</i> and <i>Weak pure infiniteness and
+O‑infinity absorption</i>; the first two carry Lean formalizations in that repository. Section 8, medicine:
+68,201 abstract sections from Cochrane reviews; the two reviews are <i>Oral and intranasal aspirin desensitisation for
+NSAID‑exacerbated respiratory disease</i> (2025) and <i>Nonsteroidal anti‑inflammatory drugs for assisted
+reproductive technology</i> (2019). In both corpora: 10,000 partners judged per anchor, anchors drawn from
+self‑contained opening passages, and each reader one <code>claude -p</code> session (Opus 5.5) given the top
+100 partners in full, the corpus as files, and web search. Quotations are cut verbatim from the passages. The mechanism
+in the medical example is a hypothesis assembled from the two reviews, not a finding either one reports; its component
+steps are published separately, and the combination is what the search surfaced.</p>
 </article>
-<script src="data.js?v=bdff61558f"></script>
+<script src="data.js?v=4c9fb41b1c"></script>
 <script>
 (function () {
 "use strict";
