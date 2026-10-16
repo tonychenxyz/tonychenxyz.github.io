@@ -219,48 +219,64 @@ sitemap: false
 </style>
 
 <style>
-/* problem figure */
-.pd .prob { position: relative; display: grid; grid-template-columns: 300px 1fr; gap: 90px; align-items: center; height: 430px; }
-@media (max-width: 860px) { .pd .prob { grid-template-columns: 1fr; gap: 16px; height: auto; } .pd .prob svg.wires { display: none; } }
-.pd .prob svg.wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
-.pd .cands { display: flex; flex-direction: column; gap: 10px; }
-.pd .cand { display: grid; grid-template-columns: 1fr 210px; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--border);
-            border-radius: 12px; padding: 8px 12px; font-size: 13px; line-height: 1.4; transition: all .4s; height: 58px; }
-.pd .cand .t { display: flex; gap: 8px; align-items: center; overflow: hidden; }
-.pd .cand .t span.x { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.pd .cand .ic { width: 20px; height: 20px; border-radius: 6px; color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 750; flex: none; }
-.pd .cand .v { font-size: 12.5px; color: var(--muted); opacity: 0; transition: opacity .4s; }
-.pd .cand.no { opacity: .55; } .pd .cand.no .v { opacity: 1; }
-.pd .cand.yes { border-color: #f0b46a; box-shadow: 0 0 0 3px rgba(224,138,30,.13); } .pd .cand.yes .v { opacity: 1; color: #a35e0b; font-weight: 600; }
-.pd .anc .ac { font-size: 12.5px; }
-.pd .fcap { font-size: 14.5px; margin: 14px 2px 0; height: 46px; }
-/* keyword figure */
-.pd .kwrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; font-size: 14px; }
-.pd .kwrow .pill { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; font-family: var(--mono); font-size: 12.5px; }
-.pd .kwlegend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--text-2); margin: 10px 2px 0; height: 22px; }
-.pd .kwlegend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
-.pd .fixedcards { height: 300px; overflow: hidden; }
-/* method */
-.pd .qcard { height: 150px; overflow: hidden; }
-.pd .anc .ac .api { display: none; }
+.pd mark, .pd .hl { background: var(--hl); padding: 0 3px; border-radius: 3px; color: inherit; }
+.pd .hlb { background: #e3edfd; padding: 0 3px; border-radius: 3px; } .pd .hlp { background: #fbe3ea; padding: 0 3px; border-radius: 3px; }
+/* dataset */
+.pd .applegend { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+.pd .applegend button { font: inherit; font-size: 12.5px; border: 1px solid #d0d7de; background: #fff; border-radius: 999px; padding: 2px 10px; cursor: pointer; }
+.pd .applegend button i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; vertical-align: -.5px; }
+.pd .applegend button.on { border-color: var(--text); box-shadow: inset 0 0 0 1px var(--text); }
+.pd .fixedcards { height: 290px; overflow: hidden; }
+/* task */
+.pd .task { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; font-size: 16px; line-height: 1.6; margin: 18px 0 8px; }
+.pd .task .lab { font-size: 12px; font-weight: 650; color: var(--text-2); letter-spacing: .06em; text-transform: uppercase; margin-bottom: 6px; }
 /* idea map */
 .pd .imap svg { width: 100%; height: auto; display: block; background: #fff; border-radius: 12px; border: 1px solid var(--border); }
 .pd .imap .panel { height: 330px; overflow: auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-top: 12px; font-size: 14.5px; }
-.pd .imap .panel .cap { font-size: 16px; font-weight: 640; margin: 0 0 8px; }
-.pd .imap .panel .ac { margin-bottom: 12px; }
+.pd .imap .panel .cap { font-size: 16px; font-weight: 640; margin: 0 0 8px; } .pd .imap .panel .ac { margin-bottom: 12px; }
 .pd .imap .box { font: 600 13.5px/1.4 var(--sans); color: var(--text); background: #fff; border: 1.5px solid var(--c); border-radius: 12px; padding: 8px 10px; box-sizing: border-box;
                  height: 100%; display: flex; align-items: center; cursor: pointer; box-shadow: 0 4px 14px rgba(15,23,36,.06); }
+.pd .imap .box:hover { box-shadow: 0 0 0 3px rgba(40,110,224,.15); }
 .pd .imap .box.idea { background: var(--theme); color: #fff; border-color: var(--theme); }
 .pd .imap foreignObject { overflow: visible; }
+/* idea write-up */
+.pd .iw { background: #fff; border: 1px solid var(--border); border-radius: 16px; padding: 20px 22px; margin: 18px 0 8px; border-top: 4px solid var(--c); }
+.pd .iw .lab { font-size: 12px; font-weight: 650; color: var(--c); letter-spacing: .06em; text-transform: uppercase; }
+.pd .iw h3 { font-size: 22px; letter-spacing: -.015em; margin: 4px 0 14px; }
+.pd .iw h4 { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-2); margin: 14px 0 6px; font-weight: 650; }
+.pd .iw ul { margin: 0; padding-left: 20px; } .pd .iw li { margin-bottom: 5px; font-size: 15px; }
+.pd .iw ol { margin: 0; padding: 0; list-style: none; counter-reset: w; }
+.pd .iw ol li { counter-increment: w; position: relative; padding: 6px 0 6px 34px; border-left: 2px solid #eef1f4; margin-left: 10px; }
+.pd .iw ol li::before { content: counter(w); position: absolute; left: -11px; top: 7px; width: 20px; height: 20px; border-radius: 50%; background: var(--c); color: #fff; font-size: 11.5px; font-weight: 700; display: grid; place-items: center; }
+.pd .iw .ref { font-size: 12px; border: 1px solid #d0d7de; border-radius: 999px; padding: 0 8px; margin-left: 6px; cursor: pointer; white-space: nowrap; color: var(--text-2); background: #fff; font-family: inherit; }
+.pd .iw .ref i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; }
+.pd .iw .ref.on { border-color: var(--text); color: var(--text); }
+.pd .iw .open { margin: 8px 0 4px; max-width: 600px; }
+.pd .iw .so { margin-top: 12px; font-size: 16.5px; font-weight: 640; padding: 10px 14px; background: #f6f8fa; border-radius: 10px; }
+.pd .iw .by { font-size: 12.5px; color: var(--text-2); margin: 12px 0 0; }
+/* prompt, light */
+.pd .promptl { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; font: 13px/1.65 var(--mono); white-space: pre-wrap; margin: 0; color: var(--text); }
+.pd .promptl .m { color: var(--muted); } .pd .promptl .c { color: #0f7a64; } .pd .promptl .q { background: var(--hl); border-radius: 3px; }
+.pd .qcard { height: 150px; overflow: hidden; }
+/* compare */
+.pd .cmplegend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; margin: 12px 2px 0; height: 44px; }
+.pd .cmplegend i { display: inline-block; width: 11px; height: 11px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.pd .cmplegend i.ho { background: #fff !important; border: 2px solid; }
+/* differences */
+.pd .diff { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0; }
+@media (max-width: 760px) { .pd .diff { grid-template-columns: 1fr; } }
+.pd .diff .card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; border-top: 4px solid var(--c); }
+.pd .diff h4 { margin: 0 0 10px; font-size: 16px; color: var(--c); }
+.pd .diff dl { margin: 0; font-size: 14.5px; } .pd .diff dt { font-size: 12px; color: var(--text-2); text-transform: uppercase; letter-spacing: .05em; font-weight: 650; margin-top: 10px; }
+.pd .diff dd { margin: 2px 0 0; }
 /* agent story */
 .pd .story { margin: 22px 0 10px; position: relative; }
 .pd .story::before { content: ""; position: absolute; left: 80px; top: 8px; bottom: 8px; width: 2px; background: #f1d3dc; }
-.pd .sitem { display: grid; grid-template-columns: 70px 1fr; gap: 26px; margin-bottom: 18px; position: relative; }
+.pd .sitem { display: grid; grid-template-columns: 70px 1fr; gap: 26px; margin-bottom: 16px; position: relative; }
 .pd .sitem .sn { font-size: 12px; color: var(--text-2); text-align: right; padding-top: 3px; line-height: 1.3; white-space: nowrap; }
 .pd .sitem .sb { min-width: 0; }
 .pd .sitem .sb::before { content: ""; position: absolute; left: 75px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2.5px solid var(--agent); }
-.pd .sitem .st { font-weight: 640; font-size: 15.5px; }
-.pd .sitem .sd { font-size: 14.5px; margin: 2px 0 6px; }
+.pd .sitem .st { font-weight: 640; font-size: 15.5px; } .pd .sitem .sd { font-size: 14.5px; margin: 2px 0 6px; }
 .pd .sitem .scmd { font: 11.5px/1.6 var(--mono); color: #6e7781; background: #f6f8fa; border-radius: 8px; padding: 5px 9px; display: block; width: fit-content; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pd .sitem .scmd b { color: var(--agent); font-weight: 600; }
 .pd .sitem .ac { margin-top: 10px; max-width: 560px; }
@@ -270,89 +286,71 @@ sitemap: false
 <div class="meta">Research note · October 2026</div>
 <h1>Reading together, without a keyword</h1>
 <p class="dek">Some connections between documents can be searched for. Others can't, because nobody could name the
-word. We try to find those with a cheap judge that asks one open question of a thousand pairs.</p>
+word. We find them with a <mark>cheap judge that asks one open question of a thousand pairs</mark>, and compare with an
+agent that searches.</p>
 
-<p>The documents here are one person's app log: 2,637 messages, searches, workouts, notes and assistant chats over 15
-months. The person is user 002 of <a href="https://wenyaxie023.github.io/DynamicMem/">DynamicMem</a>, a synthetic
-benchmark persona: a product designer in Amsterdam.</p>
-
-<h2><span class="num">1</span>The problem</h2>
-<p>Take one entry. Most other entries add nothing to it. A few, read together with it, tell you something that neither
-says alone. We want those.</p>
-
-<div class="fig" id="fig-prob">
-  <div class="prob" id="prob"><div class="anc" id="prob-anchor"></div><div class="cands" id="prob-cands"></div><svg class="wires" id="prob-wires"></svg></div>
-  <div class="row"><button class="btn ghost" id="prob-play">↻ Replay</button></div>
+<h2><span class="num">1</span>The data</h2>
+<p>One person's app log: <b>2,637 entries over 15 months, from 16 apps</b>. Each square is one entry, one block per
+month. The person is user 002 of <a href="https://wenyaxie023.github.io/DynamicMem/">DynamicMem</a>, a synthetic
+benchmark persona: a product designer in Amsterdam. <mark>Click an app</mark> to see where it sits and what an entry looks like.</p>
+<div class="fig" id="fig-data">
+  <canvas class="field" id="d-canvas"></canvas>
+  <div class="applegend" id="d-legend"></div>
+  <div class="cards3 fixedcards" id="d-cards"></div>
 </div>
 
-<h2><span class="num">2</span>Some of these you can search for</h2>
-<p>The obvious move is to search with the anchor's own words. That works for part of it: of the 30 partners our method
-ends up ranking highest, 20 contain one of the words. But they sit in a pile of 222 matches, unranked. The other 10
-share no word with the anchor at all, so no search finds them: a record-sorting puzzle, a photo walk to old
-windows, a run in autumn light.</p>
+<h2><span class="num">2</span>The task</h2>
+<p>Given one entry, find what in the rest of the log, <mark>read together with it</mark>, reveals something worth acting
+on. Here the something is a gift:</p>
+<div class="task"><div class="lab">Task</div>Plan <b>one surprise</b> that will make this person happy. Build it on a
+<mark>non-obvious connection</mark>: entries from different apps or months that together reveal something about them
+<mark>that would surprise even them</mark>, which no single entry shows.</div>
 
-<div class="fig" id="fig-kw">
-  <div class="kwrow">Search the log for the anchor's words: <span class="pill" id="kw-words"></span></div>
-  <canvas class="field" id="kw-canvas"></canvas>
-  <div class="kwlegend" id="kw-legend"></div>
-  <div class="row"><button class="chip" id="kw-a">1 · keyword matches</button><button class="chip" id="kw-b">2 · the 30 we want</button><button class="chip" id="kw-c">3 · the ones no keyword finds</button></div>
-  <div class="cards3 fixedcards" id="kw-cards"></div>
+<h2><span class="num">3</span>What we found</h2>
+<p>We started from an evening chat on 6 November 2024 where the person asks an AI to <mark>render imaginary glass
+and ice</mark>. Our method returned 30 partner entries. Read together, <b>they fall into three groups, each group says one
+thing, and the three combine into one idea</b>. <mark>Click any dot or box</mark> to read what is behind it.</p>
+<div class="fig imap" id="fig-map">
+  <svg id="m-svg" viewBox="0 0 1200 480"></svg>
+  <div class="panel" id="m-panel"></div>
 </div>
+<div class="iw" id="idea-judge" style="--c:#286ee0"></div>
 
-<h2><span class="num">3</span>Our method</h2>
-<p>Cheap judges change what is affordable. The OpenAI Decisions API answers a yes/no question about a pair with a
-probability, at about seven cents per thousand pairs. So instead of naming a keyword, we name what we want and ask it of
-every pair: start from one entry, shape it into a question with a blank, fill the blank with 1,000 random entries, let
-the judge score each pair, and read only the top 30.</p>
-
+<h2><span class="num">4</span>How we did it</h2>
+<p>A keyword search can't do this: <mark>10 of these 30 entries share no word with the anchor</mark>. Instead we
+<b>name what we want and ask it of every pair</b>. The OpenAI Decisions API answers a yes/no question about a pair
+with a probability, for <mark>about seven cents per thousand pairs</mark>, so we fill the question's blank with 1,000
+random entries and read only the 30 that score highest.</p>
 <div class="fig" id="fig-pipe">
   <div class="row" style="margin:0 0 12px"><button class="btn" id="p-play">▶ Play</button><div class="steps" id="p-steps"></div></div>
   <canvas class="field" id="p-canvas"></canvas>
   <div class="qcard" id="p-q"></div>
 </div>
+<p>The exact request, sent fifty times with twenty partners each:</p>
+<pre class="promptl" id="prompt"></pre>
 
-<h2><span class="num">4</span>One anchor, followed</h2>
-<p>The anchor is an evening chat from 6 November 2024. The person asks an AI assistant to help render imaginary glass:</p>
-<div id="anchor-card" style="margin:18px 0 24px"></div>
-<p>This is the exact question the judge answered, once for each of the 1,000 partners (as B1, B2, …, twenty per call):</p>
-<div class="fig col"><pre class="prompt" id="prompt"></pre></div>
+<h2><span class="num">5</span>How grep did it</h2>
+<p>We gave the same anchor and task to a Claude Opus 5.5 agent with <b>the whole log as files and only Read, Grep and
+Glob</b>. It made <mark>27 tool calls in two and a half minutes</mark>. Routine steps are folded; the entries that mattered
+are shown with the line it used highlighted.</p>
+<div class="story" id="story"></div>
+<div class="iw" id="idea-grep" style="--c:#d6456b"></div>
 
-<p>The judge scores all 30 edges at the same time, and every edge joins the anchor to one partner. Nothing links the
-partners to each other yet: that is the reader's work. Reading the 30 together, they fall into three groups, each
-group says one thing, and the three things combine into one idea. Click any dot or box to read it.</p>
-
-<div class="fig imap" id="fig-map">
-  <div class="row" style="margin:0 0 12px"><button class="btn" id="m-play">▶ Play</button><div class="steps" id="m-steps"></div></div>
-  <svg id="m-svg" viewBox="0 0 1200 480"></svg>
-  <div class="panel" id="m-panel"></div>
+<h2><span class="num">6</span>What each route used, across the year</h2>
+<div class="fig" id="fig-cmp">
+  <div class="row" style="margin:0 0 12px" id="c-chips"></div>
+  <canvas class="field" id="c-canvas"></canvas>
+  <div class="cmplegend" id="c-legend"></div>
 </div>
 
-<div class="idea" id="idea-judge" style="--c:#286ee0"></div>
-
-<h2><span class="num">5</span>The same anchor, with grep</h2>
-<p>For comparison we gave the same anchor and the same instruction to a Claude Opus 5.5 agent with the whole log as
-files and only Read, Grep and Glob: no judge, no packet. It took 27 tool calls in two and a half minutes. Here is
-what it did, with the routine steps folded and the entries that mattered shown.</p>
-
-<div class="story" id="story"></div>
-
-<div class="idea" id="idea-agent" style="--c:#d6456b"></div>
-
-<div class="vs" id="vs"></div>
-
-<h2><span class="num">6</span>What this shows</h2>
-<p>Both routes reached a good idea from the same starting entry, and they are different ideas. The agent searched by
-keyword and found a fact no packet held: the camera is in "winter storage" while the same person keeps
-"photographing" ice in software. It also saw 12 of the judge's 31 entries, the ink-well puzzle and the old window panes
-among them. What its keywords never reached is the entry the judge ranked first: the April evening they cancel the AI
-subscription to see that light "in actual physical space". That entry is what turns the others into a pattern.</p>
-<p>On a log this small, grep is cheap and works well. The judge earns its keep where you cannot name what you are
-looking for, or where the pile is too large to search by hand: it hands a reader 31 entries that already lean toward
-the answer.</p>
+<h2><span class="num">7</span>What's different</h2>
+<div class="diff" id="diff"></div>
+<p id="verdict"></p>
 
 <p class="foot">Data: DynamicMem user 002 (synthetic, MIT). Judge: OpenAI Decisions (gpt-6-luna) through the AI Sandbox,
-1,000 partners per anchor. The groups, conclusions and the packet idea were written by Claude Opus 5.5 after reading the
-31 entries; the agent run is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob).</p>
+1,000 partners per anchor. The groups, conclusions and our idea were written by Claude Opus 5.5 after reading the 31
+entries; the grep agent is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob). "Uses the anchor's words" means
+the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or crystal.</p>
 </article>
 <script src="data.js"></script>
 <script>
@@ -492,51 +490,81 @@ class Field {
 const BASE = () => ({ s: .78, a: .5 });
 
 
-/* ---------- 1. the problem: one anchor, six candidates ---------- */
+
+/* quotes inside “…” become highlights */
+const quoteMarks = html => html.replace(/“([^”]+)”/g, "“<mark>$1</mark>”");
+const firstQuote = t => { const m = /“([^”]+)”/.exec(t); return m ? m[1] : null; };
+const ID_OF = new Map(D.entries.map((e, i) => [e[0], i]));
+
+/* ---------- 1. the data ---------- */
 (function () {
-  const A = D.anchor.i, cands = $("prob-cands"), wires = $("prob-wires"), NS = "http://www.w3.org/2000/svg";
-  const WHY = { 1070: "they quit the AI tool to see this light for real", 2539: "the only glass they handle is in a game" };
-  $("prob-anchor").innerHTML = `<div class="rk" style="font-weight:650;color:var(--text);margin-bottom:6px">One entry</div>` + appCard(A, 230);
-  cands.innerHTML = D.problem.map(p => { const e = D.entries[p.i], a = D.apps[e[2]];
-    return `<div class="cand" data-i="${p.i}"><div class="t"><span class="ic" style="background:${appColor(a)}">${ICON[a] || a[0]}</span><span class="x">${esc(e[4])}</span></div>
-      <div class="v">${p.w >= .5 ? "✦ " + esc(WHY[p.i] || "something new together") : "nothing new together"}</div></div>`; }).join("");
-  let timers = [];
-  function lines() { wires.innerHTML = ""; const box = $("prob").getBoundingClientRect(), a = $("prob-anchor").getBoundingClientRect();
-    const x0 = a.right - box.left + 4, y0 = a.top + a.height / 2 - box.top;
-    return [...cands.children].map(el => { const r = el.getBoundingClientRect(), x1 = r.left - box.left - 4, y1 = r.top + r.height / 2 - box.top;
-      const p = document.createElementNS(NS, "path"); p.setAttribute("d", `M${x0},${y0} C${x0 + 50},${y0} ${x1 - 50},${y1} ${x1},${y1}`);
-      p.setAttribute("fill", "none"); p.setAttribute("stroke", "#c3cad3"); p.setAttribute("stroke-width", 1.5); wires.appendChild(p);
-      const len = p.getTotalLength(); p.style.strokeDasharray = len; p.style.strokeDashoffset = len; return p; }); }
-  function play() { timers.forEach(clearTimeout); timers = []; [...cands.children].forEach(el => el.className = "cand"); const ps = lines();
-    [...cands.children].forEach((el, k) => timers.push(setTimeout(() => { const p = ps[k], yes = D.problem[k].w >= .5;
-      p.style.transition = "stroke-dashoffset .6s ease"; p.style.strokeDashoffset = 0;
-      timers.push(setTimeout(() => { el.classList.add(yes ? "yes" : "no"); if (yes) { p.setAttribute("stroke", C.real); p.setAttribute("stroke-width", 2.5); } else p.setAttribute("stroke-opacity", .35); }, 650)); }, 300 + k * 900))); }
-  $("prob-play").onclick = play; addEventListener("resize", () => { timers.forEach(clearTimeout); lines().forEach((p, k) => { p.style.strokeDashoffset = 0;
-    const el = cands.children[k]; if (el.classList.contains("yes")) { p.setAttribute("stroke", C.real); p.setAttribute("stroke-width", 2.5); } else if (el.classList.contains("no")) p.setAttribute("stroke-opacity", .35); }); });
-  onView($("fig-prob"), play);
+  const f = new Field($("d-canvas")); let sel = null;
+  const queue = ["LLM Assistant", "Fitbit", "WhatsApp"].filter(a => D.app_examples[a] != null);
+  const count = a => D.entries.filter(e => D.apps[e[2]] === a).length;
+  $("d-legend").innerHTML = D.apps.map(a => `<button data-a="${esc(a)}"><i style="background:${appColor(a)}"></i>${esc(a)} <span style="color:var(--muted)">${count(a)}</span></button>`).join("");
+  function render() { $("d-cards").innerHTML = queue.slice(0, 3).map(a => appCard(D.app_examples[a], 260)).join("");
+    $("d-legend").querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.a === sel));
+    f.animate(i => sel == null ? { s: .78, a: .55 } : D.apps[D.entries[i][2]] === sel ? { s: 1, a: 1 } : { s: .55, a: .1 }, null, 450); }
+  $("d-legend").querySelectorAll("button").forEach(b => b.onclick = () => { const a = b.dataset.a;
+    sel = sel === a ? null : a; if (sel && D.app_examples[a] != null) { const k = queue.indexOf(a); if (k >= 0) queue.splice(k, 1); queue.unshift(a); } render(); });
+  render();
 })();
 
-/* ---------- 2. some edges are searchable ---------- */
+/* ---------- 3. idea map (final state) ---------- */
 (function () {
-  const f = new Field($("kw-canvas")), A = D.anchor.i, kw = new Set(D.kw.hits), top = new Map(D.top.map(t => [t.i, t]));
-  $("kw-words").textContent = D.kw.words;
-  f.live = true; let mode = 0;
-  f.overlay = (g, now) => { const s = f.cell * 1.7; g.fillStyle = C.ink; g.fillRect(f.x[A] - f.cell * .6, f.y[A] - f.cell * .6, f.cell * 1.2, f.cell * 1.2);
-    g.strokeStyle = C.ink; g.lineWidth = 1.5; g.strokeRect(f.x[A] - s / 2, f.y[A] - s / 2, s, s);
-    if (mode >= 1) top.forEach((t, i) => { if (mode === 2 && t.kw) return; g.strokeStyle = t.kw ? C.theme : C.real; g.lineWidth = 2; const r = f.cell * 1.9;
-      g.strokeRect(f.x[i] - r / 2, f.y[i] - r / 2, r, r); }); };
-  const chips = [$("kw-a"), $("kw-b"), $("kw-c")];
-  const notKw = D.top.filter(t => !t.kw), pick = [2, 23, 11].map(r => D.top[r - 1]);
-  function set(m) { mode = m; chips.forEach((c, j) => c.classList.toggle("on", j === m));
-    f.animate(i => i === A ? { s: 0, a: 0 } : kw.has(i) ? { s: .95, a: m === 2 ? .35 : .95, c: C.theme } : { s: .6, a: .12 }, null, 500);
-    $("kw-legend").innerHTML = m === 0 ? `<span><i style="background:${C.theme}"></i>${kw.size} entries contain an anchor word (${Math.round(kw.size / N * 100)}% of the log)</span><span><i style="background:${C.ink}"></i>the anchor</span>`
-      : m === 1 ? `<span><i style="border:2px solid ${C.theme};background:#fff"></i>${D.top.length - notKw.length} of the 30 are among the matches, unranked</span><span><i style="border:2px solid ${C.real};background:#fff"></i>${notKw.length} are not matched at all</span>`
-      : `<span><i style="border:2px solid ${C.real};background:#fff"></i>${notKw.length} partners share no word with the anchor; three of them below</span>`;
-    $("kw-cards").innerHTML = m === 2 ? pick.map(t => appCard(t.i, 240)).join("") : m === 1 ? D.top.filter(t => t.kw).slice(0, 3).map(t => appCard(t.i, 240)).join("") : D.kw.hits.filter(i => !top.has(i)).filter((_, j) => j % 70 === 3).slice(0, 3).map(i => appCard(i, 240)).join(""); }
-  chips.forEach((c, j) => c.onclick = () => { clearInterval(auto); set(j); });
-  set(0); let auto = null; onView($("fig-kw"), () => { let k = 0; auto = setInterval(() => { k++; if (k > 2) return clearInterval(auto); set(k); }, 3200); });
+  const a = D.anchor, svg = $("m-svg"), NS = "http://www.w3.org/2000/svg";
+  const mk = (tag, at, parent = svg) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); parent.appendChild(e); return e; };
+  const AX = 50, AY = 240;
+  const G = { render: { x: 300, y: 112, r: 88 }, real: { x: 300, y: 300, r: 74 }, tidy: { x: 300, y: 425, r: 42 }, other: { x: 150, y: 430, r: 26 } };
+  const byRank = new Map(D.top.map(t => [t.r, t]));
+  const pos = new Map();
+  Object.keys(G).forEach(g => { const mem = D.top.filter(t => t.theme === g), c = G[g];
+    mem.forEach((t, k) => { const rr = Math.sqrt((k + .5) / mem.length) * (c.r - 12), an = k * 2.39996; pos.set(t.r, [c.x + rr * Math.cos(an), c.y + rr * Math.sin(an)]); }); });
+  const gE = mk("g", {}), gC = mk("g", {}), gF = mk("g", {}), gN = mk("g", {}), gB = mk("g", {});
+  Object.entries(G).forEach(([g, c]) => { const col = g === "other" ? C.other : C[g];
+    mk("circle", { cx: c.x, cy: c.y, r: c.r, fill: col, "fill-opacity": .07, stroke: col, "stroke-opacity": .5, "stroke-width": 1.5 }, gC); });
+  mk("text", { x: G.other.x, y: G.other.y + G.other.r + 16, "text-anchor": "middle", "font-size": 12, fill: "#8c959f" }, gC).textContent = "not used";
+  mk("text", { x: 150, y: 52, "text-anchor": "middle", "font-size": 12, fill: "#8c959f" }, gC).textContent = "each line: one judged edge";
+  const P = $("m-panel");
+  D.top.forEach(t => { const [x, y] = pos.get(t.r), col = t.theme === "other" ? C.other : C[t.theme];
+    mk("line", { x1: AX, y1: AY, x2: x, y2: y, stroke: "#9aa4b1", "stroke-width": .6 + t.w * 3, "stroke-opacity": .12 + t.w * .25 }, gE);
+    const c = mk("circle", { cx: x, cy: y, r: 4 + t.w * 9, fill: col, stroke: "#fff", "stroke-width": 1.5, style: "cursor:pointer", opacity: t.theme === "other" ? .5 : 1 }, gN);
+    c.addEventListener("mousemove", ev => showTip(ev, `<b>#${t.r}</b> · weight ${t.w.toFixed(2)}<br>` + entryTip(t.i))); c.addEventListener("mouseleave", hideTip);
+    c.addEventListener("click", () => panelCard(t.r)); });
+  const an = mk("circle", { cx: AX, cy: AY, r: 11, fill: C.ink, style: "cursor:pointer" }, gN); an.addEventListener("click", () => panelCard(0));
+  mk("text", { x: AX, y: AY - 20, "text-anchor": "middle", "font-size": 13, "font-weight": 650, fill: C.ink }, gN).textContent = "anchor";
+  const box = (x, y, w, h, html, col, cls, onclick) => { const fo = mk("foreignObject", { x, y, width: w, height: h }, gB);
+    fo.innerHTML = `<div xmlns="http://www.w3.org/1999/xhtml" class="box ${cls || ""}" style="--c:${col}">${html}</div>`; fo.firstChild.onclick = onclick; };
+  const flow = (x1, y1, x2, y2, col) => mk("path", { d: `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}`, fill: "none", stroke: col, "stroke-width": 2.2, "stroke-opacity": .75 }, gF);
+  const BX = 420, BW = 205, BH = 64, M1 = { x: 668, y: 160, w: 175, h: 96 }, M2 = { x: 875, y: 250, w: 150, h: 80 }, ID = { x: 1048, y: 245, w: 142, h: 90 };
+  D.groups.forEach((gr, k) => { const c = G[gr.k]; box(BX, c.y - BH / 2, BW, BH, esc(gr.c), C[gr.k], "", () => panelGroup(k)); flow(c.x + c.r, c.y, BX, c.y, C[gr.k]); });
+  box(M1.x, M1.y, M1.w, M1.h, esc(D.merges[0].c), C.ink, "", () => panelMerge(0));
+  box(M2.x, M2.y, M2.w, M2.h, esc(D.merges[1].c), C.ink, "", () => panelMerge(1));
+  box(ID.x, ID.y, ID.w, ID.h, esc(D.ideas.judge.title), C.theme, "idea", () => panelIdea());
+  flow(BX + BW, G.render.y, M1.x, M1.y + 30, C.render); flow(BX + BW, G.real.y, M1.x, M1.y + 66, C.real);
+  flow(M1.x + M1.w, M1.y + 48, M2.x, M2.y + 28, C.ink); flow(BX + BW, G.tidy.y, M2.x, M2.y + 56, C.tidy); flow(M2.x + M2.w, M2.y + 40, ID.x, ID.y + 45, C.theme);
+  function panelCard(r) { const t = r === 0 ? { i: a.i } : byRank.get(r);
+    const g = D.groups.find(gr => gr.key.some(([kr]) => kr === r)), hl = g ? g.key.find(([kr]) => kr === r)[1] : null;
+    P.innerHTML = `<div class="rk">${r === 0 ? "the anchor" : `#${r} of the top 30 · weight ${t.w.toFixed(2)}`}</div>` + appCard(t.i, 1400, hl); }
+  function panelGroup(k) { const gr = D.groups[k];
+    P.innerHTML = `<div class="cap" style="color:${C[gr.k]}">${esc(gr.c)}</div>` + gr.key.map(([r, hl]) => appCard(r === 0 ? a.i : byRank.get(r).i, 700, hl)).join(""); }
+  function panelMerge(k) { const m = D.merges[k];
+    P.innerHTML = `<div class="cap">${esc(m.c)}</div><p>Combines ${m.from.map(x => x === "m0" ? "<mark>" + esc(D.merges[0].c) + "</mark>" : "<mark>" + esc(D.groups.find(g => g.k === x).c) + "</mark>").join(" and ")}.</p>`; }
+  function panelIdea() { const I = D.ideas.judge; P.innerHTML = `<div class="cap" style="color:${C.theme}">${esc(I.title)}</div><p><mark>${esc(I.so)}</mark></p><ul>${I.gift.map(g => `<li>${esc(g)}</li>`).join("")}</ul>`; }
+  P.innerHTML = `<div class="rk"><b>Click a dot</b> to read one entry, or <b>a box</b> to see the entries behind a conclusion. Below: the anchor.</div>` + appCard(a.i, 1400);
 })();
 
+/* ---------- idea write-ups ---------- */
+function renderIdea(el, I, color, lab, by) {
+  el.innerHTML = `<div class="lab">${esc(lab)}</div><h3>${esc(I.title)}</h3>
+    <h4>The gift</h4><ul>${I.gift.map(g => `<li>${esc(g)}</li>`).join("")}</ul>
+    <h4>Why it would land</h4><ol>${I.why.map(([t, ref], k) => { const i = ID_OF.get(ref), e = D.entries[i], ap = D.apps[e[2]];
+      return `<li>${quoteMarks(esc(t))}<button class="ref" data-k="${k}"><i style="background:${appColor(ap)}"></i>${fmtDate(e[1])}</button><div class="open" data-k="${k}"></div></li>`; }).join("")}</ol>
+    <div class="so">${esc(I.so)}</div><p class="by">${by}</p>`;
+  el.querySelectorAll(".ref").forEach(b => b.onclick = () => { const k = +b.dataset.k, box = el.querySelector(`.open[data-k="${k}"]`), [t, ref] = I.why[k];
+    const on = !b.classList.contains("on"); b.classList.toggle("on", on); box.innerHTML = on ? appCard(ID_OF.get(ref), 700, firstQuote(t)) : ""; });
+}
+renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entries", "Written by Claude Opus 5.5 after reading the 31 entries. Click a date to open the entry.");
 /* ---------- 3. the method ---------- */
 (function () {
   const f = new Field($("p-canvas"), { minH: 300 }), A = D.anchor.i;
@@ -578,10 +606,9 @@ const BASE = () => ({ s: .78, a: .5 });
   onView($("fig-pipe"), () => { ph = -1; play(); });
 })();
 
-/* ---------- 4. anchor, prompt, and the idea map ---------- */
-(function () {
-  const a = D.anchor;
-  $("anchor-card").innerHTML = appCard(a.i, 2000);
+
+/* prompt, light */
+(function () { const a = D.anchor;
   $("prompt").innerHTML = `<span class="m">input</span>
   Excerpt A — ${esc(a.t)} · ${esc(a.app)} · ${esc(a.api)}:
   """${esc(a.text.slice(0, 150))}…"""
@@ -591,115 +618,65 @@ const BASE = () => ({ s: .78, a: .5 });
 <span class="m">questions</span>   one per partner, B1 … B20:
   <span class="q">${esc(D.question)}</span>
 
-<span class="m">answer</span>   the probability that the answer is yes, for each B`;
+<span class="m">answer</span>   the probability that the answer is yes, for each B`; })();
 
-  const svg = $("m-svg"), NS = "http://www.w3.org/2000/svg";
-  const mk = (tag, at, parent = svg) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); parent.appendChild(e); return e; };
-  const AX = 50, AY = 240;
-  const G = { render: { x: 300, y: 112, r: 88 }, real: { x: 300, y: 300, r: 74 }, tidy: { x: 300, y: 425, r: 42 }, other: { x: 150, y: 430, r: 26 } };
-  const byRank = new Map(D.top.map(t => [t.r, t]));
-  // positions: phase 0 fan, phase >=1 packed in the group circle
-  const fan = new Map(), packed = new Map();
-  D.top.forEach((t, k) => { const th = (-62 + 124 * k / 29) * Math.PI / 180; fan.set(t.r, [AX + 300 * Math.cos(th) * .95, AY + 225 * Math.sin(th)]); });
-  Object.keys(G).forEach(g => { const mem = D.top.filter(t => t.theme === g), c = G[g];
-    mem.forEach((t, k) => { const rr = Math.sqrt((k + .5) / mem.length) * (c.r - 12), an = k * 2.39996; packed.set(t.r, [c.x + rr * Math.cos(an), c.y + rr * Math.sin(an)]); }); });
-  const gEdges = mk("g", {}), gCirc = mk("g", {}), gFlow = mk("g", {}), gNodes = mk("g", {}), gBoxes = mk("g", {});
-  // group circles + labels
-  const circ = {}; Object.entries(G).forEach(([g, c]) => { const col = g === "other" ? C.other : C[g];
-    circ[g] = mk("circle", { cx: c.x, cy: c.y, r: c.r, fill: col, "fill-opacity": .07, stroke: col, "stroke-opacity": .5, "stroke-width": 1.5, opacity: 0 }, gCirc); });
-  const otherLab = mk("text", { x: G.other.x, y: G.other.y + G.other.r + 16, "text-anchor": "middle", "font-size": 12, fill: "#8c959f", opacity: 0 }, gCirc); otherLab.textContent = "not used";
-  // edges + nodes
-  const nodes = new Map();
-  D.top.forEach(t => { const col = t.theme === "other" ? C.other : C[t.theme];
-    const e = mk("line", { x1: AX, y1: AY, stroke: "#9aa4b1", "stroke-width": .8 + t.w * 4, "stroke-opacity": .2 + t.w * .55 }, gEdges);
-    const c = mk("circle", { r: 4 + t.w * 9, fill: col, stroke: "#fff", "stroke-width": 1.5, style: "cursor:pointer" }, gNodes);
-    c.addEventListener("mousemove", ev => showTip(ev, `<b>#${t.r}</b> · weight ${t.w.toFixed(2)}<br>` + entryTip(t.i))); c.addEventListener("mouseleave", hideTip);
-    c.addEventListener("click", () => { stop(); panelCard(t.r); });
-    nodes.set(t.r, { e, c, p: fan.get(t.r).slice(), t }); });
-  const an = mk("circle", { cx: AX, cy: AY, r: 11, fill: C.ink, style: "cursor:pointer" }, gNodes); an.addEventListener("click", () => { stop(); panelCard(0); });
-  mk("text", { x: AX, y: AY - 20, "text-anchor": "middle", "font-size": 13, "font-weight": 650, fill: C.ink }, gNodes).textContent = "anchor";
-  function place() { nodes.forEach(n => { n.c.setAttribute("cx", n.p[0]); n.c.setAttribute("cy", n.p[1]); n.e.setAttribute("x2", n.p[0]); n.e.setAttribute("y2", n.p[1]); }); }
-  place();
-  // boxes (foreignObject) and flows
-  const box = (x, y, w, h, html, col, cls, onclick) => { const fo = mk("foreignObject", { x, y, width: w, height: h, opacity: 0 }, gBoxes);
-    fo.innerHTML = `<div xmlns="http://www.w3.org/1999/xhtml" class="box ${cls || ""}" style="--c:${col}">${html}</div>`; fo.firstChild.onclick = onclick; return fo; };
-  const flow = (x1, y1, x2, y2, col) => { const p = mk("path", { d: `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}`, fill: "none", stroke: col, "stroke-width": 2.2, "stroke-opacity": .75 }, gFlow);
-    const len = p.getTotalLength(); p.style.strokeDasharray = len; p.style.strokeDashoffset = len; return p; };
-  const BX = 420, BW = 205, BH = 64, M1 = { x: 668, y: 160, w: 175, h: 96 }, M2 = { x: 875, y: 250, w: 150, h: 80 }, ID = { x: 1048, y: 245, w: 142, h: 90 };
-  const gBox = {}, gFlowIn = {}, gFlowOut = {};
-  D.groups.forEach((gr, k) => { const c = G[gr.k]; gBox[gr.k] = box(BX, c.y - BH / 2, BW, BH, esc(gr.c), C[gr.k], "", () => { stop(); panelGroup(k); });
-    gFlowIn[gr.k] = flow(c.x + c.r, c.y, BX, c.y, C[gr.k]); });
-  const m1 = box(M1.x, M1.y, M1.w, M1.h, esc(D.merges[0].c), C.ink, "", () => { stop(); panelMerge(0); });
-  const m2 = box(M2.x, M2.y, M2.w, M2.h, esc(D.merges[1].c), C.ink, "", () => { stop(); panelMerge(1); });
-  const idb = box(ID.x, ID.y, ID.w, ID.h, esc(D.proposal.title), C.theme, "idea", () => { stop(); panelIdea(); });
-  const f1 = [flow(BX + BW, G.render.y, M1.x, M1.y + 30, C.render), flow(BX + BW, G.real.y, M1.x, M1.y + 66, C.real)];
-  const f2 = [flow(M1.x + M1.w, M1.y + 48, M2.x, M2.y + 28, C.ink), flow(BX + BW, G.tidy.y, M2.x, M2.y + 56, C.tidy)];
-  const f3 = [flow(M2.x + M2.w, M2.y + 40, ID.x, ID.y + 40, C.theme)];
-  // panel content
-  const P = $("m-panel");
-  function panelCard(r) { const t = r === 0 ? { i: a.i } : byRank.get(r);
-    const g = D.groups.find(gr => gr.key.some(([kr]) => kr === r)), hl = g ? g.key.find(([kr]) => kr === r)[1] : null;
-    P.innerHTML = `<div class="rk">${r === 0 ? "the anchor" : `#${r} of the top 30 · weight ${t.w.toFixed(2)}`}</div>` + appCard(t.i, 1400, hl); }
-  function panelGroup(k) { const gr = D.groups[k];
-    P.innerHTML = `<div class="cap" style="color:${C[gr.k]}">${esc(gr.c)}</div>` + gr.key.map(([r, hl]) => appCard(r === 0 ? a.i : byRank.get(r).i, 700, hl)).join(""); }
-  function panelMerge(k) { const m = D.merges[k];
-    P.innerHTML = `<div class="cap">${esc(m.c)}</div><p>Combines: ${m.from.map(x => x === "m0" ? "“" + esc(D.merges[0].c) + "”" : "“" + esc(D.groups.find(g => g.k === x).c) + "”").join(" + ")}.</p>`; }
-  function panelIdea() { P.innerHTML = `<div class="cap" style="color:${C.theme}">${esc(D.proposal.title)}</div><p>${esc(D.proposal.what)}</p><p>${esc(D.proposal.why)}</p>`; }
-  // phases
-  const phases = [
-    { cap: "Score every edge at once", txt: "The judge scores the anchor against each of the 1,000 partners in parallel; these are the 30 strongest edges. Line width is the judge's probability." },
-    { cap: "Read: the partners fall into groups", txt: "Reading the 30 together, they sort themselves into three groups; four entries don't bear on the anchor." },
-    { cap: "Each group says one thing", txt: "Each group adds up to one plain statement about the person." },
-    { cap: "Combine into the idea", txt: "The statements combine, left to right, into a single conclusion and the gift idea." },
-  ];
-  let ph = -1, playing = null, anim = null;
-  const chips = phases.map((p, k) => { const b = document.createElement("button"); b.className = "chip step"; b.innerHTML = `<b>${k + 1}</b> ${esc(p.cap)}`;
-    b.onclick = () => { stop(); go(k); }; $("m-steps").appendChild(b); return b; });
-  function moveTo(target, dur = 900) { cancelAnimationFrame(anim); const from = new Map([...nodes].map(([r, n]) => [r, n.p.slice()])), t0 = performance.now();
-    const step = () => { const k = Math.min(1, (performance.now() - t0) / dur), e = ease(k);
-      nodes.forEach((n, r) => { const f0 = from.get(r), to = target.get(r); n.p[0] = f0[0] + (to[0] - f0[0]) * e; n.p[1] = f0[1] + (to[1] - f0[1]) * e; });
-      place(); if (k < 1) anim = requestAnimationFrame(step); }; anim = requestAnimationFrame(step); }
-  const show = (el, on, d = 0) => { el.style.transition = `opacity .6s ease ${d}ms`; el.setAttribute("opacity", on ? 1 : 0); };
-  const draw = (p, on, d = 0) => { p.style.transition = on ? `stroke-dashoffset .8s ease ${d}ms` : "none"; p.style.strokeDashoffset = on ? 0 : p.getTotalLength(); };
-  function go(k) { ph = k; chips.forEach((b, j) => { b.classList.toggle("on", j === k); b.classList.toggle("done", j < k); });
-    P.innerHTML = `<div class="cap">${esc(phases[k].cap)}</div><p>${esc(phases[k].txt)}</p><p class="rk">Click a dot to read the entry, or a box to see the entries behind it.</p>`;
-    moveTo(k === 0 ? fan : packed);
-    nodes.forEach(n => { n.e.setAttribute("stroke-opacity", k === 0 ? .2 + n.t.w * .55 : .08); n.c.setAttribute("opacity", k >= 1 && n.t.theme === "other" ? .45 : 1); });
-    Object.entries(circ).forEach(([g, c]) => show(c, k >= 1)); show(otherLab, k >= 1);
-    D.groups.forEach((gr, j) => { show(gBox[gr.k], k >= 2, k === 2 ? j * 250 : 0); draw(gFlowIn[gr.k], k >= 2, j * 250); });
-    f1.forEach((p, j) => draw(p, k >= 3, j * 150)); show(m1, k >= 3, 300);
-    f2.forEach((p, j) => draw(p, k >= 3, 900 + j * 150)); show(m2, k >= 3, 1200);
-    f3.forEach(p => draw(p, k >= 3, 1800)); show(idb, k >= 3, 2100);
-    if (k === 3) setTimeout(() => { if (ph === 3 && !P.dataset.user) panelIdea(); }, 2600); }
-  function stop() { clearInterval(playing); playing = null; $("m-play").textContent = "▶ Play"; }
-  function play() { if (playing) return stop(); go(ph >= 3 ? 0 : ph + 1); $("m-play").textContent = "❚❚ Pause";
-    playing = setInterval(() => { if (ph >= 3) return stop(); go(ph + 1); }, 4200); }
-  $("m-play").onclick = play; go(0); onView($("fig-map"), () => { ph = -1; play(); });
-  const p = D.proposal;
-  $("idea-judge").innerHTML = `<div class="lab">The idea from the judge’s 31 entries</div><h3>${esc(p.title)}</h3><p>${esc(p.what)}</p><p>${esc(p.why)}</p>` +
-    `<p class="by">Groups, conclusions and idea written by Claude Opus 5.5 after reading the 31 entries; the full log was used only to check that they own no such glass.</p>`;
-})();
-
-/* ---------- 5. the grep agent, step by step ---------- */
+/* ---------- 5. the grep agent ---------- */
 (function () {
   const A = D.agent;
-  const short = c => c.replace(/\^\\\[log_\S*/g, "(entry headers)").replace(/\^request: \.\{0,\d+\}/g, "(requests)").replace(/\.\{0,\d+\}/g, "").replace(/toolu_\w+\.txt/g, "(its saved search output)")
-    .replace(/^(grep|read)\s+/, (m, v) => `<b>${v}</b> `);
+  const short = c => c.replace(/\^\\\[log_\S*/g, "(entry headers)").replace(/\^request: \.\{0,\d+\}/g, "(requests)").replace(/\.\{0,\d+\}/g, "")
+    .replace(/toolu_\w+\.txt/g, "(its saved search output)").replace(/^(grep|read)\s+/, (m, v) => `<b>${v}</b> `);
   $("story").innerHTML = D.story.map(st => { const n = st.s.length;
     const lab = !n ? "start" : n === 1 ? `step ${st.s[0]}` : `steps ${st.s[0]}–${st.s[n - 1]}`;
     const cmds = st.cmd.length ? `<div class="scmd">${st.cmd.slice(0, 2).map(c => short(esc(cut(c.replace(/\s+/g, " "), 64)))).join("  ·  ")}${st.cmd.length > 2 ? `  ·  +${st.cmd.length - 2} more` : ""}${st.n ? `  →  ${st.n} entries shown` : ""}</div>` : "";
-    return `<div class="sitem"><div class="sn">${lab}</div><div class="sb"><div class="st">${esc(st.t)}</div><div class="sd">${esc(st.d)}</div>${cmds}${st.cards.map(([i, hl]) => appCard(i, 360, hl)).join("")}</div></div>`; }).join("") +
-    `<div class="sitem end"><div class="sn">answer</div><div class="sb"><div class="st">Writes its idea</div><div class="sd">The camera is shelved for the light, while the same person keeps “photographing” ice in software every week.</div></div></div>`;
-  const p = A.proposal;
-  $("idea-agent").innerHTML = `<div class="lab">The idea from the grep agent</div><h3>${esc(p.title)}</h3><p>${esc(p.what)}</p><p>${esc(p.why)}</p>` +
-    `<p class="by">Written by the Claude Opus 5.5 agent itself, after ${A.steps.length} tool calls.</p>`;
-  const touched = new Set(); A.steps.forEach(s => s.h.forEach(i => touched.add(i)));
-  $("vs").innerHTML = `<div class="card"><h4 class="k-judge">The judge picks, a reader reads</h4>
-    <div class="nums"><div><b>1,000</b>pairs judged</div><div><b>$${D.judge_usd.toFixed(2)}</b>judge cost</div><div><b>31</b>entries read</div></div>
-    Ranked first an entry the agent’s keywords never reached: they cancel the AI subscription to see that light in physical space.</div>
-    <div class="card"><h4 class="k-agent">The agent searches</h4>
-    <div class="nums"><div><b>${A.steps.length}</b>tool calls</div><div><b>${A.secs}s</b>wall time</div><div><b>$${A.usd.toFixed(2)}</b>model cost</div></div>
-    Saw ${touched.size.toLocaleString()} entries by keyword and found the boxed camera, a fact the packet did not hold.</div>`;
+    return `<div class="sitem"><div class="sn">${lab}</div><div class="sb"><div class="st">${esc(st.t)}</div><div class="sd">${quoteMarks(esc(st.d))}</div>${cmds}${st.cards.map(([i, hl]) => appCard(i, 360, hl)).join("")}</div></div>`; }).join("") +
+    `<div class="sitem end"><div class="sn">answer</div><div class="sb"><div class="st">Writes its idea</div></div></div>`;
+  renderIdea($("idea-grep"), D.ideas.grep, C.agent, "The grep agent's idea", `Condensed from the agent's own report (${A.steps.length} tool calls, ${A.secs} s, $${A.usd.toFixed(2)}). Click a date to open the entry.`);
+})();
+
+/* ---------- 6. comparison across the year ---------- */
+(function () {
+  const X = D.compare, f = new Field($("c-canvas")), seen = new Set(X.seen), used = new Set(X.used), top = new Set(D.top.map(t => t.i));
+  const KJ = X.key_judge, KG = X.key_grep; let mode = 0;
+  const own = l => l.filter(([, o]) => o).length;
+  const modes = [
+    { lab: "What grep read", leg: `<span><i style="background:${C.agent}"></i><b>${X.seen.length}</b> entries its searches showed it, <mark>${X.months_seen["2024-12"] || 0} of them all of December</mark></span>` },
+    { lab: "What our method picked", leg: `<span><i style="background:${C.theme}"></i><b>${X.used.length}</b> of our top 30 that the idea uses</span><span><i style="background:${C.grey}"></i>${D.top.length - X.used.length} picked but not used</span>` },
+    { lab: "What each idea rests on", leg: `<span><i style="background:${C.agent}"></i>grep's idea: <mark>${own(KG)} of ${KG.length} use the anchor's words</mark></span><span><i style="background:${C.theme}"></i>our idea: <mark>${own(KJ)} of ${KJ.length}</mark></span><span><i class="ho" style="border-color:#57606a"></i>hollow: no shared word</span>` },
+  ];
+  $("c-chips").innerHTML = modes.map((m, k) => `<button class="chip" data-k="${k}">${k + 1} · ${m.lab}</button>`).join("");
+  const chips = [...$("c-chips").children];
+  f.live = true;
+  f.overlay = g => { if (mode !== 2) return; const mark = (list, col) => list.forEach(([i, o]) => { const s = f.cell * 2.4;
+      g.lineWidth = 2.5; g.strokeStyle = col; g.fillStyle = col; if (o) g.fillRect(f.x[i] - s / 2, f.y[i] - s / 2, s, s); else { g.fillStyle = "#fff"; g.fillRect(f.x[i] - s / 2, f.y[i] - s / 2, s, s); g.strokeRect(f.x[i] - s / 2, f.y[i] - s / 2, s, s); } });
+    mark(KG, C.agent); mark(KJ, C.theme);
+    const A = D.anchor.i, s = f.cell * 2.4; g.fillStyle = C.ink; g.fillRect(f.x[A] - s / 2, f.y[A] - s / 2, s, s); g.font = "600 11px Inter, sans-serif"; g.fillStyle = C.ink; g.textAlign = "right"; g.fillText("anchor", f.x[A] - s, f.y[A] - s); };
+  function set(k) { mode = k; chips.forEach((c, j) => c.classList.toggle("on", j === k)); $("c-legend").innerHTML = modes[k].leg;
+    if (k === 0) f.animate(i => seen.has(i) ? { s: 1, a: .95, c: C.agent } : { s: .55, a: .1 }, null, 500);
+    if (k === 1) f.animate(i => used.has(i) ? { s: 1.15, a: 1, c: C.theme } : top.has(i) ? { s: 1, a: .9, c: C.grey } : { s: .55, a: .1 }, null, 500);
+    if (k === 2) f.animate(() => ({ s: .55, a: .08 }), null, 400); }
+  chips.forEach((c, k) => c.onclick = () => { clearInterval(auto); set(k); });
+  set(0); let auto = null; onView($("fig-cmp"), () => { let k = 0; auto = setInterval(() => { k++; if (k > 2) return clearInterval(auto); set(k); }, 3500); });
+})();
+
+/* ---------- 7. what's different ---------- */
+(function () {
+  const X = D.compare, own = l => l.filter(([, o]) => o).length;
+  const card = (c, h, rows) => `<div class="card" style="--c:${c}"><h4>${h}</h4><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div>`;
+  $("diff").innerHTML =
+    card(C.theme, "Our method", [
+      ["Searched with", "<mark>no words</mark>: one open question, asked of 1,000 random entries at once"],
+      ["Read", "31 entries the judge picked"],
+      ["The idea rests on", `six entries, <b>April to December</b>, from three threads; <mark>${KJ_n(X) } of 6 never use the anchor's words</mark>, including the judge's first pick`],
+      ["The idea is about", "<mark>something the anchor never mentions</mark>: old window glass and ink wells to hold"]]) +
+    card(C.agent, "The grep agent", [
+      ["Searched with", "<mark>the anchor's own words</mark>: ice, frost, winter, permafrost, 20mm, then the anchor's camera words (lens, macro)"],
+      ["Read", `${X.seen.length} entries, ${X.months_seen["2024-12"] || 0} of them all of December`],
+      ["The idea rests on", `four entries, <b>July to December</b>; <mark>all ${own(X.key_grep)} use the anchor's words</mark>`],
+      ["The idea is about", "<mark>the anchor's own object made real</mark>: a 20mm ice block, its blue light, f/11"]]);
+  function KJ_n(x) { return x.key_judge.length - own(x.key_judge); }
+  $("verdict").innerHTML = `Grep reads widely but <mark>thinks in the anchor's vocabulary</mark>, so its idea stays on the anchor's topic and makes it physical. ` +
+    `Its one non-obvious fact, a camera boxed for the light, is real and useful. Our method's packet is not off-topic overall (${X.own_used} of the ${X.used.length} entries the idea map uses share the anchor's words, against ${X.own_seen} of the ${X.seen.length} grep read). ` +
+    `The difference is in <mark>the entries that change the subject</mark>: the cancelled AI subscription, the photo walks, the record-sorting puzzle. None of them uses the anchor's words, so no search built from the anchor reaches them.`;
 })();
 })();
 
