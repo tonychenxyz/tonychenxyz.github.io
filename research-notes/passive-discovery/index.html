@@ -352,7 +352,7 @@ are shown with the line it used highlighted.</p>
 entries; the grep agent is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob). "Uses the anchor's words" means
 the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or crystal.</p>
 </article>
-<script src="data.js?v=9a2fe1139a"></script>
+<script src="data.js?v=2994270f46"></script>
 <script>
 (function () {
 "use strict";
@@ -645,24 +645,26 @@ section(function () {
   const X = D.compare, f = new Field($("c-canvas")), seen = new Set(X.seen), used = new Set(X.used), top = new Set(D.top.map(t => t.i));
   const KJ = X.key_judge, KG = X.key_grep; let mode = 0;
   const own = l => l.filter(([, o]) => o).length;
+  const both = X.used.filter(i => seen.has(i));
   const modes = [
-    { lab: "What grep read", leg: `<span><i style="background:${C.agent}"></i><b>${X.seen.length}</b> entries its searches showed it, ${X.months_seen["2024-12"] || 0} of them all of December</span>` },
-    { lab: "What our method picked", leg: `<span><i style="background:${C.theme}"></i><b>${X.used.length}</b> of our top 30 that the idea uses</span><span><i style="background:${C.grey}"></i>${D.top.length - X.used.length} picked but not used</span>` },
+    { lab: "What each route read", leg: `<span><i style="background:${C.agent}"></i><b>${X.seen.length}</b> entries grep read (${X.months_seen["2024-12"] || 0} of them all of December)</span><span><i style="background:${C.theme}"></i><b>${X.used.length}</b> entries our method picked and the idea uses</span><span><i class="ho" style="border-color:${C.agent}"></i><b>${both.length}</b> of those grep also read</span><span><i style="background:${C.grey}"></i>${D.top.length - X.used.length} picked but not used</span>` },
     { lab: "What each idea rests on", leg: `<span><i style="background:${C.agent}"></i>grep's idea: ${own(KG)} of ${KG.length} use the anchor's words</span><span><i style="background:${C.theme}"></i>our idea: ${own(KJ)} of ${KJ.length}</span><span><i class="ho" style="border-color:#57606a"></i>hollow: no shared word</span>` },
   ];
   $("c-chips").innerHTML = modes.map((m, k) => `<button class="chip" data-k="${k}">${k + 1} · ${m.lab}</button>`).join("");
   const chips = [...$("c-chips").children];
   f.live = true;
-  f.overlay = g => { if (mode !== 2) return; const mark = (list, col) => list.forEach(([i, o]) => { const s = f.cell * 2.4;
+  const anchorMark = g => { const A = D.anchor.i, s = f.cell * 2.4; g.fillStyle = C.ink; g.fillRect(f.x[A] - s / 2, f.y[A] - s / 2, s, s);
+    g.font = "600 11px Inter, sans-serif"; g.fillStyle = C.ink; g.textAlign = "right"; g.fillText("anchor", f.x[A] - s, f.y[A] - s); };
+  f.overlay = g => {
+    if (mode === 0) { g.lineWidth = 2; g.strokeStyle = C.agent; both.forEach(i => { const s = f.cell * 2; g.strokeRect(f.x[i] - s / 2, f.y[i] - s / 2, s, s); }); anchorMark(g); return; }
+    const mark = (list, col) => list.forEach(([i, o]) => { const s = f.cell * 2.4;
       g.lineWidth = 2.5; g.strokeStyle = col; g.fillStyle = col; if (o) g.fillRect(f.x[i] - s / 2, f.y[i] - s / 2, s, s); else { g.fillStyle = "#fff"; g.fillRect(f.x[i] - s / 2, f.y[i] - s / 2, s, s); g.strokeRect(f.x[i] - s / 2, f.y[i] - s / 2, s, s); } });
-    mark(KG, C.agent); mark(KJ, C.theme);
-    const A = D.anchor.i, s = f.cell * 2.4; g.fillStyle = C.ink; g.fillRect(f.x[A] - s / 2, f.y[A] - s / 2, s, s); g.font = "600 11px Inter, sans-serif"; g.fillStyle = C.ink; g.textAlign = "right"; g.fillText("anchor", f.x[A] - s, f.y[A] - s); };
+    mark(KG, C.agent); mark(KJ, C.theme); anchorMark(g); };
   function set(k) { mode = k; chips.forEach((c, j) => c.classList.toggle("on", j === k)); $("c-legend").innerHTML = modes[k].leg;
-    if (k === 0) f.animate(i => seen.has(i) ? { s: 1, a: .95, c: C.agent } : { s: .55, a: .1 }, null, 500);
-    if (k === 1) f.animate(i => used.has(i) ? { s: 1.15, a: 1, c: C.theme } : top.has(i) ? { s: 1, a: .9, c: C.grey } : { s: .55, a: .1 }, null, 500);
-    if (k === 2) f.animate(() => ({ s: .55, a: .08 }), null, 400); }
-  chips.forEach((c, k) => c.onclick = () => { clearInterval(auto); set(k); });
-  set(0); let auto = null; onView($("fig-cmp"), () => { let k = 0; auto = setInterval(() => { k++; if (k > 2) return clearInterval(auto); set(k); }, 3500); });
+    if (k === 0) f.animate(i => used.has(i) ? { s: 1.2, a: 1, c: C.theme } : top.has(i) ? { s: 1, a: .9, c: C.grey } : seen.has(i) ? { s: .9, a: .75, c: C.agent } : { s: .55, a: .1 }, null, 500);
+    if (k === 1) f.animate(() => ({ s: .55, a: .08 }), null, 400); }
+  chips.forEach((c, k) => c.onclick = () => { clearTimeout(auto); set(k); });
+  set(0); let auto = null; onView($("fig-cmp"), () => { auto = setTimeout(() => set(1), 4500); });
 });
 
 /* ---------- 7. what's different ---------- */
