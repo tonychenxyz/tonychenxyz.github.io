@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792171646">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792174103">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -526,7 +526,7 @@
 .pd .concl .crole b { color: var(--text); font-weight: 650; }
 .pd .concl .chead { font-size: 17px; font-weight: 640; line-height: 1.45; margin: 0 0 10px; }
 .pd .chain { margin: 4px 0 12px; }
-.pd .chain .lk { display: grid; grid-template-columns: 112px 1fr; gap: 12px; align-items: start; padding: 6px 0; font-size: 15px; line-height: 1.55; }
+.pd .chain .lk { display: grid; grid-template-columns: 136px 1fr; gap: 12px; align-items: start; padding: 6px 0; font-size: 15px; line-height: 1.55; }
 .pd .chain .lk + .lk { border-top: 1px dashed #dbe5f5; }
 .pd .chain .tag { font-size: 11.5px; font-weight: 650; color: #fff; background: var(--c); border-radius: 6px; padding: 2px 8px; text-align: center; margin-top: 2px; }
 .pd .chain .tag.bg { background: #fff; color: var(--text-2); border: 1px solid #d0d7de; }
@@ -624,7 +624,7 @@ are shown with the line it used highlighted.</p>
 <h2>
 <span class="num">8</span>The same question, on other corpora</h2>
 <p>In an app log, almost any two entries can be read together in some way. A harder test is a corpus where most
-pairs are unrelated. We ran the identical setup — same judge, same single open question — on
+pairs are unrelated. We ran the same kind of pipeline, the Decisions judge scoring one open question for every pair, on
 <b>719 research-mathematics manuscripts</b> (<a href="https://github.com/openai/math" rel="external nofollow noopener" target="_blank">openai/math</a>) and on
 <b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below, each
 shown with the documents it was built from.</p>
@@ -717,45 +717,44 @@ shown with the documents it was built from.</p>
   </div>
 </div>
 
-<p class="exlead">Then, two medical evidence reviews from different specialties.</p>
+<p class="exlead">Then, two medical evidence reviews on preventing urinary tract infections.</p>
 <div class="ex">
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
     <div class="src" style="--c: var(--theme)">
-      <div class="stitle">Oral and intranasal aspirin desensitisation for NSAID-exacerbated respiratory disease (2025)</div>
+      <div class="stitle">Cranberries for preventing urinary tract infections (2023)</div>
       <div class="quote">
-<span class="qk">from the review · background</span>“<mark>NSAID-exacerbated
-        respiratory disease (N-ERD) is a hypersensitivity to non-steroidal anti-inflammatory drugs (NSAIDs), such as
-        aspirin or ibuprofen</mark>, accompanied by chronic rhinosinusitis (with or without nasal polyps) or asthma.
-        <mark>The prevalence of hypersensitivity to NSAIDs is estimated to be 2%.</mark>”</div>
+<span class="qk">from the review · main results</span>“In moderate certainty evidence,
+        <mark>cranberry products reduced the risk of UTIs (6211 participants: RR 0.70, 95% CI 0.58 to 0.84; I² = 69%)</mark>.
+        … <mark>Compared to probiotics, cranberry products may reduce the risk of symptomatic, culture-verified UTIs
+        (3 studies, 215 participants: RR 0.39, 95% CI 0.27 to 0.56; I = 0%)</mark>.”</div>
       <div class="plain">
-<span class="pk">In plain words</span>About 2 in 100 people react badly to common painkillers
-        such as aspirin and ibuprofen: their nasal sinuses and airways become inflamed. The review asks whether gradually
-        accustoming them to aspirin helps. What matters here: these painkillers do not act the same way in everyone, and
-        in some people they cause a different inflammatory reaction.</div>
+<span class="pk">In plain words</span>The review pools 50 trials of cranberry juice and tablets.
+        Compared with placebo or no treatment, cranberry lowers the risk of a urinary infection to 0.70 times, about 30%
+        less. Three small trials compared cranberry with probiotics directly, and there cranberry lowered the risk to 0.39
+        times that of probiotics, about 60% less.</div>
     </div>
     <div class="src" style="--c: var(--agent)">
-      <div class="stitle">Nonsteroidal anti-inflammatory drugs for assisted reproductive technology (2019)</div>
+      <div class="stitle">Probiotics for preventing urinary tract infections in adults and children (2015)</div>
       <div class="quote">
-<span class="qk">from the review · background</span>“Local inflammatory response is
-        believed to contribute to implantation failure, where <mark>prostaglandins may increase uterine contractions and
-        decrease uterine receptivity</mark>, decreasing the possibility of an IVF cycle leading to successful embryo
-        transfer. In this context, <mark>nonsteroidal anti-inflammatory drugs (NSAIDs) have been employed to inhibit the
-        negative prostaglandin effect</mark>. They are often offered in clinical practice to improve ART outcomes, but
-        <mark>current robust evidence on their efficacy is lacking</mark>.”</div>
+<span class="qk">from the review · main results</span>“We found <mark>no significant
+        reduction in the risk of recurrent symptomatic bacterial UTI between patients treated with probiotics and placebo
+        (6 studies, 352 participants: RR 0.82, 95% CI 0.60 to 1.12; I(2) = 23%)</mark> with wide confidence
+        intervals…”</div>
       <div class="plain">
-<span class="pk">In plain words</span>In IVF, many embryos fail to implant. One explanation is
-        that local inflammation makes the womb contract and become less receptive to the embryo, so clinics give the same
-        class of painkillers around embryo transfer to reduce it. Whether this improves outcomes is still unproven.</div>
+<span class="pk">In plain words</span>The review pools small trials of probiotics (beneficial
+        bacteria) taken to prevent urinary infections. Compared with placebo, probiotics lower the risk to 0.82 times or
+        not at all; the evidence is weak, but nothing in it suggests that probiotics increase infections.</div>
+      <div class="plain" style="margin-top:8px; border-top: 0; padding-top: 0; color: var(--text-2); font-size: 12.5px">The
+        judge paired the cranberry results with this review's objectives section, which asks whether probiotics beat
+        placebo or cranberry juice. The result quoted above is from the same review's results section.</div>
     </div>
   </div>
   <div class="hard">
-<span class="pk">The connection is not obvious</span>One review is about sinus and asthma patients
-    who react to aspirin; the other is about IVF. They differ in specialty, organ, patients and journals. The only thing
-    they share is a class of drugs, which each mentions for its own reason, so a reader of one has no reason to open the
-    other. Yet together they raise something the IVF review does not consider. The IVF review treats these drugs as
-    having one relevant effect, lowering prostaglandins. The allergy review shows that the same drugs can also set off a
-    different inflammatory reaction in some people. If that also happens in the womb, the drug could partly cancel its
-    own intended effect.</div>
+<span class="pk">The connection is not obvious</span>Both reviews are about preventing urinary
+    infections, but they were written by different teams eight years apart, and each reports its own comparisons.
+    Neither number looks wrong on its own. The problem appears only when you combine the cranberry review's two
+    comparisons into an implied third one and set it next to the probiotics review's direct measurement. Reviews are not
+    usually read that way, and neither review cites the other's figure.</div>
   <div class="merge">
 <div class="arrow"></div>
 <div class="mcap">read together</div>
@@ -763,44 +762,45 @@ shown with the documents it was built from.</p>
 </div>
   <div class="concl">
 <div class="lab">The conclusion</div>
-    <div class="chead">The IVF painkiller may partly cancel its own intended effect, by different amounts in different
-      women.</div>
+    <div class="chead">The cranberry review's result that cranberry beats probiotics contradicts the probiotics review, so it
+      is probably overstated.</div>
     <div class="chain">
       <div class="lk">
-<span class="tag" style="--c: var(--theme)">allergy review</span><span>These painkillers do not act
-        the same way in everyone: in about 2% of people they cause airway inflammation.</span>
+<span class="tag" style="--c: var(--theme)">cranberry review</span><span>Cranberry lowers the risk to
+        0.70 times placebo, and to 0.39 times probiotics.</span>
 </div>
       <div class="lk">
-<span class="tag" style="--c: var(--agent)">IVF review</span><span>IVF uses these painkillers to
-        lower prostaglandins, which make the womb contract; the benefit is still unproven.</span>
+<span class="tag" style="--c: var(--agent)">probiotics review</span><span>Probiotics measured
+        directly against placebo: 0.82, with no sign of any increase.</span>
 </div>
       <div class="lk res">
-<span class="tag">together</span><span>If the side effect seen in the allergy patients also
-        occurs in the womb, the drug may lower one signal that makes the womb contract while raising another, which would
-        make its average benefit close to zero.</span>
+<span class="tag">together</span><span>Dividing the cranberry numbers gives an implied
+        probiotics-versus-placebo ratio of 0.70 / 0.39 ≈ 1.80, an 80% increase in risk. The measured value is 0.82.
+        The two differ by a factor of about 2.2, roughly three standard errors, so the three small trials behind the 0.39
+        most likely overstate cranberry's advantage.</span>
 </div>
     </div>
     <div class="sub">
-<span class="pk">A known mechanism, but not an obviously relevant one</span>The mechanism itself
-      is textbook pharmacology: blocking prostaglandin production sends their starting molecule (arachidonic acid) into
-      making leukotrienes, and leukotrienes make the womb contract and reduce the lining's receptivity to an embryo. It is
-      not deep; a pharmacologist asked what else these drugs do would name it in one step. But from the IVF review alone
-      it is probably not the first thing that comes to mind. That literature describes these drugs only in terms of
-      prostaglandins, and the leukotriene side is mostly discussed in respiratory medicine, as the cause of the
-      reactions in the allergy review. A search found the pieces published separately but no paper combining them for
-      these drugs in IVF. The allergy review supplies the reminder that the mechanism applies here, not new biology.</div>
+<span class="pk">Why it's surprising</span>Taken at face value, a result in a current Cochrane review
+      implies that probiotics cause urinary infections, which no trial has found. Neither review shows this on its own: it
+      takes one number from each.</div>
     <div class="sub">
-<span class="pk">Why it matters</span>These drugs are a common IVF add-on whose benefit trials have
-      not shown. If the hypothesis holds, an average effect near zero could combine women who benefit with women who do
-      not, and a measurable marker could tell them apart. It can be tested directly: measure leukotrienes in the womb on and off
-      the drug, compare women with high and low levels, and see whether also blocking leukotrienes restores the
-      benefit.</div>
+<span class="pk">What it is and is not</span>This is a check on a published estimate, not a new
+      medical finding. It says nothing new about cranberries or probiotics themselves. Part of the gap could come from
+      different patients: the cranberry estimate pools children, women with recurrent infections and people with
+      catheters, while the probiotics trials mostly enrolled women with recurrent infections. We have not checked whether
+      anyone has published this inconsistency.</div>
+    <div class="sub">
+<span class="pk">Why it matters</span>Anyone choosing between cranberry and probiotics on the strength
+      of the cranberry review, and any guidance that ranks cranberry above probiotics on that basis, relies on an estimate
+      that conflicts with other evidence. It can be checked directly: a network meta-analysis with cranberry, probiotic
+      and placebo arms would test whether the direct and indirect evidence agree.</div>
   </div>
 </div>
 
-<p>In both examples, and in the gift in section 3, the link is one shared element (a material, a step in a metabolic
-pathway, a property of size) that the documents mention for different reasons. No single word appears in both, so a
-keyword search cannot find it.</p>
+<p>In each example the link is written in none of the documents: a chain of three published results, a contradiction
+between two reported numbers, and in section 3 a shared material. A keyword search can bring the documents up, but it
+cannot surface a link that none of them states.</p>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -814,16 +814,15 @@ the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or cr
 <a href="https://github.com/openai/math" rel="external nofollow noopener" target="_blank">openai/math</a> (Apache‑2.0, commit <code>fd4aeeb</code>). The three
 papers are <i>A counterexample to Kaplansky's quasitrace conjecture and failure of tensor‑product stable
 finiteness</i>, <i>The Kirchberg–Rørdam character criterion</i> and <i>Weak pure infiniteness and
-O‑infinity absorption</i>; the first two carry Lean formalizations in that repository. Section 8, medicine:
-68,201 abstract sections from Cochrane reviews; the two reviews are <i>Oral and intranasal aspirin desensitisation for
-NSAID‑exacerbated respiratory disease</i> (2025) and <i>Nonsteroidal anti‑inflammatory drugs for assisted
-reproductive technology</i> (2019). In both corpora: 10,000 partners judged per anchor, anchors drawn from
-self‑contained opening passages, and each reader one <code>claude -p</code> session (Opus 5.5) given the top
-100 partners in full, the corpus as files, and web search. Quotations are cut verbatim from the passages. The mechanism
-in the medical example is a hypothesis assembled from the two reviews, not a finding either one reports; its component
-steps are published separately, and the combination is what the search surfaced.</p>
+O‑infinity absorption</i>; the first two carry Lean formalizations in that repository. Section 8, medicine: 68,201 abstract sections from Cochrane reviews. The anchor was the main-results section of
+<i>Cranberries for preventing urinary tract infections</i> (2023); 1,000 partners were judged, and the objectives section of
+<i>Probiotics for preventing urinary tract infections in adults and children</i> (2015) ranked second. One
+<code>claude -p</code> call (Opus 5.5) per top-30 pair proposed what the two show together; this proposal was then
+verified against the probiotics review's results. Mathematics: 5,000 partners judged per anchor and one
+<code>claude -p</code> reader given the top 100 partners in full and the corpus as files. Quotations are cut verbatim from
+the passages.</p>
 </article>
-<script src="data.js?v=dd8b9fe3a0"></script>
+<script src="data.js?v=4bb02433bd"></script>
 <script>
 (function () {
 "use strict";
