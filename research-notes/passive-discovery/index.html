@@ -16,12 +16,12 @@
   
   
     
-      From search to discovery | Tony Chen
+      Reading together, without a keyword | Tony Chen
     
   
 </title>
 <meta name="author" content="Haozhe (Tony) Chen ">
-<meta name="description" content="Search finds what you already know to ask for. With a cheap judge we can ask every pair of documents an open question instead, and read only the pairs it picks.">
+<meta name="description" content="Some connections between documents can be searched for; others cannot, because nobody could name the word. A cheap judge asks one open question of a thousand pairs to find them.">
 
   <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792110952">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792112844">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -409,72 +409,102 @@
 .pd .gen { font: 12px/1.5 var(--mono); color: var(--text-2); }
 </style>
 
+<style>
+/* problem figure */
+.pd .prob { position: relative; display: grid; grid-template-columns: 300px 1fr; gap: 90px; align-items: center; height: 430px; }
+@media (max-width: 860px) { .pd .prob { grid-template-columns: 1fr; gap: 16px; height: auto; } .pd .prob svg.wires { display: none; } }
+.pd .prob svg.wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.pd .cands { display: flex; flex-direction: column; gap: 10px; }
+.pd .cand { display: grid; grid-template-columns: 1fr 210px; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--border);
+            border-radius: 12px; padding: 8px 12px; font-size: 13px; line-height: 1.4; transition: all .4s; height: 58px; }
+.pd .cand .t { display: flex; gap: 8px; align-items: center; overflow: hidden; }
+.pd .cand .t span.x { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.pd .cand .ic { width: 20px; height: 20px; border-radius: 6px; color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 750; flex: none; }
+.pd .cand .v { font-size: 12.5px; color: var(--muted); opacity: 0; transition: opacity .4s; }
+.pd .cand.no { opacity: .55; } .pd .cand.no .v { opacity: 1; }
+.pd .cand.yes { border-color: #f0b46a; box-shadow: 0 0 0 3px rgba(224,138,30,.13); } .pd .cand.yes .v { opacity: 1; color: #a35e0b; font-weight: 600; }
+.pd .anc .ac { font-size: 12.5px; }
+.pd .fcap { font-size: 14.5px; margin: 14px 2px 0; height: 46px; }
+/* keyword figure */
+.pd .kwrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0 0 12px; font-size: 14px; }
+.pd .kwrow .pill { background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; font-family: var(--mono); font-size: 12.5px; }
+.pd .kwlegend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 13px; color: var(--text-2); margin: 10px 2px 0; height: 22px; }
+.pd .kwlegend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.pd .fixedcards { height: 300px; overflow: hidden; }
+/* method */
+.pd .qcard { height: 150px; overflow: hidden; }
+.pd .anc .ac .api { display: none; }
+/* idea map */
+.pd .imap svg { width: 100%; height: auto; display: block; background: #fff; border-radius: 12px; border: 1px solid var(--border); }
+.pd .imap .panel { height: 330px; overflow: auto; background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-top: 12px; font-size: 14.5px; }
+.pd .imap .panel .cap { font-size: 16px; font-weight: 640; margin: 0 0 8px; }
+.pd .imap .panel .ac { margin-bottom: 12px; }
+.pd .imap .box { font: 600 13.5px/1.4 var(--sans); color: var(--text); background: #fff; border: 1.5px solid var(--c); border-radius: 12px; padding: 8px 10px; box-sizing: border-box;
+                 height: 100%; display: flex; align-items: center; cursor: pointer; box-shadow: 0 4px 14px rgba(15,23,36,.06); }
+.pd .imap .box.idea { background: var(--theme); color: #fff; border-color: var(--theme); }
+.pd .imap foreignObject { overflow: visible; }
+/* agent story */
+.pd .story { margin: 22px 0 10px; position: relative; }
+.pd .story::before { content: ""; position: absolute; left: 80px; top: 8px; bottom: 8px; width: 2px; background: #f1d3dc; }
+.pd .sitem { display: grid; grid-template-columns: 70px 1fr; gap: 26px; margin-bottom: 18px; position: relative; }
+.pd .sitem .sn { font-size: 12px; color: var(--text-2); text-align: right; padding-top: 3px; line-height: 1.3; white-space: nowrap; }
+.pd .sitem .sb { min-width: 0; }
+.pd .sitem .sb::before { content: ""; position: absolute; left: 75px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 2.5px solid var(--agent); }
+.pd .sitem .st { font-weight: 640; font-size: 15.5px; }
+.pd .sitem .sd { font-size: 14.5px; margin: 2px 0 6px; }
+.pd .sitem .scmd { font: 11.5px/1.6 var(--mono); color: #6e7781; background: #f6f8fa; border-radius: 8px; padding: 5px 9px; display: block; width: fit-content; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pd .sitem .scmd b { color: var(--agent); font-weight: 600; }
+.pd .sitem .ac { margin-top: 10px; max-width: 560px; }
+.pd .sitem.end .sb::before { background: var(--agent); }
+</style>
 <article class="pd" id="pd">
 <div class="meta">Research note · October 2026</div>
-<h1>From search to discovery</h1>
-<p class="dek">Search finds what you already know to ask for. A cheap judge lets us ask every pair of documents an open
-question instead, and read only the pairs it picks.</p>
+<h1>Reading together, without a keyword</h1>
+<p class="dek">Some connections between documents can be searched for. Others can't, because nobody could name the
+word. We try to find those with a cheap judge that asks one open question of a thousand pairs.</p>
 
-<p>Every square below is one action in one person's app log: 2,637 messages, searches, workouts, notes and assistant
-chats over 15 months, one block per month, coloured by app. The person is user 002 of
-<a href="https://wenyaxie023.github.io/DynamicMem/" rel="external nofollow noopener" target="_blank">DynamicMem</a>, a synthetic benchmark persona: a product designer in
-Amsterdam. Hover any square to read it.</p>
+<p>The documents here are one person's app log: 2,637 messages, searches, workouts, notes and assistant chats over 15
+months. The person is user 002 of <a href="https://wenyaxie023.github.io/DynamicMem/" rel="external nofollow noopener" target="_blank">DynamicMem</a>, a synthetic
+benchmark persona: a product designer in Amsterdam.</p>
 
 <h2>
-<span class="num">1</span>Search is active</h2>
-<p>To search, you type what you are looking for. The log answers with exactly that.</p>
+<span class="num">1</span>The problem</h2>
+<p>Take one entry. Most other entries add nothing to it. A few, read together with it, tell you something that neither
+says alone. We want those.</p>
 
-<div class="fig" id="fig-search">
-  <div class="sbar">
-<svg width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="#57606a" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
-    <div class="q">
-<span id="s-typed"></span><span class="caret"></span>
+<div class="fig" id="fig-prob">
+  <div class="prob" id="prob">
+<div class="anc" id="prob-anchor"></div>
+<div class="cands" id="prob-cands"></div>
+<svg class="wires" id="prob-wires"></svg>
 </div>
-</div>
-  <canvas class="field" id="s-canvas"></canvas>
-  <div class="legend2" id="s-legend"></div>
-  <div class="row" id="s-chips"><span class="count" id="s-count"></span></div>
-  <div class="snote" id="s-note"></div>
-  <div class="cards3" id="s-cards"></div>
+  <div class="row"><button class="btn ghost" id="prob-play">↻ Replay</button></div>
 </div>
 
 <h2>
-<span class="num">2</span>How active is a search?</h2>
-<p>The more precisely you ask, the more you already knew. An exact name returns the thing and nothing else. A loose word
-returns a pile you must read. The question we care about here, <i>what about this person would surprise even them</i>,
-has no words to type at all.</p>
+<span class="num">2</span>Some of these you can search for</h2>
+<p>The obvious move is to search with the anchor's own words. That works for part of it: of the 30 partners our method
+ends up ranking highest, 20 contain one of the words. But they sit in a pile of 222 matches, unranked. The other 10
+share no word with the anchor at all, so no search finds them: a record-sorting puzzle, a photo walk to old
+windows, a run in autumn light.</p>
 
-<div class="fig col" id="fig-spec">
-  <div class="spec">
-    <div class="ends">
-<span>you specify everything</span><span>you specify nothing</span>
+<div class="fig" id="fig-kw">
+  <div class="kwrow">Search the log for the anchor's words: <span class="pill" id="kw-words"></span>
 </div>
-    <div class="track" id="sp-track"></div>
-    <div class="bars" style="margin-top:22px">
-      <span>What you knew going in</span><div class="b"><i id="sp-know" style="background:#286ee0"></i></div>
-<span class="v" id="sp-know-v"></span>
-      <span>Room for surprise</span><div class="b"><i id="sp-surp" style="background:#e08a1e"></i></div>
-<span class="v" id="sp-surp-v"></span>
-      <span>Entries you must read</span><div class="b"><i id="sp-read" style="background:#8a63d2"></i></div>
-<span class="v" id="sp-read-v"></span>
-    </div>
-    <div class="snote" id="sp-note"></div>
-  </div>
+  <canvas class="field" id="kw-canvas"></canvas>
+  <div class="kwlegend" id="kw-legend"></div>
+  <div class="row">
+<button class="chip" id="kw-a">1 · keyword matches</button><button class="chip" id="kw-b">2 · the 30 we want</button><button class="chip" id="kw-c">3 · the ones no keyword finds</button>
+</div>
+  <div class="cards3 fixedcards" id="kw-cards"></div>
 </div>
 
 <h2>
-<span class="num">3</span>What if we want more surprise?</h2>
-<p>Surprise lives in connections: two entries, months and apps apart, that mean something together and nothing alone.
-To find them without a keyword you would read pairs. One entry has 2,636 possible partners; the whole log has about
-3.5 million pairs. Nobody reads that.</p>
-<p>But a judge can. The OpenAI Decisions API answers a yes/no
-question about a pair with a probability, for about seven cents per thousand pairs. So we can ask a question too vague
-for any search engine, of every candidate pair, and read only what scores highest.</p>
-
-<h2>
-<span class="num">4</span>Passive discovery</h2>
-<p>Start from one entry. Shape it into a question with a blank for a second entry. Fill the blank with 1,000 random
-entries, let the judge score each pair, and keep the top 30. Nothing in the question names what to find.</p>
+<span class="num">3</span>Our method</h2>
+<p>Cheap judges change what is affordable. The OpenAI Decisions API answers a yes/no question about a pair with a
+probability, at about seven cents per thousand pairs. So instead of naming a keyword, we name what we want and ask it of
+every pair: start from one entry, shape it into a question with a blank, fill the blank with 1,000 random entries, let
+the judge score each pair, and read only the top 30.</p>
 
 <div class="fig" id="fig-pipe">
   <div class="row" style="margin:0 0 12px">
@@ -485,72 +515,52 @@ entries, let the judge score each pair, and keep the top 30. Nothing in the ques
 </div>
 
 <h2>
-<span class="num">5</span>One anchor, followed</h2>
+<span class="num">4</span>One anchor, followed</h2>
 <p>The anchor is an evening chat from 6 November 2024. The person asks an AI assistant to help render imaginary glass:</p>
 <div id="anchor-card" style="margin:18px 0 24px"></div>
-
 <p>This is the exact question the judge answered, once for each of the 1,000 partners (as B1, B2, …, twenty per call):</p>
 <div class="fig col"><pre class="prompt" id="prompt"></pre></div>
 
-<p>The top 30 fall into three groups. Most are more <span class="k-render">rendering glass on screen</span>, which is
-expected. The rest are not: <span class="k-real">looking at real light</span> (a cancelled subscription, photo walks,
-old windows) and <span class="k-tidy">handling glass in a game</span> (a nightly tidying puzzle). Hover any dot; press
-<b>Follow the thread</b> to see how five of them add up.</p>
+<p>The judge scores all 30 edges at the same time, and every edge joins the anchor to one partner. Nothing links the
+partners to each other yet: that is the reader's work. Reading the 30 together, they fall into three groups, each
+group says one thing, and the three things combine into one idea. Click any dot or box to read it.</p>
 
-<div class="fig const" id="fig-const">
-  <svg id="c-svg" viewbox="0 0 1040 430"></svg>
-  <div class="row">
-<button class="btn" id="c-play">Follow the thread</button><button class="btn ghost" id="c-reset">Reset</button>
+<div class="fig imap" id="fig-map">
+  <div class="row" style="margin:0 0 12px">
+<button class="btn" id="m-play">▶ Play</button><div class="steps" id="m-steps"></div>
 </div>
-  <div class="legend" id="c-legend"></div>
-  <div class="detail" id="c-detail"></div>
+  <svg id="m-svg" viewbox="0 0 1200 480"></svg>
+  <div class="panel" id="m-panel"></div>
 </div>
 
 <div class="idea" id="idea-judge" style="--c:#286ee0"></div>
 
 <h2>
-<span class="num">6</span>The same anchor, with grep</h2>
+<span class="num">5</span>The same anchor, with grep</h2>
 <p>For comparison we gave the same anchor and the same instruction to a Claude Opus 5.5 agent with the whole log as
-files and only Read, Grep and Glob. No judge, no packet: it searches. Each step below lights the entries that step
-showed it. Its thinking moves by keywords: <i>ice, frost, winter</i>, then <i>camera, Fujifilm, lens</i>, then
-<i>permafrost</i>.</p>
+files and only Read, Grep and Glob: no judge, no packet. It took 27 tool calls in two and a half minutes. Here is
+what it did, with the routine steps folded and the entries that mattered shown.</p>
 
-<div class="fig" id="fig-agent">
-  <div class="replay">
-    <div>
-<canvas class="field" id="a-canvas"></canvas>
-      <div class="scrub">
-<button class="btn" id="a-play" style="background:var(--agent)">Play</button><input type="range" id="a-scrub" min="0" value="0"><span id="a-pos"></span>
-</div>
-      <div class="row">
-<button class="chip" id="a-packet">Show the judge's top 30</button><span class="count" id="a-count"></span>
-</div>
-    </div>
-    <div class="term" id="a-term"></div>
-  </div>
-</div>
-
-<p>Four of the entries it read carry its idea:</p>
-<div class="cards2" id="a-key"></div>
+<div class="story" id="story"></div>
 
 <div class="idea" id="idea-agent" style="--c:#d6456b"></div>
 
 <div class="vs" id="vs"></div>
 
 <h2>
-<span class="num">7</span>What this shows</h2>
+<span class="num">6</span>What this shows</h2>
 <p>Both routes reached a good idea from the same starting entry, and they are different ideas. The agent searched by
 keyword and found a fact no packet held: the camera is in "winter storage" while the same person keeps
 "photographing" ice in software. It also saw 12 of the judge's 31 entries, the ink-well puzzle and the old window panes
 among them. What its keywords never reached is the entry the judge ranked first: the April evening they cancel the AI
 subscription to see that light "in actual physical space". That entry is what turns the others into a pattern.</p>
-<p>On a log this small, grep is cheap and works well. Passive discovery earns its keep where you cannot name what you
-are looking for, or where the pile is too large to search by hand: it hands a reader 31 entries that already lean
-toward the surprise.</p>
+<p>On a log this small, grep is cheap and works well. The judge earns its keep where you cannot name what you are
+looking for, or where the pile is too large to search by hand: it hands a reader 31 entries that already lean toward
+the answer.</p>
 
 <p class="foot">Data: DynamicMem user 002 (synthetic, MIT). Judge: OpenAI Decisions (gpt-6-luna) through the AI Sandbox,
-1,000 partners per anchor. Thread annotations and the packet idea were written by Claude Opus 5.5 after reading the
-packet and checking the full log; the agent run is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob).</p>
+1,000 partners per anchor. The groups, conclusions and the packet idea were written by Claude Opus 5.5 after reading the
+31 entries; the agent run is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob).</p>
 </article>
 <script src="data.js"></script>
 <script>
@@ -689,58 +699,64 @@ class Field {
 }
 const BASE = () => ({ s: .78, a: .5 });
 
-/* app legend under the first figure */
-(function () { const used = D.apps; $("s-legend").innerHTML = used.map(a => `<span><i style="background:${appColor(a)}"></i>${esc(a)}</span>`).join(""); })();
 
-/* ---------- 1. active search ---------- */
+/* ---------- 1. the problem: one anchor, six candidates ---------- */
 (function () {
-  const f = new Field($("s-canvas")), chips = $("s-chips"), typed = $("s-typed"); let timer = null, auto = true;
-  f.animate(BASE, null, 1);
-  D.searches.forEach((s, k) => { const b = document.createElement("button"); b.className = "chip"; b.textContent = s.q;
-    b.onclick = () => { auto = false; run(k); }; chips.insertBefore(b, $("s-count")); });
-  function run(k) { clearTimeout(timer); [...chips.querySelectorAll(".chip")].forEach((b, j) => b.classList.toggle("on", j === k));
-    const s = D.searches[k], hit = new Set(s.hits); typed.textContent = ""; $("s-note").textContent = ""; $("s-count").innerHTML = "";
-    $("s-cards").classList.add("fade"); f.animate(BASE, null, 250);
-    let n = 0; const type = () => { typed.textContent = s.q.slice(0, ++n); if (n < s.q.length) timer = setTimeout(type, 45); else timer = setTimeout(light, 250); };
-    const light = () => { const open = !s.hits.length;
-      f.animate(i => hit.has(i) ? { s: 1.05, a: 1 } : { s: .55, a: open ? .1 : .13 }, null, 600, i => MONTH[i] * 45);
-      $("s-count").innerHTML = open ? "<b>0</b> matches" : `<b>${s.hits.length.toLocaleString()}</b> of ${N.toLocaleString()} entries`;
-      $("s-note").textContent = s.note;
-      $("s-cards").innerHTML = open ? `<div class="empty">Nothing to show: there is no word to search for.</div>` : s.show.map(i => appCard(i, 260)).join("");
-      $("s-cards").classList.remove("fade");
-      if (auto) timer = setTimeout(() => run((k + 1) % D.searches.length), 5200); };
-    timer = setTimeout(type, 300); }
-  onView($("fig-search"), () => run(0));
+  const A = D.anchor.i, cands = $("prob-cands"), wires = $("prob-wires"), NS = "http://www.w3.org/2000/svg";
+  const WHY = { 1070: "they quit the AI tool to see this light for real", 2539: "the only glass they handle is in a game" };
+  $("prob-anchor").innerHTML = `<div class="rk" style="font-weight:650;color:var(--text);margin-bottom:6px">One entry</div>` + appCard(A, 230);
+  cands.innerHTML = D.problem.map(p => { const e = D.entries[p.i], a = D.apps[e[2]];
+    return `<div class="cand" data-i="${p.i}"><div class="t"><span class="ic" style="background:${appColor(a)}">${ICON[a] || a[0]}</span><span class="x">${esc(e[4])}</span></div>
+      <div class="v">${p.w >= .5 ? "✦ " + esc(WHY[p.i] || "something new together") : "nothing new together"}</div></div>`; }).join("");
+  let timers = [];
+  function lines() { wires.innerHTML = ""; const box = $("prob").getBoundingClientRect(), a = $("prob-anchor").getBoundingClientRect();
+    const x0 = a.right - box.left + 4, y0 = a.top + a.height / 2 - box.top;
+    return [...cands.children].map(el => { const r = el.getBoundingClientRect(), x1 = r.left - box.left - 4, y1 = r.top + r.height / 2 - box.top;
+      const p = document.createElementNS(NS, "path"); p.setAttribute("d", `M${x0},${y0} C${x0 + 50},${y0} ${x1 - 50},${y1} ${x1},${y1}`);
+      p.setAttribute("fill", "none"); p.setAttribute("stroke", "#c3cad3"); p.setAttribute("stroke-width", 1.5); wires.appendChild(p);
+      const len = p.getTotalLength(); p.style.strokeDasharray = len; p.style.strokeDashoffset = len; return p; }); }
+  function play() { timers.forEach(clearTimeout); timers = []; [...cands.children].forEach(el => el.className = "cand"); const ps = lines();
+    [...cands.children].forEach((el, k) => timers.push(setTimeout(() => { const p = ps[k], yes = D.problem[k].w >= .5;
+      p.style.transition = "stroke-dashoffset .6s ease"; p.style.strokeDashoffset = 0;
+      timers.push(setTimeout(() => { el.classList.add(yes ? "yes" : "no"); if (yes) { p.setAttribute("stroke", C.real); p.setAttribute("stroke-width", 2.5); } else p.setAttribute("stroke-opacity", .35); }, 650)); }, 300 + k * 900))); }
+  $("prob-play").onclick = play; addEventListener("resize", () => { timers.forEach(clearTimeout); lines().forEach((p, k) => { p.style.strokeDashoffset = 0;
+    const el = cands.children[k]; if (el.classList.contains("yes")) { p.setAttribute("stroke", C.real); p.setAttribute("stroke-width", 2.5); } else if (el.classList.contains("no")) p.setAttribute("stroke-opacity", .35); }); });
+  onView($("fig-prob"), play);
 })();
 
-/* ---------- 2. spectrum ---------- */
+/* ---------- 2. some edges are searchable ---------- */
 (function () {
-  const tr = $("sp-track"), pos = [6, 36, 66, 94]; const stops = [];
-  D.searches.forEach((s, k) => { const d = document.createElement("div"); d.className = "stop"; d.style.left = pos[k] + "%";
-    d.innerHTML = `<span>${esc(s.q)}</span>`; d.onclick = e => { e.stopPropagation(); set(k); }; tr.appendChild(d); stops.push(d); });
-  tr.onclick = e => { const b = tr.getBoundingClientRect(), p = (e.clientX - b.left) / b.width * 100;
-    let k = 0, bd = 1e9; pos.forEach((q, j) => { if (Math.abs(q - p) < bd) { bd = Math.abs(q - p); k = j; } }); set(k); };
-  function set(k) { const s = D.searches[k], open = !s.hits.length; stops.forEach((d, j) => d.classList.toggle("on", j === k));
-    $("sp-know").style.width = (s.know * 100) + "%"; $("sp-know-v").textContent = ["most of it", "a lot", "some", "almost nothing"][k];
-    $("sp-surp").style.width = ((1 - s.know) * 100) + "%"; $("sp-surp-v").textContent = ["none", "a little", "some", "the most"][k];
-    const read = open ? N : s.hits.length; $("sp-read").style.width = Math.max(1.5, Math.sqrt(read / N) * 100) + "%";
-    $("sp-read-v").textContent = open ? "all " + N.toLocaleString() : read.toLocaleString();
-    $("sp-note").textContent = open ? "With nothing to type, the only way is to read everything, or everything in pairs." : s.note; }
-  set(0); onView($("fig-spec"), () => { let k = 0; const t = setInterval(() => { k++; if (k > 3) return clearInterval(t); set(k); }, 1300); });
+  const f = new Field($("kw-canvas")), A = D.anchor.i, kw = new Set(D.kw.hits), top = new Map(D.top.map(t => [t.i, t]));
+  $("kw-words").textContent = D.kw.words;
+  f.live = true; let mode = 0;
+  f.overlay = (g, now) => { const s = f.cell * 1.7; g.fillStyle = C.ink; g.fillRect(f.x[A] - f.cell * .6, f.y[A] - f.cell * .6, f.cell * 1.2, f.cell * 1.2);
+    g.strokeStyle = C.ink; g.lineWidth = 1.5; g.strokeRect(f.x[A] - s / 2, f.y[A] - s / 2, s, s);
+    if (mode >= 1) top.forEach((t, i) => { if (mode === 2 && t.kw) return; g.strokeStyle = t.kw ? C.theme : C.real; g.lineWidth = 2; const r = f.cell * 1.9;
+      g.strokeRect(f.x[i] - r / 2, f.y[i] - r / 2, r, r); }); };
+  const chips = [$("kw-a"), $("kw-b"), $("kw-c")];
+  const notKw = D.top.filter(t => !t.kw), pick = [2, 23, 11].map(r => D.top[r - 1]);
+  function set(m) { mode = m; chips.forEach((c, j) => c.classList.toggle("on", j === m));
+    f.animate(i => i === A ? { s: 0, a: 0 } : kw.has(i) ? { s: .95, a: m === 2 ? .35 : .95, c: C.theme } : { s: .6, a: .12 }, null, 500);
+    $("kw-legend").innerHTML = m === 0 ? `<span><i style="background:${C.theme}"></i>${kw.size} entries contain an anchor word (${Math.round(kw.size / N * 100)}% of the log)</span><span><i style="background:${C.ink}"></i>the anchor</span>`
+      : m === 1 ? `<span><i style="border:2px solid ${C.theme};background:#fff"></i>${D.top.length - notKw.length} of the 30 are among the matches, unranked</span><span><i style="border:2px solid ${C.real};background:#fff"></i>${notKw.length} are not matched at all</span>`
+      : `<span><i style="border:2px solid ${C.real};background:#fff"></i>${notKw.length} partners share no word with the anchor; three of them below</span>`;
+    $("kw-cards").innerHTML = m === 2 ? pick.map(t => appCard(t.i, 240)).join("") : m === 1 ? D.top.filter(t => t.kw).slice(0, 3).map(t => appCard(t.i, 240)).join("") : D.kw.hits.filter(i => !top.has(i)).filter((_, j) => j % 70 === 3).slice(0, 3).map(i => appCard(i, 240)).join(""); }
+  chips.forEach((c, j) => c.onclick = () => { clearInterval(auto); set(j); });
+  set(0); let auto = null; onView($("fig-kw"), () => { let k = 0; auto = setInterval(() => { k++; if (k > 2) return clearInterval(auto); set(k); }, 3200); });
 })();
 
-/* ---------- 3. passive discovery pipeline ---------- */
+/* ---------- 3. the method ---------- */
 (function () {
   const f = new Field($("p-canvas"), { minH: 300 }), A = D.anchor.i;
   const rank = new Map(D.pool.map((p, k) => [p[0], k])), w = new Map(D.pool.map(p => [p[0], p[1]]));
   const top = new Map(D.top.map(t => [t.i, t]));
   const med = (() => { const v = D.pool.map(p => p[1]).sort((a, b) => a - b); return v[v.length >> 1]; })();
   const phases = [
-    { cap: "Start from one entry", q: () => appCard(A, 260) },
-    { cap: "Shape it into a question with a blank", q: () => `<div class="qq">${esc(D.question).replace("excerpt A", '<span class="slot a">excerpt A</span>').replace("excerpt B1", '<span class="slot b">excerpt B</span>')}</div>` },
-    { cap: "Fill the blank with 1,000 random entries", q: () => `<div class="qq"><span class="slot b">B</span> = each of 1,000 entries drawn at random from the other 2,636: a thousand questions, sent twenty per call.</div>` },
+    { cap: "Start from one entry", q: () => appCard(A, 240) },
+    { cap: "Shape it into a question", q: () => `<div class="qq">${esc(D.question).replace("excerpt A", '<span class="slot a">excerpt A</span>').replace("excerpt B1", '<span class="slot b">excerpt B</span>')}</div>` },
+    { cap: "Fill the blank 1,000 times", q: () => `<div class="qq"><span class="slot b">B</span> = each of 1,000 entries drawn at random from the other 2,636: a thousand questions, sent twenty per call.</div>` },
     { cap: "The judge scores every pair", q: () => `<div class="qq">For each pair the judge returns its probability that the answer is yes. Most pairs score near zero (median ${med.toFixed(2)}); a few stand out. All 1,000 cost $${D.judge_usd.toFixed(2)}.</div>` },
-    { cap: "Keep the top 30, and read only those", q: () => `<div class="qq">30 entries (weights ${D.top[29].w.toFixed(2)}–${D.top[0].w.toFixed(2)}) plus the anchor: a 31-entry reading list. Coloured by what they turned out to be about: <span class="k-render">rendering glass</span>, <span class="k-real">real light</span>, <span class="k-tidy">a tidying game</span>.</div>` },
+    { cap: "Read the top 30", q: () => `<div class="qq">30 entries (weights ${D.top[29].w.toFixed(2)}–${D.top[0].w.toFixed(2)}) plus the anchor: a 31-entry reading list. Coloured by what they turn out to be about: <span class="k-render">rendering glass</span>, <span class="k-real">real light</span>, <span class="k-tidy">a puzzle game</span>.</div>` },
   ];
   const plot = () => ({ l: 54, r: f.W - 18, b: f.H - 34, t: 40 });
   const rpos = i => { const p = plot(), k = rank.get(i); return [p.l + (k / 999) * (p.r - p.l), p.b - w.get(i) * (p.b - p.t)]; };
@@ -749,9 +765,9 @@ const BASE = () => ({ s: .78, a: .5 });
     b.onclick = () => { stop(); go(k); }; $("p-steps").appendChild(b); return b; });
   f.live = true;
   f.overlay = (g, now) => { if (ph < 0) return; const pulse = 1 + .35 * Math.sin(now / 240);
-    if (ph <= 2) { const s = f.cell * 1.6; g.strokeStyle = C.render; g.lineWidth = 2; g.strokeRect(f.x[A] - s * pulse / 2, f.y[A] - s * pulse / 2, s * pulse, s * pulse);
-      g.fillStyle = C.render; g.fillRect(f.x[A] - f.cell * .6, f.y[A] - f.cell * .6, f.cell * 1.2, f.cell * 1.2);
-      g.font = "600 12px Inter, sans-serif"; g.textAlign = "right"; g.fillStyle = C.render; g.fillText("anchor · 6 Nov 2024", f.x[A] - 12, f.y[A] - 10); }
+    if (ph <= 2) { const s = f.cell * 1.6; g.strokeStyle = C.ink; g.lineWidth = 2; g.strokeRect(f.x[A] - s * pulse / 2, f.y[A] - s * pulse / 2, s * pulse, s * pulse);
+      g.fillStyle = C.ink; g.fillRect(f.x[A] - f.cell * .6, f.y[A] - f.cell * .6, f.cell * 1.2, f.cell * 1.2);
+      g.font = "600 12px Inter, sans-serif"; g.textAlign = "right"; g.fillStyle = C.ink; g.fillText("anchor · 6 Nov 2024", f.x[A] - 12, f.y[A] - 10); }
     if (ph >= 3) { const p = plot(); g.font = "11px Inter, sans-serif"; g.fillStyle = "#8c959f"; g.textAlign = "right";
       [0, .5, 1].forEach(v => { const y = p.b - v * (p.b - p.t); g.strokeStyle = "#eef1f4"; g.beginPath(); g.moveTo(p.l, y); g.lineTo(p.r, y); g.stroke(); g.fillText(v.toFixed(1), p.l - 8, y + 4); });
       g.textAlign = "center"; g.fillText("1,000 partners, ranked by the judge’s probability →", (p.l + p.r) / 2, f.H - 10);
@@ -766,11 +782,11 @@ const BASE = () => ({ s: .78, a: .5 });
   function stop() { clearInterval(playing); playing = null; $("p-play").textContent = "▶ Play"; }
   function play() { if (playing) return stop(); go(ph >= 4 ? 0 : ph + 1); $("p-play").textContent = "❚❚ Pause";
     playing = setInterval(() => { if (ph >= 4) return stop(); go(ph + 1); }, 3200); }
-  $("p-play").onclick = play; f.animate(() => ({ s: .7, a: .22 }), null, 1);
-  onView($("fig-pipe"), () => play());
+  $("p-play").onclick = play; f.animate(() => ({ s: .7, a: .22 }), null, 1); go(0);
+  onView($("fig-pipe"), () => { ph = -1; play(); });
 })();
 
-/* ---------- 5. anchor, prompt, constellation ---------- */
+/* ---------- 4. anchor, prompt, and the idea map ---------- */
 (function () {
   const a = D.anchor;
   $("anchor-card").innerHTML = appCard(a.i, 2000);
@@ -785,94 +801,113 @@ const BASE = () => ({ s: .78, a: .5 });
 
 <span class="m">answer</span>   the probability that the answer is yes, for each B`;
 
-  const svg = $("c-svg"), NS = "http://www.w3.org/2000/svg", L = 170, R = 880;
-  const lanes = { render: 92, real: 200, tidy: 300, other: 384 };
-  const X = t => L + (tOf(t) - T0) / (T1 - T0) * (R - L);
+  const svg = $("m-svg"), NS = "http://www.w3.org/2000/svg";
   const mk = (tag, at, parent = svg) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); parent.appendChild(e); return e; };
-  for (let m = 0; m <= 15; m += 3) { const t = Date.UTC(2023, 9 + m, 1), x = L + (t - T0) / (T1 - T0) * (R - L);
-    mk("line", { x1: x, x2: x, y1: 50, y2: 400, stroke: "#eef1f4" });
-    mk("text", { x, y: 422, "text-anchor": "middle", "font-size": 12, fill: "#8c959f" }).textContent = new Date(t).toLocaleDateString("en-GB", { month: "short", year: "numeric", timeZone: "UTC" }); }
-  Object.entries(lanes).forEach(([k, y]) => { mk("rect", { x: L - 10, y: y - 30, width: R - L + 20, height: 60, rx: 14, fill: k === "other" ? "#fafbfc" : C[k], "fill-opacity": k === "other" ? 1 : .05 });
-    mk("text", { x: 14, y: y + 4, "font-size": 13, "font-weight": 620, fill: k === "other" ? "#8c959f" : C[k] }).textContent = D.themes[k]; });
-  const gLinks = mk("g", {}), gNodes = mk("g", {}); const nodes = new Map();
-  const jit = r => ((r * 37) % 7 - 3) * 6.5;
-  const place = (key, t, lane, rad, color, data) => { const x = X(t), y = lanes[lane] + (key === 0 ? 0 : jit(key));
-    const g = mk("g", { style: "cursor:pointer" }, gNodes); const halo = mk("circle", { cx: x, cy: y, r: rad + 6, fill: "none", stroke: color, "stroke-width": 2.5, opacity: 0 }, g);
-    const c = mk("circle", { cx: x, cy: y, r: rad, fill: color, "fill-opacity": lane === "other" ? .5 : .88, stroke: "#fff", "stroke-width": 1.5 }, g);
-    g.addEventListener("mousemove", ev => showTip(ev, data.tip)); g.addEventListener("mouseleave", hideTip); g.addEventListener("click", () => { reset(); detail(key); });
-    nodes.set(key, { x, y, g, c, halo, data, color }); };
-  D.top.forEach(t => place(t.r, t.t, t.theme, 4 + t.w * 13, t.theme === "other" ? C.other : C[t.theme],
-    { tip: `<b>#${t.r}</b> · weight ${t.w.toFixed(2)}<br>` + entryTip(t.i), t }));
-  place(0, a.t, "render", 9, C.ink, { tip: `<b>Anchor</b><br>` + entryTip(a.i), t: { r: 0, i: a.i, w: null } });
-  const at = nodes.get(0); mk("text", { x: at.x, y: at.y - 16, "text-anchor": "middle", "font-size": 12, "font-weight": 650, fill: C.ink }, gNodes).textContent = "anchor";
-  const IX = 968, IY = 246; const idea = mk("g", { opacity: .3 });
-  mk("rect", { x: IX - 58, y: IY - 30, width: 116, height: 60, rx: 14, fill: "#fff", stroke: C.theme, "stroke-width": 2 }, idea);
-  mk("text", { x: IX, y: IY - 4, "text-anchor": "middle", "font-size": 13.5, "font-weight": 650, fill: C.theme }, idea).textContent = "the idea";
-  mk("text", { x: IX, y: IY + 14, "text-anchor": "middle", "font-size": 11.5, fill: "#57606a" }, idea).textContent = "real old glass";
-  $("c-legend").innerHTML = `<span>dot size = the judge's weight</span><span>hover to peek, click to read</span>`;
-  function detail(key, step = null) { const n = nodes.get(key), t = n.data.t;
-    const head = step ? `<div class="cap"><b>${step.n}/${D.thread.length}</b> ${esc(step.cap)}</div>` : "";
-    const rk = key === 0 ? `<div class="rk">the anchor</div>` : `<div class="rk">#${key} of the top 30 · weight ${t.w.toFixed(2)}</div>`;
-    $("c-detail").innerHTML = head + rk + appCard(t.i, 1200, step && step.hl);
-    nodes.forEach((m, k) => m.halo.setAttribute("opacity", k === key ? 1 : 0)); }
-  let timers = [];
-  function reset() { timers.forEach(clearTimeout); timers = []; gLinks.innerHTML = ""; idea.setAttribute("opacity", .3);
-    nodes.forEach(m => { m.halo.setAttribute("opacity", 0); m.g.setAttribute("opacity", 1); });
-    $("c-detail").innerHTML = `<div class="hint">Press <b>Follow the thread</b>, or click any dot to read the entry.</div>`; }
-  function draw(d, color, width, dur, delay = 0) { const path = mk("path", { d, fill: "none", stroke: color, "stroke-width": width, "stroke-linecap": "round", opacity: .8 }, gLinks);
-    const len = path.getTotalLength(); path.style.strokeDasharray = len; path.style.strokeDashoffset = len; path.getBoundingClientRect();
-    path.style.transition = `stroke-dashoffset ${dur}ms ease ${delay}ms`; path.style.strokeDashoffset = 0; }
-  function follow() { reset(); const th = D.thread; nodes.forEach((m, k) => m.g.setAttribute("opacity", th.some(s => s.r === k) ? 1 : .25));
-    th.forEach((s, j) => timers.push(setTimeout(() => { const n = nodes.get(s.r);
-      if (j > 0) { const p = nodes.get(th[j - 1].r), mx = (p.x + n.x) / 2, my = Math.min(p.y, n.y) - 46; draw(`M${p.x},${p.y} Q${mx},${my} ${n.x},${n.y}`, "#57606a", 2, 800); }
-      detail(s.r, { n: j + 1, cap: s.cap, hl: s.hl }); }, j * 4200)));
-    timers.push(setTimeout(() => { th.forEach((s, j) => { const n = nodes.get(s.r);
-        draw(`M${n.x},${n.y} C${(n.x + IX) / 2},${n.y} ${(n.x + IX) / 2},${IY} ${IX - 58},${IY}`, n.color === C.ink ? C.render : n.color, 1.8, 900, j * 120); });
-      idea.style.transition = "opacity .8s"; idea.setAttribute("opacity", 1);
-      $("c-detail").innerHTML = `<div class="cap">${esc(D.proposal.title)}</div><p class="why">${esc(D.proposal.why)}</p>`; }, th.length * 4200));
-  }
-  $("c-play").onclick = follow; $("c-reset").onclick = reset; reset(); onView($("fig-const"), follow);
+  const AX = 50, AY = 240;
+  const G = { render: { x: 300, y: 112, r: 88 }, real: { x: 300, y: 300, r: 74 }, tidy: { x: 300, y: 425, r: 42 }, other: { x: 150, y: 430, r: 26 } };
+  const byRank = new Map(D.top.map(t => [t.r, t]));
+  // positions: phase 0 fan, phase >=1 packed in the group circle
+  const fan = new Map(), packed = new Map();
+  D.top.forEach((t, k) => { const th = (-62 + 124 * k / 29) * Math.PI / 180; fan.set(t.r, [AX + 300 * Math.cos(th) * .95, AY + 225 * Math.sin(th)]); });
+  Object.keys(G).forEach(g => { const mem = D.top.filter(t => t.theme === g), c = G[g];
+    mem.forEach((t, k) => { const rr = Math.sqrt((k + .5) / mem.length) * (c.r - 12), an = k * 2.39996; packed.set(t.r, [c.x + rr * Math.cos(an), c.y + rr * Math.sin(an)]); }); });
+  const gEdges = mk("g", {}), gCirc = mk("g", {}), gFlow = mk("g", {}), gNodes = mk("g", {}), gBoxes = mk("g", {});
+  // group circles + labels
+  const circ = {}; Object.entries(G).forEach(([g, c]) => { const col = g === "other" ? C.other : C[g];
+    circ[g] = mk("circle", { cx: c.x, cy: c.y, r: c.r, fill: col, "fill-opacity": .07, stroke: col, "stroke-opacity": .5, "stroke-width": 1.5, opacity: 0 }, gCirc); });
+  const otherLab = mk("text", { x: G.other.x, y: G.other.y + G.other.r + 16, "text-anchor": "middle", "font-size": 12, fill: "#8c959f", opacity: 0 }, gCirc); otherLab.textContent = "not used";
+  // edges + nodes
+  const nodes = new Map();
+  D.top.forEach(t => { const col = t.theme === "other" ? C.other : C[t.theme];
+    const e = mk("line", { x1: AX, y1: AY, stroke: "#9aa4b1", "stroke-width": .8 + t.w * 4, "stroke-opacity": .2 + t.w * .55 }, gEdges);
+    const c = mk("circle", { r: 4 + t.w * 9, fill: col, stroke: "#fff", "stroke-width": 1.5, style: "cursor:pointer" }, gNodes);
+    c.addEventListener("mousemove", ev => showTip(ev, `<b>#${t.r}</b> · weight ${t.w.toFixed(2)}<br>` + entryTip(t.i))); c.addEventListener("mouseleave", hideTip);
+    c.addEventListener("click", () => { stop(); panelCard(t.r); });
+    nodes.set(t.r, { e, c, p: fan.get(t.r).slice(), t }); });
+  const an = mk("circle", { cx: AX, cy: AY, r: 11, fill: C.ink, style: "cursor:pointer" }, gNodes); an.addEventListener("click", () => { stop(); panelCard(0); });
+  mk("text", { x: AX, y: AY - 20, "text-anchor": "middle", "font-size": 13, "font-weight": 650, fill: C.ink }, gNodes).textContent = "anchor";
+  function place() { nodes.forEach(n => { n.c.setAttribute("cx", n.p[0]); n.c.setAttribute("cy", n.p[1]); n.e.setAttribute("x2", n.p[0]); n.e.setAttribute("y2", n.p[1]); }); }
+  place();
+  // boxes (foreignObject) and flows
+  const box = (x, y, w, h, html, col, cls, onclick) => { const fo = mk("foreignObject", { x, y, width: w, height: h, opacity: 0 }, gBoxes);
+    fo.innerHTML = `<div xmlns="http://www.w3.org/1999/xhtml" class="box ${cls || ""}" style="--c:${col}">${html}</div>`; fo.firstChild.onclick = onclick; return fo; };
+  const flow = (x1, y1, x2, y2, col) => { const p = mk("path", { d: `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}`, fill: "none", stroke: col, "stroke-width": 2.2, "stroke-opacity": .75 }, gFlow);
+    const len = p.getTotalLength(); p.style.strokeDasharray = len; p.style.strokeDashoffset = len; return p; };
+  const BX = 420, BW = 205, BH = 64, M1 = { x: 668, y: 160, w: 175, h: 96 }, M2 = { x: 875, y: 250, w: 150, h: 80 }, ID = { x: 1048, y: 245, w: 142, h: 90 };
+  const gBox = {}, gFlowIn = {}, gFlowOut = {};
+  D.groups.forEach((gr, k) => { const c = G[gr.k]; gBox[gr.k] = box(BX, c.y - BH / 2, BW, BH, esc(gr.c), C[gr.k], "", () => { stop(); panelGroup(k); });
+    gFlowIn[gr.k] = flow(c.x + c.r, c.y, BX, c.y, C[gr.k]); });
+  const m1 = box(M1.x, M1.y, M1.w, M1.h, esc(D.merges[0].c), C.ink, "", () => { stop(); panelMerge(0); });
+  const m2 = box(M2.x, M2.y, M2.w, M2.h, esc(D.merges[1].c), C.ink, "", () => { stop(); panelMerge(1); });
+  const idb = box(ID.x, ID.y, ID.w, ID.h, esc(D.proposal.title), C.theme, "idea", () => { stop(); panelIdea(); });
+  const f1 = [flow(BX + BW, G.render.y, M1.x, M1.y + 30, C.render), flow(BX + BW, G.real.y, M1.x, M1.y + 66, C.real)];
+  const f2 = [flow(M1.x + M1.w, M1.y + 48, M2.x, M2.y + 28, C.ink), flow(BX + BW, G.tidy.y, M2.x, M2.y + 56, C.tidy)];
+  const f3 = [flow(M2.x + M2.w, M2.y + 40, ID.x, ID.y + 40, C.theme)];
+  // panel content
+  const P = $("m-panel");
+  function panelCard(r) { const t = r === 0 ? { i: a.i } : byRank.get(r);
+    const g = D.groups.find(gr => gr.key.some(([kr]) => kr === r)), hl = g ? g.key.find(([kr]) => kr === r)[1] : null;
+    P.innerHTML = `<div class="rk">${r === 0 ? "the anchor" : `#${r} of the top 30 · weight ${t.w.toFixed(2)}`}</div>` + appCard(t.i, 1400, hl); }
+  function panelGroup(k) { const gr = D.groups[k];
+    P.innerHTML = `<div class="cap" style="color:${C[gr.k]}">${esc(gr.c)}</div>` + gr.key.map(([r, hl]) => appCard(r === 0 ? a.i : byRank.get(r).i, 700, hl)).join(""); }
+  function panelMerge(k) { const m = D.merges[k];
+    P.innerHTML = `<div class="cap">${esc(m.c)}</div><p>Combines: ${m.from.map(x => x === "m0" ? "“" + esc(D.merges[0].c) + "”" : "“" + esc(D.groups.find(g => g.k === x).c) + "”").join(" + ")}.</p>`; }
+  function panelIdea() { P.innerHTML = `<div class="cap" style="color:${C.theme}">${esc(D.proposal.title)}</div><p>${esc(D.proposal.what)}</p><p>${esc(D.proposal.why)}</p>`; }
+  // phases
+  const phases = [
+    { cap: "Score every edge at once", txt: "The judge scores the anchor against each of the 1,000 partners in parallel; these are the 30 strongest edges. Line width is the judge's probability." },
+    { cap: "Read: the partners fall into groups", txt: "Reading the 30 together, they sort themselves into three groups; four entries don't bear on the anchor." },
+    { cap: "Each group says one thing", txt: "Each group adds up to one plain statement about the person." },
+    { cap: "Combine into the idea", txt: "The statements combine, left to right, into a single conclusion and the gift idea." },
+  ];
+  let ph = -1, playing = null, anim = null;
+  const chips = phases.map((p, k) => { const b = document.createElement("button"); b.className = "chip step"; b.innerHTML = `<b>${k + 1}</b> ${esc(p.cap)}`;
+    b.onclick = () => { stop(); go(k); }; $("m-steps").appendChild(b); return b; });
+  function moveTo(target, dur = 900) { cancelAnimationFrame(anim); const from = new Map([...nodes].map(([r, n]) => [r, n.p.slice()])), t0 = performance.now();
+    const step = () => { const k = Math.min(1, (performance.now() - t0) / dur), e = ease(k);
+      nodes.forEach((n, r) => { const f0 = from.get(r), to = target.get(r); n.p[0] = f0[0] + (to[0] - f0[0]) * e; n.p[1] = f0[1] + (to[1] - f0[1]) * e; });
+      place(); if (k < 1) anim = requestAnimationFrame(step); }; anim = requestAnimationFrame(step); }
+  const show = (el, on, d = 0) => { el.style.transition = `opacity .6s ease ${d}ms`; el.setAttribute("opacity", on ? 1 : 0); };
+  const draw = (p, on, d = 0) => { p.style.transition = on ? `stroke-dashoffset .8s ease ${d}ms` : "none"; p.style.strokeDashoffset = on ? 0 : p.getTotalLength(); };
+  function go(k) { ph = k; chips.forEach((b, j) => { b.classList.toggle("on", j === k); b.classList.toggle("done", j < k); });
+    P.innerHTML = `<div class="cap">${esc(phases[k].cap)}</div><p>${esc(phases[k].txt)}</p><p class="rk">Click a dot to read the entry, or a box to see the entries behind it.</p>`;
+    moveTo(k === 0 ? fan : packed);
+    nodes.forEach(n => { n.e.setAttribute("stroke-opacity", k === 0 ? .2 + n.t.w * .55 : .08); n.c.setAttribute("opacity", k >= 1 && n.t.theme === "other" ? .45 : 1); });
+    Object.entries(circ).forEach(([g, c]) => show(c, k >= 1)); show(otherLab, k >= 1);
+    D.groups.forEach((gr, j) => { show(gBox[gr.k], k >= 2, k === 2 ? j * 250 : 0); draw(gFlowIn[gr.k], k >= 2, j * 250); });
+    f1.forEach((p, j) => draw(p, k >= 3, j * 150)); show(m1, k >= 3, 300);
+    f2.forEach((p, j) => draw(p, k >= 3, 900 + j * 150)); show(m2, k >= 3, 1200);
+    f3.forEach(p => draw(p, k >= 3, 1800)); show(idb, k >= 3, 2100);
+    if (k === 3) setTimeout(() => { if (ph === 3 && !P.dataset.user) panelIdea(); }, 2600); }
+  function stop() { clearInterval(playing); playing = null; $("m-play").textContent = "▶ Play"; }
+  function play() { if (playing) return stop(); go(ph >= 3 ? 0 : ph + 1); $("m-play").textContent = "❚❚ Pause";
+    playing = setInterval(() => { if (ph >= 3) return stop(); go(ph + 1); }, 4200); }
+  $("m-play").onclick = play; go(0); onView($("fig-map"), () => { ph = -1; play(); });
   const p = D.proposal;
   $("idea-judge").innerHTML = `<div class="lab">The idea from the judge’s 31 entries</div><h3>${esc(p.title)}</h3><p>${esc(p.what)}</p><p>${esc(p.why)}</p>` +
-    `<p class="by">Written by Claude Opus 5.5 after reading the packet; the full log was used only to check that they own no such glass.</p>`;
+    `<p class="by">Groups, conclusions and idea written by Claude Opus 5.5 after reading the 31 entries; the full log was used only to check that they own no such glass.</p>`;
 })();
 
-/* ---------- 6. the grep agent ---------- */
+/* ---------- 5. the grep agent, step by step ---------- */
 (function () {
-  const A = D.agent, steps = A.steps, f = new Field($("a-canvas"), { cols: 6, gap: 7, pad: 10 });
-  const topSet = new Set(D.top.map(t => t.i).concat([D.anchor.i])), cited = new Set(A.evidence); let k = 0, showPacket = false, playing = null;
-  const term = $("a-term");
-  term.innerHTML = steps.map((s, j) => (s.note ? `<div class="note">${esc(cut(s.note, 150))}</div>` : "") +
-    `<div class="st" data-k="${j + 1}"><span class="n">${String(j + 1).padStart(2, "0")}</span>${esc(s.d)}${s.h.length ? ` <span class="h">${s.h.length}</span>` : ""}</div>`).join("");
-  term.querySelectorAll(".st").forEach(el => el.onclick = () => { stop(); set(+el.dataset.k); });
-  const sc = $("a-scrub"); sc.max = steps.length; sc.oninput = () => { stop(); set(+sc.value); };
-  f.overlay = g => { const ring = (i, c, r) => { g.strokeStyle = c; g.lineWidth = 1.6; const s = f.cell * r; g.strokeRect(f.x[i] - s / 2, f.y[i] - s / 2, s, s); };
-    if (showPacket) topSet.forEach(i => ring(i, C.theme, 2.1));
-    if (k === steps.length) cited.forEach(i => ring(i, C.ink, 2.6)); };
-  function set(n) { k = n; sc.value = n; const seen = new Set(), now = new Set(n ? steps[n - 1].h : []);
-    for (let j = 0; j < n; j++) steps[j].h.forEach(i => seen.add(i));
-    f.animate(i => now.has(i) ? { s: 1.1, a: 1, c: C.agent } : seen.has(i) ? { s: .8, a: .5, c: C.agent } : { s: .6, a: .14 }, null, 380);
-    term.querySelectorAll(".st").forEach(el => { const j = +el.dataset.k; el.classList.toggle("now", j === n); el.classList.toggle("done", j < n); });
-    const cur = term.querySelector(".st.now"); if (cur) term.scrollTop = cur.offsetTop - term.clientHeight / 2;
-    const both = [...seen].filter(i => topSet.has(i)).length;
-    $("a-pos").textContent = `step ${n} of ${steps.length}`;
-    $("a-count").innerHTML = `read <b>${seen.size.toLocaleString()}</b> entries · <b>${both}</b> of the judge’s 31` + (n === steps.length ? " · outlined: entries it cited" : ""); }
-  function stop() { clearInterval(playing); playing = null; $("a-play").textContent = "▶ Play"; }
-  $("a-play").onclick = () => { if (playing) return stop(); if (k >= steps.length) set(0); $("a-play").textContent = "❚❚ Pause";
-    playing = setInterval(() => { if (k >= steps.length) return stop(); set(k + 1); }, 1000); };
-  $("a-packet").onclick = () => { showPacket = !showPacket; $("a-packet").classList.toggle("on", showPacket); f.draw(); };
-  set(0); onView($("fig-agent"), () => $("a-play").click());
-  $("a-key").innerHTML = A.key.map((i, j) => appCard(i, 320, A.quotes[j])).join("");
+  const A = D.agent;
+  const short = c => c.replace(/\^\\\[log_\S*/g, "(entry headers)").replace(/\^request: \.\{0,\d+\}/g, "(requests)").replace(/\.\{0,\d+\}/g, "").replace(/toolu_\w+\.txt/g, "(its saved search output)")
+    .replace(/^(grep|read)\s+/, (m, v) => `<b>${v}</b> `);
+  $("story").innerHTML = D.story.map(st => { const n = st.s.length;
+    const lab = !n ? "start" : n === 1 ? `step ${st.s[0]}` : `steps ${st.s[0]}–${st.s[n - 1]}`;
+    const cmds = st.cmd.length ? `<div class="scmd">${st.cmd.slice(0, 2).map(c => short(esc(cut(c.replace(/\s+/g, " "), 64)))).join("  ·  ")}${st.cmd.length > 2 ? `  ·  +${st.cmd.length - 2} more` : ""}${st.n ? `  →  ${st.n} entries shown` : ""}</div>` : "";
+    return `<div class="sitem"><div class="sn">${lab}</div><div class="sb"><div class="st">${esc(st.t)}</div><div class="sd">${esc(st.d)}</div>${cmds}${st.cards.map(([i, hl]) => appCard(i, 360, hl)).join("")}</div></div>`; }).join("") +
+    `<div class="sitem end"><div class="sn">answer</div><div class="sb"><div class="st">Writes its idea</div><div class="sd">The camera is shelved for the light, while the same person keeps “photographing” ice in software every week.</div></div></div>`;
   const p = A.proposal;
   $("idea-agent").innerHTML = `<div class="lab">The idea from the grep agent</div><h3>${esc(p.title)}</h3><p>${esc(p.what)}</p><p>${esc(p.why)}</p>` +
-    `<p class="by">Written by the Claude Opus 5.5 agent itself, after ${steps.length} tool calls.</p>`;
-  const touched = new Set(); steps.forEach(s => s.h.forEach(i => touched.add(i)));
-  $("vs").innerHTML = `<div class="card"><h4 class="k-judge">Passive: the judge picks, you read</h4>
+    `<p class="by">Written by the Claude Opus 5.5 agent itself, after ${A.steps.length} tool calls.</p>`;
+  const touched = new Set(); A.steps.forEach(s => s.h.forEach(i => touched.add(i)));
+  $("vs").innerHTML = `<div class="card"><h4 class="k-judge">The judge picks, a reader reads</h4>
     <div class="nums"><div><b>1,000</b>pairs judged</div><div><b>$${D.judge_usd.toFixed(2)}</b>judge cost</div><div><b>31</b>entries read</div></div>
     Ranked first an entry the agent’s keywords never reached: they cancel the AI subscription to see that light in physical space.</div>
-    <div class="card"><h4 class="k-agent">Active: the agent searches</h4>
-    <div class="nums"><div><b>${steps.length}</b>tool calls</div><div><b>${A.secs}s</b>wall time</div><div><b>$${A.usd.toFixed(2)}</b>model cost</div></div>
-    Read ${touched.size.toLocaleString()} entries by keyword and found the boxed camera, a fact the packet did not hold.</div>`;
+    <div class="card"><h4 class="k-agent">The agent searches</h4>
+    <div class="nums"><div><b>${A.steps.length}</b>tool calls</div><div><b>${A.secs}s</b>wall time</div><div><b>$${A.usd.toFixed(2)}</b>model cost</div></div>
+    Saw ${touched.size.toLocaleString()} entries by keyword and found the boxed camera, a fact the packet did not hold.</div>`;
 })();
 })();
 
