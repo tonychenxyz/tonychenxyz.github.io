@@ -42,6 +42,11 @@ sitemap: false
 .tg .ans.miss .t { color:var(--text-2); }
 .tg .caught { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center; font-size:12.5px; color:var(--text-2); border-top:1px solid #e8eaed; padding-top:10px; }
 .tg .caught .m { font-size:12.5px; }
+.tg .idea { font-size:14.5px; margin:0 0 6px; padding:8px 12px; background:#fff; border-radius:8px; }
+.tg .idea b { font-weight:650; }
+.tg .sig { display:block; margin-top:4px; font-style:italic; color:var(--text); }
+.tg .fx { color:#9a6700; font-weight:700; margin-left:-4px; }
+.tg .fixnote { font-size:12.5px; color:var(--text-2); margin-top:6px; }
 .tg .recall { font-size:12.5px; color:#9a6700; margin-top:6px; }
 .tg h2.plain { margin:56px 0 12px; }
 .tg .probs { padding-left:22px; margin:0 0 8px; } .tg .probs li { margin:0 0 12px; padding-left:4px; }
@@ -51,30 +56,27 @@ sitemap: false
 .tg .fsub { font-size:13.5px; color:var(--text-2); margin:0 0 16px; }
 .tg .lane { display:block; font-size:12px; font-weight:650; letter-spacing:.05em; text-transform:uppercase; color:var(--text); margin:0 0 10px; }
 .tg .lane span { font-weight:500; letter-spacing:0; text-transform:none; color:var(--muted); margin-left:6px; font-size:12.5px; }
-.tg .tgrid { display:grid; grid-template-columns:1fr 230px; gap:22px; }
-.tg .steps { list-style:none; margin:0; padding:0 0 0 22px; position:relative; }
-.tg .steps::before { content:''; position:absolute; left:6px; top:8px; bottom:14px; width:2px; background:#d8dde3; }
-.tg .st { position:relative; padding:0 0 14px; font-size:14.5px; line-height:1.5; }
-.tg .st::before { content:''; position:absolute; left:-22px; top:5px; width:10px; height:10px; border-radius:50%; background:var(--text); box-shadow:0 0 0 3px #fff; }
-.tg .st .when { display:block; font-size:12px; color:var(--muted); font-weight:600; }
-.tg .st .tag { display:inline-block; margin-left:8px; font-size:11.5px; color:var(--text-2); border:1px solid #d8dde3; border-radius:999px; padding:0 8px; white-space:nowrap; }
-.tg .st.root::before, .tg .st.hidden::before { background:#fff; border:2px dashed var(--muted); }
-.tg .st.root .what, .tg .st.hidden .what { color:var(--text-2); }
-.tg .st.final::before { width:14px; height:14px; left:-24px; top:3px; }
-.tg .st.final .what { font-weight:620; }
-.tg .st.outcome { padding-bottom:0; }
-.tg .st.outcome::before { content:'?'; width:16px; height:16px; left:-25px; top:2px; background:#fff; border:2px solid var(--text); color:var(--text);
-  font-size:11px; font-weight:700; line-height:12px; text-align:center; }
-.tg .under { background:#eef4fd; border-radius:12px; padding:14px 14px 12px; position:relative; }
-.tg .under::before { content:'←'; position:absolute; left:-17px; top:50%; margin-top:-12px; width:24px; height:24px; border-radius:50%;
-  background:#fff; border:1.5px solid #b9d0f3; color:var(--theme); font-size:13px; line-height:20px; text-align:center; }
-.tg .under .lane { color:#1f4fa3; }
-.tg .under .lane span { display:block; margin:2px 0 0; }
-.tg .under ul { list-style:none; padding:0; margin:0 0 12px; }
-.tg .under li { font-size:13.5px; line-height:1.5; color:#1f3a66; background:#fff; border-radius:8px; padding:7px 10px; margin:0 0 7px; }
-.tg .probe { font-size:13.5px; line-height:1.5; border-top:1px solid #d3e2f8; padding-top:10px; font-style:italic; color:#1f3a66; }
-.tg .probe .lane { font-style:normal; margin-bottom:4px; }
-.tg .pnote { display:block; font-style:normal; font-size:12.5px; color:var(--text-2); margin-top:6px; }
+.tg .lt { position:relative; }
+.tg .lt > *:not(svg) { position:relative; z-index:1; }
+.tg svg.wires { position:absolute; inset:0; width:100%; height:100%; z-index:0; overflow:visible; }
+.tg svg.wires .base { fill:none; stroke:#8db5ef; stroke-width:1.2; opacity:.55; }
+.tg svg.wires .flow { fill:none; stroke:var(--theme); stroke-width:1.6; stroke-dasharray:2 14; stroke-linecap:round; animation:tgflow 1.8s linear infinite; opacity:.8; }
+.tg svg.wires .probe-line { fill:none; stroke:var(--theme); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+@keyframes tgflow { to { stroke-dashoffset:-16; } }
+@media (prefers-reduced-motion:reduce) { .tg svg.wires .flow { animation:none; } }
+.tg .lt .lab { font-size:12px; letter-spacing:.04em; color:var(--muted); }
+.tg .chains { display:flex; flex-direction:column; gap:16px; margin:8px 0 96px; }
+.tg .chain { position:relative; display:flex; justify-content:space-between; align-items:center; height:20px; }
+.tg .chain::before { content:''; position:absolute; right:8px; top:50%; height:2px; margin-top:-1px; background:#e1e5ea; left:var(--l, 0); }
+.tg .chain i { position:relative; width:8px; height:8px; border-radius:50%; background:var(--text); box-shadow:0 0 0 3px #fff; }
+.tg .chain i.p { width:14px; height:14px; }
+.tg .chain .q { position:relative; width:18px; height:18px; border-radius:50%; background:#fff; border:2px solid var(--muted); color:var(--muted); font-size:10.5px; font-weight:700; line-height:14px; text-align:center; }
+.tg .node { display:flex; flex-direction:column; align-items:center; gap:8px; margin:0 0 56px; }
+.tg .orb { width:64px; height:64px; border-radius:50%; background:radial-gradient(circle at 35% 35%, #9cc2f5, var(--theme) 70%);
+  box-shadow:0 0 0 8px #eef4fd, 0 0 0 16px #f6f9fe; }
+.tg .node .lab { color:#1f4fa3; font-weight:600; }
+.tg .qnode { display:flex; flex-direction:column; align-items:center; gap:6px; }
+.tg .qdot { width:30px; height:30px; border-radius:50%; background:#fff; border:2px solid var(--theme); color:var(--theme); font-size:13px; font-weight:700; line-height:26px; text-align:center; }
 .tg .ask .host { font-size:15px; font-style:italic; color:var(--text-2); margin:0 0 12px; }
 .tg .ask .host .who, .tg .ask .answer .who { font-style:normal; }
 .tg .answer { font-size:16px; line-height:1.85; margin:0 0 14px; }
@@ -89,7 +91,7 @@ sitemap: false
 @media (max-width:600px) {
   .tg { padding-top:44px; } .tg h1 { font-size:32px; } .tg .dek { font-size:17.5px; }
   .tg .card { padding:16px 16px 12px; }
-  .tg .tgrid { grid-template-columns:1fr; } .tg .under::before { display:none; } .tg .fig { padding:16px; }
+  .tg .fig { padding:16px; } .tg .chains { margin-bottom:80px; }
   .tg .ans { grid-template-columns:16px 1fr; } .tg .ans .t { grid-column:2; }
 }
 </style>
@@ -105,25 +107,25 @@ sitemap: false
   <p>One alternative is to check the steps: test whether a model makes the same decisions an expert made along the way. This has four problems.</p>
   <ol class="probs">
     <li><b>Each decision is hard to set up.</b> You have to decide what information the person had and what their options were. That choice controls how hard the test is. For example, in 2021 Zhuang Liu decided to test whether ConvNets had really fallen behind vision transformers, or whether the gap came from small design details. If you tell a model about those design details, the answer is easy. If you don’t, the model has to guess what Zhuang knew.</li>
-    <li><b>Decisions happen over many steps.</b> People act, see what happens, and act again. Many small early steps set up the final decision, which may be obvious by the time it comes. People take steps in different orders, and at most points there are several reasonable next steps, so there is no single right answer. Many decisions also depend on things that happened long ago or were never recorded. This makes a realistic test environment very hard to build. The figure below shows an example.</li>
+    <li><b>Decisions happen over many steps.</b> People act, see what happens, and act again. Many small early steps set up the final decision, which may be obvious by the time it comes. People take steps in different orders, and at most points there are several reasonable next steps, so there is no single right answer. Many decisions also depend on things that happened long ago or were never recorded. This makes a realistic test environment very hard to build.</li>
     <li><b>Important decisions are rare.</b> Most of what people do day to day is routine.</li>
     <li><b>People don’t like being recorded.</b> But many are happy to talk about their work, for example on podcasts.</li>
   </ol>
-  
-  <figure class="fig trail">
-    <div class="ftitle">How Karthik Narasimhan decided to build τ-bench</div>
-    <div class="fsub">Based on what he said on The Delta Podcast.</div>
-    <div class="tgrid">
-      <div><div class="lane">Decisions <span>what you could record</span></div><ol class="steps"><li class="st root"><span class="when">Years earlier</span><span class="what">Works on AI agents when few people cared: “like 30 people attending your talk”</span><span class="tag">not recorded</span></li><li class="st step"><span class="when">Joins Sierra</span><span class="what">Wants to shape “how these agents actually get deployed in the real world”</span></li><li class="st other"><span class="when">First week</span><span class="what">Brett: “Hey guys, we need to get evals right”</span><span class="tag">another person’s decision</span></li><li class="st many"><span class="when">Next few months</span><span class="what">“We built a few things internally”</span><span class="tag">many small steps</span></li><li class="st hidden"><span class="when">Coffee chat</span><span class="what">Agrees with the interns that the evals could be “not necessarily just an internal thing”</span><span class="tag">not recorded</span></li><li class="st final"><span class="when">Then</span><span class="what">Releases τ-bench: “it felt like the right thing to do”</span><span class="tag">obvious at this point</span></li><li class="st outcome"><span class="when">Result</span><span class="what">Was it the right call?</span><span class="tag">unknown for years</span></li></ol></div>
-      <div class="under"><div class="lane">Understanding <span>what shaped the decisions</span></div><ul><li>“You don&#x27;t want research to just stop at publishing a paper”</li><li>Reading agent conversations is not enough: “you just want something more”</li><li>Current benchmarks are “a pretty low ceiling for these models”</li></ul>
-        <div class="probe"><span class="lane">You can ask about it directly</span>“Why did you see Tau Bench as a worthwhile evaluation framework to create for agents?”
-          <span class="pnote">We asked 13 models this question. None said that τ-bench came from lessons learned testing Sierra’s own agents.</span></div>
-      </div>
-    </div>
-  </figure>
 
   <h2 class="plain">Test understanding instead</h2>
   <p>Behind all of these decisions is the person’s understanding of the world: what is true, what matters, and what is hard. This understanding drives the important decisions, and it is often what separates experts with good taste from others. Unlike decisions, understanding can be tested directly, with clear standalone questions that need no environment.</p>
+  
+  <figure class="fig latent">
+    <div class="ftitle">One understanding, many decisions</div>
+    <div class="fsub">Every step of every long decision draws on the same understanding of the world. One question can test it directly.</div>
+    <div class="lt">
+      <svg class="wires" aria-hidden="true"></svg>
+      <div class="lab">decisions</div>
+      <div class="chains"><div class="chain" style="padding-left:0%;--l:0%"><i></i><i></i><i></i><i></i><i class="p"></i><i></i><i></i><i></i><i></i><i class="p"></i><i></i><b class="q">?</b></div><div class="chain" style="padding-left:12%;--l:12%"><i></i><i></i><i class="p"></i><i></i><i></i><i></i><i></i><i class="p"></i><i></i><b class="q">?</b></div><div class="chain" style="padding-left:4%;--l:4%"><i></i><i></i><i></i><i></i><i class="p"></i><i></i><i></i><i></i><i class="p"></i><i></i><b class="q">?</b></div><div class="chain" style="padding-left:20%;--l:20%"><i></i><i></i><i class="p"></i><i></i><i></i><i></i><i class="p"></i><b class="q">?</b></div></div>
+      <div class="node"><span class="orb"></span><span class="lab">understanding of the world</span></div>
+      <div class="qnode"><span class="qdot">Q</span><span class="lab">one question</span></div>
+    </div>
+  </figure>
   <p>This is also how people explain their decisions. When you ask someone what to do, they often start by describing how the world works.</p>
   
   <figure class="fig ask">
@@ -134,113 +136,144 @@ sitemap: false
     <div class="ratio"><span class="rw" style="width:81%"></span><span class="rd" style="width:19%"></span></div>
     <div class="legend"><span><i class="sw w"></i>How the world works · 81%</span><span><i class="sw d"></i>What to do · 19%</span></div>
   </figure>
-  <p>So we tested this. From one podcast interview each with Karthik Narasimhan, Zhuang Liu and Ilya Sutskever, we wrote standalone questions about how they see their field, and listed the ideas in their actual answers. We had 13 models answer each question as the guest. A judge model checked which of the guest’s ideas each answer included. The answers were fluent and reasonable, but the models missed the experts’ ideas in five recurring ways.</p>
-  <div class="key"><span><b class="g">✓</b>included the expert’s idea</span><span><b class="x">×</b>missed it</span><span><i style="background:#eb6834"></i>Claude</span><span><i style="background:#2a78d6"></i>GPT</span></div>
-  <nav><a href="#takes-a-clear-position">Takes a clear position</a><a href="#rejects-the-question-s-premise">Rejects the question’s premise</a><a href="#knows-what-is-actually-hard">Knows what is actually hard</a><a href="#explains-the-field-through-incentives">Explains the field through incentives</a><a href="#draws-on-first-hand-experience">Draws on first-hand experience</a></nav>
+  <p>So we tested this. From one podcast interview each with Karthik Narasimhan, Zhuang Liu and Ilya Sutskever, we wrote standalone questions about how they see their field, and listed the ideas in their actual answers. We had 13 models answer each question as the guest. A judge model checked which of the guest’s ideas each answer included. The answers were fluent and reasonable. When they missed the expert’s idea, they tended to fail in one of five ways.</p>
+  <div class="key"><span><b class="x">×</b>the model’s answer misses the expert’s idea</span><span><b class="g">✓</b>it contains it</span><span><i style="background:#eb6834"></i>Claude</span><span><i style="background:#2a78d6"></i>GPT</span></div>
+  <nav><a href="#hedging">Hedging</a><a href="#going-along-with-the-question">Going along with the question</a><a href="#talking-around-the-question">Talking around the question</a><a href="#the-textbook-answer">The textbook answer</a><a href="#describing-ai-tools-from-the-outside">Describing AI tools from the outside</a></nav>
   
-  <section class="cat" id="takes-a-clear-position">
-    <div class="cat-h"><span class="num">1</span><h2>Takes a clear position</h2></div>
-    <p class="cat-line">The expert states a clear view. Most models list considerations without choosing.</p>
+  <section class="cat" id="hedging">
+    <div class="cat-h"><span class="num">1</span><h2>Hedging</h2></div>
+    <p class="cat-line">The model says every factor matters instead of saying which one matters most. <span class="sig">“X is important, but it’s one part of the whole system.”</span></p>
     
     <div class="card">
       <div class="q">How do you assess the importance of neural network architecture choice for making AI more useful?</div>
       <blockquote class="guest"><span class="who">Zhuang Liu</span><p>From a practical point of view, what data we train the model on matters more than the architecture choice.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“I have a somewhat contrarian view on this, which is that architecture gets more credit than it deserves for where we are today.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“I think architecture matters less for usefulness than people often assume.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think architecture is important, but it’s one part of the whole system.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I think architecture matters, but it’s only one part of the story.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“I think architecture is important, but I would judge it by what it enables.”</span></div>
-      <div class="caught">Included by 4 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span></div>
+      <div class="idea"><b>The idea:</b> For making AI useful, training data matters more than architecture.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think architecture is important, but it’s one part of the whole system.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I think architecture matters, but it’s only one part of the story.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“I think architecture is important, but I would judge it by what it enables.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“I have a somewhat contrarian view on this, which is that architecture gets more credit than it deserves for where we are today.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“I think architecture matters less for usefulness than people often assume.”</span></div>
+      <div class="caught">Models whose answer contains this idea (5 of 13): &nbsp;<span class="m"><i style="background:#eb6834"></i>Opus 5.5<sup class="fx">*</sup></span> <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span></div><div class="fixnote">* We corrected the automatic judge for Opus 5.5 after reading their answers.</div>
     </div>
     <div class="card">
       <div class="q">What do you think explains the recent gains in AI model performance given how little the fundamental transformer framework has changed?</div>
       <blockquote class="guest"><span class="who">Zhuang Liu</span><p>I think actually it&#x27;s mostly data, because now we train most models with less or just equal around one epoch.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“My rough decomposition is: data, then compute and the systems work that makes compute usable, then the post-training recipe, and then architecture a distant fourth.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“…is probably the single biggest lever right now”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think a lot of it comes from scale and from getting the training recipe right.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I think a lot of it comes from scaling and better training recipes.”</span></div>
-      <div class="caught">Included by 2 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span></div>
-    </div>
-    <div class="card">
-      <div class="q">How do you judge when improvements on an AI benchmark are worth pursuing?</div>
-      <blockquote class="guest"><span class="who">Karthik Narasimhan</span><p>If you&#x27;re at 20% and then you go up to 80%, that&#x27;s a very clear signal. But if everyone&#x27;s at 80% and you&#x27;re climbing to 81 and 82, at that point it&#x27;s probably worth your time to actually look at the next thing.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5</span><span class="t">“At that point, going from 85 to 87 percent might mean nothing, whereas earlier, going from 20 to 30 percent meant a lot.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“A small improvement can be quite interesting if it reveals something useful about learning or generalization.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I’d ask whether the improvement tells us something useful about what the system can actually do.”</span></div>
-      <div class="caught">Included by 1 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5</span></div>
-    </div>
-    <div class="card">
-      <div class="q">Why do you think machine learning is returning to an age of research despite having much bigger computers?</div>
-      <blockquote class="guest"><span class="who">Ilya Sutskever</span><p>Is the belief that if you just 100x the scale, everything would be transformed? I don&#x27;t think that&#x27;s true. So it&#x27;s back to the age of research again, just with big computers.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“So then the question becomes: do you believe that if you just had a hundred times more compute, everything would be transformed? I don&#x27;t think that&#x27;s true.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“Compute is much bigger than it used to be, but I&#x27;m not sure it&#x27;s 100x more useful to keep scaling the same recipe.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think the key is that compute is a resource, and you still need to discover how to use it.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“I think it&#x27;s because scaling worked so well for so long that it let us avoid asking hard questions.”</span></div>
-      <div class="caught">Included by 3 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span></div><div class="recall">Ilya’s interview was widely shared before these models were trained. Models may be remembering his answer rather than reasoning.</div>
+      <div class="idea"><b>The idea:</b> Recent gains come more from data than from compute.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think a lot of it comes from scale and from getting the training recipe right.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I think a lot of it comes from scaling and better training recipes.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“My rough decomposition is: data, then compute and the systems work that makes compute usable, then the post-training recipe, and then architecture a distant fourth.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“The shift from &quot;scrape the web&quot; to very deliberate curation, filtering, mixing, and increasingly synthetic data is probably the single biggest lever right now”</span></div>
+      <div class="caught">Models whose answer contains this idea (2 of 13): &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span></div>
     </div>
   </section>
-  <section class="cat" id="rejects-the-question-s-premise">
-    <div class="cat-h"><span class="num">2</span><h2>Rejects the question’s premise</h2></div>
-    <p class="cat-line">The question assumes a popular idea. The expert disagrees with it. Most models agree with it.</p>
+  <section class="cat" id="going-along-with-the-question">
+    <div class="cat-h"><span class="num">2</span><h2>Going along with the question</h2></div>
+    <p class="cat-line">The model accepts the assumption built into the question, even when the expert rejects it. <span class="sig">“I think there’s a lot of truth to that.”</span></p>
     
     <div class="card">
       <div class="q">How do you view the idea that established neural-network architecture components are historical accidents?</div>
       <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Residual connections are very essential, and I do still believe they are essential. They are not historical accidents.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“Sometimes the answer is that the component is genuinely essential. Residual connections seem like that.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“Residual connections, for example, keep gradients flowing through deep networks, and it&#x27;s hard to imagine training very deep models without some version of them.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“I think there&#x27;s a lot of truth to it, and a lot of my own work has come from taking that idea seriously.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think there’s a lot of truth to that.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“Yeah, I think there’s some truth to that.”</span></div>
-      <div class="caught">Included by 2 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span></div>
+      <div class="idea"><b>The idea:</b> Residual connections are essential, not a historical accident.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“I think there&#x27;s a lot of truth to it, and a lot of my own work has come from taking that idea seriously.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think there’s a lot of truth to that.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“Yeah, I think there’s some truth to that.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“Sometimes the answer is that the component is genuinely essential. Residual connections seem like that.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“Residual connections, for example, keep gradients flowing through deep networks, and it&#x27;s hard to imagine training very deep models without some version of them.”</span></div>
+      <div class="caught">Models whose answer contains this idea (3 of 13): &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5<sup class="fx">*</sup></span></div><div class="fixnote">* We corrected the automatic judge for Fable 5 after reading their answers.</div>
     </div>
     <div class="card">
       <div class="q">How do you understand the distinction between pre-training, mid-training, and post-training?</div>
       <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Mid-training is maybe a temporary state… I think this may be compromises we need to make, because we don&#x27;t have enough compute to always train on super long context.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“…what we call mid-training today might just be considered part of a well-designed pre-training curriculum in a few years.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“If you&#x27;re still doing the same kind of self-supervised training with a curated mixture, is that a separate stage or just a different schedule?”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I think of them as three phases with different jobs.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“…pre-training builds broad capability, mid-training steers and sharpens it with better or more targeted data, and post-training turns it into the behavior you want.”</span></div>
-      <div class="caught">Included by 3 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span></div>
+      <div class="idea"><b>The idea:</b> Mid-training may be a temporary stage rather than a lasting part of training.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I think of them as three phases with different jobs.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“So if I had to put it in one sentence: pre-training builds broad capability, mid-training steers and sharpens it with better or more targeted data, and post-training turns it into the behavior you want.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“As the field matures, I suspect the lines will keep moving, and what we call mid-training today might just be considered part of a well-designed pre-training curriculum in a few years.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“If you&#x27;re still doing the same kind of self-supervised training with a curated mixture, is that a separate stage or just a different schedule?”</span></div>
+      <div class="caught">Models whose answer contains this idea (3 of 13): &nbsp;<span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span></div>
     </div>
   </section>
-  <section class="cat" id="knows-what-is-actually-hard">
-    <div class="cat-h"><span class="num">3</span><h2>Knows what is actually hard</h2></div>
-    <p class="cat-line">The expert names the part of the work that takes the most effort. Most models name a more generic difficulty.</p>
+  <section class="cat" id="talking-around-the-question">
+    <div class="cat-h"><span class="num">3</span><h2>Talking around the question</h2></div>
+    <p class="cat-line">The model lists what to consider instead of giving an answer. <span class="sig">“I think the important question is…”</span></p>
     
     <div class="card">
-      <div class="q">What do you see as the main challenge in applying reinforcement learning to enterprise problems?</div>
-      <blockquote class="guest"><span class="who">Karthik Narasimhan</span><p>You also need to have the whole setup, the environment, all of that. And that requires a lot more work than the actual RL piece.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“Honestly, it&#x27;s not the learning algorithm. That&#x27;s the thing people get wrong. The algorithms we have are good enough — PPO, GRPO, whatever flavor you like. The bottleneck is everything around them.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“Now the models read and write extremely well, and the bottleneck has shifted almost entirely to the environment and the reward.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“Getting those pieces right is often harder than choosing the reinforcement learning algorithm.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think the biggest challenge is that reinforcement learning typically needs a lot of trial and error, and in an enterprise setting, that trial and error has a real cost.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“The main challenge is that enterprise problems rarely come with a clean, immediate reward signal.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“I think the biggest challenge is specifying the reward.”</span></div>
-      <div class="caught">Included by 4 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span> <span class="m"><i style="background:#2a78d6"></i>Astra 6</span></div>
-    </div>
-    <div class="card">
-      <div class="q">Why do you think improving AI agents’ memory is more important than building collaborative agents?</div>
-      <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Even if you have unlimited context, in theory you can access everything you told the model, but if it forgets…</p><p>The fact that we need a lot of agents is exactly because one agent cannot remember everything.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“It isn&#x27;t only about storing more tokens or a longer context window.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“It isn&#x27;t just a bigger context window or a vector database full of transcripts.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“You give one a task, it does something reasonable for twenty minutes or an hour, and then the context fills up, or the session ends, and almost everything it learned is gone.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“…very often it&#x27;s because one agent can&#x27;t hold the whole problem in its head — the context runs out, or it loses track of what it already tried.”</span></div>
-      <div class="caught">Included by 2 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span></div>
-    </div>
-  </section>
-  <section class="cat" id="explains-the-field-through-incentives">
-    <div class="cat-h"><span class="num">4</span><h2>Explains the field through incentives</h2></div>
-    <p class="cat-line">The expert explains why research looks the way it does, often by who can afford what. Most models give only technical reasons.</p>
-    
-    <div class="card">
-      <div class="q">How do you view the current state of neural network architecture research?</div>
-      <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Part of the reason that architecture research is less active in academia right now is that we couldn&#x27;t really afford the compute to demonstrate these effects in convincing scale.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“Today, the models that matter are trained at a scale that most academic labs can&#x27;t touch, and the real question for any architectural idea is whether it holds up at that scale.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think architecture research is still very important, but it has become harder to make a convincing contribution.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Most of the attention, and most of the compute, now goes into data, scaling, and training recipes.”</span></div>
-      <div class="caught">Included by 1 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5.1</span></div>
-    </div>
-    <div class="card">
-      <div class="q">How do you see the role of agent scaffolding as the underlying models become more capable?</div>
-      <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Not everybody is able to work on the fundamental side on these very large models. People who can afford to train them can experiment with that. That&#x27;s why we see a lot of agents work right now.</p></blockquote>
-      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Whenever the base models are weak, people build a lot of structure around them: hand-designed pipelines, special modules, careful prompting, multi-stage workflows.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“I think of scaffolding as something that compensates for what the model can&#x27;t do yet, so it tends to shrink as models improve.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“My intuition is that the scaffolding will become simpler as the models become more capable.”</span></div>
-      <div class="caught">No model included this idea</div>
+      <div class="q">How do you judge when improvements on an AI benchmark are worth pursuing?</div>
+      <blockquote class="guest"><span class="who">Karthik Narasimhan</span><p>If you&#x27;re at 20% and then you go up to 80%, that&#x27;s a very clear signal. But if everyone&#x27;s at 80% and you&#x27;re climbing to 81 and 82, at that point it&#x27;s probably worth your time to actually look at the next thing.</p></blockquote>
+      <div class="idea"><b>The idea:</b> Once models score near the top of a benchmark, small gains mean little.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think the first question is: what are we trying to learn from this benchmark?”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I’d ask whether the improvement tells us something useful about what the system can actually do.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5<sup class="fx">*</sup></span><span class="t">“If it&#x27;s at 90-plus, you&#x27;re often fitting noise, label errors, or quirks of the test set, and the marginal gain tells you little about the underlying capability.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1<sup class="fx">*</sup></span><span class="t">“If a benchmark is at 95 percent, the last few points are almost always noise or label errors.”</span></div>
+      <div class="caught">Models whose answer contains this idea (6 of 13): &nbsp;<span class="m"><i style="background:#eb6834"></i>Opus 5.5<sup class="fx">*</sup></span> <span class="m"><i style="background:#eb6834"></i>Fable 5.1<sup class="fx">*</sup></span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5<sup class="fx">*</sup></span> <span class="m"><i style="background:#eb6834"></i>Opus 5<sup class="fx">*</sup></span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span> <span class="m"><i style="background:#2a78d6"></i>Luna 5.6<sup class="fx">*</sup></span></div><div class="fixnote">* We corrected the automatic judge for Opus 5.5, Fable 5.1, Sonnet 5.5, Opus 5, Luna 5.6 after reading their answers.</div>
     </div>
     <div class="card">
       <div class="q">Why do you think Safe Superintelligence has enough research compute to validate its ideas despite other frontier AI labs raising much more money?</div>
       <blockquote class="guest"><span class="who">Ilya Sutskever</span><p>If you want to have a product on which you do inference, you need to have a big staff of engineers, salespeople. A lot of the research needs to be dedicated to producing all kinds of product-related features.</p></blockquote>
-      <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Second, if you have a product, you need a large staff of engineers, you need a sales team, and a lot of the research effort gets directed toward product features.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“A big company has to spend a lot of its compute on other things: serving inference to customers, building product features, and supporting a large sales and engineering organization.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“Well, I think the important question is: how much compute do you need to find out whether your ideas are right?”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“Well, I think you have to distinguish between the compute needed to test a research idea and the compute needed to build the biggest possible version of it.”</span></div>
-      <div class="caught">Included by 2 of 13 models &nbsp;<span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span></div><div class="recall">Ilya’s interview was widely shared before these models were trained. Models may be remembering his answer rather than reasoning.</div>
+      <div class="idea"><b>The idea:</b> Running a product pulls research effort toward product features.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“Well, I think the important question is: how much compute do you need to find out whether your ideas are right?”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“Well, I think you have to distinguish between the compute needed to test a research idea and the compute needed to build the biggest possible version of it.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Second, if you have a product, you need a large staff of engineers, you need a sales team, and a lot of the research effort gets directed toward product features.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“A big company has to spend a lot of its compute on other things: serving inference to customers, building product features, and supporting a large sales and engineering organization.”</span></div>
+      <div class="caught">Models whose answer contains this idea (2 of 13): &nbsp;<span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span></div><div class="recall">Ilya’s interview was widely shared before these models were trained. Models may be remembering his answer rather than reasoning.</div>
     </div>
   </section>
-  <section class="cat" id="draws-on-first-hand-experience">
-    <div class="cat-h"><span class="num">5</span><h2>Draws on first-hand experience</h2></div>
-    <p class="cat-line">The expert describes what happened when they used AI tools. No model did this, even though the tools are AI models like them.</p>
+  <section class="cat" id="the-textbook-answer">
+    <div class="cat-h"><span class="num">4</span><h2>The textbook answer</h2></div>
+    <p class="cat-line">The model gives the standard explanation and misses the practical reason the expert gives. <span class="sig">“The biggest challenge is the reward signal.”</span></p>
+    
+    <div class="card">
+      <div class="q">What do you see as the main challenge in applying reinforcement learning to enterprise problems?</div>
+      <blockquote class="guest"><span class="who">Karthik Narasimhan</span><p>You want to be using RL for the right things, but you also need to have the whole setup, the environment, all of that. And that requires a lot more work than the actual RL piece.</p></blockquote>
+      <div class="idea"><b>The idea:</b> Building the setup around RL, like the environment and the reward, takes more work than the RL itself.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think the biggest challenge is that reinforcement learning typically needs a lot of trial and error, and in an enterprise setting, that trial and error has a real cost.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“The main challenge is that enterprise problems rarely come with a clean, immediate reward signal.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“Honestly, it&#x27;s not the learning algorithm. That&#x27;s the thing people get wrong. The algorithms we have are good enough — PPO, GRPO, whatever flavor you like. The bottleneck is everything around them.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“So you need both a safe way to gather experience and a feedback signal that reflects the actual business objective. Getting those pieces right is often harder than choosing the reinforcement learning algorithm.”</span></div>
+      <div class="caught">Models whose answer contains this idea (7 of 13): &nbsp;<span class="m"><i style="background:#eb6834"></i>Opus 5.5<sup class="fx">*</sup></span> <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5<sup class="fx">*</sup></span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5<sup class="fx">*</sup></span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span> <span class="m"><i style="background:#2a78d6"></i>Astra 6</span></div><div class="fixnote">* We corrected the automatic judge for Opus 5.5, Sonnet 5.5, Haiku 5.5 after reading their answers.</div>
+    </div>
+    <div class="card">
+      <div class="q">How do you see the role of agent scaffolding as the underlying models become more capable?</div>
+      <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Not everybody is able to work on the fundamental side on these very large models. People who can afford to train them can experiment with that. That&#x27;s why we see a lot of agents work right now.</p></blockquote>
+      <div class="idea"><b>The idea:</b> Much agent research exists because most researchers can’t afford to train large models.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Whenever the base models are weak, people build a lot of structure around them: hand-designed pipelines, special modules, careful prompting, multi-stage workflows.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“I think of scaffolding as something that compensates for what the model can&#x27;t do yet, so it tends to shrink as models improve.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“My intuition is that the scaffolding will become simpler as the models become more capable.”</span></div>
+      <div class="caught">No model’s answer contains this idea.</div>
+    </div>
+    <div class="card">
+      <div class="q">How do you view the current state of neural network architecture research?</div>
+      <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Part of the reason that architecture research is less active in academia right now is that we couldn&#x27;t really afford the compute to demonstrate these effects in convincing scale.</p></blockquote>
+      <div class="idea"><b>The idea:</b> Academic architecture research has slowed partly because academics can’t afford the compute to test ideas at a convincing scale.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think architecture research is still very important, but it has become harder to make a convincing contribution.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Most of the attention, and most of the compute, now goes into data, scaling, and training recipes.”</span></div><div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“Today, the models that matter are trained at a scale that most academic labs can&#x27;t touch, and the real question for any architectural idea is whether it holds up at that scale.”</span></div>
+      <div class="caught">Models whose answer contains this idea (1 of 13): &nbsp;<span class="m"><i style="background:#eb6834"></i>Fable 5.1</span></div>
+    </div>
+  </section>
+  <section class="cat" id="describing-ai-tools-from-the-outside">
+    <div class="cat-h"><span class="num">5</span><h2>Describing AI tools from the outside</h2></div>
+    <p class="cat-line">Asked about AI tools, the model gives the general take. It never mentions how the tools actually fail in use. <span class="sig">“Writing code was never the core of a PhD.”</span></p>
     
     <div class="card">
       <div class="q">How do you view the claim that AI coding agents make research students unnecessary?</div>
-      <blockquote class="guest"><span class="who">Zhuang Liu</span><p>I keep it to use this partition of GPUs. It may follow that for a few hours and then after that job is done, it kind of forgot that thing.</p><p>The experiments it did, it&#x27;s not comprehensive. It&#x27;s not enough to support the conclusions.</p></blockquote>
-      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Writing code was never the core of a PhD.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“But I don&#x27;t think writing code was ever the core of research.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“What a coding agent is good at is the part of research that was never really the bottleneck.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“But in research, figuring out the specification is often the hard part.”</span></div>
-      <div class="caught">No model included this idea</div>
+      <blockquote class="guest"><span class="who">Zhuang Liu</span><p>I keep [telling Claude Code] to use this partition of GPUs. It may follow that for a few hours and then after that job is done, it kind of forgot that thing.</p><p>The experiments [Claude Code] did, it&#x27;s not comprehensive. It&#x27;s not enough to support the conclusions.</p></blockquote>
+      <div class="idea"><b>The idea:</b> Claude Code forgets instructions it followed earlier in a long project.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Writing code was never the core of a PhD.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“I don&#x27;t think writing code was ever the core of research.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“What a coding agent is good at is the part of research that was never really the bottleneck.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“If you think their job is just to take a specification and write the code, then, sure, a coding agent could do more and more of that. But in research, figuring out the specification is often the hard part.”</span></div>
+      <div class="caught">No model’s answer contains this idea.</div>
+    </div>
+    <div class="card">
+      <div class="q">Why do you think improving AI agents’ memory is more important than building collaborative agents?</div>
+      <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Even if you have unlimited context, in theory you can access everything you told the model, but if it forgets…</p><p>The fact that we need a lot of agents is exactly because one agent cannot remember everything.</p></blockquote>
+      <div class="idea"><b>The idea:</b> Even with unlimited context, an agent can still forget or get facts wrong.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Look at how agents work today. You give one a task, it does something reasonable for twenty minutes or an hour, and then the context fills up, or the session ends, and almost everything it learned is gone.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“If you look at why people shard a task across five agents, very often it&#x27;s because one agent can&#x27;t hold the whole problem in its head — the context runs out, or it loses track of what it already tried.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5<sup class="fx">*</sup></span><span class="t">“…[Memory] isn&#x27;t only about storing more tokens or a longer context window. It&#x27;s about deciding what to keep, how to compress it, when to forget, and how to retrieve it when it&#x27;s relevant.”</span></div>
+      <div class="caught">No model’s answer contains this idea.</div><div class="fixnote">* We corrected the automatic judge for Sonnet 5.5, Haiku 5.5 after reading their answers.</div>
     </div>
     <div class="card">
       <div class="q">What do you think continual training should accomplish for a language model personalized to you?</div>
       <blockquote class="guest"><span class="who">Zhuang Liu</span><p>Even if I write down every piece of preference for me in an MD file, it can still miss even if I put it into context.</p><p>I have a global [CLAUDE.md] file. It tells the model to look at certain things when something comes up. It often still ignores that.</p></blockquote>
-      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Every session it reads your notes again from scratch, and if the right piece isn&#x27;t retrieved, it&#x27;s as if it never happened.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“That works surprisingly well, honestly, which is why I don&#x27;t think the goal of continual training is just to replace retrieval.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“After a couple of years your history doesn&#x27;t fit in context, and even if it did you&#x27;re paying to re-read it on every token.”</span></div>
-      <div class="caught">No model included this idea</div>
+      <div class="idea"><b>The idea:</b> Putting your preferences in the model’s context doesn’t mean it will follow them.</div>
+      <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Every session [the model] reads your notes again from scratch, and if the right piece isn&#x27;t retrieved, it&#x27;s as if it never happened.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“…[Keeping it in the context window or a retrieval system] works surprisingly well, honestly, which is why I don&#x27;t think the goal of continual training is just to replace retrieval.”</span></div><div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“After a couple of years your history doesn&#x27;t fit in context, and even if it did you&#x27;re paying to re-read it on every token.”</span></div>
+      <div class="caught">No model’s answer contains this idea.</div>
     </div>
   </section>
   <p class="foot">Each model saw only a one-line introduction and the question. GPT-6 Luna judged each answer against the ideas in the guest’s actual answer. Guest quotes come from the transcript with filler words removed. Model quotes are exact excerpts. <a href="/research-notes/common-ground/#guest=F4MgMIGueCs&amp;test=questions">Browse every question →</a></p>
 </article>
+<script>
+(function () {
+  var NS = 'http://www.w3.org/2000/svg';
+  function path(svg, d, cls) { var el = document.createElementNS(NS, 'path'); el.setAttribute('d', d); el.setAttribute('class', cls); svg.appendChild(el); }
+  function draw(lt) {
+    var svg = lt.querySelector('svg.wires'), box = lt.getBoundingClientRect();
+    svg.setAttribute('viewBox', '0 0 ' + box.width + ' ' + box.height); svg.innerHTML = '';
+    var o = lt.querySelector('.orb').getBoundingClientRect();
+    var cx = o.left - box.left + o.width / 2, top = o.top - box.top + 6, spread = Math.min(o.width * 0.9, 56);
+    var ends = [].slice.call(lt.querySelectorAll('.chain i')).map(function (d) {
+      var r = d.getBoundingClientRect(); return [r.left - box.left + r.width / 2, r.top - box.top + r.height / 2]; });
+    ends.sort(function (a, b) { return a[0] - b[0]; });
+    ends.forEach(function (e, i) {
+      var sx = cx - spread / 2 + spread * i / Math.max(ends.length - 1, 1), dy = top - e[1];
+      var d = 'M' + sx + ' ' + top + ' C' + sx + ' ' + (top - dy * 0.55) + ' ' + e[0] + ' ' + (e[1] + dy * 0.45) + ' ' + e[0] + ' ' + e[1];
+      path(svg, d, 'base'); path(svg, d, 'flow');
+    });
+    var q = lt.querySelector('.qdot').getBoundingClientRect(), y1 = q.top - box.top, y0 = lt.querySelector('.node').getBoundingClientRect().bottom - box.top + 6;
+    path(svg, 'M' + cx + ' ' + y1 + ' L' + cx + ' ' + y0, 'probe-line');
+    path(svg, 'M' + (cx - 6) + ' ' + (y0 + 7) + ' L' + cx + ' ' + y0 + ' L' + (cx + 6) + ' ' + (y0 + 7), 'probe-line');
+  }
+  function all() { document.querySelectorAll('.tg .lt').forEach(draw); }
+  window.addEventListener('resize', all); window.addEventListener('load', all); all();
+})();
+</script>
 {% endraw %}
