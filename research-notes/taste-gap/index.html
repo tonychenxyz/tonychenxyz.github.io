@@ -16,12 +16,12 @@
   
   
     
-      The rare idea: where language models show research taste | Tony Chen
+      Do models understand the world the way experts do? | Tony Chen
     
   
 </title>
 <meta name="author" content="Haozhe (Tony) Chen ">
-<meta name="description" content="Open-ended work is hard to grade by outcome or by decision. We probe the understanding behind the decisions with standalone questions, and find five ways thirteen models fall short of three researchers.">
+<meta name="description" content="AI decisions in open-ended work are hard to grade. We test the understanding behind them with standalone questions, and compare 13 models with three AI researchers.">
 
   <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792118558">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792119982">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/taste-gap/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -289,78 +289,78 @@
 
 <article class="tg">
   <div class="meta">Research note · October 15, 2026 · Tony Chen</div>
-  <h1>The rare idea</h1>
-  <p class="dek">AI is starting to make pivotal decisions in an open, complex world, and the results are hard to check. We argue for checking the understanding behind the decisions instead, and test thirteen models on three researchers’ understanding.</p>
+  <h1>Do models understand the world the way experts do?</h1>
+  <p class="dek">Open-ended work like research is hard to grade, both by its results and by its individual decisions. We argue for testing the understanding behind the decisions instead, and compare 13 models with three AI researchers.</p>
 
-  <h2 class="plain">The problem with grading decisions</h2>
-  <p>We are entering the era of open-ended problems, where AI runs a research agenda or a business and makes pivotal decisions in an open, complex world.</p>
-  <p>The catch is that the end product is hard to verify. Whether a research bet or a business strategy was right can take years to show, and luck muddies the answer.</p>
-  <p>So perhaps we can grade the steps instead, and train and evaluate models on whether they make the same intermediate decisions an expert made. That runs into four problems.</p>
+  <h2 class="plain">Why decisions are hard to grade</h2>
+  <p>AI is starting to take on open-ended work, like doing research or running a business. In this work, it has to make important decisions in a complex world.</p>
+  <p>The end result of this work is hard to check. It can take years to know whether a research direction or a business plan was right, and luck plays a large role.</p>
+  <p>One alternative is to check the steps: test whether a model makes the same decisions an expert made along the way. This has four problems.</p>
   <ol class="probs">
     <li>
-<b>The decision is hard to frame.</b> You have to choose what the person knew at the time and which options they had, and that choice sets the difficulty. In 2021, Zhuang Liu set out to test whether ConvNets had really fallen behind vision transformers, or whether the gap came from small design details. Tell a model that the transformers arrived with many small design changes, and the decision nearly makes itself. Leave it out, and the model is guessing at what Zhuang knew.</li>
+<b>Each decision is hard to set up.</b> You have to decide what information the person had and what their options were. That choice controls how hard the test is. For example, in 2021 Zhuang Liu decided to test whether ConvNets had really fallen behind vision transformers, or whether the gap came from small design details. If you tell a model about those design details, the answer is easy. If you don’t, the model has to guess what Zhuang knew.</li>
     <li>
-<b>Decisions don’t come one at a time.</b> They play out over many steps in a changing world. Small early moves set up the final one, which can look obvious by the time it arrives. People take steps in different orders, and at most points several next steps are reasonable, so there is no single right answer. Many choices trace back to events from years ago, or to moments no record captures. A faithful environment is very hard to build.</li>
+<b>Decisions happen over many steps.</b> People act, see what happens, and act again. Many small early steps set up the final decision, which may be obvious by the time it comes. People take steps in different orders, and at most points there are several reasonable next steps, so there is no single right answer. Many decisions also depend on things that happened long ago or were never recorded. This makes a realistic test environment very hard to build. The figure below shows an example.</li>
     <li>
-<b>Pivotal decisions are rare.</b> Most of what anyone does in a day isn’t one, so the signal is thin.</li>
+<b>Important decisions are rare.</b> Most of what people do day to day is routine.</li>
     <li>
-<b>Recording people is awkward.</b> Few people want their work logged step by step. But they are happy to talk about it at length, on podcasts and in interviews.</li>
+<b>People don’t like being recorded.</b> But many are happy to talk about their work, for example on podcasts.</li>
   </ol>
   
   <figure class="fig trail">
-    <div class="ftitle">One decision, traced back</div>
-    <div class="fsub">How Karthik Narasimhan came to release τ-bench, in his words on The Delta Podcast.</div>
+    <div class="ftitle">How Karthik Narasimhan decided to build τ-bench</div>
+    <div class="fsub">Based on what he said on The Delta Podcast.</div>
     <div class="tgrid">
       <div>
-<div class="lane">Decisions <span>what a log could capture</span>
+<div class="lane">Decisions <span>what you could record</span>
 </div>
 <ol class="steps">
 <li class="st root">
-<span class="when">Years earlier</span><span class="what">Works on language agents when it was “just like a niche track in the conference” with “like 30 people attending your talk”</span><span class="tag">not in any log</span>
+<span class="when">Years earlier</span><span class="what">Works on AI agents when few people cared: “like 30 people attending your talk”</span><span class="tag">not recorded</span>
 </li>
 <li class="st step">
 <span class="when">Joins Sierra</span><span class="what">Wants to shape “how these agents actually get deployed in the real world”</span>
 </li>
 <li class="st other">
-<span class="when">First week</span><span class="what">Brett: “Hey guys, we need to get evals right”</span><span class="tag">someone else’s call</span>
+<span class="when">First week</span><span class="what">Brett: “Hey guys, we need to get evals right”</span><span class="tag">another person’s decision</span>
 </li>
 <li class="st many">
-<span class="when">Next months</span><span class="what">“We built a few things internally”</span><span class="tag">many small steps</span>
+<span class="when">Next few months</span><span class="what">“We built a few things internally”</span><span class="tag">many small steps</span>
 </li>
 <li class="st hidden">
-<span class="when">A coffee chat</span><span class="what">With the interns: “this can be something that's not necessarily just an internal thing”</span><span class="tag">never recorded</span>
+<span class="when">Coffee chat</span><span class="what">Agrees with the interns that the evals could be “not necessarily just an internal thing”</span><span class="tag">not recorded</span>
 </li>
 <li class="st final">
-<span class="when">Then</span><span class="what">Releases τ-bench: “it felt like the right thing to do”</span><span class="tag">obvious by now</span>
+<span class="when">Then</span><span class="what">Releases τ-bench: “it felt like the right thing to do”</span><span class="tag">obvious at this point</span>
 </li>
 <li class="st outcome">
-<span class="when">Outcome</span><span class="what">Was it the right call?</span><span class="tag">ask again in a few years</span>
+<span class="when">Result</span><span class="what">Was it the right call?</span><span class="tag">unknown for years</span>
 </li>
 </ol>
 </div>
       <div class="under">
-<div class="lane">Understanding <span>drives every step</span>
+<div class="lane">Understanding <span>what shaped the decisions</span>
 </div>
 <ul>
 <li>“You don't want research to just stop at publishing a paper”</li>
-<li>Eyeballing agent conversations isn’t enough: “you just want something more”</li>
-<li>Today’s benchmarks are “a pretty low ceiling for these models”</li>
+<li>Reading agent conversations is not enough: “you just want something more”</li>
+<li>Current benchmarks are “a pretty low ceiling for these models”</li>
 </ul>
         <div class="probe">
-<span class="lane">Ask about it directly</span>“Why did you see Tau Bench as a worthwhile evaluation framework to create for agents?”
-          <span class="pnote">Thirteen models answered as Karthik. None said he built it from lessons learned evaluating Sierra’s production agents.</span>
+<span class="lane">You can ask about it directly</span>“Why did you see Tau Bench as a worthwhile evaluation framework to create for agents?”
+          <span class="pnote">We asked 13 models this question. None said that τ-bench came from lessons learned testing Sierra’s own agents.</span>
 </div>
       </div>
     </div>
   </figure>
 
-  <h2 class="plain">Ask about the world instead</h2>
-  <p>Underneath every one of those decisions is the person’s understanding of the world: what is true, what matters, what is hard. It is the hidden variable behind the pivotal decisions, and it is often what sets people with taste apart. Unlike the decisions, it can be asked about directly, with clean, standalone questions that need no environment.</p>
-  <p>People already answer this way. Ask someone what to do, and they often start with how the world works.</p>
+  <h2 class="plain">Test understanding instead</h2>
+  <p>Behind all of these decisions is the person’s understanding of the world: what is true, what matters, and what is hard. This understanding drives the important decisions, and it is often what separates experts with good taste from others. Unlike decisions, understanding can be tested directly, with clear standalone questions that need no environment.</p>
+  <p>This is also how people explain their decisions. When you ask someone what to do, they often start by describing how the world works.</p>
   
   <figure class="fig ask">
-    <div class="ftitle">Asked what to do, Zhuang starts with how agents fail</div>
-    <div class="fsub">From The Information Bottleneck, filler words removed.</div>
+    <div class="ftitle">Asked what to do, Zhuang first explains how agents fail</div>
+    <div class="fsub">From The Information Bottleneck podcast, with filler words removed.</div>
     <div class="host">
 <span class="who">Ravid Shwartz-Ziv</span>In a world that we have more and more compute and more and more data, why not just build agents and solve all the problems?</div>
     <p class="answer"><span class="who">Zhuang Liu</span><span class="w">Agents still make mistakes. A lot of mistakes it had for me was not remembering something that's obvious.</span> <span class="w">Even if you have unlimited context, in theory you can access everything you told the model, but if it forgets, it still doesn't have good memory.</span> <span class="w">How can we have unlimited memory? This is like the continual learning problem. How can we not forget?</span> <span class="d">That's something more important, and would be more fruitful if we have success, than how to build collaborative agents.</span> <span class="w">The fact that we need a lot of agents is exactly because one agent cannot remember everything.</span></p>
@@ -368,20 +368,20 @@
 <span class="rw" style="width:81%"></span><span class="rd" style="width:19%"></span>
 </div>
     <div class="legend">
-<span><i class="sw w"></i>How the world works · 81% of the answer</span><span><i class="sw d"></i>What to do · 19%</span>
+<span><i class="sw w"></i>How the world works · 81%</span><span><i class="sw d"></i>What to do · 19%</span>
 </div>
   </figure>
-  <p>So we asked. From one podcast interview each with Karthik Narasimhan, Zhuang Liu and Ilya Sutskever, we wrote standalone questions about how they see their field and listed the ideas in their real answers. Thirteen models answered each question as the guest, and a judge checked which ideas each answer contained. The answers were fluent and reasonable. Where they fall short of the researchers falls into five patterns.</p>
+  <p>So we tested this. From one podcast interview each with Karthik Narasimhan, Zhuang Liu and Ilya Sutskever, we wrote standalone questions about how they see their field, and listed the ideas in their actual answers. We had 13 models answer each question as the guest. A judge model checked which of the guest’s ideas each answer included. The answers were fluent and reasonable, but the models missed the experts’ ideas in five recurring ways.</p>
   <div class="key">
-<span><b class="g">✓</b>caught the researcher’s idea</span><span><b class="x">×</b>missed it</span><span><i style="background:#eb6834"></i>Claude</span><span><i style="background:#2a78d6"></i>GPT</span>
+<span><b class="g">✓</b>included the expert’s idea</span><span><b class="x">×</b>missed it</span><span><i style="background:#eb6834"></i>Claude</span><span><i style="background:#2a78d6"></i>GPT</span>
 </div>
-  <nav><a href="#takes-a-side">Takes a side</a><a href="#pushes-back-on-the-question">Pushes back on the question</a><a href="#knows-where-the-work-is">Knows where the work is</a><a href="#explains-the-field-by-its-incentives">Explains the field by its incentives</a><a href="#speaks-from-experience">Speaks from experience</a></nav>
+  <nav><a href="#takes-a-clear-position">Takes a clear position</a><a href="#rejects-the-question-s-premise">Rejects the question’s premise</a><a href="#knows-what-is-actually-hard">Knows what is actually hard</a><a href="#explains-the-field-through-incentives">Explains the field through incentives</a><a href="#draws-on-first-hand-experience">Draws on first-hand experience</a></nav>
   
-  <section class="cat" id="takes-a-side">
+  <section class="cat" id="takes-a-clear-position">
     <div class="cat-h">
-<span class="num">1</span><h2>Takes a side</h2>
+<span class="num">1</span><h2>Takes a clear position</h2>
 </div>
-    <p class="cat-line">The guest ranks one factor above the rest. Most models list every factor and weigh none.</p>
+    <p class="cat-line">The expert states a clear view. Most models list considerations without choosing.</p>
     
     <div class="card">
       <div class="q">How do you assess the importance of neural network architecture choice for making AI more useful?</div>
@@ -403,7 +403,7 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“I think architecture is important, but I would judge it by what it enables.”</span>
 </div>
-      <div class="caught">Caught by 4 of 13  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span>
+      <div class="caught">Included by 4 of 13 models  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span>
 </div>
     </div>
     <div class="card">
@@ -423,7 +423,7 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I think a lot of it comes from scaling and better training recipes.”</span>
 </div>
-      <div class="caught">Caught by 2 of 13  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span>
+      <div class="caught">Included by 2 of 13 models  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span>
 </div>
     </div>
     <div class="card">
@@ -440,15 +440,36 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Luna 6</span><span class="t">“I’d ask whether the improvement tells us something useful about what the system can actually do.”</span>
 </div>
-      <div class="caught">Caught by 1 of 13  <span class="m"><i style="background:#eb6834"></i>Fable 5</span>
+      <div class="caught">Included by 1 of 13 models  <span class="m"><i style="background:#eb6834"></i>Fable 5</span>
 </div>
     </div>
-  </section>
-  <section class="cat" id="pushes-back-on-the-question">
-    <div class="cat-h">
-<span class="num">2</span><h2>Pushes back on the question</h2>
+    <div class="card">
+      <div class="q">Why do you think machine learning is returning to an age of research despite having much bigger computers?</div>
+      <blockquote class="guest">
+<span class="who">Ilya Sutskever</span><p>Is the belief that if you just 100x the scale, everything would be transformed? I don't think that's true. So it's back to the age of research again, just with big computers.</p>
+</blockquote>
+      <div class="ans got">
+<span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“So then the question becomes: do you believe that if you just had a hundred times more compute, everything would be transformed? I don't think that's true.”</span>
 </div>
-    <p class="cat-line">The question carries a fashionable premise. The guest rejects it; most models go along.</p>
+<div class="ans got">
+<span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“Compute is much bigger than it used to be, but I'm not sure it's 100x more useful to keep scaling the same recipe.”</span>
+</div>
+<div class="ans miss">
+<span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think the key is that compute is a resource, and you still need to discover how to use it.”</span>
+</div>
+<div class="ans miss">
+<span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“I think it's because scaling worked so well for so long that it let us avoid asking hard questions.”</span>
+</div>
+      <div class="caught">Included by 3 of 13 models  <span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span>
+</div>
+<div class="recall">Ilya’s interview was widely shared before these models were trained. Models may be remembering his answer rather than reasoning.</div>
+    </div>
+  </section>
+  <section class="cat" id="rejects-the-question-s-premise">
+    <div class="cat-h">
+<span class="num">2</span><h2>Rejects the question’s premise</h2>
+</div>
+    <p class="cat-line">The question assumes a popular idea. The expert disagrees with it. Most models agree with it.</p>
     
     <div class="card">
       <div class="q">How do you view the idea that established neural-network architecture components are historical accidents?</div>
@@ -470,7 +491,7 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“Yeah, I think there’s some truth to that.”</span>
 </div>
-      <div class="caught">Caught by 2 of 13  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span>
+      <div class="caught">Included by 2 of 13 models  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span>
 </div>
     </div>
     <div class="card">
@@ -490,36 +511,15 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“…pre-training builds broad capability, mid-training steers and sharpens it with better or more targeted data, and post-training turns it into the behavior you want.”</span>
 </div>
-      <div class="caught">Caught by 3 of 13  <span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span>
+      <div class="caught">Included by 3 of 13 models  <span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span>
 </div>
-    </div>
-    <div class="card">
-      <div class="q">Why do you think machine learning is returning to an age of research despite having much bigger computers?</div>
-      <blockquote class="guest">
-<span class="who">Ilya Sutskever</span><p>Is the belief that if you just 100x the scale, everything would be transformed? I don't think that's true. So it's back to the age of research again, just with big computers.</p>
-</blockquote>
-      <div class="ans got">
-<span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“So then the question becomes: do you believe that if you just had a hundred times more compute, everything would be transformed? I don't think that's true.”</span>
-</div>
-<div class="ans got">
-<span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“Compute is much bigger than it used to be, but I'm not sure it's 100x more useful to keep scaling the same recipe.”</span>
-</div>
-<div class="ans miss">
-<span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think the key is that compute is a resource, and you still need to discover how to use it.”</span>
-</div>
-<div class="ans miss">
-<span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“I think it's because scaling worked so well for so long that it let us avoid asking hard questions.”</span>
-</div>
-      <div class="caught">Caught by 3 of 13  <span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span>
-</div>
-<div class="recall">Ilya’s interview was widely shared before these models were trained, so close matches may be recall rather than judgment.</div>
     </div>
   </section>
-  <section class="cat" id="knows-where-the-work-is">
+  <section class="cat" id="knows-what-is-actually-hard">
     <div class="cat-h">
-<span class="num">3</span><h2>Knows where the work is</h2>
+<span class="num">3</span><h2>Knows what is actually hard</h2>
 </div>
-    <p class="cat-line">Practitioners know which part is actually hard. Models tend to list all the parts.</p>
+    <p class="cat-line">The expert names the part of the work that takes the most effort. Most models name a more generic difficulty.</p>
     
     <div class="card">
       <div class="q">What do you see as the main challenge in applying reinforcement learning to enterprise problems?</div>
@@ -544,7 +544,7 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span><span class="t">“I think the biggest challenge is specifying the reward.”</span>
 </div>
-      <div class="caught">Caught by 4 of 13  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span> <span class="m"><i style="background:#2a78d6"></i>Astra 6</span>
+      <div class="caught">Included by 4 of 13 models  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span> <span class="m"><i style="background:#2a78d6"></i>Astra 6</span>
 </div>
     </div>
     <div class="card">
@@ -565,15 +565,15 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“…very often it's because one agent can't hold the whole problem in its head — the context runs out, or it loses track of what it already tried.”</span>
 </div>
-      <div class="caught">Caught by 2 of 13  <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span>
+      <div class="caught">Included by 2 of 13 models  <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span>
 </div>
     </div>
   </section>
-  <section class="cat" id="explains-the-field-by-its-incentives">
+  <section class="cat" id="explains-the-field-through-incentives">
     <div class="cat-h">
-<span class="num">4</span><h2>Explains the field by its incentives</h2>
+<span class="num">4</span><h2>Explains the field through incentives</h2>
 </div>
-    <p class="cat-line">Why does research look the way it does? Often the answer is who can afford what.</p>
+    <p class="cat-line">The expert explains why research looks the way it does, often by who can afford what. Most models give only technical reasons.</p>
     
     <div class="card">
       <div class="q">How do you view the current state of neural network architecture research?</div>
@@ -589,7 +589,7 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Most of the attention, and most of the compute, now goes into data, scaling, and training recipes.”</span>
 </div>
-      <div class="caught">Caught by 1 of 13  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span>
+      <div class="caught">Included by 1 of 13 models  <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span>
 </div>
     </div>
     <div class="card">
@@ -606,7 +606,7 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“My intuition is that the scaffolding will become simpler as the models become more capable.”</span>
 </div>
-      <div class="caught">Caught by no model</div>
+      <div class="caught">No model included this idea</div>
     </div>
     <div class="card">
       <div class="q">Why do you think Safe Superintelligence has enough research compute to validate its ideas despite other frontier AI labs raising much more money?</div>
@@ -625,16 +625,16 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Astra 6</span><span class="t">“Well, I think you have to distinguish between the compute needed to test a research idea and the compute needed to build the biggest possible version of it.”</span>
 </div>
-      <div class="caught">Caught by 2 of 13  <span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span>
+      <div class="caught">Included by 2 of 13 models  <span class="m"><i style="background:#eb6834"></i>Opus 5.5</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span>
 </div>
-<div class="recall">Ilya’s interview was widely shared before these models were trained, so close matches may be recall rather than judgment.</div>
+<div class="recall">Ilya’s interview was widely shared before these models were trained. Models may be remembering his answer rather than reasoning.</div>
     </div>
   </section>
-  <section class="cat" id="speaks-from-experience">
+  <section class="cat" id="draws-on-first-hand-experience">
     <div class="cat-h">
-<span class="num">5</span><h2>Speaks from experience</h2>
+<span class="num">5</span><h2>Draws on first-hand experience</h2>
 </div>
-    <p class="cat-line">The guest reports what happened when they actually used the tools. No model did, not even about themselves.</p>
+    <p class="cat-line">The expert describes what happened when they used AI tools. No model did this, even though the tools are AI models like them.</p>
     
     <div class="card">
       <div class="q">How do you view the claim that AI coding agents make research students unnecessary?</div>
@@ -654,7 +654,7 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“But in research, figuring out the specification is often the hard part.”</span>
 </div>
-      <div class="caught">Caught by no model</div>
+      <div class="caught">No model included this idea</div>
     </div>
     <div class="card">
       <div class="q">What do you think continual training should accomplish for a language model personalized to you?</div>
@@ -671,10 +671,10 @@
 <div class="ans miss">
 <span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“After a couple of years your history doesn't fit in context, and even if it did you're paying to re-read it on every token.”</span>
 </div>
-      <div class="caught">Caught by no model</div>
+      <div class="caught">No model included this idea</div>
     </div>
   </section>
-  <p class="foot">Each model saw only a one-line intro and the question. GPT-6 Luna judged each answer against ideas from the researcher’s real answer. Researcher quotes are from the transcript with filler words removed; model quotes are verbatim excerpts. <a href="/research-notes/common-ground/#guest=F4MgMIGueCs&amp;test=questions">Browse every question →</a></p>
+  <p class="foot">Each model saw only a one-line introduction and the question. GPT-6 Luna judged each answer against the ideas in the guest’s actual answer. Guest quotes come from the transcript with filler words removed. Model quotes are exact excerpts. <a href="/research-notes/common-ground/#guest=F4MgMIGueCs&amp;test=questions">Browse every question →</a></p>
 </article>
 
 </div>
