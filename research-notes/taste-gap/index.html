@@ -21,7 +21,7 @@
   
 </title>
 <meta name="author" content="Haozhe (Tony) Chen ">
-<meta name="description" content="Thirteen models answered interview questions as three AI researchers. Five ways the researchers' answers differ from the models', with examples.">
+<meta name="description" content="Open-ended work is hard to grade by outcome or by decision. We probe the understanding behind the decisions with standalone questions, and find five ways thirteen models fall short of three researchers.">
 
   <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792118526">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792118558">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/taste-gap/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -236,10 +236,53 @@
 .tg .caught { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center; font-size:12.5px; color:var(--text-2); border-top:1px solid #e8eaed; padding-top:10px; }
 .tg .caught .m { font-size:12.5px; }
 .tg .recall { font-size:12.5px; color:#9a6700; margin-top:6px; }
+.tg h2.plain { margin:56px 0 12px; }
+.tg .probs { padding-left:22px; margin:0 0 8px; } .tg .probs li { margin:0 0 12px; padding-left:4px; }
+.tg .probs li::marker { color:var(--theme); font-weight:680; }
+.tg .fig { background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px 22px 18px; margin:26px 0 30px; }
+.tg .ftitle { font-weight:650; font-size:16px; margin:0 0 2px; }
+.tg .fsub { font-size:13.5px; color:var(--text-2); margin:0 0 16px; }
+.tg .lane { display:block; font-size:12px; font-weight:650; letter-spacing:.05em; text-transform:uppercase; color:var(--text); margin:0 0 10px; }
+.tg .lane span { font-weight:500; letter-spacing:0; text-transform:none; color:var(--muted); margin-left:6px; font-size:12.5px; }
+.tg .tgrid { display:grid; grid-template-columns:1fr 230px; gap:22px; }
+.tg .steps { list-style:none; margin:0; padding:0 0 0 22px; position:relative; }
+.tg .steps::before { content:''; position:absolute; left:6px; top:8px; bottom:14px; width:2px; background:#d8dde3; }
+.tg .st { position:relative; padding:0 0 14px; font-size:14.5px; line-height:1.5; }
+.tg .st::before { content:''; position:absolute; left:-22px; top:5px; width:10px; height:10px; border-radius:50%; background:var(--text); box-shadow:0 0 0 3px #fff; }
+.tg .st .when { display:block; font-size:12px; color:var(--muted); font-weight:600; }
+.tg .st .tag { display:inline-block; margin-left:8px; font-size:11.5px; color:var(--text-2); border:1px solid #d8dde3; border-radius:999px; padding:0 8px; white-space:nowrap; }
+.tg .st.root::before, .tg .st.hidden::before { background:#fff; border:2px dashed var(--muted); }
+.tg .st.root .what, .tg .st.hidden .what { color:var(--text-2); }
+.tg .st.final::before { width:14px; height:14px; left:-24px; top:3px; }
+.tg .st.final .what { font-weight:620; }
+.tg .st.outcome { padding-bottom:0; }
+.tg .st.outcome::before { content:'?'; width:16px; height:16px; left:-25px; top:2px; background:#fff; border:2px solid var(--text); color:var(--text);
+  font-size:11px; font-weight:700; line-height:12px; text-align:center; }
+.tg .under { background:#eef4fd; border-radius:12px; padding:14px 14px 12px; position:relative; }
+.tg .under::before { content:'←'; position:absolute; left:-17px; top:50%; margin-top:-12px; width:24px; height:24px; border-radius:50%;
+  background:#fff; border:1.5px solid #b9d0f3; color:var(--theme); font-size:13px; line-height:20px; text-align:center; }
+.tg .under .lane { color:#1f4fa3; }
+.tg .under .lane span { display:block; margin:2px 0 0; }
+.tg .under ul { list-style:none; padding:0; margin:0 0 12px; }
+.tg .under li { font-size:13.5px; line-height:1.5; color:#1f3a66; background:#fff; border-radius:8px; padding:7px 10px; margin:0 0 7px; }
+.tg .probe { font-size:13.5px; line-height:1.5; border-top:1px solid #d3e2f8; padding-top:10px; font-style:italic; color:#1f3a66; }
+.tg .probe .lane { font-style:normal; margin-bottom:4px; }
+.tg .pnote { display:block; font-style:normal; font-size:12.5px; color:var(--text-2); margin-top:6px; }
+.tg .ask .host { font-size:15px; font-style:italic; color:var(--text-2); margin:0 0 12px; }
+.tg .ask .host .who, .tg .ask .answer .who { font-style:normal; }
+.tg .answer { font-size:16px; line-height:1.85; margin:0 0 14px; }
+.tg .answer .w { background:#dce9fb; border-radius:3px; padding:2px 1px; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+.tg .answer .d { font-weight:620; border-bottom:2.5px solid var(--text); }
+.tg .ratio { display:flex; gap:2px; height:8px; border-radius:4px; overflow:hidden; margin:0 0 8px; }
+.tg .ratio .rw { background:#8db5ef; } .tg .ratio .rd { background:var(--text); }
+.tg .legend { display:flex; flex-wrap:wrap; gap:6px 18px; font-size:12.5px; color:var(--text-2); }
+.tg .sw { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px; }
+.tg .sw.w { background:#8db5ef; } .tg .sw.d { background:var(--text); }
 .tg .foot { margin-top:56px; font-size:14px; color:var(--text-2); border-top:1px solid var(--border); padding-top:16px; }
 @media (max-width:600px) {
   .tg { padding-top:44px; } .tg h1 { font-size:32px; } .tg .dek { font-size:17.5px; }
   .tg .card { padding:16px 16px 12px; }
+  .tg .tgrid { grid-template-columns:1fr; } .tg .under::before { display:none; } .tg .fig { padding:16px; }
   .tg .ans { grid-template-columns:16px 1fr; } .tg .ans .t { grid-column:2; }
 }
 </style>
@@ -247,7 +290,88 @@
 <article class="tg">
   <div class="meta">Research note · October 15, 2026 · Tony Chen</div>
   <h1>The rare idea</h1>
-  <p class="dek">Thirteen language models answered interview questions as three AI researchers: Karthik Narasimhan, Zhuang Liu and Ilya Sutskever. The answers were fluent and reasonable. Where they fall short of the researchers falls into five patterns.</p>
+  <p class="dek">AI is starting to make pivotal decisions in an open, complex world, and the results are hard to check. We argue for checking the understanding behind the decisions instead, and test thirteen models on three researchers’ understanding.</p>
+
+  <h2 class="plain">The problem with grading decisions</h2>
+  <p>We are entering the era of open-ended problems, where AI runs a research agenda or a business and makes pivotal decisions in an open, complex world.</p>
+  <p>The catch is that the end product is hard to verify. Whether a research bet or a business strategy was right can take years to show, and luck muddies the answer.</p>
+  <p>So perhaps we can grade the steps instead, and train and evaluate models on whether they make the same intermediate decisions an expert made. That runs into four problems.</p>
+  <ol class="probs">
+    <li>
+<b>The decision is hard to frame.</b> You have to choose what the person knew at the time and which options they had, and that choice sets the difficulty. In 2021, Zhuang Liu set out to test whether ConvNets had really fallen behind vision transformers, or whether the gap came from small design details. Tell a model that the transformers arrived with many small design changes, and the decision nearly makes itself. Leave it out, and the model is guessing at what Zhuang knew.</li>
+    <li>
+<b>Decisions don’t come one at a time.</b> They play out over many steps in a changing world. Small early moves set up the final one, which can look obvious by the time it arrives. People take steps in different orders, and at most points several next steps are reasonable, so there is no single right answer. Many choices trace back to events from years ago, or to moments no record captures. A faithful environment is very hard to build.</li>
+    <li>
+<b>Pivotal decisions are rare.</b> Most of what anyone does in a day isn’t one, so the signal is thin.</li>
+    <li>
+<b>Recording people is awkward.</b> Few people want their work logged step by step. But they are happy to talk about it at length, on podcasts and in interviews.</li>
+  </ol>
+  
+  <figure class="fig trail">
+    <div class="ftitle">One decision, traced back</div>
+    <div class="fsub">How Karthik Narasimhan came to release τ-bench, in his words on The Delta Podcast.</div>
+    <div class="tgrid">
+      <div>
+<div class="lane">Decisions <span>what a log could capture</span>
+</div>
+<ol class="steps">
+<li class="st root">
+<span class="when">Years earlier</span><span class="what">Works on language agents when it was “just like a niche track in the conference” with “like 30 people attending your talk”</span><span class="tag">not in any log</span>
+</li>
+<li class="st step">
+<span class="when">Joins Sierra</span><span class="what">Wants to shape “how these agents actually get deployed in the real world”</span>
+</li>
+<li class="st other">
+<span class="when">First week</span><span class="what">Brett: “Hey guys, we need to get evals right”</span><span class="tag">someone else’s call</span>
+</li>
+<li class="st many">
+<span class="when">Next months</span><span class="what">“We built a few things internally”</span><span class="tag">many small steps</span>
+</li>
+<li class="st hidden">
+<span class="when">A coffee chat</span><span class="what">With the interns: “this can be something that's not necessarily just an internal thing”</span><span class="tag">never recorded</span>
+</li>
+<li class="st final">
+<span class="when">Then</span><span class="what">Releases τ-bench: “it felt like the right thing to do”</span><span class="tag">obvious by now</span>
+</li>
+<li class="st outcome">
+<span class="when">Outcome</span><span class="what">Was it the right call?</span><span class="tag">ask again in a few years</span>
+</li>
+</ol>
+</div>
+      <div class="under">
+<div class="lane">Understanding <span>drives every step</span>
+</div>
+<ul>
+<li>“You don't want research to just stop at publishing a paper”</li>
+<li>Eyeballing agent conversations isn’t enough: “you just want something more”</li>
+<li>Today’s benchmarks are “a pretty low ceiling for these models”</li>
+</ul>
+        <div class="probe">
+<span class="lane">Ask about it directly</span>“Why did you see Tau Bench as a worthwhile evaluation framework to create for agents?”
+          <span class="pnote">Thirteen models answered as Karthik. None said he built it from lessons learned evaluating Sierra’s production agents.</span>
+</div>
+      </div>
+    </div>
+  </figure>
+
+  <h2 class="plain">Ask about the world instead</h2>
+  <p>Underneath every one of those decisions is the person’s understanding of the world: what is true, what matters, what is hard. It is the hidden variable behind the pivotal decisions, and it is often what sets people with taste apart. Unlike the decisions, it can be asked about directly, with clean, standalone questions that need no environment.</p>
+  <p>People already answer this way. Ask someone what to do, and they often start with how the world works.</p>
+  
+  <figure class="fig ask">
+    <div class="ftitle">Asked what to do, Zhuang starts with how agents fail</div>
+    <div class="fsub">From The Information Bottleneck, filler words removed.</div>
+    <div class="host">
+<span class="who">Ravid Shwartz-Ziv</span>In a world that we have more and more compute and more and more data, why not just build agents and solve all the problems?</div>
+    <p class="answer"><span class="who">Zhuang Liu</span><span class="w">Agents still make mistakes. A lot of mistakes it had for me was not remembering something that's obvious.</span> <span class="w">Even if you have unlimited context, in theory you can access everything you told the model, but if it forgets, it still doesn't have good memory.</span> <span class="w">How can we have unlimited memory? This is like the continual learning problem. How can we not forget?</span> <span class="d">That's something more important, and would be more fruitful if we have success, than how to build collaborative agents.</span> <span class="w">The fact that we need a lot of agents is exactly because one agent cannot remember everything.</span></p>
+    <div class="ratio">
+<span class="rw" style="width:81%"></span><span class="rd" style="width:19%"></span>
+</div>
+    <div class="legend">
+<span><i class="sw w"></i>How the world works · 81% of the answer</span><span><i class="sw d"></i>What to do · 19%</span>
+</div>
+  </figure>
+  <p>So we asked. From one podcast interview each with Karthik Narasimhan, Zhuang Liu and Ilya Sutskever, we wrote standalone questions about how they see their field and listed the ideas in their real answers. Thirteen models answered each question as the guest, and a judge checked which ideas each answer contained. The answers were fluent and reasonable. Where they fall short of the researchers falls into five patterns.</p>
   <div class="key">
 <span><b class="g">✓</b>caught the researcher’s idea</span><span><b class="x">×</b>missed it</span><span><i style="background:#eb6834"></i>Claude</span><span><i style="background:#2a78d6"></i>GPT</span>
 </div>
