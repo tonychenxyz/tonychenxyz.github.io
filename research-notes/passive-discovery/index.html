@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792126285">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792126842">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -476,51 +476,57 @@
 .pd .sitem.end .sb::before { background: var(--agent); }
 
 /* section 8: worked examples on other corpora */
-.pd .ex { border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin: 22px 0 10px; background: #fff; }
-.pd .ex .exhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.pd .ex { width: min(calc(100vw - 40px), 1020px); margin-left: 50%; transform: translateX(-50%);
+          border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; margin-top: 22px;
+          margin-bottom: 10px; background: #fff; }
+.pd .ex .exhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
 .pd .ex .exfield { font-size: 12px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); }
 .pd .badge { font-size: 11.5px; font-weight: 650; letter-spacing: .03em; padding: 3px 9px; border-radius: 999px;
              border: 1px solid var(--border); color: var(--text-2); background: var(--panel); white-space: nowrap; }
-.pd .badge.new { color: #0d7a4f; background: #e8f7f0; border-color: #bfe6d5; }
-.pd .badge.known { color: #a05a00; background: #fdf3e2; border-color: #f0dcb8; }
-.pd .ex .extitle { font-size: 19px; font-weight: 660; line-height: 1.3; letter-spacing: -.01em; margin: 2px 0 2px; }
-.pd .ex .exsub { font-size: 14.5px; color: var(--text-2); margin: 0 0 4px; }
-.pd .srcs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0 0; }
-@media (max-width: 760px) { .pd .srcs { grid-template-columns: 1fr; } }
-.pd .src { border: 1px solid var(--border); border-radius: 12px; padding: 12px 13px; background: var(--panel); }
-.pd .src { display: flex; flex-direction: column; }
-.pd .src .tag { display: inline-block; font: 650 11px/1 var(--mono); letter-spacing: .04em; color: #fff;
-                background: var(--c, var(--other)); border-radius: 5px; padding: 4px 6px; }
-.pd .src .prov { font: 650 10.5px/1.3 var(--sans); letter-spacing: .07em; text-transform: uppercase;
-                 color: var(--c, var(--text-2)); margin: 8px 0 3px; }
-.pd .src .stitle { font-size: 13.5px; font-weight: 650; line-height: 1.38; margin-bottom: 7px; }
-.pd .src .role { font-size: 12.5px; line-height: 1.5; color: var(--text-2); margin-bottom: 9px; }
-.pd .src .role i { font-style: normal; font-weight: 650; color: var(--text); }
+.pd .badge.new { color: #0b6b45; background: #e8f7f0; border-color: #bfe6d5; }
+.pd .badge.known { color: #8a4d00; background: #fdf3e2; border-color: #f0dcb8; }
+.pd .ex .extitle { font-size: 20px; font-weight: 660; line-height: 1.32; letter-spacing: -.012em; margin: 2px 0 4px; }
+.pd .srcs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 16px; }
+@media (max-width: 820px) { .pd .srcs { grid-template-columns: 1fr !important; }
+                            .pd .ex { width: auto; margin-left: 0; transform: none; padding: 18px; } }
+.pd .src { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: 12px;
+           padding: 13px 14px; background: var(--panel); }
+.pd .src .prov { font: 650 10.5px/1.35 var(--sans); letter-spacing: .06em; text-transform: uppercase;
+                 color: var(--text-2); margin-bottom: 9px; }
+.pd .src .prov i { font-style: normal; display: inline-block; width: 8px; height: 8px; border-radius: 2px;
+                   background: var(--c, var(--other)); margin-right: 6px; vertical-align: 0; }
+.pd .src .shot { display: block; width: 100%; border: 1px solid var(--border); border-radius: 7px; background: #fff; }
+.pd .src .cap { font-size: 11px; color: var(--text-2); margin: 5px 0 10px; }
+.pd .src .outline { background: #fff; border: 1px solid var(--border); border-radius: 7px; padding: 8px 9px; margin-bottom: 4px; }
+.pd .src .outline .ol { font: 500 11.5px/1.75 var(--mono); color: var(--text-2); white-space: nowrap;
+                        overflow: hidden; text-overflow: ellipsis; }
+.pd .src .outline .ol.on { color: var(--text); font-weight: 650; background: var(--hl); border-radius: 3px;
+                           padding: 0 4px; margin: 0 -4px; }
+.pd .src .stitle { font-size: 13.5px; font-weight: 650; line-height: 1.4; margin-bottom: 7px; }
+.pd .src .role { font-size: 13px; line-height: 1.52; color: var(--text-2); margin-bottom: 10px; }
+.pd .src .role b { color: var(--text); font-weight: 650; }
 .pd .src .quote { border-left: 2.5px solid var(--c, var(--border)); background: #fff; border-radius: 0 6px 6px 0;
-                  padding: 8px 10px; margin-bottom: 9px; }
+                  padding: 9px 11px; margin-bottom: 10px; font-size: 13px; line-height: 1.6; color: var(--text); }
 .pd .src .quote .qk { font: 650 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
-                      color: var(--muted); display: block; margin-bottom: 5px; }
-.pd .src .quote .qt { font-size: 12.5px; line-height: 1.52; color: var(--text); }
-.pd .src .gives { font-size: 13.5px; line-height: 1.5; border-top: 1px dashed var(--border); padding-top: 8px;
+                      color: var(--text-2); display: block; margin-bottom: 6px; }
+.pd .src .gives { font-size: 13.5px; line-height: 1.52; border-top: 1px dashed var(--border); padding-top: 9px;
                   margin-top: auto; }
-.pd .src .gives .gl { font: 650 9.5px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase;
-                      color: var(--muted); display: block; margin-bottom: 5px; }
 .pd .src .gives b { font-weight: 650; }
-.pd .concl .crole { font-size: 14px; line-height: 1.55; color: var(--text-2); border-top: 1px solid #d6e4fa;
-                    margin-top: 11px; padding-top: 9px; }
-.pd .concl .crole b { color: var(--text); font-weight: 650; }
-.pd .merge { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 12px 0 2px; }
-.pd .merge .arrow { width: 1px; height: 16px; background: var(--border); }
-.pd .merge .mcap { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; font-weight: 650; color: var(--muted); }
-.pd .concl { border: 1.5px solid var(--theme); border-radius: 13px; padding: 15px 17px; margin-top: 8px;
-             font-size: 16.5px; line-height: 1.58; background: #f5f9ff; }
+.pd .merge { display: flex; flex-direction: column; align-items: center; gap: 3px; margin: 16px 0 4px; }
+.pd .merge .arrow { width: 1px; height: 15px; background: #c8cfd8; }
+.pd .merge .mcap { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; font-weight: 650; color: var(--text-2); }
+.pd .concl { border: 1.5px solid var(--theme); border-radius: 13px; padding: 16px 18px; margin-top: 6px;
+             font-size: 16.5px; line-height: 1.6; background: #f5f9ff; }
 .pd .concl .lab { font-size: 11.5px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase;
-                  color: var(--theme); margin-bottom: 5px; }
-.pd .why { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; margin: 16px 0 2px; }
-@media (max-width: 760px) { .pd .why { grid-template-columns: 1fr; } }
-.pd .why .w { font-size: 14.5px; line-height: 1.55; }
-.pd .why .w .wh { font-weight: 650; display: block; }
-.pd .why .w .wb { color: var(--text-2); }
+                  color: #1b55ad; margin-bottom: 6px; }
+.pd .concl .crole { font-size: 14.5px; line-height: 1.58; color: var(--text-2); border-top: 1px solid #ccdcf6;
+                    margin-top: 12px; padding-top: 10px; }
+.pd .concl .crole b { color: var(--text); font-weight: 650; }
+.pd .why { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 22px; margin-top: 16px; }
+@media (max-width: 820px) { .pd .why { grid-template-columns: 1fr; } }
+.pd .why .w { font-size: 14.5px; line-height: 1.56; color: var(--text-2); }
+.pd .why .w b { font-weight: 650; color: var(--text); }
+.pd .katex { font-size: 1em; }
 </style>
 <article class="pd" id="pd">
 <div class="meta">Research note · October 2026</div>
@@ -602,8 +608,8 @@ are shown with the line it used highlighted.</p>
 <p>An app log is forgiving: almost any two entries can be read together somehow. The interesting test is a library
 where that isn't true. We ran the identical setup — same judge, same single open question — on
 <b>719 research-mathematics manuscripts</b> (<a href="https://github.com/openai/math" rel="external nofollow noopener" target="_blank">openai/math</a>) and on
-<b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below, with the
-source passages as they actually appear.</p>
+<b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below, each
+shown with the documents it was built from.</p>
 
 <div class="ex">
   <div class="exhead">
@@ -613,53 +619,45 @@ source passages as they actually appear.</p>
   <div class="extitle">A system is maximally infinite exactly when you cannot measure it — not even sloppily</div>
   <div class="srcs">
     <div class="src" style="--c: var(--real)">
-      <span class="tag">A</span>
-      <div class="prov">Manuscript · 23 Sep 2026</div>
-      <div class="stitle">A counterexample to Kaplansky's quasitrace conjecture</div>
-      <div class="role">
-<i>Its job in the field:</i> to close a conjecture by exhibiting one object that breaks it.
+      <div class="prov">
+<i></i>Manuscript · 23 Sep 2026</div>
+      <img class="shot" src="assets/paper-kaplansky.png" alt="First page of the manuscript: title, author and abstract.">
+      <div class="cap">Page 1 of the source manuscript.</div>
+      <div class="role">Its job in the field: <b>to close a conjecture</b> by exhibiting one object that breaks it.
         A cabinet of curiosities, not a toolbox.</div>
       <div class="quote">
-<span class="qk">theorem</span><span class="qt">“A unital C*‑algebra C admits a
-        normalized 2‑quasitrace if and only if M<sub>m</sub>(C) is not properly infinite for every positive
-        integer m.”</span>
-</div>
-      <div class="gives">
-<span class="gl">what it lends</span>Not its result — a classical fact it recites in
-        passing: <b>no notion of size at all</b> is the same thing as splitting into two copies of itself once you
-        bundle <i>m</i> copies.</div>
+<span class="qk">theorem</span>“A unital \(C^*\)-algebra \(C\) admits a normalized
+        \(2\)-quasitrace if and only if \(M_m(C)\) is not properly infinite for every positive integer
+        \(m\).”</div>
+      <div class="gives">Not its result — a classical fact it recites in passing: <b>no notion of size at
+        all</b> is the same thing as splitting into two copies of itself once you bundle \(m\) copies.</div>
     </div>
     <div class="src" style="--c: var(--tidy)">
-      <span class="tag">B</span>
-      <div class="prov">Manuscript · 25 Sep 2026</div>
-      <div class="stitle">The Kirchberg–Rørdam character criterion</div>
-      <div class="role">
-<i>Its job in the field:</i> to settle a named open question on the <b>tame</b> half of the
+      <div class="prov">
+<i></i>Manuscript · 25 Sep 2026</div>
+      <img class="shot" src="assets/paper-character.png" alt="First page of the manuscript: title, author and abstract.">
+      <div class="cap">Page 1 of the source manuscript.</div>
+      <div class="role">Its job in the field: to settle a named open question on the <b>tame</b> half of the
         classification programme — when is a system infinitely divisible?</div>
       <div class="quote">
-<span class="qk">theorem</span><span class="qt">“Let A be a nonzero unital separable complex
-        C*‑algebra… Then F<sub>ω</sub>(A) has no characters ⇔
-        A ≅ A ⊗ <i>Z</i>.”</span>
-</div>
-      <div class="gives">
-<span class="gl">what it lends</span>No “one‑dimensional shadow” means the
-        system is <b>sand, not bricks</b> — divisible as finely as you like.</div>
+<span class="qk">theorem</span>“Let \(A\) be a nonzero unital separable complex
+        \(C^*\)-algebra, and let \(\omega\) be any free ultrafilter on \(\mathbb{N}\). Then \(F_\omega(A)\)
+        has no characters \(\iff A \cong A \otimes_{\min} \mathcal{Z}\).”</div>
+      <div class="gives">No “one-dimensional shadow” means the system is <b>sand, not bricks</b> —
+        divisible as finely as you like.</div>
     </div>
     <div class="src" style="--c: var(--render)">
-      <span class="tag">C</span>
-      <div class="prov">Manuscript · 25 Sep 2026</div>
-      <div class="stitle">Weak pure infiniteness and O‑infinity absorption</div>
-      <div class="role">
-<i>Its job in the field:</i> the mirror question on the <b>infinite</b> half — how weak
-        a form of self‑duplication still forces the strongest one.</div>
+      <div class="prov">
+<i></i>Manuscript · 25 Sep 2026</div>
+      <img class="shot" src="assets/paper-infinity.png" alt="First page of the manuscript: title, author and abstract.">
+      <div class="cap">Page 1 of the source manuscript.</div>
+      <div class="role">Its job in the field: the mirror question on the <b>infinite</b> half — how weak a form
+        of self-duplication still forces the strongest one.</div>
       <div class="quote">
-<span class="qk">corollary</span><span class="qt">“Let A be a separable nuclear complex
-        C*‑algebra. If there is one integer n ≥ 1 such that h<sup>⊕n</sup> is properly
-        infinite for every h ∈ A<sub>+</sub>, then A ≅ A ⊗ <i>O</i><sub>∞</sub>.”</span>
-</div>
-      <div class="gives">
-<span class="gl">what it lends</span>Splitting <i>after</i> bundling already forces
-        <b>maximal infiniteness</b>.</div>
+<span class="qk">corollary</span>“Let \(A\) be a separable nuclear complex
+        \(C^*\)-algebra. If there is one integer \(n\ge 1\) such that \(h^{\oplus n}\) is properly infinite
+        for every \(h\in A_+\), then \(A\cong A\otimes_{\min}\mathcal{O}_\infty\).”</div>
+      <div class="gives">Splitting <i>after</i> bundling already forces <b>maximal infiniteness</b>.</div>
     </div>
   </div>
   <div class="merge">
@@ -668,71 +666,79 @@ source passages as they actually appear.</p>
 <div class="arrow"></div>
 </div>
   <div class="concl">
-<div class="lab">The conclusion</div>The <i>m</i> disappears. Being unmeasurable forces the
-    system to be sand, and sand lets you divide the inequality through by <i>m</i> — so splitting only after
-    bundling was never the weaker property it looked like.
+<div class="lab">The conclusion</div>The \(m\) disappears. Being unmeasurable forces the system
+    to be sand, and sand lets you divide through by \(m\) — so splitting only after bundling was never the
+    weaker property it looked like.
     <div class="crole">
 <b>Its job in the field:</b> a gateway test. The classification theorems only apply to systems
-      that are maximally infinite, and that condition is written as an isomorphism, which means checking it requires
-      <i>building</i> something. This swaps it for ruling something out: show no measure exists. Usually far easier.</div>
+      that are maximally infinite, and that condition is written as an isomorphism, so checking it means
+      <i>building</i> something. This swaps it for ruling something out: show no measure exists.</div>
 </div>
   <div class="why">
     <div class="w">
-<span class="wh">Opposite halves of one programme</span><span class="wb">B is the tame side,
-      C the infinite side, and they are rarely read together. The argument runs the unexpected way: the tame‑side
-      tool is exactly what makes the infinite‑side conclusion work.</span>
-</div>
+<b>Opposite halves of one programme.</b> The second paper is the tame side, the third the infinite
+      side, and they are rarely read together. The argument runs the unexpected way: the tame-side tool is what makes
+      the infinite-side conclusion work.</div>
     <div class="w">
-<span class="wh">The key line is nobody's headline</span><span class="wb">A is mined for a sentence
-      it merely quotes in passing. Papers are indexed by their main theorem, so that line is invisible from the
-      outside.</span>
-</div>
+<b>The key line is nobody's headline.</b> The first paper is mined for a sentence it merely quotes
+      in passing. Papers are indexed by their main theorem, so that line is invisible from outside.</div>
   </div>
 </div>
 
 <div class="ex">
   <div class="exhead">
 <span class="exfield">Medicine · two reviews, two specialties</span>
-    <span class="badge known">a mechanism to test</span>
+    <span class="badge known">known biology, never applied here</span>
 </div>
   <div class="extitle">A drug given to help embryos implant may be working against itself, through a side pathway
     nobody measures</div>
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
     <div class="src" style="--c: var(--theme)">
-      <span class="tag">A</span>
-      <div class="prov">Cochrane review · 2025 · ENT / respiratory allergy</div>
-      <div class="stitle">Oral and intranasal aspirin desensitisation for NSAID‑exacerbated respiratory
-        disease</div>
-      <div class="role">
-<i>Its job in the field:</i> the reference account of a group of people — about 2% of
-        the population — in whom blocking one arm of the inflammatory pathway reliably sends traffic down the
-        other.</div>
+      <div class="prov">
+<i></i>Cochrane review · 2025 · respiratory allergy</div>
+      <div class="outline">
+      <div class="ol on">Background</div>
+      <div class="ol">Objectives</div>
+      <div class="ol">Search methods</div>
+      <div class="ol">Selection criteria</div>
+      <div class="ol">Data collection and analysis</div>
+      <div class="ol">Main results</div>
+      <div class="ol">Authors' conclusions</div>
+      </div>
+      <div class="cap">The review's seven abstract sections; the one used is highlighted.</div>
+      <div class="stitle">Oral and intranasal aspirin desensitisation for NSAID-exacerbated respiratory disease</div>
+      <div class="role">Its job in the field: the reference account of a group — about 2% of people — in
+        whom blocking one arm of the inflammatory pathway reliably sends traffic down the other.</div>
       <div class="quote">
-<span class="qk">background</span><span class="qt">“N‑ERD is a hypersensitivity
-        to non‑steroidal anti‑inflammatory drugs… The clinical benefit of aspirin might occur
-        through inhibition of interleukin 4 and a reduction in prostaglandin D2.”</span>
-</div>
-      <div class="gives">
-<span class="gl">what it lends</span>Proof that in people, blocking COX does not merely
-        remove prostaglandins — it <b>redirects the same raw material</b> down the leukotriene branch, by an
-        amount that differs from person to person and shows up in urine.</div>
+<span class="qk">background</span>“N-ERD is a hypersensitivity to non-steroidal
+        anti-inflammatory drugs… The clinical benefit of aspirin might occur through inhibition of interleukin 4
+        and a reduction in prostaglandin D2.”</div>
+      <div class="gives">Evidence that in people, blocking COX does not merely remove prostaglandins — it
+        <b>redirects the same raw material</b> down the leukotriene branch, by an amount that differs between people
+        and shows up in urine.</div>
     </div>
     <div class="src" style="--c: var(--agent)">
-      <span class="tag">B</span>
-      <div class="prov">Cochrane review · 2019 · reproductive medicine</div>
-      <div class="stitle">Nonsteroidal anti‑inflammatory drugs for assisted reproductive technology</div>
-      <div class="role">
-<i>Its job in the field:</i> the evidence base for a common IVF add‑on, and the record
-        of why its benefit has never quite appeared.</div>
+      <div class="prov">
+<i></i>Cochrane review · 2019 · reproductive medicine</div>
+      <div class="outline">
+      <div class="ol on">Background</div>
+      <div class="ol">Objectives</div>
+      <div class="ol">Search methods</div>
+      <div class="ol">Selection criteria</div>
+      <div class="ol">Data collection and analysis</div>
+      <div class="ol">Main results</div>
+      <div class="ol">Authors' conclusions</div>
+      </div>
+      <div class="cap">The same seven sections, from a different specialty.</div>
+      <div class="stitle">Nonsteroidal anti-inflammatory drugs for assisted reproductive technology</div>
+      <div class="role">Its job in the field: the evidence base for a common IVF add-on, and the record of why its
+        benefit has never quite appeared.</div>
       <div class="quote">
-<span class="qk">background</span><span class="qt">“prostaglandins may increase uterine
-        contractions and decrease uterine receptivity… In this context, nonsteroidal anti‑inflammatory
-        drugs have been employed to inhibit the negative prostaglandin effect.”</span>
-</div>
-      <div class="gives">
-<span class="gl">what it lends</span>The drug is given on the assumption that lowering
-        prostaglandins is <b>its only relevant action</b> — and across 11 trials the benefit stays
-        uncertain.</div>
+<span class="qk">background</span>“prostaglandins may increase uterine contractions and
+        decrease uterine receptivity… In this context, nonsteroidal anti-inflammatory drugs have been employed
+        to inhibit the negative prostaglandin effect.”</div>
+      <div class="gives">The drug is given on the assumption that lowering prostaglandins is <b>its only relevant
+        action</b> — and across 11 trials the benefit stays uncertain.</div>
     </div>
   </div>
   <div class="merge">
@@ -741,32 +747,35 @@ source passages as they actually appear.</p>
 <div class="arrow"></div>
 </div>
   <div class="concl">
-<div class="lab">The conclusion</div>Leukotrienes make the uterus contract and oppose the lining's
+<div class="lab">The conclusion</div>Leukotrienes contract the uterus and oppose the lining's
     preparation for an embryo. So the drug may be partly undoing its own purpose — subtracting the prostaglandins
-    it targets while generating the very signals it does not — by an amount set by each woman's own leukotriene
-    tone. That would explain an average effect that keeps coming out flat.
+    it targets while generating the signals it does not — by an amount set by each woman's own leukotriene tone.
+    That would explain an average effect that keeps coming out flat.
     <div class="crole">
-<b>Its job in the field:</b> it turns a stubborn null result into something testable. Measure
-      leukotrienes in uterine fluid on and off the drug, split women by that biomarker, and see whether blocking the
-      side pathway rescues the benefit.</div>
+<b>The mechanism itself is textbook.</b> That blocking COX pushes the same substrate down the
+      leukotriene branch is long established, and a leukotriene blocker was proposed as a way to quiet the uterus back
+      in 2014. What is absent from the literature is anyone joining that to this drug in this setting: the IVF work
+      reasons entirely in prostaglandins. The contribution is the link, not the biology — and it comes with a
+      test. Measure leukotrienes in uterine fluid on and off the drug, split women by that marker, and see whether
+      blocking the side pathway restores the benefit.</div>
 </div>
   <div class="why">
     <div class="w">
-<span class="wh">Neither specialty reads the other</span><span class="wb">One document is sinus
-      disease, the other is IVF. No shared organ, patient or journal. The link is a single branch point in fat
-      metabolism.</span>
-</div>
+<b>Neither specialty reads the other.</b> One document is sinus disease, the other IVF. No shared
+      organ, patient or journal. The link is a single branch point in fat metabolism.</div>
     <div class="w">
-<span class="wh">Why it is testable, not just a story</span><span class="wb">The allergy document
-      supplies the missing quantity: that the redirect is large in humans, varies between them, and has a urine
-      marker. Without it this is a textbook footnote.</span>
-</div>
+<b>Why it is testable, not just a story.</b> The allergy document supplies the missing quantity:
+      that the redirect is large in humans, varies between them, and has a urine marker.</div>
   </div>
 </div>
 
 <p>Both have the same shape as the gift in section 3. The link is carried by one thing sitting underneath documents
 that look unrelated from above — a material, a branch point in metabolism, a single question about size —
 and none of it is reachable by searching for a word, because no word spans both documents.</p>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('pd'), {delimiters:[{left:'\\(',right:'\\)',display:false}], throwOnError:false});"></script>
 
 <p class="foot">Data: DynamicMem user 002 (synthetic, MIT). Judge: OpenAI Decisions (gpt-6-luna) through the AI Sandbox,
 1,000 partners per anchor. The groups, conclusions and our idea were written by Claude Opus 5.5 after reading the 31
@@ -785,7 +794,7 @@ self‑contained opening passages, and each reader one <code>claude -p</code> se
 in the medical example is a hypothesis assembled from the two reviews, not a finding either one reports; its component
 steps are published separately, and the combination is what the search surfaced.</p>
 </article>
-<script src="data.js?v=4c9fb41b1c"></script>
+<script src="data.js?v=aa05cbd2e4"></script>
 <script>
 (function () {
 "use strict";
