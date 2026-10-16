@@ -347,12 +347,61 @@ are shown with the line it used highlighted.</p>
 <div class="diff" id="diff"></div>
 <p id="verdict"></p>
 
+<h2><span class="num">8</span>The same question, on mathematics</h2>
+<p>An app log is forgiving: almost any two entries can be read together somehow. So we ran the identical setup on a
+corpus where that isn't true &mdash; <b>719 research-mathematics manuscripts across 17 fields</b>
+(<a href="https://github.com/openai/math">openai/math</a>). Same judge, same single open question, 10,000 random
+partners per anchor, and the top 100 handed to one reader that also had the whole corpus on disk and web search, so it
+could check whether anything it found was already known.</p>
+<p>Five anchors, picked at random. <b>Four came back with nothing</b> &mdash; which is the honest answer when a paper has
+no real neighbour in the corpus, and those four reports are mostly a list of candidates the reader killed itself. The
+fifth found something, out of three documents that look nothing alike.</p>
+
+<p><b>The first</b> is a counterexample paper: <i>here is a strange object that breaks a conjecture from the 1960s</i>.
+You would file it under curiosities. The sentence that mattered isn't even its result &mdash; it's a classical fact the
+paper recites in passing: a system admits <i>no notion of size at all</i> exactly when it can be split into two copies of
+itself, provided you first bundle <i>m</i> copies of it together.</p>
+<p><b>The second</b> is about when a system is infinitely divisible &mdash; sand rather than bricks. It says: if a certain
+derived object casts no "one&#8209;dimensional shadow", the system is sand.</p>
+<p><b>The third</b> is about the opposite situation: when a system contains two complete copies of <i>itself</i>, like
+Hilbert's hotel. It says bundled splitting already forces the strongest form of this.</p>
+
+<div class="task"><div class="lab">What the three give together</div>A system is <b>maximally infinite exactly when you
+cannot measure it &mdash; not even sloppily</b>. Having no notion of size, the weakest imaginable failure, already forces
+the strongest form of self&#8209;duplication.</div>
+
+<p>The surprise is that the <i>m</i> vanishes. Needing to bundle <i>m</i> copies before you can split something looks
+strictly weaker than splitting it outright &mdash; you needed extra room to do the trick. But being unmeasurable forces
+the system to be sand, and once it is sand you can divide the inequality through by <i>m</i>. The weaker&#8209;looking
+condition was never weaker.</p>
+
+<p>Why a specialist wouldn't stumble on this: the second and third papers sit on <b>opposite sides of the field's main
+dividing line</b>, the one between finite and infinite behaviour, and the argument runs the unexpected way &mdash; it uses
+a finite&#8209;world tool to settle an infinite&#8209;world question. Two of the three are used for something that isn't
+their point, and people index papers by their headline. The three describe one phenomenon in three different dialects
+&mdash; "no measure", "no shadow", "swallows a factor" &mdash; which sound like three unrelated ideas. The step that
+actually closes the argument is a fourth, published fact that none of them mentions. And all three appeared within 48
+hours of each other inside a drop of 719 papers, so nobody had read them side by side.</p>
+
+<p>What it is worth, stated plainly: this is a cleaner, more checkable form of a known gateway condition, not a new
+theorem. "Split this in two" asks you to build something; "no measure exists" asks you to rule something out, which is
+usually far easier. Two of the three inputs carry machine&#8209;checked Lean proofs; the third does not. And once you
+grant the middle paper, the remaining step is short enough that a specialist may already have it. The reader said so
+itself, and rated its own find medium rather than high.</p>
+
 <p class="foot">Data: DynamicMem user 002 (synthetic, MIT). Judge: OpenAI Decisions (gpt-6-luna) through the AI Sandbox,
 1,000 partners per anchor. The groups, conclusions and our idea were written by Claude Opus 5.5 after reading the 31
 entries; the grep agent is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob). "Uses the anchor's words" means
-the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or crystal.</p>
+the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or crystal.
+<br><br>Section 8: 127,584 passages from the 719 manuscripts of <a href="https://github.com/openai/math">openai/math</a>
+(Apache&#8209;2.0, commit <code>fd4aeeb</code>), same judge and question, 10,000 partners per anchor, five anchors drawn at
+random from self&#8209;contained abstract and introduction statements. Each reader is one <code>claude -p</code> session
+(Opus 5.5) with the top 100 in full, the corpus as files, and web search for novelty. The three papers are <i>A
+counterexample to Kaplansky's quasitrace conjecture</i>, <i>The Kirchberg&ndash;R&oslash;rdam character criterion</i> and
+<i>Weak pure infiniteness and O&#8209;infinity absorption</i>; the first two have Lean formalizations in that repo, the
+third does not.</p>
 </article>
-<script src="data.js?v=2994270f46"></script>
+<script src="data.js?v=d2db8fb30a"></script>
 <script>
 (function () {
 "use strict";
