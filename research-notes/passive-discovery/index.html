@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792174922">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792175431">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -537,6 +537,13 @@
 .pd .why .w { font-size: 14.5px; line-height: 1.56; color: var(--text-2); }
 .pd .why .w b { font-weight: 650; color: var(--text); }
 .pd .katex { font-size: 1em; }
+.pd .rec { background: #fff; border: 1px solid var(--border); border-radius: 9px; padding: 10px 12px; margin-bottom: 10px; }
+.pd .rec .src2 { font: 650 10.5px/1.35 var(--sans); letter-spacing: .05em; text-transform: uppercase; color: #8a5a00; }
+.pd .rec .rt { font-size: 14px; font-weight: 650; line-height: 1.38; margin: 3px 0 5px; }
+.pd .rec .who { font-size: 12.5px; line-height: 1.5; color: var(--text-2); }
+.pd .rec .who b { color: var(--text); font-weight: 600; }
+.pd .rec .n { font-size: 12.5px; color: var(--text); margin-top: 4px; }
+.pd .rec .lnk { font-size: 12px; margin-top: 5px; } .pd .rec .lnk a { margin-right: 12px; }
 .pd .exlead { font-size: 16.5px; margin: 34px 0 0; }
 .pd .ctx { font-size: 14.5px; line-height: 1.6; color: var(--text-2); margin: 0 0 4px; }
 .pd .ctx b { color: var(--text); font-weight: 640; }
@@ -717,12 +724,19 @@ shown with the documents it was built from.</p>
   </div>
 </div>
 
-<p class="exlead">Next, two medical evidence reviews from unrelated fields: malaria drugs and arsenic poisoning.</p>
+<p class="exlead">Next, two reviews of folic acid: one about malaria drugs, one about arsenic poisoning.</p>
 <div class="ex">
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
     <div class="src" style="--c: var(--real)">
-      <div class="stitle">Folic acid supplementation and malaria susceptibility and severity among people taking antifolate
-        antimalarial drugs</div>
+      <div class="rec">
+<div class="src2">Cochrane Database of Systematic Reviews · 2026</div>
+        <div class="rt">Folic acid supplementation and malaria susceptibility and severity among people taking antifolate antimalarial drugs in endemic areas</div>
+        <div class="who">Qi, Crider, Gutman, … Finkelstein. <b>US Centers for Disease Control and Prevention</b> (birth-defects centre and malaria branch) and <b>Cornell University</b>, Division of Nutritional Sciences.</div>
+        <div class="n">8 trials, 3,486 participants</div>
+        <div class="lnk">
+<a href="https://doi.org/10.1002/14651858.CD014217.pub2" rel="external nofollow noopener" target="_blank">Cochrane Library</a><a href="https://pubmed.ncbi.nlm.nih.gov/41705996/" rel="external nofollow noopener" target="_blank">PubMed 41705996</a>
+</div>
+</div>
       <div class="quote">
 <span class="qk">from the review · background</span>“<mark>The malaria parasite
         requires folate for survival and growth; antifolate antimalarial medications used for prevention and treatment
@@ -736,7 +750,15 @@ shown with the documents it was built from.</p>
         folic acid from supplements may weaken them. The review weighs that risk for folic acid given in pregnancy.</div>
     </div>
     <div class="src" style="--c: var(--tidy)">
-      <div class="stitle">Provision of folic acid for reducing arsenic toxicity in arsenic-exposed children and adults (2021)</div>
+      <div class="rec">
+<div class="src2">Cochrane Database of Systematic Reviews · 2021</div>
+        <div class="rt">Provision of folic acid for reducing arsenic toxicity in arsenic-exposed children and adults</div>
+        <div class="who">Bae, Kamynina, Guetterman, … Stover. <b>Cornell University</b>, Division of Nutritional Sciences; <b>US CDC</b> birth-defects centre; University of Ibadan, Nigeria; Texas A&amp;M University.</div>
+        <div class="n">2 trials, 822 adults in Bangladesh</div>
+        <div class="lnk">
+<a href="https://doi.org/10.1002/14651858.CD012649.pub2" rel="external nofollow noopener" target="_blank">Cochrane Library</a><a href="https://pubmed.ncbi.nlm.nih.gov/34661903/" rel="external nofollow noopener" target="_blank">PubMed 34661903</a>
+</div>
+</div>
       <div class="quote">
 <span class="qk">from the review · conclusions</span>“There is moderate-certainty
         evidence that <mark>FA supplements may benefit blood arsenic concentration, urinary arsenic methylation
@@ -750,11 +772,12 @@ shown with the documents it was built from.</p>
     </div>
   </div>
   <div class="hard">
-<span class="pk">The connection is not obvious</span>One review is about malaria drugs, the other
-    about poisoning from contaminated wells. They belong to different fields, journals and public-health agencies, and
-    neither mentions the other's subject. A reader of the malaria review worries about folic acid given in pregnancy and
-    has no reason to think of arsenic. A reader of the arsenic review recommends folic acid and has no reason to think of
-    malaria drugs. The judge ranked the arsenic review 62nd of 10,000 partners for the malaria review.</div>
+<span class="pk">The connection is not obvious</span>The two reviews share more than it first
+    appears: both come from the folate research groups at Cornell and the US CDC, and both have folic acid in the title,
+    so a search for folic acid would put them side by side. What neither does is connect them. The 2026 malaria review,
+    written five years after the arsenic review by the same institutions, discusses folic acid given in pregnancy, not
+    folic acid given against arsenic; the arsenic review does not mention malaria drugs. The judge ranked the arsenic
+    review 62nd of 10,000 partners for the malaria review.</div>
   <div class="merge">
 <div class="arrow"></div>
 <div class="mcap">read together</div>
@@ -787,7 +810,8 @@ shown with the documents it was built from.</p>
       the interference with SP is clearest, so how large any effect would be is uncertain.</div>
     <div class="sub">
 <span class="pk">Why it's surprising</span>Two programmes that each do good could undercut each
-      other, through a vitamin that neither field associates with the other's problem.</div>
+      other. And the 2026 review of exactly this drug interaction, from the same institutions that reviewed folic acid
+      for arsenic, does not raise it.</div>
     <div class="sub">
 <span class="pk">Why it matters</span>Arsenic in groundwater and SP-based malaria prevention overlap
       in some regions; northern Burkina Faso, for example, has documented arsenic in its wells and gives young children
@@ -801,7 +825,15 @@ shown with the documents it was built from.</p>
 <div class="ex">
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
     <div class="src" style="--c: var(--theme)">
-      <div class="stitle">Cranberries for preventing urinary tract infections (2023)</div>
+      <div class="rec">
+<div class="src2">Cochrane Database of Systematic Reviews · 2023 · fifth update since 1998</div>
+        <div class="rt">Cranberries for preventing urinary tract infections</div>
+        <div class="who">Williams, Stothart, Hahn, Stephens, Craig, Hodson. <b>The Children’s Hospital at Westmead</b> and Cochrane Kidney and Transplant, Sydney; <b>Flinders University</b>, Adelaide; University of Edinburgh.</div>
+        <div class="n">50 studies, 8,857 participants</div>
+        <div class="lnk">
+<a href="https://doi.org/10.1002/14651858.CD001321.pub7" rel="external nofollow noopener" target="_blank">Cochrane Library</a><a href="https://pubmed.ncbi.nlm.nih.gov/37947276/" rel="external nofollow noopener" target="_blank">PubMed 37947276</a>
+</div>
+</div>
       <div class="quote">
 <span class="qk">from the review · main results</span>“In moderate certainty evidence,
         <mark>cranberry products reduced the risk of UTIs (6211 participants: RR 0.70, 95% CI 0.58 to 0.84; I² = 69%)</mark>.
@@ -814,7 +846,15 @@ shown with the documents it was built from.</p>
         times that of probiotics, about 60% less.</div>
     </div>
     <div class="src" style="--c: var(--agent)">
-      <div class="stitle">Probiotics for preventing urinary tract infections in adults and children (2015)</div>
+      <div class="rec">
+<div class="src2">Cochrane Database of Systematic Reviews · 2015</div>
+        <div class="rt">Probiotics for preventing urinary tract infections in adults and children</div>
+        <div class="who">Schwenger, Tejani, Loewen. <b>University of British Columbia</b>, Vancouver, Department of Pharmaceutical Sciences.</div>
+        <div class="n">9 studies, 735 participants</div>
+        <div class="lnk">
+<a href="https://doi.org/10.1002/14651858.CD008772.pub2" rel="external nofollow noopener" target="_blank">Cochrane Library</a><a href="https://pubmed.ncbi.nlm.nih.gov/26695595/" rel="external nofollow noopener" target="_blank">PubMed 26695595</a>
+</div>
+</div>
       <div class="quote">
 <span class="qk">from the review · main results</span>“We found <mark>no significant
         reduction in the risk of recurrent symptomatic bacterial UTI between patients treated with probiotics and placebo
@@ -906,7 +946,7 @@ verified against the probiotics review's results. Mathematics: 5,000 partners ju
 <code>claude -p</code> reader given the top 100 partners in full and the corpus as files. Quotations are cut verbatim from
 the passages.</p>
 </article>
-<script src="data.js?v=374dbf18fe"></script>
+<script src="data.js?v=c07baf9c93"></script>
 <script>
 (function () {
 "use strict";
