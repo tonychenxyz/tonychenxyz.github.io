@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792115014">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792115182">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -447,7 +447,7 @@
 .pd .iw .by { font-size: 12.5px; color: var(--text-2); margin: 12px 0 0; }
 /* prompt, light */
 .pd .promptl { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; font: 13px/1.65 var(--mono); white-space: pre-wrap; margin: 0; color: var(--text); }
-.pd .promptl .m { color: var(--muted); } .pd .promptl .c { color: #0f7a64; } .pd .promptl .q { background: var(--hl); border-radius: 3px; }
+.pd .promptl .m { color: var(--muted); } .pd .promptl .c { color: #0f7a64; } .pd .promptl .q { font-weight: 600; }
 .pd .qcard { height: 150px; overflow: hidden; }
 /* compare */
 .pd .cmplegend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; margin: 12px 2px 0; height: 44px; }
@@ -477,14 +477,14 @@
 <div class="meta">Research note · October 2026</div>
 <h1>Reading together, without a keyword</h1>
 <p class="dek">Some connections between documents can be searched for. Others can't, because nobody could name the
-word. We find them with a <mark>cheap judge that asks one open question of a thousand pairs</mark>, and compare with an
+word. We find them with a cheap judge that asks one open question of a thousand pairs, and compare with an
 agent that searches.</p>
 
 <h2>
 <span class="num">1</span>The data</h2>
 <p>One person's app log: <b>2,637 entries over 15 months, from 16 apps</b>. Each square is one entry, one block per
 month. The person is user 002 of <a href="https://wenyaxie023.github.io/DynamicMem/" rel="external nofollow noopener" target="_blank">DynamicMem</a>, a synthetic
-benchmark persona: a product designer in Amsterdam. <mark>Click an app</mark> to see where it sits and what an entry looks like.</p>
+benchmark persona: a product designer in Amsterdam. Click an app to see where it sits and what an entry looks like.</p>
 <div class="fig" id="fig-data">
   <canvas class="field" id="d-canvas"></canvas>
   <div class="applegend" id="d-legend"></div>
@@ -493,18 +493,18 @@ benchmark persona: a product designer in Amsterdam. <mark>Click an app</mark> to
 
 <h2>
 <span class="num">2</span>The task</h2>
-<p>Given one entry, find what in the rest of the log, <mark>read together with it</mark>, reveals something worth acting
+<p>Given one entry, find what in the rest of the log, read together with it, reveals something worth acting
 on. Here the something is a gift:</p>
 <div class="task">
 <div class="lab">Task</div>Plan <b>one surprise</b> that will make this person happy. Build it on a
-<mark>non-obvious connection</mark>: entries from different apps or months that together reveal something about them
-<mark>that would surprise even them</mark>, which no single entry shows.</div>
+non-obvious connection: entries from different apps or months that together reveal something about them
+that would surprise even them, which no single entry shows.</div>
 
 <h2>
 <span class="num">3</span>What we found</h2>
-<p>We started from an evening chat on 6 November 2024 where the person asks an AI to <mark>render imaginary glass
-and ice</mark>. Our method returned 30 partner entries. Read together, <b>they fall into three groups, each group says one
-thing, and the three combine into one idea</b>. <mark>Click any dot or box</mark> to read what is behind it.</p>
+<p>We started from an evening chat on 6 November 2024 where the person asks an AI to render imaginary glass
+and ice. Our method returned 30 partner entries. Read together, <b>they fall into three groups, each group says one
+thing, and the three combine into one idea</b>. Click any dot or box to read what is behind it.</p>
 <div class="fig imap" id="fig-map">
   <svg id="m-svg" viewbox="0 0 1200 480"></svg>
   <div class="panel" id="m-panel"></div>
@@ -513,9 +513,9 @@ thing, and the three combine into one idea</b>. <mark>Click any dot or box</mark
 
 <h2>
 <span class="num">4</span>How we did it</h2>
-<p>A keyword search can't do this: <mark>10 of these 30 entries share no word with the anchor</mark>. Instead we
+<p>A keyword search can't do this: 10 of these 30 entries share no word with the anchor. Instead we
 <b>name what we want and ask it of every pair</b>. The OpenAI Decisions API answers a yes/no question about a pair
-with a probability, for <mark>about seven cents per thousand pairs</mark>, so we fill the question's blank with 1,000
+with a probability, for about seven cents per thousand pairs, so we fill the question's blank with 1,000
 random entries and read only the 30 that score highest.</p>
 <div class="fig" id="fig-pipe">
   <div class="row" style="margin:0 0 12px">
@@ -530,7 +530,7 @@ random entries and read only the 30 that score highest.</p>
 <h2>
 <span class="num">5</span>How grep did it</h2>
 <p>We gave the same anchor and task to a Claude Opus 5.5 agent with <b>the whole log as files and only Read, Grep and
-Glob</b>. It made <mark>27 tool calls in two and a half minutes</mark>. Routine steps are folded; the entries that mattered
+Glob</b>. It made 27 tool calls in two and a half minutes. Routine steps are folded; the entries that mattered
 are shown with the line it used highlighted.</p>
 <div class="story" id="story"></div>
 <div class="iw" id="idea-grep" style="--c:#d6456b"></div>
@@ -693,7 +693,7 @@ const BASE = () => ({ s: .78, a: .5 });
 
 
 /* quotes inside “…” become highlights */
-const quoteMarks = html => html.replace(/“([^”]+)”/g, "“<mark>$1</mark>”");
+const quoteMarks = html => html;  // highlights are kept for snippets only
 const firstQuote = t => { const m = /“([^”]+)”/.exec(t); return m ? m[1] : null; };
 const ID_OF = new Map(D.entries.map((e, i) => [e[0], i]));
 
@@ -750,8 +750,8 @@ const ID_OF = new Map(D.entries.map((e, i) => [e[0], i]));
   function panelGroup(k) { const gr = D.groups[k];
     P.innerHTML = `<div class="cap" style="color:${C[gr.k]}">${esc(gr.c)}</div>` + gr.key.map(([r, hl]) => appCard(r === 0 ? a.i : byRank.get(r).i, 700, hl)).join(""); }
   function panelMerge(k) { const m = D.merges[k];
-    P.innerHTML = `<div class="cap">${esc(m.c)}</div><p>Combines ${m.from.map(x => x === "m0" ? "<mark>" + esc(D.merges[0].c) + "</mark>" : "<mark>" + esc(D.groups.find(g => g.k === x).c) + "</mark>").join(" and ")}.</p>`; }
-  function panelIdea() { const I = D.ideas.judge; P.innerHTML = `<div class="cap" style="color:${C.theme}">${esc(I.title)}</div><p><mark>${esc(I.so)}</mark></p><ul>${I.gift.map(g => `<li>${esc(g)}</li>`).join("")}</ul>`; }
+    P.innerHTML = `<div class="cap">${esc(m.c)}</div><p>Combines ${m.from.map(x => x === "m0" ? "" + esc(D.merges[0].c) + "" : "" + esc(D.groups.find(g => g.k === x).c) + "").join(" and ")}.</p>`; }
+  function panelIdea() { const I = D.ideas.judge; P.innerHTML = `<div class="cap" style="color:${C.theme}">${esc(I.title)}</div><p><b>${esc(I.so)}</b></p><ul>${I.gift.map(g => `<li>${esc(g)}</li>`).join("")}</ul>`; }
   P.innerHTML = `<div class="rk"><b>Click a dot</b> to read one entry, or <b>a box</b> to see the entries behind a conclusion. Below: the anchor.</div>` + appCard(a.i, 1400);
 })();
 
@@ -840,9 +840,9 @@ renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entri
   const KJ = X.key_judge, KG = X.key_grep; let mode = 0;
   const own = l => l.filter(([, o]) => o).length;
   const modes = [
-    { lab: "What grep read", leg: `<span><i style="background:${C.agent}"></i><b>${X.seen.length}</b> entries its searches showed it, <mark>${X.months_seen["2024-12"] || 0} of them all of December</mark></span>` },
+    { lab: "What grep read", leg: `<span><i style="background:${C.agent}"></i><b>${X.seen.length}</b> entries its searches showed it, ${X.months_seen["2024-12"] || 0} of them all of December</span>` },
     { lab: "What our method picked", leg: `<span><i style="background:${C.theme}"></i><b>${X.used.length}</b> of our top 30 that the idea uses</span><span><i style="background:${C.grey}"></i>${D.top.length - X.used.length} picked but not used</span>` },
-    { lab: "What each idea rests on", leg: `<span><i style="background:${C.agent}"></i>grep's idea: <mark>${own(KG)} of ${KG.length} use the anchor's words</mark></span><span><i style="background:${C.theme}"></i>our idea: <mark>${own(KJ)} of ${KJ.length}</mark></span><span><i class="ho" style="border-color:#57606a"></i>hollow: no shared word</span>` },
+    { lab: "What each idea rests on", leg: `<span><i style="background:${C.agent}"></i>grep's idea: ${own(KG)} of ${KG.length} use the anchor's words</span><span><i style="background:${C.theme}"></i>our idea: ${own(KJ)} of ${KJ.length}</span><span><i class="ho" style="border-color:#57606a"></i>hollow: no shared word</span>` },
   ];
   $("c-chips").innerHTML = modes.map((m, k) => `<button class="chip" data-k="${k}">${k + 1} · ${m.lab}</button>`).join("");
   const chips = [...$("c-chips").children];
@@ -865,19 +865,19 @@ renderIdea($("idea-judge"), D.ideas.judge, C.theme, "Our idea, from the 31 entri
   const card = (c, h, rows) => `<div class="card" style="--c:${c}"><h4>${h}</h4><dl>${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div>`;
   $("diff").innerHTML =
     card(C.theme, "Our method", [
-      ["Searched with", "<mark>no words</mark>: one open question, asked of 1,000 random entries at once"],
+      ["Searched with", "no words: one open question, asked of 1,000 random entries at once"],
       ["Read", "31 entries the judge picked"],
-      ["The idea rests on", `six entries, <b>April to December</b>, from three threads; <mark>${KJ_n(X) } of 6 never use the anchor's words</mark>, including the judge's first pick`],
-      ["The idea is about", "<mark>something the anchor never mentions</mark>: old window glass and ink wells to hold"]]) +
+      ["The idea rests on", `six entries, <b>April to December</b>, from three threads; ${KJ_n(X) } of 6 never use the anchor's words, including the judge's first pick`],
+      ["The idea is about", "something the anchor never mentions: old window glass and ink wells to hold"]]) +
     card(C.agent, "The grep agent", [
-      ["Searched with", "<mark>the anchor's own words</mark>: ice, frost, winter, permafrost, 20mm, then the anchor's camera words (lens, macro)"],
+      ["Searched with", "the anchor's own words: ice, frost, winter, permafrost, 20mm, then the anchor's camera words (lens, macro)"],
       ["Read", `${X.seen.length} entries, ${X.months_seen["2024-12"] || 0} of them all of December`],
-      ["The idea rests on", `four entries, <b>July to December</b>; <mark>all ${own(X.key_grep)} use the anchor's words</mark>`],
-      ["The idea is about", "<mark>the anchor's own object made real</mark>: a 20mm ice block, its blue light, f/11"]]);
+      ["The idea rests on", `four entries, <b>July to December</b>; all ${own(X.key_grep)} use the anchor's words`],
+      ["The idea is about", "the anchor's own object made real: a 20mm ice block, its blue light, f/11"]]);
   function KJ_n(x) { return x.key_judge.length - own(x.key_judge); }
-  $("verdict").innerHTML = `Grep reads widely but <mark>thinks in the anchor's vocabulary</mark>, so its idea stays on the anchor's topic and makes it physical. ` +
+  $("verdict").innerHTML = `Grep reads widely but thinks in the anchor's vocabulary, so its idea stays on the anchor's topic and makes it physical. ` +
     `Its one non-obvious fact, a camera boxed for the light, is real and useful. Our method's packet is not off-topic overall (${X.own_used} of the ${X.used.length} entries the idea map uses share the anchor's words, against ${X.own_seen} of the ${X.seen.length} grep read). ` +
-    `The difference is in <mark>the entries that change the subject</mark>: the cancelled AI subscription, the photo walks, the record-sorting puzzle. None of them uses the anchor's words, so no search built from the anchor reaches them.`;
+    `The difference is in the entries that change the subject: the cancelled AI subscription, the photo walks, the record-sorting puzzle. None of them uses the anchor's words, so no search built from the anchor reaches them.`;
 })();
 })();
 
