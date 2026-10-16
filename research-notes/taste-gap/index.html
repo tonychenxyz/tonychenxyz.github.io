@@ -1,0 +1,223 @@
+---
+layout: research-note
+title: "The rare idea: where language models show research taste"
+description: Thirteen models answered interview questions as three AI researchers. Most answers were fluent and reasonable. The difference was in the few ideas only some models caught.
+date: 2026-10-15
+permalink: /research-notes/taste-gap/
+research_note: true
+listed: true
+sitemap: false
+---
+{% raw %}
+<style>
+.tg { --text:#1f2328; --text-2:#57606a; --muted:#8c959f; --border:#e5e7eb; --panel:#f6f7f9; --theme:#286ee0; --claude:#eb6834; --gpt:#2a78d6;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-family:var(--sans); color:var(--text); font-size:16.5px; line-height:1.72; -webkit-font-smoothing:antialiased;
+  max-width:700px; margin:0 auto; padding:72px 24px 140px; }
+.tg * { box-sizing:border-box; }
+.tg a { color:var(--theme); text-decoration:none; } .tg a:hover { text-decoration:underline; }
+.tg .meta { font-size:14px; color:var(--text-2); margin-bottom:14px; }
+.tg h1 { font-size:40px; line-height:1.12; letter-spacing:-.028em; font-weight:700; margin:0 0 16px; }
+.tg .dek { font-size:19.5px; line-height:1.6; margin:0 0 28px; }
+.tg h2 { font-size:26px; line-height:1.25; letter-spacing:-.015em; font-weight:680; margin:80px 0 12px; }
+.tg h3 { font-size:19px; font-weight:660; margin:0; letter-spacing:-.01em; }
+.tg p { margin:0 0 18px; }
+.tg b { font-weight:620; }
+.tg .k-cl { color:#c4501d; font-weight:620; } .tg .k-gp { color:#1f63b8; font-weight:620; }
+.tg .facts { display:flex; gap:28px; flex-wrap:wrap; margin:6px 0 8px; padding:16px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.tg .fact b { display:block; font-size:24px; font-weight:680; letter-spacing:-.02em; line-height:1.2; }
+.tg .fact span { font-size:13.5px; color:var(--text-2); }
+.tg .fig { background:#fff; border:1px solid var(--border); border-radius:14px; padding:20px 22px 14px; margin:24px 0 30px; position:relative; }
+.tg .ftitle { font-weight:650; font-size:15.5px; margin:0 0 2px; }
+.tg .fsub { font-size:14px; color:var(--text-2); margin:0 0 12px; line-height:1.55; }
+.tg .chart { display:flex; flex-direction:column; }
+.tg .crow { display:grid; grid-template-columns:86px 1fr; gap:12px; align-items:center; height:26px; }
+.tg .crow .lab { font-size:13px; text-align:right; white-space:nowrap; }
+.tg .crow.hit:hover .lab { font-weight:650; }
+.tg .track { position:relative; height:100%; display:flex; align-items:center; gap:8px; }
+.tg .bar { height:14px; border-radius:0 4px 4px 0; min-width:4px; }
+.tg .val { font-size:12.5px; color:var(--text-2); font-variant-numeric:tabular-nums; }
+.tg .db .track { display:block; margin-right:14px; }
+.tg .db .crow.axis { height:20px; }
+.tg .tick { position:absolute; top:2px; transform:translateX(-50%); font-size:11.5px; color:var(--muted); }
+.tg .gl { position:absolute; top:0; bottom:0; width:1px; background:#eef0f2; }
+.tg .seg { position:absolute; top:50%; height:2px; margin-top:-1px; background:#c4cad1; }
+.tg .dot { position:absolute; top:50%; width:12px; height:12px; margin:-6px 0 0 -6px; border-radius:50%; box-shadow:0 0 0 2px #fff; }
+.tg .dot.ring { background:#fff; border:2px solid; box-shadow:none; }
+.tg .legend { display:flex; gap:18px; flex-wrap:wrap; font-size:13px; color:var(--text-2); margin:10px 0 0; }
+.tg .legend i { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px; }
+.tg .legend i.lg-ring { background:#fff; border:2px solid var(--muted); border-radius:50%; }
+.tg .legend i.lg-dot { background:var(--muted); border-radius:50%; }
+.tg .tip { position:absolute; pointer-events:none; background:#1f2328; color:#fff; font-size:12.5px; padding:5px 9px; border-radius:6px;
+  white-space:nowrap; opacity:0; transition:opacity .1s; z-index:2; }
+.tg .m { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:560; white-space:nowrap; }
+.tg .m i { width:8px; height:8px; border-radius:50%; display:inline-block; }
+.tg .pat { margin:44px 0 0; }
+.tg .pat-h { display:flex; align-items:baseline; gap:12px; }
+.tg .pat-h .num { color:var(--theme); font-weight:680; font-size:19px; font-variant-numeric:tabular-nums; }
+.tg .pat-line { color:var(--text-2); margin:4px 0 14px; }
+.tg .card { background:var(--panel); border-radius:14px; padding:18px 20px 14px; }
+.tg .card .q { font-size:15px; color:var(--text-2); font-style:italic; margin:0 0 12px; }
+.tg blockquote.guest { margin:0 0 14px; padding:0 0 0 14px; border-left:3px solid var(--text); font-size:17px; line-height:1.6; }
+.tg .who { display:block; font-size:12.5px; font-weight:650; letter-spacing:.04em; text-transform:uppercase; color:var(--text-2); margin-bottom:2px; }
+.tg .ans { display:grid; grid-template-columns:18px 104px 1fr; gap:6px; align-items:baseline; padding:9px 0; border-top:1px solid #e8eaed; font-size:15px; line-height:1.55; }
+.tg .ans .mark { font-weight:700; } .tg .ans.got .mark { color:#1a7f37; } .tg .ans.miss .mark { color:#9a6700; }
+.tg .ans.miss .t { color:var(--text-2); }
+.tg .caught { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center; font-size:13px; color:var(--text-2); border-top:1px solid #e8eaed; padding-top:10px; }
+.tg .echo { list-style:none; padding:0; margin:0; }
+.tg .echo li { display:grid; grid-template-columns:104px 1fr; gap:6px; align-items:baseline; padding:9px 0; border-top:1px solid #e8eaed; font-size:15px; line-height:1.55; }
+.tg .pull { font-size:21px; line-height:1.5; letter-spacing:-.01em; font-weight:560; margin:26px 0; padding-left:16px; border-left:3px solid var(--theme); }
+.tg details { border-top:1px solid var(--border); padding:14px 0; }
+.tg details:last-of-type { border-bottom:1px solid var(--border); }
+.tg summary { cursor:pointer; font-weight:620; list-style:none; }
+.tg summary::-webkit-details-marker { display:none; }
+.tg summary::before { content:'+'; display:inline-block; width:20px; color:var(--theme); font-weight:700; }
+.tg details[open] summary::before { content:'–'; }
+.tg details > div { padding:10px 0 0 20px; font-size:15.5px; color:var(--text); }
+.tg details ul { margin:0; padding-left:18px; } .tg details li { margin:0 0 8px; }
+.tg .cta { display:inline-block; margin-top:34px; font-weight:620; border:1px solid var(--border); padding:10px 16px; border-radius:10px; }
+@media (max-width:600px) {
+  .tg { padding-top:44px; } .tg h1 { font-size:32px; } .tg .dek { font-size:18px; }
+  .tg .ans { grid-template-columns:18px 1fr; } .tg .ans .t { grid-column:2; }
+  .tg .echo li { grid-template-columns:1fr; gap:2px; } .tg .facts { gap:18px; }
+}
+</style>
+
+<article class="tg">
+  <div class="meta">Research note · October 15, 2026 · Tony Chen</div>
+  <h1>The rare idea</h1>
+  <p class="dek">We asked thirteen language models to answer interview questions as three AI researchers. Almost every answer was fluent and reasonable. The difference between models showed up in a handful of ideas that only a few of them caught.</p>
+
+  <div class="facts">
+    <div class="fact"><b>3</b><span>researchers</span></div>
+    <div class="fact"><b>119</b><span>questions</span></div>
+    <div class="fact"><b>13</b><span>models</span></div>
+    <div class="fact"><b>281</b><span>ideas to catch</span></div>
+  </div>
+
+  <h2>The setup</h2>
+  <p>The researchers are Karthik Narasimhan, Zhuang Liu and Ilya Sutskever, from one podcast episode each. From each guest's answers we wrote questions that ask for a view, such as “What do you see as the main challenge in applying RL to enterprise problems?”, and listed the ideas in the guest's real answer. A model sees only a one-line intro and the question, answers as the guest, and a judge checks which of the guest's ideas the answer contains.</p>
+  <p>Most ideas are either caught by nearly everyone or by no one. The interesting ones sit in between: <b>34 of Karthik's and Zhuang's 138 ideas were caught by only one to three models.</b> Here is who caught them.</p>
+
+  <div class="fig">
+    <div class="ftitle">Rare ideas caught, Karthik and Zhuang</div>
+    <div class="fsub">Out of 34 ideas that only 1–3 of the 13 models caught.</div>
+    <div class="chart" role="img" aria-label="Rare ideas caught by each model"><div class="crow hit" data-tip="Opus 5.5: caught 17 of 34 rare ideas"><span class="lab">Opus 5.5</span><span class="track"><span class="bar" style="width:100.0%;background:#eb6834"></span><span class="val">17</span></span></div><div class="crow hit" data-tip="Fable 5.1: caught 15 of 34 rare ideas"><span class="lab">Fable 5.1</span><span class="track"><span class="bar" style="width:88.2%;background:#eb6834"></span><span class="val">15</span></span></div><div class="crow hit" data-tip="Sonnet 5.5: caught 13 of 34 rare ideas"><span class="lab">Sonnet 5.5</span><span class="track"><span class="bar" style="width:76.5%;background:#eb6834"></span><span class="val">13</span></span></div><div class="crow hit" data-tip="Opus 5: caught 8 of 34 rare ideas"><span class="lab">Opus 5</span><span class="track"><span class="bar" style="width:47.1%;background:#eb6834"></span><span class="val">8</span></span></div><div class="crow hit" data-tip="Fable 5: caught 7 of 34 rare ideas"><span class="lab">Fable 5</span><span class="track"><span class="bar" style="width:41.2%;background:#eb6834"></span><span class="val">7</span></span></div><div class="crow hit" data-tip="Haiku 5.5: caught 4 of 34 rare ideas"><span class="lab">Haiku 5.5</span><span class="track"><span class="bar" style="width:23.5%;background:#eb6834"></span><span class="val">4</span></span></div><div class="crow hit" data-tip="Astra 6: caught 1 of 34 rare ideas"><span class="lab">Astra 6</span><span class="track"><span class="bar" style="width:5.9%;background:#2a78d6"></span><span class="val">1</span></span></div><div class="crow hit" data-tip="Luna 5.6: caught 1 of 34 rare ideas"><span class="lab">Luna 5.6</span><span class="track"><span class="bar" style="width:5.9%;background:#2a78d6"></span><span class="val">1</span></span></div><div class="crow hit" data-tip="Terra 5.6: caught 1 of 34 rare ideas"><span class="lab">Terra 5.6</span><span class="track"><span class="bar" style="width:5.9%;background:#2a78d6"></span><span class="val">1</span></span></div><div class="crow hit" data-tip="Luna 6: caught 0 of 34 rare ideas"><span class="lab">Luna 6</span><span class="track"><span class="val">0</span></span></div><div class="crow hit" data-tip="Sol 5.6: caught 0 of 34 rare ideas"><span class="lab">Sol 5.6</span><span class="track"><span class="val">0</span></span></div><div class="crow hit" data-tip="Sol 6: caught 0 of 34 rare ideas"><span class="lab">Sol 6</span><span class="track"><span class="val">0</span></span></div><div class="crow hit" data-tip="Sol 6.1: caught 0 of 34 rare ideas"><span class="lab">Sol 6.1</span><span class="track"><span class="val">0</span></span></div></div>
+    <div class="legend"><span><i style="background:var(--claude)"></i>Claude</span><span><i style="background:var(--gpt)"></i>GPT</span></div>
+  </div>
+  <p>The six Claude models caught almost all of them. The seven GPT models caught 3 between them, one each for Astra 6, Luna 5.6 and Terra 5.6. GPT answers are also much shorter (median 68–152 words, against 213–453 for Claude), which leaves fewer chances to hit an idea. Length isn't the whole story, though: Sonnet 5.5 writes shorter answers than Opus 5 or Fable 5 (293 words against 330 and 365) and catches 13 rare ideas to their 8 and 7.</p>
+
+  <h2>Four ways taste shows up</h2>
+  <p>Reading the rare ideas side by side, they fall into a few patterns. In each case the models that miss aren't wrong. They're generic.</p>
+  
+<section class="pat">
+  <div class="pat-h"><span class="num">1</span><h3>Takes a side</h3></div>
+  <p class="pat-line">The guest ranks one factor above the rest. Most models list every factor and weigh none.</p>
+  <div class="card">
+    <div class="q">“How do you assess the importance of neural network architecture choice for making AI more useful?”</div>
+    <blockquote class="guest"><span class="who">Zhuang Liu</span>From a practical point of view, what data we train the model on matters more than the architecture choice.</blockquote>
+    <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“The interesting question for usefulness is almost always the data.”</span></div>
+    <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“I think architecture is important, but it’s one part of the whole system. You also have the data, the training procedure, and the amount of computation you can use.”</span></div>
+    <div class="caught">Caught by 4 of 13 · <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span> <span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span></div>
+  </div>
+</section>
+<section class="pat">
+  <div class="pat-h"><span class="num">2</span><h3>Pushes back on the question</h3></div>
+  <p class="pat-line">The question carries a fashionable premise. The guest rejects it; most models adopt it.</p>
+  <div class="card">
+    <div class="q">“How do you view the idea that established neural-network architecture components are historical accidents?”</div>
+    <blockquote class="guest"><span class="who">Zhuang Liu</span>Residual connections are very essential, and I do still believe they are essential. They are not historical accidents.</blockquote>
+    <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“Sometimes the answer is that the component is genuinely essential. Residual connections seem like that.”</span></div>
+    <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“I think there&#x27;s a lot of truth to it, and a lot of my own work has come from taking that idea seriously.”</span></div>
+    <div class="caught">Caught by 2 of 13 · <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Haiku 5.5</span></div>
+  </div>
+</section>
+<section class="pat">
+  <div class="pat-h"><span class="num">3</span><h3>Knows where the work is</h3></div>
+  <p class="pat-line">Practitioners know which part is actually hard. Models tend to list all the parts.</p>
+  <div class="card">
+    <div class="q">“What do you see as the main challenge in applying reinforcement learning to enterprise problems?”</div>
+    <blockquote class="guest"><span class="who">Karthik Narasimhan</span>You also need to have the whole setup, the environment, all of that. And that requires a lot more work than the actual RL piece.</blockquote>
+    <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Opus 5</span><span class="t">“The algorithms we have are good enough — PPO, GRPO, whatever flavor you like. The bottleneck is everything around them.”</span></div>
+    <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“Getting that feedback and making learning efficient enough to be practical is a big part of the challenge.”</span></div>
+    <div class="caught">Caught by 4 of 13 · <span class="m"><i style="background:#2a78d6"></i>Astra 6</span> <span class="m"><i style="background:#eb6834"></i>Fable 5</span> <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span> <span class="m"><i style="background:#eb6834"></i>Opus 5</span></div>
+  </div>
+</section>
+<section class="pat">
+  <div class="pat-h"><span class="num">4</span><h3>Explains the field by its incentives</h3></div>
+  <p class="pat-line">Why does research look the way it does? Often the answer is who can afford what.</p>
+  <div class="card">
+    <div class="q">“How do you view the current state of neural network architecture research?”</div>
+    <blockquote class="guest"><span class="who">Zhuang Liu</span>Part of the reason that architecture research is less active in academia right now is that we couldn&#x27;t really afford the compute to demonstrate these effects in convincing scale.</blockquote>
+    <div class="ans got"><span class="mark">✓</span><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“Today, the models that matter are trained at a scale that most academic labs can&#x27;t touch”</span></div>
+    <div class="ans miss"><span class="mark">×</span><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“Changing any of those can change which design looks best, so careful comparisons matter a lot.”</span></div>
+    <div class="caught">Caught by 1 of 13 · <span class="m"><i style="background:#eb6834"></i>Fable 5.1</span></div>
+  </div>
+</section>
+
+  <h2>What no model said</h2>
+  <p>One question stands out. Zhuang was asked whether AI coding agents make research students unnecessary. His answer came from trying it:</p>
+  <div class="card">
+    <div class="q">“How do you view the claim that AI coding agents make research students unnecessary?”</div>
+    <blockquote class="guest"><span class="who">Zhuang Liu</span>I keep it to use this partition of GPUs. It may follow that for a few hours and then after that job is done, it kind of forgot that thing.</blockquote>
+    <blockquote class="guest">The experiments it did, it&#x27;s not comprehensive. It&#x27;s not enough to support the conclusions.</blockquote>
+  </div>
+  <p style="margin-top:18px">The models reached for the same line instead:</p>
+  <ul class="echo"><li><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“Writing code was never the core of a PhD.”</span></li><li><span class="m"><i style="background:#eb6834"></i>Sonnet 5.5</span><span class="t">“But I don&#x27;t think writing code was ever the core of research.”</span></li><li><span class="m"><i style="background:#eb6834"></i>Fable 5.1</span><span class="t">“What a coding agent is good at is the part of research that was never really the bottleneck.”</span></li><li><span class="m"><i style="background:#2a78d6"></i>Sol 6.1</span><span class="t">“But in research, figuring out the specification is often the hard part.”</span></li></ul>
+  <p style="margin-top:18px">3 of the 4 ideas in Zhuang's answer were caught by no model, including both observations above.</p>
+  <p class="pull">The models are describing their own failure modes, and they can't. They know how coding agents are talked about, not what working with one is like.</p>
+
+  <h2>A caution: memory looks like taste</h2>
+  <p>Ilya's Dwarkesh interview came out in November 2025 and was watched, quoted and transcribed widely before the newest models were trained. On his questions, Opus 5.5 jumps from 37% to 73% and catches 41 of the 50 rare ideas. Sonnet 5.5 and Fable 5 jump too. Karthik's and Zhuang's episodes reached far smaller audiences.</p>
+  <div class="fig">
+    <div class="ftitle">Share of ideas caught, by guest</div>
+    <div class="fsub">Each row runs from the Karthik + Zhuang score to the Ilya score.</div>
+    <div class="chart db" role="img" aria-label="Share of ideas caught on Karthik and Zhuang versus Ilya"><div class="crow axis"><span class="lab"></span><span class="track"><span class="tick" style="left:0.00%">0%</span><span class="tick" style="left:25.00%">20%</span><span class="tick" style="left:50.00%">40%</span><span class="tick" style="left:75.00%">60%</span><span class="tick" style="left:100.00%">80%</span></span></div><div class="crow hit" data-tip="Opus 5.5: 37% on Karthik + Zhuang, 73% on Ilya"><span class="lab">Opus 5.5</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:46.20%;width:calc(91.78% - 46.20%)"></span><span class="dot ring" style="left:46.20%;border-color:#eb6834"></span><span class="dot" style="left:91.78%;background:#eb6834"></span></span></div><div class="crow hit" data-tip="Fable 5: 28% on Karthik + Zhuang, 57% on Ilya"><span class="lab">Fable 5</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:34.42%;width:calc(70.80% - 34.42%)"></span><span class="dot ring" style="left:34.42%;border-color:#eb6834"></span><span class="dot" style="left:70.80%;background:#eb6834"></span></span></div><div class="crow hit" data-tip="Sonnet 5.5: 33% on Karthik + Zhuang, 59% on Ilya"><span class="lab">Sonnet 5.5</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:41.67%;width:calc(74.30% - 41.67%)"></span><span class="dot ring" style="left:41.67%;border-color:#eb6834"></span><span class="dot" style="left:74.30%;background:#eb6834"></span></span></div><div class="crow hit" data-tip="Fable 5.1: 35% on Karthik + Zhuang, 49% on Ilya"><span class="lab">Fable 5.1</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:43.48%;width:calc(61.19% - 43.48%)"></span><span class="dot ring" style="left:43.48%;border-color:#eb6834"></span><span class="dot" style="left:61.19%;background:#eb6834"></span></span></div><div class="crow hit" data-tip="Astra 6: 17% on Karthik + Zhuang, 27% on Ilya"><span class="lab">Astra 6</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:20.83%;width:calc(33.22% - 20.83%)"></span><span class="dot ring" style="left:20.83%;border-color:#2a78d6"></span><span class="dot" style="left:33.22%;background:#2a78d6"></span></span></div><div class="crow hit" data-tip="Sol 6.1: 14% on Karthik + Zhuang, 23% on Ilya"><span class="lab">Sol 6.1</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:18.12%;width:calc(28.85% - 18.12%)"></span><span class="dot ring" style="left:18.12%;border-color:#2a78d6"></span><span class="dot" style="left:28.85%;background:#2a78d6"></span></span></div><div class="crow hit" data-tip="Opus 5: 31% on Karthik + Zhuang, 36% on Ilya"><span class="lab">Opus 5</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:38.95%;width:calc(45.45% - 38.95%)"></span><span class="dot ring" style="left:38.95%;border-color:#eb6834"></span><span class="dot" style="left:45.45%;background:#eb6834"></span></span></div><div class="crow hit" data-tip="Sol 5.6: 14% on Karthik + Zhuang, 19% on Ilya"><span class="lab">Sol 5.6</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:17.21%;width:calc(23.60% - 17.21%)"></span><span class="dot ring" style="left:17.21%;border-color:#2a78d6"></span><span class="dot" style="left:23.60%;background:#2a78d6"></span></span></div><div class="crow hit" data-tip="Sol 6: 10% on Karthik + Zhuang, 13% on Ilya"><span class="lab">Sol 6</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:12.68%;width:calc(16.61% - 12.68%)"></span><span class="dot ring" style="left:12.68%;border-color:#2a78d6"></span><span class="dot" style="left:16.61%;background:#2a78d6"></span></span></div><div class="crow hit" data-tip="Luna 6: 9% on Karthik + Zhuang, 8% on Ilya"><span class="lab">Luna 6</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:10.49%;width:calc(11.78% - 10.49%)"></span><span class="dot ring" style="left:11.78%;border-color:#2a78d6"></span><span class="dot" style="left:10.49%;background:#2a78d6"></span></span></div><div class="crow hit" data-tip="Luna 5.6: 14% on Karthik + Zhuang, 13% on Ilya"><span class="lab">Luna 5.6</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:15.73%;width:calc(17.21% - 15.73%)"></span><span class="dot ring" style="left:17.21%;border-color:#2a78d6"></span><span class="dot" style="left:15.73%;background:#2a78d6"></span></span></div><div class="crow hit" data-tip="Haiku 5.5: 21% on Karthik + Zhuang, 20% on Ilya"><span class="lab">Haiku 5.5</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:24.48%;width:calc(26.27% - 24.48%)"></span><span class="dot ring" style="left:26.27%;border-color:#eb6834"></span><span class="dot" style="left:24.48%;background:#eb6834"></span></span></div><div class="crow hit" data-tip="Terra 5.6: 14% on Karthik + Zhuang, 9% on Ilya"><span class="lab">Terra 5.6</span><span class="track"><span class="gl" style="left:0.00%"></span><span class="gl" style="left:25.00%"></span><span class="gl" style="left:50.00%"></span><span class="gl" style="left:75.00%"></span><span class="gl" style="left:100.00%"></span><span class="seg" style="left:11.36%;width:calc(17.21% - 11.36%)"></span><span class="dot ring" style="left:17.21%;border-color:#2a78d6"></span><span class="dot" style="left:11.36%;background:#2a78d6"></span></span></div></div>
+    <div class="legend"><span><i class="lg-ring"></i>Karthik + Zhuang</span><span><i class="lg-dot"></i>Ilya</span><span><i style="background:var(--claude)"></i>Claude</span><span><i style="background:var(--gpt)"></i>GPT</span></div>
+  </div>
+  <p>Some of those catches are close to word for word:</p>
+  <div class="card">
+    <div class="q">“How do you assess the Silicon Valley saying that ideas are cheap and execution is everything?”</div>
+    <blockquote class="guest"><span class="who">Ilya Sutskever</span>If you go back to the &#x27;90s, you had people who had pretty good ideas, and if they had much larger computers, maybe they could demonstrate that their ideas were viable. But they could not, so they could only have a very, very small demonstration that did not convince anyone.</blockquote>
+    <div class="ans got" style="grid-template-columns:104px 1fr"><span class="m"><i style="background:#eb6834"></i>Opus 5.5</span><span class="t">“In the 90s, plenty of people had good ideas, but they didn&#x27;t have the compute to show they worked. They could build a small demonstration that convinced nobody…”</span></div>
+  </div>
+  <p style="margin-top:18px">That is recall, not judgment. For models that may have seen the episode, Ilya's questions measure memory, so the patterns above use only Karthik and Zhuang.</p>
+
+  <h2>Fine print</h2>
+  <details><summary>How the questions and ideas were made</summary><div><ul>
+    <li>Transcripts were split into full guest answers. GPT-6.1 Sol wrote single-part, second-person questions that ask for the guest's view, plus an answer synthesized from the transcript with verbatim supporting quotes.</li>
+    <li>The ideas (rubrics) were written from each answer using the same rubric prompt as our earlier podcast evaluations. Each one checks a single, self-contained claim.</li>
+    <li>Guest quotes on this page are verbatim from the transcript with filler words (“um”, repeats) removed. Model quotes are verbatim.</li>
+  </ul></div></details>
+  <details><summary>How the models were run and judged</summary><div><ul>
+    <li>GPT models ran through <code>codex exec</code> and Claude models through <code>claude -p</code>, at extra-high reasoning effort with no tools or web search.</li>
+    <li>The prompt contains a one-line intro naming the guest and the question, nothing from the episode.</li>
+    <li>GPT-6 Luna, at high effort, judged each idea pass or miss, one answer at a time.</li>
+  </ul></div></details>
+  <details><summary>Caveats</summary><div><ul>
+    <li><b>Length.</b> Claude answers run 2–5× longer, which gives more chances to hit an idea. The prompt set no target length.</li>
+    <li><b>Strict judge.</b> Some misses are close calls. We chose examples where the difference is plain in the text.</li>
+    <li><b>Small sample.</b> Three guests, one episode each, one answer per model per question.</li>
+    <li><b>Public work.</b> Some of Zhuang's views also appear in his papers, so recall can play a part there too.</li>
+  </ul></div></details>
+
+  <a class="cta" href="/research-notes/common-ground/#guest=F4MgMIGueCs&test=questions">Browse every question and answer in the explorer →</a>
+</article>
+
+<script>
+(function () {
+  document.querySelectorAll('.tg .fig').forEach(function (fig) {
+    var tip = document.createElement('div'); tip.className = 'tip'; fig.appendChild(tip);
+    fig.querySelectorAll('.hit').forEach(function (g) {
+      g.addEventListener('mousemove', function (ev) {
+        var r = fig.getBoundingClientRect();
+        tip.textContent = g.dataset.tip; tip.style.opacity = 1;
+        tip.style.left = Math.min(ev.clientX - r.left + 12, r.width - tip.offsetWidth - 8) + 'px';
+        tip.style.top = (ev.clientY - r.top - 34) + 'px';
+      });
+      g.addEventListener('mouseleave', function () { tip.style.opacity = 0; });
+    });
+  });
+})();
+</script>
+{% endraw %}
