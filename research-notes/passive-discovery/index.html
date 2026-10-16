@@ -420,7 +420,7 @@ are shown with the line it used highlighted.</p>
 <p>In an app log, almost any two entries can be read together in some way. A harder test is a corpus where most
 pairs are unrelated. We ran the same kind of pipeline, the Decisions judge scoring one open question for every pair, on
 <b>719 research-mathematics manuscripts</b> (<a href="https://github.com/openai/math">openai/math</a>) and on
-<b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below, each
+<b>68,201 passages of medical evidence reviews</b> (Cochrane). Three of the connections it surfaced are below, each
 shown with the documents it was built from.</p>
 
 <p class="exlead">First, three research papers on C*-algebras, the mathematical objects used to describe quantum systems.</p>
@@ -489,7 +489,68 @@ shown with the documents it was built from.</p>
   </div>
 </div>
 
-<p class="exlead">Then, two medical evidence reviews on preventing urinary tract infections.</p>
+<p class="exlead">Next, two medical evidence reviews from unrelated fields: malaria drugs and arsenic poisoning.</p>
+<div class="ex">
+  <div class="srcs" style="grid-template-columns: 1fr 1fr">
+    <div class="src" style="--c: var(--real)">
+      <div class="stitle">Folic acid supplementation and malaria susceptibility and severity among people taking antifolate
+        antimalarial drugs</div>
+      <div class="quote"><span class="qk">from the review &middot; background</span>&ldquo;<mark>The malaria parasite
+        requires folate for survival and growth; antifolate antimalarial medications used for prevention and treatment
+        target enzymes in folate metabolism</mark> as their mechanism of action. &hellip; <mark>Concerns have been raised
+        about the potential effects of folic acid</mark> (including above the tolerable upper intake level (UL)
+        &gt;1.0 mg/day) in the context of malaria prevention and treatment, <mark>including the efficacy of antimalarial
+        medications</mark>.&rdquo;</div>
+      <div class="plain"><span class="pk">In plain words</span>Malaria parasites need folate (vitamin B9) to grow. Some
+        malaria drugs, such as sulfadoxine-pyrimethamine (SP), work by blocking the parasite's use of folate, so extra
+        folic acid from supplements may weaken them. The review weighs that risk for folic acid given in pregnancy.</div>
+    </div>
+    <div class="src" style="--c: var(--tidy)">
+      <div class="stitle">Provision of folic acid for reducing arsenic toxicity in arsenic-exposed children and adults (2021)</div>
+      <div class="quote"><span class="qk">from the review &middot; conclusions</span>&ldquo;There is moderate-certainty
+        evidence that <mark>FA supplements may benefit blood arsenic concentration, urinary arsenic methylation
+        profiles</mark>, and plasma homocysteine concentration versus placebo.&rdquo;
+        <span class="qk" style="margin-top:8px">same review &middot; background</span>&ldquo;<mark>Arsenic is excreted
+        following methylation reactions, which are mediated by folate.</mark>&rdquo;</div>
+      <div class="plain"><span class="pk">In plain words</span>Arsenic in drinking water is a widespread poison. The body
+        gets rid of it through a chemical step that uses folate, so folic acid (FA) supplements are being tested as a way
+        to help people excrete it. Trials show they lower the arsenic in people's blood.</div>
+    </div>
+  </div>
+  <div class="hard"><span class="pk">The connection is not obvious</span>One review is about malaria drugs, the other
+    about poisoning from contaminated wells. They belong to different fields, journals and public-health agencies, and
+    neither mentions the other's subject. A reader of the malaria review worries about folic acid given in pregnancy and
+    has no reason to think of arsenic. A reader of the arsenic review recommends folic acid and has no reason to think of
+    malaria drugs. The judge ranked the arsenic review 62nd of 10,000 partners for the malaria review.</div>
+  <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
+  <div class="concl"><div class="lab">The conclusion</div>
+    <div class="chead">Giving folic acid to protect people from arsenic could weaken an important malaria drug in places
+      that have both problems.</div>
+    <div class="chain">
+      <div class="lk"><span class="tag" style="--c: var(--real)">malaria review</span><span>Extra folic acid can weaken
+        malaria drugs that work by blocking folate, such as SP.</span></div>
+      <div class="lk"><span class="tag" style="--c: var(--tidy)">arsenic review</span><span>Folic acid is being
+        tested to help people excrete arsenic.</span></div>
+      <div class="lk res"><span class="tag">together</span><span>Where arsenic-contaminated water and SP-based malaria
+        prevention occur together, a folic-acid programme against arsenic could reduce the protection SP gives: two
+        public-health measures working against each other.</span></div>
+    </div>
+    <div class="sub"><span class="pk">What is known and what is not</span>The interference between folic acid and SP is
+      well documented: several randomised trials found more SP treatment failures when folic acid was added, most clearly
+      at doses above 1 mg a day. That folic acid lowers blood arsenic is also established. We found no paper connecting
+      the two, in the reader's searches or ours. The arsenic trials used 400 to 800 &micro;g a day, below the level where
+      the interference with SP is clearest, so how large any effect would be is uncertain.</div>
+    <div class="sub"><span class="pk">Why it's surprising</span>Two programmes that each do good could undercut each
+      other, through a vitamin that neither field associates with the other's problem.</div>
+    <div class="sub"><span class="pk">Why it matters</span>Arsenic in groundwater and SP-based malaria prevention overlap
+      in some regions; northern Burkina Faso, for example, has documented arsenic in its wells and gives young children
+      SP-based seasonal malaria chemoprevention. Anyone planning folic acid against arsenic there would need to know. It
+      can be checked directly: compare SP's protection in people with and without folic acid supplements in such a
+      region, or schedule the folic acid away from SP doses, as is already advised in pregnancy.</div>
+  </div>
+</div>
+
+<p class="exlead">Finally, two reviews on preventing urinary tract infections, where the link is a contradiction between their numbers.</p>
 <div class="ex">
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
     <div class="src" style="--c: var(--theme)">
@@ -551,8 +612,8 @@ shown with the documents it was built from.</p>
   </div>
 </div>
 
-<p>In each example the link is written in none of the documents: a chain of three published results, a contradiction
-between two reported numbers, and in section 3 a shared material. A keyword search can bring the documents up, but it
+<p>In each example the link is written in none of the documents: a chain of three published results, a vitamin shared by
+two unrelated programmes, a contradiction between two reported numbers, and in section 3 a shared material. A keyword search can bring the documents up, but it
 cannot surface a link that none of them states.</p>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
@@ -568,7 +629,11 @@ the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or cr
 <a href="https://github.com/openai/math">openai/math</a> (Apache&#8209;2.0, commit <code>fd4aeeb</code>). The three
 papers are <i>A counterexample to Kaplansky's quasitrace conjecture and failure of tensor&#8209;product stable
 finiteness</i>, <i>The Kirchberg&ndash;R&oslash;rdam character criterion</i> and <i>Weak pure infiniteness and
-O&#8209;infinity absorption</i>; the first two carry Lean formalizations in that repository. Section 8, medicine: 68,201 abstract sections from Cochrane reviews. The anchor was the main-results section of
+O&#8209;infinity absorption</i>; the first two carry Lean formalizations in that repository. Section 8, medicine: 68,201 abstract sections from Cochrane reviews. Arsenic example: the anchor was the background
+section of <i>Folic acid supplementation and malaria susceptibility and severity among people taking antifolate antimalarial
+drugs</i>; 10,000 partners were judged, and one <code>claude&nbsp;-p</code> reader (Opus&nbsp;5.5, with web search) read the
+top 100, in which the conclusions of <i>Provision of folic acid for reducing arsenic toxicity in arsenic-exposed children
+and adults</i> (2021) ranked 62nd. Cranberry example: the anchor was the main-results section of
 <i>Cranberries for preventing urinary tract infections</i> (2023); 1,000 partners were judged, and the objectives section of
 <i>Probiotics for preventing urinary tract infections in adults and children</i> (2015) ranked second. One
 <code>claude&nbsp;-p</code> call (Opus&nbsp;5.5) per top-30 pair proposed what the two show together; this proposal was then
@@ -576,7 +641,7 @@ verified against the probiotics review's results. Mathematics: 5,000 partners ju
 <code>claude&nbsp;-p</code> reader given the top 100 partners in full and the corpus as files. Quotations are cut verbatim from
 the passages.</p>
 </article>
-<script src="data.js?v=4bb02433bd"></script>
+<script src="data.js?v=374dbf18fe"></script>
 <script>
 (function () {
 "use strict";
