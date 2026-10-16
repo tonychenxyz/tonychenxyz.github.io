@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792164797">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792167077">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -622,18 +622,18 @@ are shown with the line it used highlighted.</p>
 <p id="verdict"></p>
 
 <h2>
-<span class="num">8</span>The same question, on other libraries</h2>
-<p>An app log is forgiving: almost any two entries can be read together somehow. The interesting test is a library
-where that isn't true. We ran the identical setup — same judge, same single open question — on
+<span class="num">8</span>The same question, on other corpora</h2>
+<p>In an app log, almost any two entries can be read together in some way. A harder test is a corpus where most
+pairs are unrelated. We ran the identical setup — same judge, same single open question — on
 <b>719 research-mathematics manuscripts</b> (<a href="https://github.com/openai/math" rel="external nofollow noopener" target="_blank">openai/math</a>) and on
 <b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below, each
 shown with the documents it was built from.</p>
 
-<p class="exlead">First, three research papers in operator algebras, the mathematics behind quantum systems.</p>
+<p class="exlead">First, three research papers on C*-algebras, the mathematical objects used to describe quantum systems.</p>
 <div class="ex">
-  <p class="ctx">Two ideas recur in all three. Some systems have a <b>way to measure size</b>: how much of the whole
-    each piece takes up. Others are <b>infinite in the Hilbert's-hotel sense</b>: they can be split into two pieces,
-    each as big as the whole.</p>
+  <p class="ctx">Two notions appear in all three. A <b>quasitrace</b> is a consistent way of assigning a size between
+    0 and 1 to the parts of an algebra. An algebra is <b>properly infinite</b> if it contains two non-overlapping
+    copies of itself.</p>
   <div class="srcs">
     <div class="src" style="--c: var(--real)">
       <div class="stitle">A counterexample to Kaplansky's quasitrace conjecture</div>
@@ -642,9 +642,10 @@ shown with the documents it was built from.</p>
         <mark>admits a normalized \(2\)-quasitrace if and only if \(M_m(C)\) is not properly infinite</mark> for every
         positive integer \(m\).”</div>
       <div class="plain">
-<span class="pk">In plain words</span>The paper's aim is to break an old conjecture with one
-        strange example. On the way it quotes a classical fact: a system has a way to measure size exactly when no stack
-        of copies of it can be split hotel-style. So if there is no measure, then some stack of \(m\) copies splits.</div>
+<span class="pk">In plain words</span>The paper disproves an old conjecture by constructing one
+        counterexample. Along the way it quotes a known theorem: an algebra has a quasitrace exactly when none of its
+        matrix versions \(M_m(C)\) (\(m\) copies arranged as an \(m\times m\) matrix) is properly infinite. So an algebra
+        with no quasitrace has some \(m\) for which \(M_m(C)\) is properly infinite.</div>
     </div>
     <div class="src" style="--c: var(--tidy)">
       <div class="stitle">The Kirchberg–Rørdam character criterion</div>
@@ -653,9 +654,10 @@ shown with the documents it was built from.</p>
         separable complex \(C^*\)-algebra, and let \(\omega\) be any free ultrafilter on \(\mathbb{N}\). Then
         <mark>\(F_\omega(A)\) has no characters \(\iff A \cong A \otimes_{\min} \mathcal{Z}\)</mark>.”</div>
       <div class="plain">
-<span class="pk">In plain words</span>When is a system like sand rather than bricks, divisible
-        as finely as you like? Exactly when a certain shadow of it has no one-dimensional pieces. This is the tame side
-        of the subject.</div>
+<span class="pk">In plain words</span>The paper gives a test for whether an algebra absorbs the
+        Jiang–Su algebra \(\mathcal{Z}\), a regularity property that, among other things, lets its elements be cut
+        into any number of nearly equal parts. The algebra passes exactly when an associated algebra, \(F_\omega(A)\), has
+        no characters (no homomorphisms onto the complex numbers). It belongs to the research on divisibility.</div>
     </div>
     <div class="src" style="--c: var(--render)">
       <div class="stitle">Weak pure infiniteness and O-infinity absorption</div>
@@ -664,17 +666,18 @@ shown with the documents it was built from.</p>
         complex \(C^*\)-algebra. If there is one integer \(n\ge 1\) such that <mark>\(h^{\oplus n}\) is properly infinite
         for every \(h\in A_+\)</mark>, then <mark>\(A\cong A\otimes_{\min}\mathcal{O}_\infty\)</mark>.”</div>
       <div class="plain">
-<span class="pk">In plain words</span>The mirror question on the wild side: how little
-        infiniteness is enough to make a system as infinite as possible? Enough: every piece splits once you bundle a
-        fixed number of copies of it. That strongest kind of infinite is what the big classification theorems need.</div>
+<span class="pk">In plain words</span>The paper asks how weak a form of infiniteness still implies
+        the strongest one, absorbing \(\mathcal{O}_\infty\), which is the condition the classification theorems for
+        infinite algebras require. Its answer: it is enough that, for one fixed \(n\), \(n\) copies of any positive
+        element side by side are properly infinite. It belongs to the research on infiniteness.</div>
     </div>
   </div>
   <div class="hard">
 <span class="pk">Why the link is hard to see</span>The three papers answer three different
-    questions. The second sits on the tame side of the subject and the third on the wild side, and people who work on
-    one rarely read the other. The line that matters in the first paper is not its result but a classical fact it
-    quotes in passing. Papers are found by their main theorems, so searching for the first paper's topic would never
-    surface that line.</div>
+    questions. The second is about divisibility and the third about infiniteness, two lines of research whose authors
+    rarely cite each other. The statement that matters in the first paper is not its main result but a known theorem it
+    quotes in passing. Papers are found by their main results, so a search on the first paper's topic would not return
+    that statement.</div>
   <div class="merge">
 <div class="arrow"></div>
 <div class="mcap">read together</div>
@@ -682,34 +685,35 @@ shown with the documents it was built from.</p>
 </div>
   <div class="concl">
 <div class="lab">The conclusion</div>
-    <div class="chead">For these systems, having no way to measure size is already enough to be as infinite as possible.</div>
+    <div class="chead">For these algebras, having no quasitrace already implies absorbing \(\mathcal{O}_\infty\), the
+      strongest form of infiniteness.</div>
     <div class="chain">
       <div class="lk">
-<span class="tag" style="--c: var(--real)">paper 1</span><span>No measure means some stack of
-        \(m\) copies splits hotel-style.</span>
+<span class="tag" style="--c: var(--real)">paper 1</span><span>No quasitrace implies that, for
+        some \(m\), the matrix version \(M_m(A)\) is properly infinite.</span>
 </div>
       <div class="lk">
-<span class="tag" style="--c: var(--tidy)">paper 2</span><span>The same missing measure makes the
-        system sand, so the stack of \(m\) can be divided back out.</span>
+<span class="tag" style="--c: var(--tidy)">paper 2</span><span>No quasitrace also gives
+        divisibility, which turns that statement about \(m\) copies into one about the algebra's own elements.</span>
 </div>
       <div class="lk">
-<span class="tag" style="--c: var(--render)">paper 3</span><span>Splitting after bundling already
-        forces the strongest kind of infiniteness.</span>
+<span class="tag" style="--c: var(--render)">paper 3</span><span>If \(n\) copies of every positive
+        element are properly infinite, the algebra absorbs \(\mathcal{O}_\infty\).</span>
 </div>
       <div class="lk res">
-<span class="tag">together</span><span>The \(m\) disappears: no measure ⇒ splits ⇒ as
-        infinite as possible.</span>
+<span class="tag">together</span><span>The factor \(m\) drops out: no quasitrace ⇒ properly
+        infinite after a fixed number of copies ⇒ absorbs \(\mathcal{O}_\infty\).</span>
 </div>
     </div>
     <div class="sub">
-<span class="pk">Why it's surprising</span>A purely negative fact, that size can't be measured,
-      turns out to deliver the strongest positive kind of infiniteness. And the step that makes it work comes from the
-      tame side of the subject, which you would not think to consult about infinite systems.</div>
+<span class="pk">Why it's surprising</span>A purely negative condition, the absence of a
+      quasitrace, implies the strongest positive form of infiniteness. And the step that makes it work comes from the
+      divisibility results, which are not usually applied to infinite algebras.</div>
     <div class="sub">
-<span class="pk">Why it matters</span>Mostly as a shortcut. The classification theorems only apply
-      to the most infinite systems, and checking that condition normally means building something. This would let you
-      check it by ruling something out: show that no measure exists. It is a short combination of published results
-      assembled by the reader, not a new theorem, and has not been checked by a specialist.</div>
+<span class="pk">Why it matters</span>It would simplify a check. The classification theorems apply
+      only to algebras that absorb \(\mathcal{O}_\infty\), and verifying that usually means constructing an isomorphism.
+      This would let you verify it by showing that no quasitrace exists. It is a short combination of published results
+      assembled by the reader, not a new theorem, and no specialist has checked it.</div>
   </div>
 </div>
 
@@ -724,10 +728,10 @@ shown with the documents it was built from.</p>
         aspirin or ibuprofen</mark>, accompanied by chronic rhinosinusitis (with or without nasal polyps) or asthma.
         <mark>The prevalence of hypersensitivity to NSAIDs is estimated to be 2%.</mark>”</div>
       <div class="plain">
-<span class="pk">In plain words</span>About 2 in 100 people react badly to everyday painkillers
-        like aspirin and ibuprofen: their sinuses and airways flare up. The review asks whether slowly getting them used
-        to aspirin helps. What matters here: these painkillers are not neutral for everyone. In some people they set off
-        a different kind of inflammation.</div>
+<span class="pk">In plain words</span>About 2 in 100 people react badly to common painkillers
+        such as aspirin and ibuprofen: their nasal sinuses and airways become inflamed. The review asks whether gradually
+        accustoming them to aspirin helps. What matters here: these painkillers do not act the same way in everyone, and
+        in some people they cause a different inflammatory reaction.</div>
     </div>
     <div class="src" style="--c: var(--agent)">
       <div class="stitle">Nonsteroidal anti-inflammatory drugs for assisted reproductive technology (2019)</div>
@@ -739,15 +743,16 @@ shown with the documents it was built from.</p>
         negative prostaglandin effect</mark>. They are often offered in clinical practice to improve ART outcomes, but
         <mark>current robust evidence on their efficacy is lacking</mark>.”</div>
       <div class="plain">
-<span class="pk">In plain words</span>In IVF, many embryos fail to implant. One idea is that
-        local inflammation makes the womb contract and less welcoming, so clinics give the same family of painkillers
-        around embryo transfer to calm it. Whether this actually helps is still unproven.</div>
+<span class="pk">In plain words</span>In IVF, many embryos fail to implant. One explanation is
+        that local inflammation makes the womb contract and become less receptive to the embryo, so clinics give the same
+        class of painkillers around embryo transfer to reduce it. Whether this improves outcomes is still unproven.</div>
     </div>
   </div>
   <div class="hard">
 <span class="pk">Why the link is hard to see</span>One review is about sinus and asthma patients
-    who react to aspirin; the other is about IVF. Different specialty, organ, patients and journals. The only thing they
-    share is a drug family, and each mentions it for its own reason, so nobody reading one would think to open the other.</div>
+    who react to aspirin; the other is about IVF. They differ in specialty, organ, patients and journals. The only thing
+    they share is a class of drugs, which each mentions for its own reason, so a reader of one has no reason to open the
+    other.</div>
   <div class="merge">
 <div class="arrow"></div>
 <div class="mcap">read together</div>
@@ -755,45 +760,48 @@ shown with the documents it was built from.</p>
 </div>
   <div class="concl">
 <div class="lab">The conclusion</div>
-    <div class="chead">The IVF painkiller may be partly undoing its own purpose, more in some women than in others.</div>
+    <div class="chead">The IVF painkiller may partly cancel its own intended effect, by different amounts in different
+      women.</div>
     <div class="chain">
       <div class="lk">
-<span class="tag" style="--c: var(--theme)">allergy review</span><span>These painkillers don't act
-        the same in everyone: in about 2% of people they trigger airway inflammation.</span>
+<span class="tag" style="--c: var(--theme)">allergy review</span><span>These painkillers do not act
+        the same way in everyone: in about 2% of people they cause airway inflammation.</span>
 </div>
       <div class="lk">
-<span class="tag bg">textbook</span><span>That happens because blocking prostaglandins diverts the
-        same raw material into leukotrienes, a different family of inflammatory signals.</span>
+<span class="tag bg">textbook</span><span>This happens because blocking prostaglandin production
+        sends the same starting molecule (arachidonic acid) into making leukotrienes, a different group of inflammatory
+        signals.</span>
 </div>
       <div class="lk">
 <span class="tag" style="--c: var(--agent)">IVF review</span><span>IVF uses these painkillers to
         lower prostaglandins, which make the womb contract; the benefit is still unproven.</span>
 </div>
       <div class="lk">
-<span class="tag bg">textbook</span><span>Leukotrienes also make the womb contract and work against
-        its readiness for an embryo.</span>
+<span class="tag bg">textbook</span><span>Leukotrienes also make the womb contract and reduce the
+        lining's receptivity to an embryo.</span>
 </div>
       <div class="lk res">
-<span class="tag">together</span><span>In some women the drug may remove one contraction signal
-        while adding another, which would make the average benefit look flat.</span>
+<span class="tag">together</span><span>In some women the drug may lower one signal that makes
+        the womb contract while raising another, which would make its average benefit close to zero.</span>
 </div>
     </div>
     <div class="sub">
-<span class="pk">Why it's surprising</span>The drug is assumed to do one helpful thing. Its second
-      effect is invisible from inside IVF research, which only thinks about prostaglandins. It is the allergy patients
-      who reveal that this drug family can push the body the other way.</div>
+<span class="pk">Why it's surprising</span>The drug is assumed to have one relevant effect. Its
+      second effect does not appear in IVF research, whose rationale considers only prostaglandins. It is the allergy
+      patients who show that this class of drugs can increase a different set of inflammatory signals.</div>
     <div class="sub">
-<span class="pk">Why it matters</span>Potentially a lot, for a common treatment. If it is right, the
-      flat results hide women who benefit and women who don't, and a measurable signal could tell them apart. It is a
-      hypothesis, not a finding: the biology is long established, and what the reader found missing is the link to this
-      drug in IVF. It has a direct test: measure leukotrienes in the womb on and off the drug, split women by that, and
-      see whether also blocking leukotrienes brings the benefit back.</div>
+<span class="pk">Why it matters</span>Potentially a lot, for a common treatment. If it is right,
+      an average effect near zero could combine women who benefit with women who do not, and a measurable marker could
+      tell them apart. It is a hypothesis, not a finding: the biology is long established, and what the reader found
+      missing is the link to this drug in IVF. It can be tested directly: measure leukotrienes in the womb on and off
+      the drug, compare women with high and low levels, and see whether also blocking leukotrienes restores the
+      benefit.</div>
   </div>
 </div>
 
-<p>Both have the same shape as the gift in section 3. The link is carried by one thing sitting underneath documents
-that look unrelated from above — a material, a branch point in metabolism, a single question about size —
-and none of it is reachable by searching for a word, because no word spans both documents.</p>
+<p>In both examples, and in the gift in section 3, the link is one shared element (a material, a step in a metabolic
+pathway, a property of size) that the documents mention for different reasons. No single word appears in both, so a
+keyword search cannot find it.</p>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
@@ -816,7 +824,7 @@ self‑contained opening passages, and each reader one <code>claude -p</code> se
 in the medical example is a hypothesis assembled from the two reviews, not a finding either one reports; its component
 steps are published separately, and the combination is what the search surfaced.</p>
 </article>
-<script src="data.js?v=29e88be25f"></script>
+<script src="data.js?v=c0f9af0640"></script>
 <script>
 (function () {
 "use strict";
@@ -1145,10 +1153,10 @@ section(function () {
       ["Searched with", "the anchor's own words: ice, frost, winter, permafrost, 20mm, then the anchor's camera words (lens, macro)"],
       ["Read", `${X.seen.length} entries, ${X.months_seen["2024-12"] || 0} of them all of December`],
       ["The idea rests on", `four entries, <b>July to December</b>; all ${own(X.key_grep)} use the anchor's words`],
-      ["The idea is about", "the anchor's own object made real: a 20mm ice block, its blue light, f/11"]]);
+      ["The idea is about", "a physical version of the object in the anchor: a 20mm ice block, its blue light, f/11"]]);
   function KJ_n(x) { return x.key_judge.length - own(x.key_judge); }
-  $("verdict").innerHTML = `Grep reads widely but thinks in the anchor's vocabulary, so its idea stays on the anchor's topic and makes it physical. ` +
-    `Its one non-obvious fact, a camera boxed for the light, is real and useful. Our method's packet is not off-topic overall (${X.own_used} of the ${X.used.length} entries the idea map uses share the anchor's words, against ${X.own_seen} of the ${X.seen.length} grep read). ` +
+  $("verdict").innerHTML = `Grep reads widely but searches only with the anchor's vocabulary, so its idea stays on the anchor's topic and turns the rendered object into a physical one. ` +
+    `Its one non-obvious fact, that the camera was put away because of the winter light, is real and useful. Our method's packet is not off-topic overall (${X.own_used} of the ${X.used.length} entries the idea map uses share the anchor's words, against ${X.own_seen} of the ${X.seen.length} grep read). ` +
     `The difference is in the entries that change the subject: the cancelled AI subscription, the photo walks, the record-sorting puzzle. None of them uses the anchor's words, so no search built from the anchor reaches them.`;
 });
 })();
