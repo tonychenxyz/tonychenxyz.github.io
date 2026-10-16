@@ -281,6 +281,37 @@ sitemap: false
 .pd .sitem .scmd b { color: var(--agent); font-weight: 600; }
 .pd .sitem .ac { margin-top: 10px; max-width: 560px; }
 .pd .sitem.end .sb::before { background: var(--agent); }
+
+/* section 8: worked examples on other corpora */
+.pd .ex { border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin: 22px 0 10px; background: #fff; }
+.pd .ex .exhead { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.pd .ex .exfield { font-size: 12px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); }
+.pd .badge { font-size: 11.5px; font-weight: 650; letter-spacing: .03em; padding: 3px 9px; border-radius: 999px;
+             border: 1px solid var(--border); color: var(--text-2); background: var(--panel); white-space: nowrap; }
+.pd .badge.new { color: #0d7a4f; background: #e8f7f0; border-color: #bfe6d5; }
+.pd .badge.known { color: #a05a00; background: #fdf3e2; border-color: #f0dcb8; }
+.pd .ex .extitle { font-size: 19px; font-weight: 660; line-height: 1.3; letter-spacing: -.01em; margin: 2px 0 2px; }
+.pd .ex .exsub { font-size: 14.5px; color: var(--text-2); margin: 0 0 4px; }
+.pd .srcs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 16px 0 0; }
+@media (max-width: 760px) { .pd .srcs { grid-template-columns: 1fr; } }
+.pd .src { border: 1px solid var(--border); border-radius: 12px; padding: 12px 13px; background: var(--panel); }
+.pd .src .tag { display: inline-block; font: 650 11px/1 var(--mono); letter-spacing: .04em; color: #fff;
+                background: var(--c, var(--other)); border-radius: 5px; padding: 4px 6px; margin-bottom: 8px; }
+.pd .src .looks { font-size: 13.5px; color: var(--text-2); line-height: 1.5; margin-bottom: 8px; }
+.pd .src .gives { font-size: 14px; line-height: 1.52; border-top: 1px dashed var(--border); padding-top: 8px; }
+.pd .src .gives b { font-weight: 650; }
+.pd .merge { display: flex; flex-direction: column; align-items: center; gap: 2px; margin: 12px 0 2px; }
+.pd .merge .arrow { width: 1px; height: 16px; background: var(--border); }
+.pd .merge .mcap { font-size: 12px; letter-spacing: .05em; text-transform: uppercase; font-weight: 650; color: var(--muted); }
+.pd .concl { border: 1.5px solid var(--theme); border-radius: 13px; padding: 15px 17px; margin-top: 8px;
+             font-size: 16.5px; line-height: 1.58; background: #f5f9ff; }
+.pd .concl .lab { font-size: 11.5px; font-weight: 650; letter-spacing: .06em; text-transform: uppercase;
+                  color: var(--theme); margin-bottom: 5px; }
+.pd .why { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; margin: 16px 0 2px; }
+@media (max-width: 760px) { .pd .why { grid-template-columns: 1fr; } }
+.pd .why .w { font-size: 14.5px; line-height: 1.55; }
+.pd .why .w .wh { font-weight: 650; display: block; }
+.pd .why .w .wb { color: var(--text-2); }
 </style>
 <article class="pd" id="pd">
 <div class="meta">Research note · October 2026</div>
@@ -347,61 +378,118 @@ are shown with the line it used highlighted.</p>
 <div class="diff" id="diff"></div>
 <p id="verdict"></p>
 
-<h2><span class="num">8</span>The same question, on mathematics</h2>
-<p>An app log is forgiving: almost any two entries can be read together somehow. So we ran the identical setup on a
-corpus where that isn't true &mdash; <b>719 research-mathematics manuscripts across 17 fields</b>
-(<a href="https://github.com/openai/math">openai/math</a>). Same judge, same single open question, 10,000 random
-partners per anchor, and the top 100 handed to one reader that also had the whole corpus on disk and web search, so it
-could check whether anything it found was already known.</p>
-<p>Five anchors, picked at random. <b>Four came back with nothing</b> &mdash; which is the honest answer when a paper has
-no real neighbour in the corpus, and those four reports are mostly a list of candidates the reader killed itself. The
-fifth found something, out of three documents that look nothing alike.</p>
+<h2><span class="num">8</span>The same question, on other libraries</h2>
+<p>An app log is forgiving: almost any two entries can be read together somehow. The interesting test is a library
+where that isn't true. We ran the identical setup &mdash; same judge, same single open question &mdash; on
+<b>719 research-mathematics manuscripts</b> across 17 fields (<a href="https://github.com/openai/math">openai/math</a>)
+and on <b>68,201 passages of medical evidence reviews</b> (Cochrane). Two of the connections it surfaced are below.
+Each one is built from documents that share no topic, no vocabulary, and no audience.</p>
 
-<p><b>The first</b> is a counterexample paper: <i>here is a strange object that breaks a conjecture from the 1960s</i>.
-You would file it under curiosities. The sentence that mattered isn't even its result &mdash; it's a classical fact the
-paper recites in passing: a system admits <i>no notion of size at all</i> exactly when it can be split into two copies of
-itself, provided you first bundle <i>m</i> copies of it together.</p>
-<p><b>The second</b> is about when a system is infinitely divisible &mdash; sand rather than bricks. It says: if a certain
-derived object casts no "one&#8209;dimensional shadow", the system is sand.</p>
-<p><b>The third</b> is about the opposite situation: when a system contains two complete copies of <i>itself</i>, like
-Hilbert's hotel. It says bundled splitting already forces the strongest form of this.</p>
+<div class="ex">
+  <div class="exhead"><span class="exfield">Mathematics &middot; 3 manuscripts, 3 subfields</span>
+    <span class="badge new">not found in the literature</span></div>
+  <div class="extitle">A system is maximally infinite exactly when you cannot measure it &mdash; not even sloppily</div>
+  <p class="exsub">Two of the three inputs carry machine&#8209;checked proofs in the source repository.</p>
+  <div class="srcs">
+    <div class="src" style="--c: var(--real)">
+      <span class="tag">A</span>
+      <div class="looks">Reads like a curiosity: <i>here is a strange object that breaks a conjecture from the
+        1960s</i>.</div>
+      <div class="gives">The sentence that matters isn't its result &mdash; it's a classical fact it recites in
+        passing: a system has <b>no notion of size at all</b> exactly when it splits into two copies of itself,
+        provided you first bundle <i>m</i> copies together.</div>
+    </div>
+    <div class="src" style="--c: var(--tidy)">
+      <span class="tag">B</span>
+      <div class="looks">About when a system is <b>infinitely divisible</b> &mdash; sand rather than bricks.</div>
+      <div class="gives">If a certain derived object casts no &ldquo;one&#8209;dimensional shadow&rdquo;, the system
+        is <b>sand</b>.</div>
+    </div>
+    <div class="src" style="--c: var(--render)">
+      <span class="tag">C</span>
+      <div class="looks">About the opposite case: when a system contains two complete copies of <i>itself</i>, like
+        Hilbert's hotel.</div>
+      <div class="gives">Bundled splitting already forces the <b>strongest form</b> of that self&#8209;duplication.</div>
+    </div>
+  </div>
+  <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
+  <div class="concl"><div class="lab">The conclusion</div>Having no notion of size &mdash; the weakest imaginable
+    failure &mdash; already forces the strongest form of self&#8209;duplication. And the <i>m</i> disappears: needing
+    to bundle <i>m</i> copies looks strictly weaker than splitting outright, but being unmeasurable forces the system
+    to be sand, and sand lets you divide through by <i>m</i>. The weaker&#8209;looking condition was never weaker.</div>
+  <div class="why">
+    <div class="w"><span class="wh">Opposite sides of the field</span><span class="wb">B and C sit across the main
+      divide between finite and infinite behaviour, and the argument runs the unexpected way: a finite&#8209;world
+      tool settles an infinite&#8209;world question.</span></div>
+    <div class="w"><span class="wh">Used off&#8209;headline</span><span class="wb">A is mined for a line it only
+      quotes in passing. People index papers by their main theorem, so that sentence is effectively invisible.</span></div>
+    <div class="w"><span class="wh">Three dialects, one idea</span><span class="wb">&ldquo;No measure&rdquo;,
+      &ldquo;no shadow&rdquo; and &ldquo;swallows a factor&rdquo; sound like three unrelated notions. They are three
+      views of a single question.</span></div>
+    <div class="w"><span class="wh">Never read side by side</span><span class="wb">All three appeared within 48 hours
+      of each other inside a drop of 719 papers.</span></div>
+  </div>
+</div>
 
-<div class="task"><div class="lab">What the three give together</div>A system is <b>maximally infinite exactly when you
-cannot measure it &mdash; not even sloppily</b>. Having no notion of size, the weakest imaginable failure, already forces
-the strongest form of self&#8209;duplication.</div>
+<div class="ex">
+  <div class="exhead"><span class="exfield">Medicine &middot; 2 reviews, 2 specialties</span>
+    <span class="badge known">already known to the field</span></div>
+  <div class="extitle">A vitamin given to clear a toxin in the drinking water can blunt an antimalarial drug</div>
+  <p class="exsub">Worth knowing because the two programmes meet in the same villages &mdash; and because the fix is
+    already named.</p>
+  <div class="srcs" style="grid-template-columns: 1fr 1fr">
+    <div class="src" style="--c: var(--theme)">
+      <span class="tag">A</span>
+      <div class="looks">Reads like obstetric nutrition: folic acid, the supplement taken in pregnancy
+        everywhere.</div>
+      <div class="gives">Antimalarials such as sulfadoxine&#8209;pyrimethamine work by <b>starving the parasite of
+        folate</b> &mdash; and the parasite can scavenge folate straight from the host's blood.</div>
+    </div>
+    <div class="src" style="--c: var(--agent)">
+      <span class="tag">B</span>
+      <div class="looks">Reads like environmental toxicology: arsenic in well water, a problem about
+        geology and plumbing.</div>
+      <div class="gives">The body clears arsenic through a <b>folate&#8209;dependent</b> pathway, so folic acid
+        measurably lowers blood arsenic &mdash; which is why it is proposed where wells are contaminated.</div>
+    </div>
+  </div>
+  <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
+  <div class="concl"><div class="lab">The conclusion</div>Two public&#8209;health efforts collide at a single
+    molecule. Folic acid handed out to reduce arsenic burden lands in regions where children also receive monthly
+    antifolate antimalarials &mdash; and spare folate is exactly what lets the parasite step around the drug. One
+    intervention can quietly subtract from the other.</div>
+  <div class="why">
+    <div class="w"><span class="wh">Nothing shared on the surface</span><span class="wb">No disease, no drug, no
+      organ, no specialty in common. One document is about mosquitoes, the other about wells. The only thing joining
+      them is a single molecule both pathways compete for.</span></div>
+    <div class="w"><span class="wh">And the field already knows</span><span class="wb">This is settled ground, with a
+      dedicated paper on folate supplementation reducing sulfadoxine&#8209;pyrimethamine efficacy &mdash; and a fix:
+      5&#8209;methyl&#8209;tetrahydrofolate, a form that does not rescue the parasite. A good sign for the method, and a reminder
+      that every candidate has to be checked against the literature before anyone calls it new.</span></div>
+  </div>
+</div>
 
-<p>The surprise is that the <i>m</i> vanishes. Needing to bundle <i>m</i> copies before you can split something looks
-strictly weaker than splitting it outright &mdash; you needed extra room to do the trick. But being unmeasurable forces
-the system to be sand, and once it is sand you can divide the inequality through by <i>m</i>. The weaker&#8209;looking
-condition was never weaker.</p>
-
-<p>Why a specialist wouldn't stumble on this: the second and third papers sit on <b>opposite sides of the field's main
-dividing line</b>, the one between finite and infinite behaviour, and the argument runs the unexpected way &mdash; it uses
-a finite&#8209;world tool to settle an infinite&#8209;world question. Two of the three are used for something that isn't
-their point, and people index papers by their headline. The three describe one phenomenon in three different dialects
-&mdash; "no measure", "no shadow", "swallows a factor" &mdash; which sound like three unrelated ideas. The step that
-actually closes the argument is a fourth, published fact that none of them mentions. And all three appeared within 48
-hours of each other inside a drop of 719 papers, so nobody had read them side by side.</p>
-
-<p>What it is worth, stated plainly: this is a cleaner, more checkable form of a known gateway condition, not a new
-theorem. "Split this in two" asks you to build something; "no measure exists" asks you to rule something out, which is
-usually far easier. Two of the three inputs carry machine&#8209;checked Lean proofs; the third does not. And once you
-grant the middle paper, the remaining step is short enough that a specialist may already have it. The reader said so
-itself, and rated its own find medium rather than high.</p>
+<p>Both are the same shape as the gift in section 3: the link is carried by one shared thing sitting underneath
+documents that look unrelated from above &mdash; a material in one case, a molecule in another, a single question
+about size in the third. None of them is reachable by searching for a word, because no word spans both documents.</p>
 
 <p class="foot">Data: DynamicMem user 002 (synthetic, MIT). Judge: OpenAI Decisions (gpt-6-luna) through the AI Sandbox,
 1,000 partners per anchor. The groups, conclusions and our idea were written by Claude Opus 5.5 after reading the 31
 entries; the grep agent is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob). "Uses the anchor's words" means
 the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or crystal.
-<br><br>Section 8: 127,584 passages from the 719 manuscripts of <a href="https://github.com/openai/math">openai/math</a>
-(Apache&#8209;2.0, commit <code>fd4aeeb</code>), same judge and question, 10,000 partners per anchor, five anchors drawn at
-random from self&#8209;contained abstract and introduction statements. Each reader is one <code>claude -p</code> session
-(Opus 5.5) with the top 100 in full, the corpus as files, and web search for novelty. The three papers are <i>A
-counterexample to Kaplansky's quasitrace conjecture</i>, <i>The Kirchberg&ndash;R&oslash;rdam character criterion</i> and
-<i>Weak pure infiniteness and O&#8209;infinity absorption</i>; the first two have Lean formalizations in that repo, the
-third does not.</p>
+<br><br>Section 8, mathematics: 127,584 passages from the 719 manuscripts of
+<a href="https://github.com/openai/math">openai/math</a> (Apache&#8209;2.0, commit <code>fd4aeeb</code>), 10,000
+partners per anchor, anchors drawn at random from self&#8209;contained abstract and introduction statements. The three
+papers are <i>A counterexample to Kaplansky's quasitrace conjecture</i>, <i>The Kirchberg&ndash;R&oslash;rdam character
+criterion</i> and <i>Weak pure infiniteness and O&#8209;infinity absorption</i>; the first two have Lean formalizations
+in that repo. Section 8, medicine: 68,201 abstract sections from Cochrane reviews, 10,000 partners per anchor; the two
+reviews are <i>Folic acid supplementation and malaria susceptibility and severity among people taking antifolate
+antimalarial drugs in endemic areas</i> (2026) and <i>Provision of folic acid for reducing arsenic toxicity in
+arsenic&#8209;exposed children and adults</i> (2021). In both, each reader is one <code>claude -p</code> session
+(Opus&nbsp;5.5) given the top 100 partners in full, the corpus as files, and web search, and every candidate was checked
+against the published literature before being written up here.</p>
 </article>
-<script src="data.js?v=d2db8fb30a"></script>
+<script src="data.js?v=bdff61558f"></script>
 <script>
 (function () {
 "use strict";
