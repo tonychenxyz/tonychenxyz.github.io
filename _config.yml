@@ -217,6 +217,8 @@ exclude:
   - purgecss.config.js
   - README.md
   - readme_preview/
+  - slides/general-talk/src/
+  - slides/general-talk/README.md
   - vendor
 keep_files:
   - CNAME
@@ -256,7 +258,7 @@ sass:
 # -----------------------------------------------------------------------------
 
 jekyll-minifier:
-  exclude: ["robots.txt", "assets/js/search/*.js", "assets/libs/**/*", "research-notes/**/*", "sweeper-bench/**/*"]
+  exclude: ["robots.txt", "assets/js/search/*.js", "assets/libs/**/*", "research-notes/**/*", "slides/**/*", "sweeper-bench/**/*"]
   uglifier_args:
     harmony: true
 

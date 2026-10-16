@@ -1,0 +1,50 @@
+.sb-svg { position: absolute; inset: 0; width: 1600px; height: 900px; overflow: visible; }
+.sb-svg text { font-family: "Inter", sans-serif; fill: #111; }
+.sb-par .sb-ring { fill: none; stroke: #000; stroke-width: .95; }
+.sb-par .sb-emo { font-size: 15px; font-family: "Apple Color Emoji", "Inter", sans-serif; }
+.sb-par .sb-emo.sm { font-size: 11px; }
+.sb-par .sb-stage { font-size: 11px; font-weight: 600; }
+.sb-par .sb-box { font-size: 12.5px; font-weight: 700; }
+.sb-par .sb-box.sm { font-size: 11.5px; }
+.sb-par .sb-small { font-size: 9.5px; }
+.sb-par .sb-arc { font-size: 10.5px; font-weight: 700; }
+.sb-par .sb-cite { font-size: 7.5px; font-weight: 400; }
+.sb-par .sb-head { fill: none; stroke: none; }
+/* a step group stays visible; its arc draws, then the arrowhead and the stage label fade in */
+.sb-par .sb-st.frag-hidden { opacity: 0 !important; transition: none; }
+.sb-par .sb-st:not(.frag-hidden) { transition: opacity .3s ease; }
+.sb-par .sb-draw { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset .7s var(--ease) var(--d, 0s); }
+.sb-par .sb-st.frag-hidden .sb-draw { stroke-dashoffset: 1; transition: none; }
+.sb-par .sb-head { transition: opacity .2s ease calc(var(--d, 0s) + .6s); }
+.sb-par .sb-lab { transition: opacity .4s ease .55s; }
+.sb-par .sb-st.frag-hidden .sb-head, .sb-par .sb-st.frag-hidden .sb-lab { opacity: 0; transition: none; }
+.sb-par .sb-late:not(.frag-hidden) { transition: opacity .6s ease .55s; }
+.sb-pa { transform: translateX(184.50px); transition: transform 1s var(--ease); }
+.sb-two .sb-pa { transform: none; }
+.sb-dwrap { position: absolute; left: 0; right: 0; top: 150px; bottom: 50px; display: flex; align-items: center; justify-content: center; gap: 110px; }
+.sb-dleft { position: relative; width: 500px; height: 500px; flex: none; }
+.sb-donut { width: 500px; height: 500px; display: block; overflow: visible; }
+.sb-donut path { opacity: 0; }
+.sb-dom.active .sb-donut path { animation: sb-pop .5s var(--ease) calc(.1s + var(--i) * .1s) both; }
+@keyframes sb-pop { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+.sb-dc { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.sb-dc b { font-size: 76px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+.sb-dc span { font-size: 30px; margin-top: 6px; }
+.sb-dlist { width: 640px; display: flex; flex-direction: column; gap: 20px; }
+.sb-drow { display: grid; grid-template-columns: 26px 1fr auto; column-gap: 12px; align-items: baseline; }
+.sb-drow i { width: 20px; height: 20px; border-radius: 50%; align-self: center; }
+.sb-drow b { font-size: 27px; font-weight: 700; letter-spacing: -.01em; }
+.sb-drow .n { font-size: 27px; font-variant-numeric: tabular-nums; }
+.sb-drow .ex { grid-column: 2 / 4; font-size: 22px; margin-top: 2px; }
+.sb-view { position: absolute; inset: 0; }
+.sb-view .sb-svg { pointer-events: none; }
+.sb-scap { position: absolute; display: flex; align-items: flex-start; gap: 16px; font-size: 32px; line-height: 40px; font-weight: 600; letter-spacing: -.01em; }
+.sb-num { flex: none; width: 40px; height: 40px; border-radius: 50%; background: #1f2328; color: #fff; font-size: 22px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.sb-fin { position: absolute; border-radius: 16px; border: 1.5px solid; }
+.sb-fin.fail { background: #fff0ef; border-color: #e8b8b8; }
+.sb-fin.pass { background: #ebf8ef; border-color: #b9dfc5; }
+.sb-fcap { position: absolute; display: flex; align-items: center; gap: 14px; font-size: 28px; line-height: 40px; white-space: nowrap; }
+.sb-fcap b { font-weight: 700; }
+.sb-badge { flex: none; width: 36px; height: 36px; border-radius: 50%; color: #fff; font-size: 21px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.sb-badge.fail { background: #b34646; }
+.sb-badge.pass { background: #1f7a3f; }
