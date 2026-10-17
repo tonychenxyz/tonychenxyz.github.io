@@ -363,23 +363,21 @@ sitemap: false
 /* section 8: kernel-writing agents */
 .pd .kbarms { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 @media (max-width: 760px) { .pd .kbarms { grid-template-columns: 1fr; } }
-.pd .kbarm { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px 12px; border-top: 4px solid var(--c); }
+.pd .kbarm { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px 12px; }
 .pd .kbarm h4 { margin: 0 0 2px; font-size: 15.5px; color: var(--c); }
 .pd .kbarm .like { font-size: 13.5px; color: var(--text-2); margin: 0 0 8px; line-height: 1.5; }
 .pd .kbarm svg { width: 100%; height: auto; display: block; }
-.pd .kbstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 6px 0 16px; }
-@media (max-width: 760px) { .pd .kbstats { grid-template-columns: 1fr 1fr; } }
-.pd .kbstats div { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.4; color: var(--text-2); border-left: 4px solid var(--c, var(--border)); }
-.pd .kbstats b { display: block; font-size: 23px; letter-spacing: -0.02em; color: var(--text); font-variant-numeric: tabular-nums; }
 .pd .kbchart { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto; background: #fff; border-radius: 12px; border: 1px solid var(--border); }
 .pd .kbmatch { display: grid; grid-template-columns: 1fr 64px 1fr; gap: 0; align-items: stretch; margin: 6px 0 16px; }
 @media (max-width: 760px) { .pd .kbmatch { grid-template-columns: 1fr; } .pd .kbmatch .via { transform: rotate(90deg); height: 54px; } }
-.pd .kbmatch .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; line-height: 1.55; border-top: 4px solid var(--c); }
+.pd .kbmatch .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; line-height: 1.55; }
 .pd .kbmatch .card .lab { display: block; font: 650 10.5px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); margin-bottom: 6px; }
 .pd .kbmatch .card q { display: block; font-style: italic; margin: 0 0 6px; quotes: "\201C" "\201D"; }
 .pd .kbmatch .card .tag { display: inline-block; font-size: 12px; border-radius: 999px; padding: 1px 9px; background: var(--panel); color: var(--text-2); margin-top: 4px; }
 .pd .kbmatch .via { display: grid; place-items: center; font-size: 26px; color: var(--theme); }
 .pd .kbopen { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.pd .kbopen .card { border-top: 1px solid var(--border); }
+.pd .kbtake { font-size: 17px; font-weight: 640; line-height: 1.5; margin: 26px 0 18px; }
 @media (max-width: 760px) { .pd .kbopen { grid-template-columns: minmax(0, 1fr); } }
 .pd .kbopen code { display: block; margin: 4px 0 2px; padding: 6px 8px; background: #0f1724; color: #d6deeb; border-radius: 7px;
                    font: 11.5px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
@@ -486,11 +484,11 @@ bottleneck or saw an idea fail. For each point we score 5,000 sampled notes, plu
 question: <b>would reading this note next to that point suggest a concrete way to make the kernel faster, or a direction to
 explore?</b> A reader turns the five top-30 lists into a one-page brief.</p>
 
-<div class="kbstats">
-  <div style="--c: var(--muted)"><b>24.0×</b>no memory (round 0, mean of 3)</div>
-  <div style="--c: var(--theme)"><b>28.7×</b>our method (mean of 9)</div>
-  <div style="--c: var(--agent)"><b>27.2×</b>files only (mean of 9)</div>
-  <div style="--c: var(--real)"><b>36.3×</b>best run, vs 24.29× prior best</div>
+<div class="fig">
+  <div class="ftitle">Mean speedup by round</div>
+  <div class="fsub">Round 0 has no memory and seeds both arms. The open circle is the best single run.</div>
+  <svg class="kbchart" viewBox="0 0 420 260" role="img" aria-label="Mean speedup by round: no memory 24.0x; our method 28.6, 26.1, 31.5; files only 26.1, 26.4, 29.0; best single run 36.3x; prior best 24.29x."><line x1="40" x2="412" y1="206.0" y2="206.0" stroke="#eef1f4"/><text x="34" y="210.5" font-size="13" font-weight="400" fill="#8c959f" text-anchor="end">20×</text><line x1="40" x2="412" y1="158.8" y2="158.8" stroke="#eef1f4"/><text x="34" y="163.3" font-size="13" font-weight="400" fill="#8c959f" text-anchor="end">25×</text><line x1="40" x2="412" y1="111.6" y2="111.6" stroke="#eef1f4"/><text x="34" y="116.1" font-size="13" font-weight="400" fill="#8c959f" text-anchor="end">30×</text><line x1="40" x2="412" y1="64.3" y2="64.3" stroke="#eef1f4"/><text x="34" y="68.8" font-size="13" font-weight="400" fill="#8c959f" text-anchor="end">35×</text><line x1="40" x2="412" y1="165.5" y2="165.5" stroke="#57606a" stroke-dasharray="5 4"/><text x="412" y="182.5" font-size="12.5" font-weight="500" fill="#57606a" text-anchor="end">prior best 24.29×</text><polyline points="54,168.2 134,148.7 214,145.1 294,121.3" fill="none" stroke="#d6456b" stroke-width="2.5" stroke-linejoin="round"/><circle cx="134" cy="148.7" r="4.5" fill="#d6456b"/><circle cx="214" cy="145.1" r="4.5" fill="#d6456b"/><circle cx="294" cy="121.3" r="4.5" fill="#d6456b"/><polyline points="54,168.2 134,125.0 214,148.4 294,97.6" fill="none" stroke="#286ee0" stroke-width="2.5" stroke-linejoin="round"/><circle cx="134" cy="125.0" r="4.5" fill="#286ee0"/><circle cx="214" cy="148.4" r="4.5" fill="#286ee0"/><circle cx="294" cy="97.6" r="4.5" fill="#286ee0"/><circle cx="54" cy="168.2" r="5.5" fill="#8c959f"/><text x="54" y="190.2" font-size="13" font-weight="600" fill="#57606a" text-anchor="start">no memory 24.0×</text><text x="304" y="102.1" font-size="13" font-weight="600" fill="#286ee0" text-anchor="start">our method 31.5×</text><text x="304" y="129.3" font-size="13" font-weight="600" fill="#d6456b" text-anchor="start">files only 29.0×</text><circle cx="294" cy="52.3" r="4.5" fill="#fff" stroke="#286ee0" stroke-width="2"/><line x1="294" x2="294" y1="57.3" y2="92.6" stroke="#286ee0" stroke-dasharray="2 3"/><text x="284" y="56.8" font-size="13" font-weight="600" fill="#1f2328" text-anchor="end">best single run 36.3×</text><text x="54" y="230" font-size="13.5" font-weight="500" fill="#1f2328" text-anchor="middle">round 0</text><text x="134" y="230" font-size="13.5" font-weight="500" fill="#1f2328" text-anchor="middle">round 1</text><text x="214" y="230" font-size="13.5" font-weight="500" fill="#1f2328" text-anchor="middle">round 2</text><text x="294" y="230" font-size="13.5" font-weight="500" fill="#1f2328" text-anchor="middle">round 3</text><text x="6" y="16" font-size="12.5" font-weight="400" fill="#57606a" text-anchor="start">mean speedup over the PyTorch baseline (3 agents per point)</text></svg>
+</div>
 </div>
 <p>Both kinds of memory beat no memory (one-sided permutation tests, p = 0.03 for our method and p = 0.05 for files only).
 Our method's lead over files only, +1.6×, is within noise (p = 0.18).</p>
@@ -554,10 +552,8 @@ preserve bf16 rounding and router inputs, citing an earlier run whose output cos
 <code>dp4a</code> GEMVs, absorbed MLA, and fused residual reductions"), with no measurement. None kept it. One built a
 DP4A variant, saw routing change on three seeds and dropped it.</p>
 
-<div class="concl">
-  <div class="chead">Our method did not surface anything the files-only agents could not read. It attached a measured result
-    and a working recipe to the agent's current bottleneck, and the brief made it the plan.</div>
-</div>
+<p class="kbtake">Our method did not surface anything the files-only agents could not read. It attached a measured result
+    and a working recipe to the agent's current bottleneck, and the brief made it the plan.</p>
 
 <ul class="kbcave">
   <li>The DP4A story rests on two runs. Seven of nine briefs mentioned DP4A; two agents shipped it, one dropped it after
@@ -805,7 +801,7 @@ verified against the probiotics review's results. Mathematics: 5,000 partners ju
 <code>claude&nbsp;-p</code> reader given the top 100 partners in full and the corpus as files. Quotations are cut verbatim from
 the passages.</p>
 </article>
-<script src="data.js?v=2a2b0ad037"></script>
+<script src="data.js?v=2c9b3f8c8a"></script>
 <script>
 (function () {
 "use strict";
