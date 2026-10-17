@@ -359,6 +359,28 @@ sitemap: false
 .pd .hard { background: var(--panel); border-radius: 12px; padding: 12px 16px; margin-top: 14px; font-size: 15px; line-height: 1.6; }
 .pd .concl .sub { font-size: 15px; line-height: 1.6; color: var(--text); border-top: 1px solid #ccdcf6; margin-top: 10px; padding-top: 9px; }
 .pd .concl .sub .pk { display: block; font: 650 10.5px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: #1b55ad; margin-bottom: 3px; }
+
+/* section 8: kernel-writing agents */
+.pd .kbarms { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 760px) { .pd .kbarms { grid-template-columns: 1fr; } }
+.pd .kbarm { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 14px 16px 12px; border-top: 4px solid var(--c); }
+.pd .kbarm h4 { margin: 0 0 2px; font-size: 15.5px; color: var(--c); }
+.pd .kbarm .like { font-size: 13.5px; color: var(--text-2); margin: 0 0 8px; line-height: 1.5; }
+.pd .kbarm svg { width: 100%; height: auto; display: block; }
+.pd .kbstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 6px 0 16px; }
+@media (max-width: 760px) { .pd .kbstats { grid-template-columns: 1fr 1fr; } }
+.pd .kbstats div { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; font-size: 13px; line-height: 1.4; color: var(--text-2); border-left: 4px solid var(--c, var(--border)); }
+.pd .kbstats b { display: block; font-size: 23px; letter-spacing: -0.02em; color: var(--text); font-variant-numeric: tabular-nums; }
+.pd .kbchart { width: 100%; max-width: 560px; height: auto; display: block; margin: 0 auto; background: #fff; border-radius: 12px; border: 1px solid var(--border); }
+.pd .kbmatch { display: grid; grid-template-columns: 1fr 64px 1fr; gap: 0; align-items: stretch; margin: 6px 0 16px; }
+@media (max-width: 760px) { .pd .kbmatch { grid-template-columns: 1fr; } .pd .kbmatch .via { transform: rotate(90deg); height: 54px; } }
+.pd .kbmatch .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; line-height: 1.55; border-top: 4px solid var(--c); }
+.pd .kbmatch .card .lab { display: block; font: 650 10.5px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); margin-bottom: 6px; }
+.pd .kbmatch .card q { display: block; font-style: italic; margin: 0 0 6px; quotes: "\201C" "\201D"; }
+.pd .kbmatch .card .tag { display: inline-block; font-size: 12px; border-radius: 999px; padding: 1px 9px; background: var(--panel); color: var(--text-2); margin-top: 4px; }
+.pd .kbmatch .via { display: grid; place-items: center; font-size: 26px; color: var(--theme); }
+.pd .kbcave { font-size: 14.5px; line-height: 1.6; color: var(--text-2); padding-left: 20px; margin: 8px 0 0; }
+.pd .kbcave li { margin-bottom: 5px; }
 </style>
 <article class="pd" id="pd">
 <div class="meta">Research note · October 2026</div>
@@ -425,7 +447,98 @@ are shown with the line it used highlighted.</p>
 <div class="diff" id="diff"></div>
 <p id="verdict"></p>
 
-<h2><span class="num">8</span>The same question, on other corpora</h2>
+<h2><span class="num">8</span>Notes for a coding agent</h2>
+<p>The same judge can decide what an AI agent should read before it starts work. Here the agent writes code. Its task is to
+make one small program run as fast as possible on a graphics chip, the kind of chip used to run AI models. The program
+is one step of a language model producing text, taken from a public benchmark for this kind of work. The agent has one
+hour; then we time its program against the original.</p>
+<p>It can use notes left by earlier agents: about 33,000 short write-ups of what they tried and what happened. That is far
+more than anyone can read in an hour, so the question is how the agent should look into them. We tried two ways, plus
+agents with no notes at all.</p>
+
+<div class="fig">
+  <div class="ftitle">Two ways to look into the notes</div>
+  <div class="fsub">Each square is one note left by an earlier agent.</div>
+  <div class="kbarms">
+    <div class="kbarm" style="--c: var(--agent)">
+      <h4>All notes as files</h4>
+      <p class="like">Like searching a library catalogue: you find the books whose titles you thought to type.</p>
+      <svg viewBox="0 0 400 250" role="img" aria-label="An agent searching the notes by name opens only the few files it thought to search for."><rect x="4" y="4" width="392" height="38" rx="19" fill="#fff" stroke="#d0d7de"/><circle cx="26" cy="23" r="7" fill="none" stroke="#8c959f" stroke-width="2.2"/><line x1="31" y1="28" x2="37" y2="34" stroke="#8c959f" stroke-width="2.2"/><text x="48" y="29" font-size="16" font-weight="500" fill="#1f2328" text-anchor="start">search: this program, this chip</text><rect x="8" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="38" y="58" width="24" height="24" rx="3" fill="#d6456b"/><rect x="68" y="58" width="24" height="24" rx="3" fill="#d6456b"/><rect x="98" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="128" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="158" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="188" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="218" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="248" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="278" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="308" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="338" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="368" y="58" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="8" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="38" y="88" width="24" height="24" rx="3" fill="#d6456b"/><rect x="68" y="88" width="24" height="24" rx="3" fill="#d6456b"/><rect x="98" y="88" width="24" height="24" rx="3" fill="#d6456b"/><rect x="128" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="158" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="188" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="218" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="248" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="278" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="308" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="338" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="368" y="88" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="8" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="38" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="68" y="118" width="24" height="24" rx="3" fill="#d6456b"/><rect x="98" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="128" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="158" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="188" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="218" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="248" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="278" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="308" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="338" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="368" y="118" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="8" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="38" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="68" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="98" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="128" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="158" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="188" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="218" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="248" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="278" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="308" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="338" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><rect x="368" y="148" width="24" height="24" rx="3" fill="#dfe3e8"/><path d="M 82 130 C 82 186, 110 200, 136 200" fill="none" stroke="#d6456b" stroke-width="2" stroke-dasharray="5 4"/><text x="144" y="205" font-size="16" font-weight="400" fill="#57606a" text-anchor="start">opens the few files it</text><text x="144" y="227" font-size="16" font-weight="400" fill="#57606a" text-anchor="start">thought to search for</text></svg>
+    </div>
+    <div class="kbarm" style="--c: var(--theme)">
+      <h4>A judge-picked shortlist</h4>
+      <p class="like">Like a librarian who reads where you got stuck, checks it against thousands of books, and hands you
+        the 30 most useful with a one-page summary.</p>
+      <svg viewBox="0 0 400 250" role="img" aria-label="A judge compares the agent's stuck point with thousands of notes and returns a ranked shortlist and a one-page brief."><line x1="134" y1="118" x2="162" y2="38" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="38" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="38" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="162" y2="58" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="58" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="58" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="162" y2="78" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="78" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="78" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="162" y2="98" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="98" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="98" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="162" y2="118" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="118" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="118" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="162" y2="138" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="138" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="138" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="162" y2="158" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="158" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="158" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="162" y2="178" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="178" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="178" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="162" y2="198" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="182" y2="198" stroke="#286ee0" stroke-opacity=".18"/><line x1="134" y1="118" x2="202" y2="198" stroke="#286ee0" stroke-opacity=".18"/><rect x="2" y="82" width="132" height="72" rx="12" fill="#fff" stroke="#286ee0" stroke-width="2.2"/><text x="68" y="113" font-size="14.5" font-weight="600" fill="#1f2328" text-anchor="middle">where the last</text><text x="68" y="133" font-size="14.5" font-weight="600" fill="#1f2328" text-anchor="middle">agent got stuck</text><rect x="154" y="30" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="30" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="30" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="154" y="50" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="50" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="50" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="154" y="70" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="70" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="70" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="154" y="90" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="90" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="90" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="154" y="110" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="110" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="110" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="154" y="130" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="130" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="130" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="154" y="150" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="150" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="150" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="154" y="170" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="170" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="170" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="154" y="190" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="174" y="190" width="16" height="16" rx="3" fill="#dfe3e8"/><rect x="194" y="190" width="16" height="16" rx="3" fill="#dfe3e8"/><text x="183" y="226" font-size="14" font-weight="400" fill="#57606a" text-anchor="middle">5,000 notes,</text><text x="183" y="244" font-size="14" font-weight="400" fill="#57606a" text-anchor="middle">each scored</text><text x="244" y="40" font-size="15" font-weight="600" fill="#1f2328" text-anchor="start">top 30, ranked</text><text x="236" y="74" font-size="15" font-weight="500" fill="#57606a" text-anchor="end">1</text><rect x="244" y="58" width="150" height="22" rx="6" fill="#286ee0"/><text x="236" y="106" font-size="15" font-weight="500" fill="#57606a" text-anchor="end">2</text><rect x="244" y="90" width="126" height="22" rx="6" fill="#c9daf8"/><text x="236" y="138" font-size="15" font-weight="500" fill="#57606a" text-anchor="end">3</text><rect x="244" y="122" width="108" height="22" rx="6" fill="#c9daf8"/><text x="236" y="170" font-size="15" font-weight="500" fill="#57606a" text-anchor="end">4</text><rect x="244" y="154" width="94" height="22" rx="6" fill="#c9daf8"/><text x="236" y="202" font-size="15" font-weight="500" fill="#57606a" text-anchor="end">5</text><rect x="244" y="186" width="82" height="22" rx="6" fill="#c9daf8"/><rect x="230" y="222" width="166" height="26" rx="8" fill="#e7effd"/><text x="313" y="240" font-size="15" font-weight="600" fill="#1d56b8" text-anchor="middle">→ one-page brief</text></svg>
+    </div>
+  </div>
+</div>
+
+<p>For the shortlist, we take five places where the previous agent got stuck. For each one, the judge asks of every note:
+<b>would reading this next to that problem suggest a way forward?</b> A second AI reads the top 30 and writes the brief.
+Agents ran in three rounds. Each round, new agents started from scratch, with notes that included the previous round's
+attempts.</p>
+
+<div class="kbstats">
+  <div style="--c: var(--muted)"><b>24×</b>faster than the original, with no notes</div>
+  <div style="--c: var(--theme)"><b>29×</b>on average with the judge's shortlist</div>
+  <div style="--c: var(--agent)"><b>27×</b>on average with all notes as files</div>
+  <div style="--c: var(--real)"><b>36×</b>best single agent: about 1.5× the best public result</div>
+</div>
+<p>Both kinds of notes made the agents faster, and those gains are unlikely to be luck. The gap between the two kinds
+of notes is small enough that it could be.</p>
+
+<div class="fig">
+  <div class="ftitle">How fast each agent made the program</div>
+  <div class="fsub">Each dot is one agent; the short bar is the average of three. The two circled agents are the only ones,
+    out of 21, that used the shortcut described below.</div>
+  <svg class="kbchart" viewBox="0 0 420 300" role="img" aria-label="How much faster each agent made the program, by round and by kind of notes."><line x1="40" x2="412" y1="232.0" y2="232.0" stroke="#eef1f4"/><text x="34" y="236.5" font-size="13" font-weight="400" fill="#8c959f" text-anchor="end">20×</text><line x1="40" x2="412" y1="176.4" y2="176.4" stroke="#eef1f4"/><text x="34" y="180.9" font-size="13" font-weight="400" fill="#8c959f" text-anchor="end">25×</text><line x1="40" x2="412" y1="120.9" y2="120.9" stroke="#eef1f4"/><text x="34" y="125.4" font-size="13" font-weight="400" fill="#8c959f" text-anchor="end">30×</text><line x1="40" x2="412" y1="65.3" y2="65.3" stroke="#eef1f4"/><text x="34" y="69.8" font-size="13" font-weight="400" fill="#8c959f" text-anchor="end">35×</text><line x1="40" x2="412" y1="184.3" y2="184.3" stroke="#57606a" stroke-dasharray="5 4"/><text x="412" y="178.3" font-size="13" font-weight="500" fill="#57606a" text-anchor="end">earlier best: 24×</text><line x1="69" x2="87" y1="187.5" y2="187.5" stroke="#8c959f" stroke-width="3" stroke-linecap="round"/><circle cx="78" cy="218.9" r="5" fill="#8c959f" fill-opacity=".85"/><circle cx="78" cy="177.1" r="5" fill="#8c959f" fill-opacity=".85"/><circle cx="78" cy="166.6" r="5" fill="#8c959f" fill-opacity=".85"/><line x1="155" x2="173" y1="136.7" y2="136.7" stroke="#286ee0" stroke-width="3" stroke-linecap="round"/><circle cx="164" cy="76.8" r="5" fill="#286ee0" fill-opacity=".85"/><circle cx="164" cy="145.0" r="5" fill="#286ee0" fill-opacity=".85"/><circle cx="164" cy="188.3" r="5" fill="#286ee0" fill-opacity=".85"/><line x1="183" x2="201" y1="164.6" y2="164.6" stroke="#d6456b" stroke-width="3" stroke-linecap="round"/><circle cx="192" cy="158.9" r="5" fill="#d6456b" fill-opacity=".85"/><circle cx="192" cy="194.7" r="5" fill="#d6456b" fill-opacity=".85"/><circle cx="192" cy="140.2" r="5" fill="#d6456b" fill-opacity=".85"/><line x1="255" x2="273" y1="164.3" y2="164.3" stroke="#286ee0" stroke-width="3" stroke-linecap="round"/><circle cx="264" cy="154.8" r="5" fill="#286ee0" fill-opacity=".85"/><circle cx="264" cy="143.9" r="5" fill="#286ee0" fill-opacity=".85"/><circle cx="264" cy="194.1" r="5" fill="#286ee0" fill-opacity=".85"/><line x1="283" x2="301" y1="160.3" y2="160.3" stroke="#d6456b" stroke-width="3" stroke-linecap="round"/><circle cx="292" cy="197.9" r="5" fill="#d6456b" fill-opacity=".85"/><circle cx="292" cy="147.8" r="5" fill="#d6456b" fill-opacity=".85"/><circle cx="292" cy="135.3" r="5" fill="#d6456b" fill-opacity=".85"/><line x1="345" x2="363" y1="104.4" y2="104.4" stroke="#286ee0" stroke-width="3" stroke-linecap="round"/><circle cx="354" cy="136.2" r="5" fill="#286ee0" fill-opacity=".85"/><circle cx="354" cy="51.2" r="5" fill="#286ee0" fill-opacity=".85"/><circle cx="354" cy="125.9" r="5" fill="#286ee0" fill-opacity=".85"/><line x1="373" x2="391" y1="132.4" y2="132.4" stroke="#d6456b" stroke-width="3" stroke-linecap="round"/><circle cx="382" cy="141.2" r="5" fill="#d6456b" fill-opacity=".85"/><circle cx="382" cy="135.0" r="5" fill="#d6456b" fill-opacity=".85"/><circle cx="382" cy="120.9" r="5" fill="#d6456b" fill-opacity=".85"/><circle cx="164" cy="76.8" r="9.5" fill="none" stroke="#e08a1e" stroke-width="2.2"/><text x="178" y="81.3" font-size="13" font-weight="600" fill="#b26a10" text-anchor="start">used the shortcut</text><circle cx="354" cy="51.2" r="9.5" fill="none" stroke="#e08a1e" stroke-width="2.2"/><text x="340" y="55.7" font-size="13" font-weight="600" fill="#b26a10" text-anchor="end">used the shortcut</text><text x="78" y="254" font-size="14" font-weight="500" fill="#1f2328" text-anchor="middle">no notes</text><text x="178" y="254" font-size="14" font-weight="500" fill="#1f2328" text-anchor="middle">round 1</text><text x="278" y="254" font-size="14" font-weight="500" fill="#1f2328" text-anchor="middle">round 2</text><text x="368" y="254" font-size="14" font-weight="500" fill="#1f2328" text-anchor="middle">round 3</text><text x="6" y="16" font-size="13" font-weight="400" fill="#57606a" text-anchor="start">times faster than the original</text><circle cx="44" cy="282" r="5" fill="#8c959f"/><text x="54" y="287" font-size="13.5" font-weight="400" fill="#1f2328" text-anchor="start">no notes</text><circle cx="138" cy="282" r="5" fill="#286ee0"/><text x="148" y="287" font-size="13.5" font-weight="400" fill="#1f2328" text-anchor="start">judge shortlist</text><circle cx="268" cy="282" r="5" fill="#d6456b"/><text x="278" y="287" font-size="13.5" font-weight="400" fill="#1f2328" text-anchor="start">all notes as files</text></svg>
+</div>
+
+<p class="exlead"><b>What the shortlist found.</b> Most of the program's time goes into multiplying long lists of numbers.
+The chip has a shortcut for this, called DP4A: it multiplies four pairs of small whole numbers and adds them up in one
+step, like a cashier scanning four items at once. To use it, the numbers first have to be rounded to small whole
+numbers, which changes the answer slightly if done carelessly. The two fastest agents both used it, and both had the
+judge's shortlist.</p>
+
+<div class="kbmatch">
+  <div class="card" style="--c: var(--muted)">
+    <span class="lab">Where an earlier agent was stuck</span>
+    <q>Shared activations are slower.</q>
+    It was adjusting how numbers are loaded from memory, for gains under 1%.
+    <br><span class="tag">never mentions the shortcut</span>
+  </div>
+  <div class="via">→</div>
+  <div class="card" style="--c: var(--theme)">
+    <span class="lab">The note the judge ranked first, of 5,107</span>
+    <q>W4A8 dp4a integration passes correctness in the fused decode kernel</q>
+    Another agent had used the shortcut on this same program: its main multiplying loop, tested on its own, handled data
+    twice as fast, and the answers still checked out.
+  </div>
+</div>
+
+<p>The brief led with that note. The next agent started on the shortcut early in its hour and finished 34× faster than
+the original. Its own notes were later shortlisted for other agents too; in round 3 another agent used the shortcut and
+reached 36×.</p>
+
+<p>The agents with all notes as files came across the shortcut too, one to four times each, but only as a few words in a
+summary table, with no numbers or instructions. None kept it. One tried it, saw it change the program's answers on three
+of the tests, and dropped it.</p>
+
+<div class="concl">
+  <div class="chead">The judge found nothing that was hidden from the other agents. It put proof that the shortcut works,
+    and how to do it, next to the agent's own problem, and the brief turned that into a plan.</div>
+</div>
+
+<ul class="kbcave">
+  <li>The shortcut story rests on two agents. Seven of nine briefs mentioned it; two agents used it, one dropped it after
+    it changed the answers, and the rest did not pursue it.</li>
+  <li>Round 3 was the best round for both kinds of notes, but no agents without notes ran at the same time, so the rise
+    may come from when it ran rather than from what the agents learned.</li>
+  <li>Three agents per kind of notes per round, on one program and one chip.</li>
+</ul>
+
+<h2><span class="num">9</span>The same question, on other corpora</h2>
 <p>In an app log, almost any two entries can be read together in some way. A harder test is a corpus where most
 pairs are unrelated. We ran the same kind of pipeline, the Decisions judge scoring one open question for every pair, on
 <b>719 research-mathematics manuscripts</b> (<a href="https://github.com/openai/math">openai/math</a>) and on
@@ -643,11 +756,20 @@ cannot surface a link that none of them states.</p>
 1,000 partners per anchor. The groups, conclusions and our idea were written by Claude Opus 5.5 after reading the 31
 entries; the grep agent is one <code>claude -p</code> session (Opus 5.5, Read/Grep/Glob). "Uses the anchor's words" means
 the person's own text contains glass, ice, frost, Octane, 20mm, permafrost or crystal.
-<br><br>Section 8, mathematics: 127,584 passages from the 719 manuscripts of
+<br><br>Section 8, code: KernelBench-mega problem 02_kimi_linear_decode (one Kimi-Linear
+decode step, single kernel launch) on one NVIDIA H100 per agent; agents are Codex GPT-6.1 Sol (high), 60 minutes,
+started from scratch each round. Notes: 33,248 memory docs written from 823 public KernelBench agent runs, plus earlier runs
+in this experiment. Shortlist: 5 stuck points per parent run, picked by GPT-6.1 Sol; the Decisions judge (gpt-6-luna,
+AI Sandbox) scores 5,000 sampled notes plus earlier runs per stuck point; a 10-minute GPT-6.1 Sol reader writes the brief
+from the top 30. Speedup is the benchmark's geometric-mean speedup over its optimized PyTorch baseline, the median of
+three runs. Averages over 9 agents per kind of notes: shortlist 28.7×, files 27.2×, none 24.0× (3 agents); one-sided
+permutation tests: shortlist vs none p = 0.03, files vs none p = 0.05, shortlist vs files p = 0.18. Best public H100
+result before this: 24.29×. DP4A is an instruction that computes a four-element int8 dot product.
+<br><br>Section 9, mathematics: 127,584 passages from the 719 manuscripts of
 <a href="https://github.com/openai/math">openai/math</a> (Apache&#8209;2.0, commit <code>fd4aeeb</code>). The three
 papers are <i>A counterexample to Kaplansky's quasitrace conjecture and failure of tensor&#8209;product stable
 finiteness</i>, <i>The Kirchberg&ndash;R&oslash;rdam character criterion</i> and <i>Weak pure infiniteness and
-O&#8209;infinity absorption</i>; the first two carry Lean formalizations in that repository. Section 8, medicine: 68,201 abstract sections from Cochrane reviews. Arsenic example: the anchor was the background
+O&#8209;infinity absorption</i>; the first two carry Lean formalizations in that repository. Section 9, medicine: 68,201 abstract sections from Cochrane reviews. Arsenic example: the anchor was the background
 section of <i>Folic acid supplementation and malaria susceptibility and severity among people taking antifolate antimalarial
 drugs</i>; 10,000 partners were judged, and one <code>claude&nbsp;-p</code> reader (Opus&nbsp;5.5, with web search) read the
 top 100, in which the conclusions of <i>Provision of folic acid for reducing arsenic toxicity in arsenic-exposed children
@@ -659,7 +781,7 @@ verified against the probiotics review's results. Mathematics: 5,000 partners ju
 <code>claude&nbsp;-p</code> reader given the top 100 partners in full and the corpus as files. Quotations are cut verbatim from
 the passages.</p>
 </article>
-<script src="data.js?v=753689d130"></script>
+<script src="data.js?v=83051d262c"></script>
 <script>
 (function () {
 "use strict";
