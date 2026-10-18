@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792349574">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792349994">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -634,17 +634,26 @@
 .pd .kbbar i { display: block; min-width: 3px; }
 .pd .kbbarl { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 6px; font-size: 14.5px; color: #424a53; }
 .pd .kbbarl b { color: #1f2328; }
-.pd .kbwherefig { max-width: 640px; }
-.pd .kbwr { display: grid; grid-template-columns: 150px 1fr; gap: 2px 18px; padding: 12px 0; border-top: 1px solid #dfe3e8; }
-.pd .kbwr:last-child { border-bottom: 1px solid #dfe3e8; }
-.pd .kbwl { font-weight: 650; font-size: 15px; }
-.pd .kbwm { font-size: 15.5px; }
-.pd .kbwr.on .kbwl, .pd .kbwr.on .kbwbig { color: #286ee0; }
-.pd .kbwbig { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
-.pd .kbwhere .kbchips { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 6px; }
-.pd .kbchip { font: 13px/1.4 var(--mono); background: #eef1f4; color: #424a53; border-radius: 5px; padding: 2px 7px; }
-.pd .kbchip.on { background: #286ee0; color: #fff; font-weight: 650; }
-
+.pd .kbterm2 { background: #1f2328; color: #d6dbe0; border-radius: 12px; padding: 20px 22px 18px; font: 13.5px/1.6 var(--mono); }
+.pd .kbcmdrow { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 14px 12px; }
+.pd .kbseg { display: flex; flex-direction: column; max-width: 100%; }
+.pd .kbseg code { font: inherit; color: #f0f3f6; white-space: pre-wrap; overflow-wrap: anywhere; padding-bottom: 6px;
+                  border-bottom: 2px solid #57606a; }
+.pd .kbseg-pat code { color: #f2cc60; border-color: #f2cc60; }
+.pd .kbseg-file code { color: #ff9b85; border-color: #ff9b85; }
+.pd .kbps { color: #8c959f; }
+.pd .kbann { font: 13.5px/1.45 var(--sans); color: #b8c0c8; margin-top: 6px; max-width: 300px; }
+.pd .kbann b { color: #fff; font-weight: 650; }
+.pd .kbseg-pat .kbann b { color: #f2cc60; }
+.pd .kbseg-file .kbann b { color: #ff9b85; }
+.pd .kbterm2 mark { background: #286ee0; color: #fff; border-radius: 3px; padding: 0 2px; }
+.pd .kbout { margin-top: 18px; padding-top: 14px; border-top: 1px solid #3a4048; }
+.pd .kbouth { font: 13.5px/1.45 var(--sans); color: #b8c0c8; margin-bottom: 6px; }
+.pd .kbout > div:not(.kbouth):not(.kbskip) { overflow-wrap: anywhere; }
+.pd .kbln { color: #6e7781; margin-right: 10px; }
+.pd .kbtn { color: #f0f3f6; margin-top: 4px; }
+.pd .kbskip { color: #6e7781; margin-top: 4px; }
+.pd .kbnot { font: 14px/1.5 var(--sans); color: #8fb8ff; margin-top: 14px; padding-top: 12px; border-top: 1px solid #3a4048; }
 .pd .kbnt { font-size: 15.5px; font-weight: 650; line-height: 1.45; margin-bottom: 10px; }
 .pd .kbnr { font-size: 15px; line-height: 1.55; margin-bottom: 8px; color: #424a53; }
 .pd .kbnr span { display: block; font-size: 13.5px; font-weight: 650; color: #57606a; }
@@ -696,9 +705,7 @@
 .pd .kbx { position: absolute; top: 10px; right: 12px; font-size: 24px; line-height: 1; border: 0; background: none; cursor: pointer;
            color: #424a53; }
 @media (max-width: 760px) {
-  .pd .kbwr { grid-template-columns: 1fr; }
   .pd .kbdkey { grid-template-columns: 1fr; }
-  .pd .kbwl { grid-row: auto; }
 }
 /* kb:end */
 /* sidebar contents: the article and its wide figures move right only as far as the sidebar needs */
@@ -1089,33 +1096,43 @@ method hands over looks very different:</p>
 <p>Two files-only agents even searched for the word <code>dp4a</code> and still never saw the note, because <b>each
 search looked inside only one file</b>. A search like this only reads the files you name. Both named a single log from an
 earlier agent in this experiment, the file they were already reading for code. The note was in a different file, so it
-could not come up.</p>
-<figure class="kbfig kbwherefig"><div class="kbwhere">
-  <div class="kbwr">
-<div class="kbwl">Looked for</div>
-    <div class="kbwm">
-<div class="kbchips">
-<span class="kbchip">bf162</span><span class="kbchip">lop3</span><span class="kbchip">prmt</span><span class="kbchip">native</span><span class="kbchip">gemv</span><span class="kbchip">dequant</span><span class="kbchip">prefetch</span><span class="kbchip">uint4</span><span class="kbchip">v43</span><span class="kbchip on">dp4a</span><span class="kbchip">__hmul2</span><span class="kbchip">asm volatile</span>
-</div>One agent's search, word for word: dp4a was one of 12 terms, the rest names of
-      code pieces. The word was right.</div>
+could not come up. This is one of the two searches, as the agent typed it:</p>
+<figure class="kbwide kbwherefig"><div class="kbterm2">
+  <div class="kbcmdrow">
+    <div class="kbseg">
+<code><span class="kbps">$</span> rg -an</code><div class="kbann">search the text of files</div>
 </div>
-  <div class="kbwr">
-<div class="kbwl">Looked in</div>
-    <div class="kbwm">
-<span class="kbwbig">1 file</span> of the 885 in memory: the log of an earlier agent in this
-      experiment, which they were reading for code.</div>
+    <div class="kbseg kbseg-pat">
+<code>'bf162|lop3|prmt|native|gemv|dequant|prefetch|uint4|v43|<mark>dp4a</mark>|__hmul2|asm volatile'</code><div class="kbann">for any of these 12 words; <b>dp4a</b> is one of them</div>
 </div>
-  <div class="kbwr">
-<div class="kbwl">Got back</div>
-    <div class="kbwm">One search: no line about dp4a. The other: four lines of commands from an attempt that agent had abandoned.</div>
+    <div class="kbseg kbseg-file">
+<code>memory/docs/loop-g1_files_3.txt</code><div class="kbann">
+<b>in this one file only:</b> an earlier
+      agent's log from this experiment</div>
 </div>
-  <div class="kbwr on">
-<div class="kbwl">Never looked in</div>
-    <div class="kbwm">
-<span class="kbwbig">884 files</span> including the notes of the best earlier attempt, where dp4a
-      appears 110 times and the 2× measurement is written down.</div>
+    <div class="kbseg">
+<code>| tail -65</code><div class="kbann">show the last 65 matches</div>
 </div>
+  </div>
+  <div class="kbout">
+    <div class="kbouth">What came back (52 lines; the ones mentioning dp4a, and the agent's own verdict):</div>
+    <div>
+<span class="kbln">774</span>cat &gt; make_<mark>dp4a</mark>.py &lt;&lt;'PY'</div>
+<div>
+<span class="kbln">780</span>python make_<mark>dp4a</mark>.py</div>
+<div>
+<span class="kbln">796</span>open('make_<mark>dp4a</mark>16.py','w').write(p)</div>
+<div>
+<span class="kbln">799</span>python make_<mark>dp4a</mark>16.py</div>
+<div class="kbtn">
+<span class="kbln">811</span>AGENT: The integer-dot experiment was faster, but broader testing found routing changes that pushed three seeds below tolerance. I’m discarding it.</div>
+    <div class="kbskip">… 47 other lines about the other code words</div>
+  </div>
+  <div class="kbnot">Not searched: the other 884 files, including the notes of the best earlier attempt, where dp4a appears
+    110 times and the 2× measurement is written down.</div>
 </div></figure>
+<p>The other search had the same shape, a list of words with dp4a among them, pointed at one log file. It came back with
+no line about dp4a.</p>
 
 <p class="kbsh">The useful notes don't look useful</p>
 <p>The two briefs that led with DP4A drew on three notes. Judged by their titles, none of them is about making this
@@ -1514,7 +1531,7 @@ the passages.</p>
 })();
 </script>
 </article>
-<script src="data.js?v=3e6c27543f"></script>
+<script src="data.js?v=6e434649b7"></script>
 <script>
 (function () {
 "use strict";
