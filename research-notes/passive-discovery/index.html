@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792340372">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792340657">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -208,7 +208,6 @@
 /* floating table of contents */
 .pd-toc { position: fixed; top: 110px; left: max(16px, calc(50% - 360px - 236px)); width: 204px; z-index: 20;
           font-family: var(--sans, 'Inter', sans-serif); transition: opacity .2s; }
-.pd-toc.hide { opacity: 0; pointer-events: none; }
 .pd-toc-h { font-size: 13px; font-weight: 650; color: #57606a; margin: 0 0 8px 8px; }
 .pd-toc ol { list-style: none; margin: 0; padding: 0; }
 .pd .pd-toc a { display: grid; grid-template-columns: 22px 1fr; padding: 4px 8px; border-radius: 6px; font-size: 13.5px; line-height: 1.4;
@@ -218,11 +217,10 @@
 .pd .pd-toc a.on { color: #286ee0; font-weight: 620; }
 .pd .pd-toc a.on span:first-child { color: #286ee0; }
 .pd-tocbtn { display: none; }
-@media (max-width: 1199px) {
+@media (max-width: 1023px) {
   .pd-toc { top: auto; bottom: 72px; left: 16px; width: min(300px, calc(100vw - 32px)); background: #fff; border-radius: 12px;
             padding: 12px 8px; box-shadow: 0 8px 30px rgba(31,35,40,.18); opacity: 0; pointer-events: none; transform: translateY(8px);
             transition: opacity .15s, transform .15s; }
-  .pd-toc.hide { opacity: 0; }
   .pd-toc.open { opacity: 1; pointer-events: auto; transform: none; }
   .pd .pd-toc a { font-size: 14.5px; padding: 7px 8px; }
   .pd-tocbtn { display: block; position: fixed; left: 16px; bottom: 20px; z-index: 21; font: 600 14px var(--sans, sans-serif);
@@ -713,6 +711,15 @@
   .pd .kbcaps { min-height: 150px; }
 }
 /* kb:end */
+/* sidebar contents: the article and its wide figures move right only as far as the sidebar needs */
+@media (min-width: 1024px) {
+  :root { --pd-wl: min(540px, calc(50vw - 128px)); --pd-shift: max(0px, calc(240px + var(--pd-wl) - 50vw)); }
+  .pd { position: relative; left: var(--pd-shift); }
+  .pd .fig { margin-left: calc(50% - var(--pd-wl)); margin-right: calc(50% - var(--pd-wl)); }
+  .pd .kbwide { margin-left: calc(50% - min(500px, var(--pd-wl))); margin-right: calc(50% - min(500px, var(--pd-wl))); }
+  .pd .ex { width: min(calc(2 * var(--pd-wl)), 1020px); }
+  .pd-toc { left: calc(50vw + var(--pd-shift) - var(--pd-wl) - 224px); }
+}
 </style>
 <article class="pd" id="pd">
 <div class="meta">Research note · October 2026</div>
@@ -1918,31 +1925,20 @@ the passages.</p>
     li.appendChild(a); ol.appendChild(li);
   });
   const links = [...ol.querySelectorAll('a')];
-  let wide = [];
-  const measure = () => {  // figures that reach past the text column could run under the sidebar
-    const L = art.getBoundingClientRect().left + 24;
-    wide = [...art.querySelectorAll('figure, div, svg, table')].filter(e => e.offsetParent && e.getBoundingClientRect().left < L - 8 && e.getBoundingClientRect().width > 300);
-  };
   const update = () => {
     let k = -1; const y = window.innerHeight * 0.3;
     hs.forEach((h, i) => { if (h.getBoundingClientRect().top < y) k = i; });
     links.forEach((a, i) => a.classList.toggle('on', i === k));
-    const r = nav.getBoundingClientRect();
-    const blocked = wide.some(e => { const b = e.getBoundingClientRect(); return b.bottom > r.top - 10 && b.top < r.bottom + 10 && b.left < r.right + 12; });
-    const started = art.querySelector('h2').getBoundingClientRect().top < window.innerHeight;
-    nav.classList.toggle('hide', blocked || !started);
   };
   btn.onclick = () => { const o = !nav.classList.contains('open'); nav.classList.toggle('open', o); btn.setAttribute('aria-expanded', String(o)); };
   document.addEventListener('click', e => { if (!nav.contains(e.target) && e.target !== btn) { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
   let raf = 0; const tick = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
   window.addEventListener('scroll', tick, { passive: true });
-  window.addEventListener('resize', () => { measure(); tick(); });
-  window.addEventListener('load', () => { measure(); update(); });
-  setTimeout(() => { measure(); update(); }, 300); document.addEventListener('toggle', () => { measure(); tick(); }, true);
+  window.addEventListener('resize', tick); window.addEventListener('load', update); update();
 })();
 </script>
 </article>
-<script src="data.js?v=71ab460451"></script>
+<script src="data.js?v=8b4fc3c489"></script>
 <script>
 (function () {
 "use strict";
