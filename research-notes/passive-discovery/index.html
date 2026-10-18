@@ -15,12 +15,10 @@ sitemap: false
           font-family: var(--sans, 'Inter', sans-serif); transition: opacity .2s; }
 .pd-toc-h { font-size: 13px; font-weight: 650; color: #57606a; margin: 0 0 8px 8px; }
 .pd-toc ol { list-style: none; margin: 0; padding: 0; }
-.pd .pd-toc a { display: grid; grid-template-columns: 22px 1fr; padding: 4px 8px; border-radius: 6px; font-size: 13.5px; line-height: 1.4;
+.pd .pd-toc a { display: block; padding: 4px 8px; border-radius: 6px; font-size: 13.5px; line-height: 1.4;
             color: #57606a; text-decoration: none; }
-.pd .pd-toc a span:first-child { color: #8c959f; font-variant-numeric: tabular-nums; }
 .pd .pd-toc a:hover { background: #f4f6f8; color: #1f2328; text-decoration: none; }
 .pd .pd-toc a.on { color: #286ee0; font-weight: 620; }
-.pd .pd-toc a.on span:first-child { color: #286ee0; }
 .pd-tocbtn { display: none; }
 @media (max-width: 1023px) {
   .pd-toc { top: auto; bottom: 72px; left: 16px; width: min(300px, calc(100vw - 32px)); background: #fff; border-radius: 12px;
@@ -1148,8 +1146,7 @@ the passages.</p>
   const hs = [...art.querySelectorAll('h2[id]')], ol = nav.querySelector('ol');
   hs.forEach(h => {
     const li = document.createElement('li'), a = document.createElement('a'), n = h.querySelector('.num');
-    a.href = '#' + h.id; a.innerHTML = '<span></span><span></span>';
-    a.children[0].textContent = n ? n.textContent : ''; a.children[1].textContent = h.textContent.slice(n ? n.textContent.length : 0);
+    a.href = '#' + h.id; a.textContent = h.textContent.slice(n ? n.textContent.length : 0);
     a.onclick = () => { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); };
     li.appendChild(a); ol.appendChild(li);
   });
@@ -1167,7 +1164,7 @@ the passages.</p>
 })();
 </script>
 </article>
-<script src="data.js?v=09e2af4272"></script>
+<script src="data.js?v=74ef023866"></script>
 <script>
 (function () {
 "use strict";
