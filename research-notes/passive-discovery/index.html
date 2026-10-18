@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792343206">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792348997">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -635,12 +635,15 @@
 .pd .kbbarl { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 6px; font-size: 14.5px; color: #424a53; }
 .pd .kbbarl b { color: #1f2328; }
 .pd .kbwherefig { max-width: 640px; }
-.pd .kbwr { display: grid; grid-template-columns: 170px 1fr; gap: 2px 18px; padding: 12px 0; border-top: 1px solid #dfe3e8; }
+.pd .kbwr { display: grid; grid-template-columns: 150px 1fr; gap: 2px 18px; padding: 12px 0; border-top: 1px solid #dfe3e8; }
 .pd .kbwr:last-child { border-bottom: 1px solid #dfe3e8; }
-.pd .kbwl { font-weight: 650; font-size: 15px; grid-row: span 2; }
+.pd .kbwl { font-weight: 650; font-size: 15px; }
 .pd .kbwm { font-size: 15.5px; }
-.pd .kbwo { font-size: 15px; color: #424a53; }
-.pd .kbwr.on .kbwl, .pd .kbwr.on .kbwo b { color: #286ee0; }
+.pd .kbwr.on .kbwl { color: #286ee0; }
+.pd .kbwhere .kbchips { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 6px; }
+.pd .kbchip { font: 13px/1.4 var(--mono); background: #eef1f4; color: #424a53; border-radius: 5px; padding: 2px 7px; }
+.pd .kbchip.on { background: #286ee0; color: #fff; font-weight: 650; }
+
 .pd .kbnt { font-size: 15.5px; font-weight: 650; line-height: 1.45; margin-bottom: 10px; }
 .pd .kbnr { font-size: 15px; line-height: 1.55; margin-bottom: 8px; color: #424a53; }
 .pd .kbnr span { display: block; font-size: 13.5px; font-weight: 650; color: #57606a; }
@@ -1131,19 +1134,31 @@ method hands over looks very different:</p>
 <span><b>7%</b> earlier attempts in this experiment</span><span><b>19%</b> final write-ups of other runs</span><span><b>73%</b> experiments in the middle of other runs</span>
 </div>
 </div></figure>
-<p>Two files-only agents even searched for the word <code>dp4a</code>. Both searched only those earlier logs:</p>
+<p>Two files-only agents even searched for the word <code>dp4a</code>, and still never saw the note. A search only
+looks inside the files you point it at, and both pointed theirs at a single log from an earlier agent in this experiment,
+the file they were already reading for code:</p>
 <figure class="kbfig kbwherefig"><div class="kbwhere">
   <div class="kbwr">
-<div class="kbwl">Searched for <code>dp4a</code>
+<div class="kbwl">Looked for</div>
+    <div class="kbwm">
+<div class="kbchips">
+<span class="kbchip">bf162</span><span class="kbchip">lop3</span><span class="kbchip">prmt</span><span class="kbchip">native</span><span class="kbchip">gemv</span><span class="kbchip">dequant</span><span class="kbchip">prefetch</span><span class="kbchip">uint4</span><span class="kbchip">v43</span><span class="kbchip on">dp4a</span><span class="kbchip">__hmul2</span><span class="kbchip">asm volatile</span>
+</div>One agent's search, word for word: dp4a was one of 12 terms, the rest names of
+      code pieces. The word was right.</div>
 </div>
-    <div class="kbwm">the logs of two earlier attempts in this experiment</div>
-    <div class="kbwo">nothing useful: those agents never got DP4A working</div>
+  <div class="kbwr">
+<div class="kbwl">Looked in</div>
+    <div class="kbwm">
+<b>One file:</b> the log of an earlier agent in this experiment, which they were reading for code.</div>
+</div>
+  <div class="kbwr">
+<div class="kbwl">Got back</div>
+    <div class="kbwm">One search: no line about dp4a. The other: four lines of commands from an attempt that agent had abandoned.</div>
 </div>
   <div class="kbwr on">
-<div class="kbwl">Never searched</div>
-    <div class="kbwm">the notes from other agents' runs</div>
-    <div class="kbwo">
-<b>148 mentions</b>, 110 of them in the best earlier attempt, including the 2× measurement</div>
+<div class="kbwl">Never looked in</div>
+    <div class="kbwm">The other 884 files, including the notes of the best earlier attempt, where dp4a appears 110 times
+      and the 2× measurement is written down.</div>
 </div>
 </div></figure>
 
@@ -1544,7 +1559,7 @@ the passages.</p>
 })();
 </script>
 </article>
-<script src="data.js?v=1bcdd7caac"></script>
+<script src="data.js?v=d79d604352"></script>
 <script>
 (function () {
 "use strict";
