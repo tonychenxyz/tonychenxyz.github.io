@@ -10,6 +10,30 @@ sitemap: false
 ---
 {% raw %}
 <style>
+/* floating table of contents */
+.pd-toc { position: fixed; top: 110px; left: max(16px, calc(50% - 360px - 236px)); width: 204px; z-index: 20;
+          font-family: var(--sans, 'Inter', sans-serif); transition: opacity .2s; }
+.pd-toc.hide { opacity: 0; pointer-events: none; }
+.pd-toc-h { font-size: 13px; font-weight: 650; color: #57606a; margin: 0 0 8px 8px; }
+.pd-toc ol { list-style: none; margin: 0; padding: 0; }
+.pd .pd-toc a { display: grid; grid-template-columns: 22px 1fr; padding: 4px 8px; border-radius: 6px; font-size: 13.5px; line-height: 1.4;
+            color: #57606a; text-decoration: none; }
+.pd .pd-toc a span:first-child { color: #8c959f; font-variant-numeric: tabular-nums; }
+.pd .pd-toc a:hover { background: #f4f6f8; color: #1f2328; text-decoration: none; }
+.pd .pd-toc a.on { color: #286ee0; font-weight: 620; }
+.pd .pd-toc a.on span:first-child { color: #286ee0; }
+.pd-tocbtn { display: none; }
+@media (max-width: 1199px) {
+  .pd-toc { top: auto; bottom: 72px; left: 16px; width: min(300px, calc(100vw - 32px)); background: #fff; border-radius: 12px;
+            padding: 12px 8px; box-shadow: 0 8px 30px rgba(31,35,40,.18); opacity: 0; pointer-events: none; transform: translateY(8px);
+            transition: opacity .15s, transform .15s; }
+  .pd-toc.hide { opacity: 0; }
+  .pd-toc.open { opacity: 1; pointer-events: auto; transform: none; }
+  .pd .pd-toc a { font-size: 14.5px; padding: 7px 8px; }
+  .pd-tocbtn { display: block; position: fixed; left: 16px; bottom: 20px; z-index: 21; font: 600 14px var(--sans, sans-serif);
+               color: #1f2328; background: #fff; border: 0; border-radius: 20px; padding: 9px 16px; cursor: pointer;
+               box-shadow: 0 2px 12px rgba(31,35,40,.18); }
+}
 .pd { --text: #1f2328; --text-2: #57606a; --muted: #8c959f; --border: #e5e7eb; --panel: #f4f6f8; --theme: #286ee0;
       --render: #6b5bd6; --real: #e08a1e; --tidy: #13a07a; --other: #b6bec8; --agent: #d6456b; --hl: #fff1b8;
       --sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -502,7 +526,7 @@ sitemap: false
 word. We find them with a cheap judge that asks one open question of a thousand pairs, and compare with an
 agent that searches.</p>
 
-<h2><span class="num">1</span>The data</h2>
+<h2 id="data"><span class="num">1</span>The data</h2>
 <p>One person's app log: <b>2,637 entries over 15 months, from 16 apps</b>. Each square is one entry, one block per
 month. The person is user 002 of <a href="https://wenyaxie023.github.io/DynamicMem/">DynamicMem</a>, a synthetic
 benchmark persona: a product designer in Amsterdam. Click an app to see where it sits and what an entry looks like.</p>
@@ -512,14 +536,14 @@ benchmark persona: a product designer in Amsterdam. Click an app to see where it
   <div class="cards3 fixedcards" id="d-cards"></div>
 </div>
 
-<h2><span class="num">2</span>The task</h2>
+<h2 id="task"><span class="num">2</span>The task</h2>
 <p>Given one entry, find what in the rest of the log, read together with it, reveals something worth acting
 on. Here the something is a gift:</p>
 <div class="task"><div class="lab">Task</div>Plan <b>one surprise</b> that will make this person happy. Build it on a
 non-obvious connection: entries from different apps or months that together reveal something about them
 that would surprise even them, which no single entry shows.</div>
 
-<h2><span class="num">3</span>What we found</h2>
+<h2 id="found"><span class="num">3</span>What we found</h2>
 <p>We started from an evening chat on 6 November 2024 where the person asks an AI to render imaginary glass
 and ice. Our method returned 30 partner entries. Read together, <b>they fall into three groups, each group says one
 thing, and the three combine into one idea</b>. Click any dot or box to read what is behind it.</p>
@@ -529,7 +553,7 @@ thing, and the three combine into one idea</b>. Click any dot or box to read wha
 </div>
 <div class="iw" id="idea-judge" style="--c:#286ee0"></div>
 
-<h2><span class="num">4</span>How we did it</h2>
+<h2 id="how"><span class="num">4</span>How we did it</h2>
 <p>A keyword search can't do this: 10 of these 30 entries share no word with the anchor. Instead we
 <b>name what we want and ask it of every pair</b>. The OpenAI Decisions API answers a yes/no question about a pair
 with a probability, for about seven cents per thousand pairs, so we fill the question's blank with 1,000
@@ -542,21 +566,21 @@ random entries and read only the 30 that score highest.</p>
 <p>The exact request, sent fifty times with twenty partners each:</p>
 <pre class="promptl" id="prompt"></pre>
 
-<h2><span class="num">5</span>How grep did it</h2>
+<h2 id="grep"><span class="num">5</span>How grep did it</h2>
 <p>We gave the same anchor and task to a Claude Opus 5.5 agent with <b>the whole log as files and only Read, Grep and
 Glob</b>. It made 27 tool calls in two and a half minutes. Routine steps are folded; the entries that mattered
 are shown with the line it used highlighted.</p>
 <div class="story" id="story"></div>
 <div class="iw" id="idea-grep" style="--c:#d6456b"></div>
 
-<h2><span class="num">6</span>What each route used, across the year</h2>
+<h2 id="year"><span class="num">6</span>What each route used, across the year</h2>
 <div class="fig" id="fig-cmp">
   <div class="row" style="margin:0 0 12px" id="c-chips"></div>
   <canvas class="field" id="c-canvas"></canvas>
   <div class="cmplegend" id="c-legend"></div>
 </div>
 
-<h2><span class="num">7</span>What's different</h2>
+<h2 id="different"><span class="num">7</span>What's different</h2>
 <div class="diff" id="diff"></div>
 <p id="verdict"></p>
 
@@ -872,7 +896,7 @@ two methods picked almost entirely different notes (11 in common), and only ours
 <p>These nine runs went a day after the rest of the experiment, on whichever H100s the queue gave them.</p>
 </details>
 
-<h2><span class="num">9</span>Scientific discovery</h2>
+<h2 id="science"><span class="num">9</span>Scientific discovery</h2>
 <p>In an app log, almost any two entries can be read together in some way. A harder test is a corpus where most
 pairs are unrelated. We ran the same kind of pipeline, the Decisions judge scoring one open question for every pair, on
 <b>719 research-mathematics manuscripts</b> (<a href="https://github.com/openai/math">openai/math</a>) and on
@@ -1109,8 +1133,45 @@ and adults</i> (2021) ranked 62nd. Cranberry example: the anchor was the main-re
 verified against the probiotics review's results. Mathematics: 5,000 partners judged per anchor and one
 <code>claude&nbsp;-p</code> reader given the top 100 partners in full and the corpus as files. Quotations are cut verbatim from
 the passages.</p>
+<nav class="pd-toc" id="pd-toc" aria-label="Contents"><div class="pd-toc-h">Contents</div><ol></ol></nav>
+<button class="pd-tocbtn" id="pd-tocbtn" aria-expanded="false" aria-controls="pd-toc">Contents</button>
+<script>
+(function () {
+  const art = document.getElementById('pd'), nav = document.getElementById('pd-toc'), btn = document.getElementById('pd-tocbtn');
+  const hs = [...art.querySelectorAll('h2[id]')], ol = nav.querySelector('ol');
+  hs.forEach(h => {
+    const li = document.createElement('li'), a = document.createElement('a'), n = h.querySelector('.num');
+    a.href = '#' + h.id; a.innerHTML = '<span></span><span></span>';
+    a.children[0].textContent = n ? n.textContent : ''; a.children[1].textContent = h.textContent.slice(n ? n.textContent.length : 0);
+    a.onclick = () => { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); };
+    li.appendChild(a); ol.appendChild(li);
+  });
+  const links = [...ol.querySelectorAll('a')];
+  let wide = [];
+  const measure = () => {  // figures that reach past the text column could run under the sidebar
+    const L = art.getBoundingClientRect().left + 24;
+    wide = [...art.querySelectorAll('figure, div, svg, table')].filter(e => e.offsetParent && e.getBoundingClientRect().left < L - 8 && e.getBoundingClientRect().width > 300);
+  };
+  const update = () => {
+    let k = -1; const y = window.innerHeight * 0.3;
+    hs.forEach((h, i) => { if (h.getBoundingClientRect().top < y) k = i; });
+    links.forEach((a, i) => a.classList.toggle('on', i === k));
+    const r = nav.getBoundingClientRect();
+    const blocked = wide.some(e => { const b = e.getBoundingClientRect(); return b.bottom > r.top - 10 && b.top < r.bottom + 10 && b.left < r.right + 12; });
+    const started = art.querySelector('h2').getBoundingClientRect().top < window.innerHeight;
+    nav.classList.toggle('hide', blocked || !started);
+  };
+  btn.onclick = () => { const o = !nav.classList.contains('open'); nav.classList.toggle('open', o); btn.setAttribute('aria-expanded', String(o)); };
+  document.addEventListener('click', e => { if (!nav.contains(e.target) && e.target !== btn) { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
+  let raf = 0; const tick = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
+  window.addEventListener('scroll', tick, { passive: true });
+  window.addEventListener('resize', () => { measure(); tick(); });
+  window.addEventListener('load', () => { measure(); update(); });
+  setTimeout(() => { measure(); update(); }, 300); document.addEventListener('toggle', () => { measure(); tick(); }, true);
+})();
+</script>
 </article>
-<script src="data.js?v=cfb6c1e853"></script>
+<script src="data.js?v=71ab460451"></script>
 <script>
 (function () {
 "use strict";
