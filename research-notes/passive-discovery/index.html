@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792285671">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792338794">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -627,6 +627,14 @@
   .pd .kbsearch { grid-template-columns: 1fr; gap: 28px; }
   .pd .kbnotes3 { grid-template-columns: 1fr; gap: 26px; }
 }
+.pd details.kbmore { margin: 40px 0 10px; }
+.pd details.kbmore > summary { font-size: 17px; font-weight: 650; cursor: pointer; list-style: none; padding: 6px 0; }
+.pd details.kbmore > summary::-webkit-details-marker { display: none; }
+.pd details.kbmore > summary::before { content: "+"; display: inline-block; width: 22px; color: #286ee0; font-weight: 700; }
+.pd details.kbmore[open] > summary::before { content: "–"; }
+.pd details.kbmore > summary:hover { color: #286ee0; }
+.pd details.kbmore[open] > summary { margin-bottom: 8px; }
+.pd .kbfig.kbpick { max-width: 380px; }
 .pd .kblist { margin: 0 0 10px; padding-left: 18px; font-size: 15.5px; line-height: 1.62; }
 .pd .kblist li { margin-bottom: 6px; }
 .pd .kbwide.kbpathfig { display: grid; grid-template-columns: 1fr 28px 1fr 28px 1fr 28px 1fr; gap: 0 8px; margin-top: 18px; margin-bottom: 24px;
@@ -1004,6 +1012,31 @@ way in</b>, following their briefs; the files-only agents that tried it started 
   <li>No no-memory agents ran alongside round 3, so its rise may be run-to-run variation rather than learning.</li>
 </ul>
 
+<details class="kbmore">
+<summary>Additional baseline: identify bottlenecks, then search the file-system memory</summary>
+<p>Is it enough to start from the stuck points? This baseline keeps everything in our method except the scoring. The same
+picker chooses five stuck points in the previous run (in round 1, the exact same fifteen our method used). Then an agent
+gets those stuck points and the file-system memory the files-only agents had, and has twenty minutes to search it with
+grep for notes that would help with each one. It writes the same one-page brief, and the next agent gets the brief and
+the notes it picked.</p>
+<figure class="kbfig"><svg class="kbsvg" viewbox="0 32 462 202" role="img" aria-label="Mean speedup by round, with the stuck-points-plus-grep baseline."><line x1="44" x2="412" y1="200.0" y2="200.0" stroke="#eef1f4"></line><text x="36.0" y="204.5" font-size="12" font-weight="400" fill="#8c959f" text-anchor="end">20×</text><line x1="44" x2="412" y1="153.9" y2="153.9" stroke="#eef1f4"></line><text x="36.0" y="158.4" font-size="12" font-weight="400" fill="#8c959f" text-anchor="end">25×</text><line x1="44" x2="412" y1="107.8" y2="107.8" stroke="#eef1f4"></line><text x="36.0" y="112.3" font-size="12" font-weight="400" fill="#8c959f" text-anchor="end">30×</text><line x1="44" x2="412" y1="61.7" y2="61.7" stroke="#eef1f4"></line><text x="36.0" y="66.2" font-size="12" font-weight="400" fill="#8c959f" text-anchor="end">35×</text><polyline points="56,163.1 128,144.1 200,140.6 272,117.3" fill="none" stroke="#57606a" stroke-width="2.5" stroke-linejoin="round"></polyline><circle cx="128" cy="144.1" r="4" fill="#57606a"></circle><circle cx="200" cy="140.6" r="4" fill="#57606a"></circle><circle cx="272" cy="117.3" r="4" fill="#57606a"></circle><text x="284.0" y="125.3" font-size="12.5" font-weight="650" fill="#57606a" text-anchor="start">files only 29.0×</text><polyline points="56,163.1 128,120.9 200,143.8 272,94.1" fill="none" stroke="#286ee0" stroke-width="2.5" stroke-linejoin="round"></polyline><circle cx="128" cy="120.9" r="4" fill="#286ee0"></circle><circle cx="200" cy="143.8" r="4" fill="#286ee0"></circle><circle cx="272" cy="94.1" r="4" fill="#286ee0"></circle><text x="284.0" y="98.6" font-size="12.5" font-weight="650" fill="#286ee0" text-anchor="start">our method 31.5×</text><polyline points="56,163.1 128,114.6 200,143.3 272,172.1" fill="none" stroke="#16897a" stroke-width="2.5" stroke-linejoin="round"></polyline><circle cx="128" cy="114.6" r="4" fill="#16897a"></circle><circle cx="200" cy="143.3" r="4" fill="#16897a"></circle><circle cx="272" cy="172.1" r="4" fill="#16897a"></circle><text x="284.0" y="176.6" font-size="12.5" font-weight="650" fill="#16897a" text-anchor="start">stuck points + grep 23.0×</text><circle cx="56" cy="163.1" r="4.5" fill="#8c959f"></circle><text x="54.0" y="183.1" font-size="12.5" font-weight="650" fill="#57606a" text-anchor="start">no memory 24.0×</text><text x="56.0" y="224.0" font-size="13" font-weight="500" fill="#1f2328" text-anchor="middle">round 0</text><text x="128.0" y="224.0" font-size="13" font-weight="500" fill="#1f2328" text-anchor="middle">round 1</text><text x="200.0" y="224.0" font-size="13" font-weight="500" fill="#1f2328" text-anchor="middle">round 2</text><text x="272.0" y="224.0" font-size="13" font-weight="500" fill="#1f2328" text-anchor="middle">round 3</text></svg></figure>
+<ul class="kblist">
+  <li>
+<b>Round 1 was a draw:</b> 29.3× against our method's 28.6×, from identical stuck points.</li>
+  <li>
+<b>Then it fell every round</b>, to 26.1× and 23.0× (mean 26.1× over rounds 1 to 3). Its later
+    briefs aimed to reproduce its own round-1 kernel, so the lineages kept rebuilding the same design.</li>
+  <li>
+<b>None of its nine kernels uses DP4A.</b> All three round-1 searchers found the DP4A note and listed it, but no
+    brief led with it.</li>
+</ul>
+<p>The searchers did start from the stuck points: they read them first, and their greps used the stuck points' own
+words. But a grep needs a word to look for, and those words belong to this task. For the same round-1 stuck points, the
+two methods picked almost entirely different notes (11 in common), and only ours reached into other tasks:</p>
+<figure class="kbfig kbpick"><svg class="kbsvg" viewbox="0 0 320 200" role="img" aria-label="Where the notes picked for the round-1 stuck points came from, for our method and for the grep baseline."><text x="0.0" y="22.0" font-size="14.5" font-weight="650" fill="#1f2328" text-anchor="start">Our method: 420 notes</text><rect x="0.0" y="32" width="197.1" height="22" rx="2" fill="#8c959f"></rect><rect x="198.6" y="32" width="2.1" height="22" rx="2" fill="#dfe3e8"></rect><rect x="202.1" y="32" width="95.6" height="22" rx="2" fill="#286ee0"></rect><text x="293.3" y="48.0" font-size="13.5" font-weight="700" fill="#fff" text-anchor="end">136</text><text x="0.0" y="90.0" font-size="14.5" font-weight="650" fill="#1f2328" text-anchor="start">Stuck points + grep: 136 notes</text><rect x="0.0" y="100" width="54.2" height="22" rx="2" fill="#8c959f"></rect><rect x="55.7" y="100" width="37.8" height="22" rx="2" fill="#dfe3e8"></rect><rect x="95.0" y="100" width="1.0" height="22" rx="2" fill="#286ee0"></rect><text x="103.1" y="116.0" font-size="13.5" font-weight="700" fill="#286ee0" text-anchor="start">3</text><rect x="0" y="134" width="11" height="11" rx="2" fill="#8c959f"></rect><text x="17.0" y="144.0" font-size="13.5" font-weight="400" fill="#424a53" text-anchor="start">other runs of this task</text><rect x="0" y="158" width="11" height="11" rx="2" fill="#dfe3e8"></rect><text x="17.0" y="168.0" font-size="13.5" font-weight="400" fill="#424a53" text-anchor="start">this experiment’s earlier rounds</text><rect x="0" y="182" width="11" height="11" rx="2" fill="#286ee0"></rect><text x="17.0" y="192.0" font-size="13.5" font-weight="400" fill="#424a53" text-anchor="start">other tasks</text></svg></figure>
+<p>These nine runs went a day after the rest of the experiment, on whichever H100s the queue gave them.</p>
+</details>
+
 <h2>
 <span class="num">9</span>The same question, on other corpora</h2>
 <p>In an app log, almost any two entries can be read together in some way. A harder test is a corpus where most
@@ -1318,7 +1351,7 @@ verified against the probiotics review's results. Mathematics: 5,000 partners ju
 <code>claude -p</code> reader given the top 100 partners in full and the corpus as files. Quotations are cut verbatim from
 the passages.</p>
 </article>
-<script src="data.js?v=3769c6cf7b"></script>
+<script src="data.js?v=e5e89b361d"></script>
 <script>
 (function () {
 "use strict";
