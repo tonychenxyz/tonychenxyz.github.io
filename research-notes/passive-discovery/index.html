@@ -439,26 +439,25 @@ sitemap: false
 .pd .kbbar i { display: block; min-width: 3px; }
 .pd .kbbarl { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 6px; font-size: 14.5px; color: #424a53; }
 .pd .kbbarl b { color: #1f2328; }
-.pd .kbterm2 { background: #1f2328; color: #d6dbe0; border-radius: 12px; padding: 20px 22px 18px; font: 13.5px/1.6 var(--mono); }
-.pd .kbcmdrow { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 14px 12px; }
+.pd .kbterm2 { background: #f6f8fa; color: #1f2328; border-radius: 12px; padding: 20px 22px 18px; font: 14px/1.6 var(--mono); }
+.pd .kbcmdrow { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px 14px; }
 .pd .kbseg { display: flex; flex-direction: column; max-width: 100%; }
-.pd .kbseg code { font: inherit; color: #f0f3f6; white-space: pre-wrap; overflow-wrap: anywhere; padding-bottom: 6px;
-                  border-bottom: 2px solid #57606a; }
-.pd .kbseg-pat code { color: #f2cc60; border-color: #f2cc60; }
-.pd .kbseg-file code { color: #ff9b85; border-color: #ff9b85; }
-.pd .kbps { color: #8c959f; }
-.pd .kbann { font: 13.5px/1.45 var(--sans); color: #b8c0c8; margin-top: 6px; max-width: 300px; }
-.pd .kbann b { color: #fff; font-weight: 650; }
-.pd .kbseg-pat .kbann b { color: #f2cc60; }
-.pd .kbseg-file .kbann b { color: #ff9b85; }
-.pd .kbterm2 mark { background: #286ee0; color: #fff; border-radius: 3px; padding: 0 2px; }
-.pd .kbout { margin-top: 18px; padding-top: 14px; border-top: 1px solid #3a4048; }
-.pd .kbouth { font: 13.5px/1.45 var(--sans); color: #b8c0c8; margin-bottom: 6px; }
+.pd .kbseg code { font: inherit; color: #1f2328; white-space: pre-wrap; overflow-wrap: anywhere; padding-bottom: 6px;
+                  border-bottom: 3px solid #afb8c1; }
+.pd .kbseg-pat code { border-color: #d4a72c; }
+.pd .kbseg-file code { border-color: #cf222e; font-weight: 700; }
+.pd .kbps { color: #57606a; }
+.pd .kbann { font: 14.5px/1.45 var(--sans); color: #424a53; margin-top: 7px; max-width: 320px; }
+.pd .kbann b { color: #1f2328; font-weight: 650; }
+.pd .kbseg-file .kbann b { color: #cf222e; }
+.pd .kbterm2 mark { background: #286ee0; color: #fff; border-radius: 3px; padding: 0 3px; font-weight: 650; }
+.pd .kbout { margin-top: 18px; padding-top: 14px; border-top: 1px solid #dfe3e8; }
+.pd .kbouth { font: 14.5px/1.45 var(--sans); color: #424a53; margin-bottom: 6px; }
 .pd .kbout > div:not(.kbouth):not(.kbskip) { overflow-wrap: anywhere; }
-.pd .kbln { color: #6e7781; margin-right: 10px; }
-.pd .kbtn { color: #f0f3f6; margin-top: 4px; }
-.pd .kbskip { color: #6e7781; margin-top: 4px; }
-.pd .kbnot { font: 14px/1.5 var(--sans); color: #8fb8ff; margin-top: 14px; padding-top: 12px; border-top: 1px solid #3a4048; }
+.pd .kbln { color: #57606a; margin-right: 10px; }
+.pd .kbtn { margin-top: 4px; }
+.pd .kbskip { color: #57606a; margin-top: 4px; }
+.pd .kbnot { font: 600 15px/1.5 var(--sans); color: #1f2328; margin-top: 14px; padding-top: 12px; border-top: 1px solid #dfe3e8; }
 .pd .kbnt { font-size: 15.5px; font-weight: 650; line-height: 1.45; margin-bottom: 10px; }
 .pd .kbnr { font-size: 15px; line-height: 1.55; margin-bottom: 8px; color: #424a53; }
 .pd .kbnr span { display: block; font-size: 13.5px; font-weight: 650; color: #57606a; }
@@ -835,8 +834,8 @@ could not come up. This is one of the two searches, as the agent typed it:</p>
     <div><span class="kbln">774</span>cat &gt; make_<mark>dp4a</mark>.py &lt;&lt;'PY'</div><div><span class="kbln">780</span>python make_<mark>dp4a</mark>.py</div><div><span class="kbln">796</span>open('make_<mark>dp4a</mark>16.py','w').write(p)</div><div><span class="kbln">799</span>python make_<mark>dp4a</mark>16.py</div><div class="kbtn"><span class="kbln">811</span>AGENT: The integer-dot experiment was faster, but broader testing found routing changes that pushed three seeds below tolerance. I’m discarding it.</div>
     <div class="kbskip">… 47 other lines about the other code words</div>
   </div>
-  <div class="kbnot">Not searched: the other 884 files, including the notes of the best earlier attempt, where dp4a appears
-    110 times and the 2× measurement is written down.</div>
+  <div class="kbnot">The note with the 2× DP4A measurement is in a different file, the notes of the best earlier attempt.
+    This search never opened it.</div>
 </div></figure>
 <p>The other search had the same shape, a list of words with dp4a among them, pointed at one log file. It came back with
 no line about dp4a.</p>
@@ -1139,7 +1138,7 @@ the passages.</p>
 })();
 </script>
 </article>
-<script src="data.js?v=6e434649b7"></script>
+<script src="data.js?v=d9eeb84625"></script>
 <script>
 (function () {
 "use strict";
