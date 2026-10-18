@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1792348997">
+<link rel="stylesheet" href="/assets/css/main.css?v=1792349574">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/passive-discovery/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -639,7 +639,8 @@
 .pd .kbwr:last-child { border-bottom: 1px solid #dfe3e8; }
 .pd .kbwl { font-weight: 650; font-size: 15px; }
 .pd .kbwm { font-size: 15.5px; }
-.pd .kbwr.on .kbwl { color: #286ee0; }
+.pd .kbwr.on .kbwl, .pd .kbwr.on .kbwbig { color: #286ee0; }
+.pd .kbwbig { display: block; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
 .pd .kbwhere .kbchips { display: flex; flex-wrap: wrap; gap: 5px; margin: 0 0 6px; }
 .pd .kbchip { font: 13px/1.4 var(--mono); background: #eef1f4; color: #424a53; border-radius: 5px; padding: 2px 7px; }
 .pd .kbchip.on { background: #286ee0; color: #fff; font-weight: 650; }
@@ -664,18 +665,15 @@
 .pd .kblist { margin: 0 0 10px; padding-left: 18px; font-size: 15.5px; line-height: 1.62; }
 .pd .kblist li { margin-bottom: 6px; }
 .pd .kbdots { margin-top: 20px; }
-.pd .kbdotsbar { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-.pd .kbnav { font: inherit; font-size: 17px; width: 38px; height: 34px; border-radius: 8px; border: 0; background: #eef1f4; cursor: pointer; color: #1f2328; }
-.pd .kbnav:hover:not(:disabled) { background: #e9f0fc; color: #286ee0; }
-.pd .kbnav:disabled { opacity: .35; cursor: default; }
-.pd .kbpips { display: flex; gap: 8px; }
-.pd .kbpips button { width: 10px; height: 10px; border-radius: 50%; border: 0; padding: 0; background: #dfe3e8; cursor: pointer; }
-.pd .kbpips button.on { background: #286ee0; }
-.pd .kbcaps { min-height: 104px; }
-.pd .kbcapstep { display: none; font-size: 15.5px; line-height: 1.6; max-width: 720px; }
-.pd .kbcapstep.on { display: block; }
-.pd .kbcapstep q { quotes: "“" "”"; }
-.pd .kbcaph { font-weight: 650; font-size: 16px; margin-bottom: 2px; }
+.pd .kbdkey { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; font-size: 15px; line-height: 1.5; margin-bottom: 10px; }
+.pd .kbdkey > div { padding-left: 26px; position: relative; color: #424a53; }
+.pd .kbdkey b { color: #1f2328; font-weight: 650; }
+.pd .kbdkey q { quotes: "“" "”"; }
+.pd .kbdkey i { position: absolute; left: 0; top: 5px; display: block; }
+.pd .kbk-stuck { width: 14px; height: 14px; border-radius: 50%; background: #e08a1e; }
+.pd .kbk-dot { width: 14px; height: 14px; background: radial-gradient(circle, #c3c9d0 2.2px, transparent 2.6px) 0 0 / 7px 7px; }
+.pd .kbk-line { width: 18px; height: 2px; top: 11px !important; background: #286ee0; opacity: .5; }
+.pd .kbk-top { width: 14px; height: 14px; border-radius: 50%; background: #286ee0; box-shadow: 0 0 0 2px #fff, 0 0 0 3.5px #1f2328; }
 .pd .kbcanvas { position: relative; margin-top: 6px; }
 .pd .kbcanvas canvas { display: block; width: 100%; cursor: crosshair; }
 .pd .kbtip { display: none; position: absolute; z-index: 2; max-width: 300px; background: #fff; border-radius: 8px; padding: 8px 11px;
@@ -699,8 +697,8 @@
            color: #424a53; }
 @media (max-width: 760px) {
   .pd .kbwr { grid-template-columns: 1fr; }
+  .pd .kbdkey { grid-template-columns: 1fr; }
   .pd .kbwl { grid-row: auto; }
-  .pd .kbcaps { min-height: 150px; }
 }
 /* kb:end */
 /* sidebar contents: the article and its wide figures move right only as far as the sidebar needs */
@@ -973,134 +971,88 @@ our method</b>. The trick is <b>DP4A</b>. This task stores its weights as 4-bit 
 bf16 before multiplying. DP4A goes the other way: it rounds the activations to 8-bit integers too and multiplies integer by
 integer with <code>__dp4a</code>, a GPU instruction that does four 8-bit multiply-adds at once. The arithmetic per weight
 drops, at a small loss of precision that stays within the benchmark's tolerance.</p>
-<p>The first one started from a stuck point in round 0. Step through how our method got from that moment to the note
-that changed the next kernel.</p>
+<p>The first one started from a stuck point in round 0. This is what our method did with it:</p>
 <div class="kbwide kbdots" id="kbdots">
-  <div class="kbdotsbar">
-<button class="kbnav" data-d="-1" aria-label="Previous step">←</button>
-    <div class="kbpips">
-<button data-go="0" aria-label="Step 1"></button><button data-go="1" aria-label="Step 2"></button><button data-go="2" aria-label="Step 3"></button><button data-go="3" aria-label="Step 4"></button><button data-go="4" aria-label="Step 5"></button><button data-go="5" aria-label="Step 6"></button>
+  <div class="kbdkey">
+    <div>
+<i class="kbk-stuck"></i><b>Stuck point.</b> Round 0: <q>wider loads improve the paired measurement by about 0.8%…
+      Shared activations are slower.</q>
 </div>
-    <button class="kbnav" data-d="1" aria-label="Next step">→</button>
+    <div>
+<i class="kbk-dot"></i><b>Each dot is one note</b> in the memory, 5,107 in all, grouped by task. Hover to see it.</div>
+    <div>
+<i class="kbk-line"></i><b>Each line is one of the 30 notes</b> our method scored highest when read next to the stuck point.</div>
+    <div>
+<i class="kbk-top"></i><b>The most useful one</b>, ranked first: U050, where DP4A was measured at twice the speed.
+      <button class="kblink" data-kbtop="0">Read it</button>
 </div>
-  <div class="kbcaps">
-<div class="kbcapstep" data-s="0">
-<div class="kbcaph">1. The stuck point</div>
-<div>Round 0, lineage 1. The agent has a correct kernel at 21.1× and is trying to speed up its weight loads: <q>With identical weights, wider loads improve the paired measurement by about 0.8%… Shared activations are slower.</q> Nothing here mentions int8 or DP4A.</div>
-</div>
-<div class="kbcapstep" data-s="1">
-<div class="kbcaph">2. The memory</div>
-<div>5,107 notes: 5,000 sampled from the memory and the 107 notes from the other round-0 runs. Each dot is one note, grouped by task (19 tasks). Hover or tap a dot to see it.</div>
-</div>
-<div class="kbcapstep" data-s="2">
-<div class="kbcaph">3. Every pair is read</div>
-<div>Our method reads each note next to the stuck point and asks whether the two together suggest a way to make the kernel faster, a direction to try, or a way past the problem. The darker the blue, the higher the score.</div>
-</div>
-<div class="kbcapstep" data-s="3">
-<div class="kbcaph">4. The top 30</div>
-<div>The 30 best-scoring notes come from 3 tasks and 3 GPUs. They go to the reader that writes the brief. Click any of them to read it.</div>
-</div>
-<div class="kbcapstep" data-s="4">
-<div class="kbcaph">5. The top note</div>
-<div>Ranked first of 5,107: <b>U050</b> from the 24.29× run, <q>W4A8 dp4a integration passes correctness in the fused decode kernel</q>. That run had the same problem with its weight stream and measured DP4A at <q>906 GB/s vs 451 for the production loop</q>. <button class="kblink" data-kbtop="0">Read U050</button>
-</div>
-</div>
-<div class="kbcapstep" data-s="5">
-<div class="kbcaph">6. The brief and the next agent</div>
-<div>The reader puts it first: <q>Prototype groupwise DP4A GEMVs early.</q> The round-1 agent starts writing DP4A code 8% of the way into its hour and finishes at <b>34.0×</b>, the best result at that point.</div>
-</div>
-</div>
+  </div>
   <div class="kbcanvas">
 <canvas></canvas><div class="kbtip"></div>
 </div>
 </div>
 <script>(function () {
   const root = document.getElementById('kbdots'), cv = root.querySelector('canvas'), tip = root.querySelector('.kbtip');
-  const N = 6; let step = 0, D = null, W = 0, H = 0, sc = 1, ox = 0, oy = 0, ax = 0, ay = 0, hover = -1, rot = false;
+  let D = null, W = 0, H = 0, sc = 1, ox = 0, oy = 0, ax = 0, ay = 0, hover = -1, rot = false;
   const font = () => getComputedStyle(root).fontFamily;
-  const blue = [40, 110, 224], grey = [223, 227, 232];
-  const mix = t => 'rgb(' + grey.map((g, i) => Math.round(g + (blue[i] - g) * t)).join(',') + ')';
-  const shade = w => Math.max(0, Math.min(1, (w - 0.15) / 0.7)) ** 1.6;
   function layout() {
-    W = cv.parentElement.clientWidth; const pad = 8, top = 64; rot = W < 600;  // narrow screens: the cloud turned upright
+    W = cv.parentElement.clientWidth; const pad = 8, top = 40; rot = W < 600;  // narrow screens: the cloud turned upright
     sc = rot ? (W - 2 * pad) / D.aspect : W - 2 * pad; H = Math.round(top + (rot ? 1 : D.aspect) * sc + pad);
-    ox = pad; oy = top; ax = W / 2; ay = 22;
+    ox = pad; oy = top; ax = W / 2; ay = 16;
     const r = window.devicePixelRatio || 1; cv.width = W * r; cv.height = H * r; cv.style.height = H + 'px';
     cv.getContext('2d').setTransform(r, 0, 0, r, 0, 0);
   }
   const P = d => rot ? [ox + d[1] * sc, oy + d[0] * sc] : [ox + d[0] * sc, oy + d[1] * sc];
+  const label = (g, t, x, y) => { g.lineWidth = 4; g.strokeStyle = 'rgba(255,255,255,.92)'; g.lineJoin = 'round'; g.strokeText(t, x, y); g.fillText(t, x, y); };
   function draw() {
     const g = cv.getContext('2d'); g.clearRect(0, 0, W, H);
     const rad = Math.max(1.1, sc / 470);
-    if (step === 0) {
-      g.fillStyle = '#eef0f3';
-      D.dots.forEach(d => { const [x, y] = P(d); g.beginPath(); g.arc(x, y, rad, 0, 6.2832); g.fill(); });
+    for (let k = 29; k >= 0; k--) {
+      const [x, y] = P(D.dots[k]);
+      g.strokeStyle = k === 0 ? '#286ee0' : 'rgba(40,110,224,.25)'; g.lineWidth = k === 0 ? 2.6 : 1;
+      g.beginPath(); g.moveTo(ax, ay); g.lineTo(x, y); g.stroke();
     }
-    if (step >= 1) {
-      if (step >= 3) {
-        g.lineWidth = 1;
-        for (let k = 29; k >= 0; k--) {
-          const [x, y] = P(D.dots[k]); g.strokeStyle = k === 0 && step >= 4 ? 'rgba(40,110,224,.95)' : 'rgba(40,110,224,.22)';
-          g.lineWidth = k === 0 && step >= 4 ? 2.4 : 1; g.beginPath(); g.moveTo(ax, ay); g.lineTo(x, y); g.stroke();
-        }
-      }
-      for (let k = D.dots.length - 1; k >= 0; k--) {
-        const d = D.dots[k], [x, y] = P(d);
-        g.fillStyle = step === 1 ? '#c3c9d0' : step === 2 ? mix(shade(d[2])) : k < 30 ? mix(shade(d[2])) : '#e6e9ed';
-        g.beginPath(); g.arc(x, y, k < 30 && step >= 3 ? rad * 1.9 : rad, 0, 6.2832); g.fill();
-      }
-      if (step >= 4) {
-        const [x, y] = P(D.dots[0]); g.strokeStyle = '#1f2328'; g.lineWidth = 2; g.beginPath(); g.arc(x, y, rad * 4.2, 0, 6.2832); g.stroke();
-      }
-      if (step >= 1) {
-        g.font = '600 ' + (rot ? 11.5 : 12.5) + 'px ' + font(); g.fillStyle = '#424a53'; g.textAlign = 'center';
-        D.clusters.forEach(c => {
-          if ((c[4] < (rot ? 520 : 150)) && c[0] !== '02_kimi_linear_decode') return;
-          const [x, y] = P([c[1], c[2]]); const rr = c[3] * sc;
-          g.fillText(c[0] === '02_kimi_linear_decode' ? 'this task' : c[0], x, y - rr - 3);
-        });
-      }
+    for (let k = D.dots.length - 1; k >= 0; k--) {
+      const [x, y] = P(D.dots[k]); g.fillStyle = k < 30 ? '#286ee0' : '#dde1e6';
+      g.beginPath(); g.arc(x, y, k < 30 ? rad * 1.9 : rad, 0, 6.2832); g.fill();
     }
+    g.font = '600 ' + (rot ? 11.5 : 12.5) + 'px ' + font(); g.fillStyle = '#424a53'; g.textAlign = 'center';
+    D.clusters.forEach(c => {
+      if ((c[4] < (rot ? 520 : 150)) && c[0] !== '02_kimi_linear_decode') return;
+      const [x, y] = P([c[1], c[2]]); label(g, c[0] === '02_kimi_linear_decode' ? 'this task' : c[0], x, y - c[3] * sc - 3);
+    });
+    const [tx, ty] = P(D.dots[0]);  // the top note: ring and label
+    g.strokeStyle = '#1f2328'; g.lineWidth = 2; g.beginPath(); g.arc(tx, ty, rad * 4.4, 0, 6.2832); g.stroke();
+    const right = tx < W - 170; g.textAlign = right ? 'left' : 'right'; const lx = tx + (right ? 1 : -1) * (rad * 4.4 + 8);
+    g.font = '700 14px ' + font(); g.fillStyle = '#1f2328'; label(g, 'Most useful: U050', lx, ty - 2);
+    g.font = '500 13px ' + font(); g.fillStyle = '#424a53'; label(g, 'DP4A at 2× the speed', lx, ty + 15);
     if (hover >= 0) { const [x, y] = P(D.dots[hover]); g.strokeStyle = '#1f2328'; g.lineWidth = 1.5; g.beginPath(); g.arc(x, y, rad * 3, 0, 6.2832); g.stroke(); }
     g.fillStyle = '#e08a1e'; g.beginPath(); g.arc(ax, ay, 8, 0, 6.2832); g.fill();
-    g.font = '650 13.5px ' + font(); g.fillStyle = '#1f2328'; g.textAlign = 'left';
-    g.fillText('stuck point', ax + 14, ay + 5);
-  }
-  function go(k) {
-    step = Math.max(0, Math.min(N - 1, k));
-    root.querySelectorAll('.kbcapstep').forEach(c => c.classList.toggle('on', +c.dataset.s === step));
-    root.querySelectorAll('.kbpips button').forEach((b, i) => b.classList.toggle('on', i === step));
-    root.querySelector('[data-d="-1"]').disabled = step === 0; root.querySelector('[data-d="1"]').disabled = step === N - 1;
-    hover = -1; tip.style.display = 'none'; if (D) draw();
+    g.font = '650 13.5px ' + font(); g.fillStyle = '#1f2328'; g.textAlign = 'left'; label(g, 'stuck point', ax + 14, ay + 5);
   }
   function near(e) {
     const b = cv.getBoundingClientRect(), mx = e.clientX - b.left, my = e.clientY - b.top; let best = -1, bd = 64;
-    if (step < 1) return [-1, mx, my];
-    D.dots.forEach((d, k) => { if (step >= 3 && k >= 30 && step > 3) return; const [x, y] = P(d), q = (x - mx) ** 2 + (y - my) ** 2; if (q < bd) { bd = q; best = k; } });
+    D.dots.forEach((d, k) => { const [x, y] = P(d), q = (x - mx) ** 2 + (y - my) ** 2; if (q < bd) { bd = q; best = k; } });
     return [best, mx, my];
   }
   function show(k, mx, my) {
     hover = k; draw(); if (k < 0) { tip.style.display = 'none'; return; }
     const d = D.dots[k], c = D.clusters[d[3]][0];
-    tip.innerHTML = '<b></b><div></div><div class="kbtipr"></div>';
+    tip.innerHTML = '<b></b><div></div><div></div>';
     tip.children[0].textContent = d[5]; tip.children[1].textContent = (c === '02_kimi_linear_decode' ? 'This task' : c === 'this experiment' ? 'This experiment' : c) + ', ' + d[4];
-    tip.children[2].textContent = step >= 2 ? 'Ranked ' + (k + 1).toLocaleString('en-US') + ' of ' + D.dots.length.toLocaleString('en-US') + (k < 30 && step >= 3 ? '. Click to read it.' : '') : '';
+    tip.children[2].textContent = 'Ranked ' + (k + 1).toLocaleString('en-US') + ' of ' + D.dots.length.toLocaleString('en-US') + (k < 30 ? '. Click to read it.' : '');
     tip.style.display = 'block';
     const tw = tip.offsetWidth; tip.style.left = Math.max(4, Math.min(W - tw - 4, mx - tw / 2)) + 'px'; tip.style.top = (my + 14) + 'px';
   }
   cv.addEventListener('mousemove', e => { if (D) { const [k, x, y] = near(e); show(k, x, y); } });
   cv.addEventListener('mouseleave', () => { if (D) show(-1); });
-  cv.addEventListener('click', e => {
-    if (!D) return; const [k, x, y] = near(e);
-    if (k >= 0 && k < 30 && step >= 3) kbNote(D.top[k]); else show(k, x, y);
-  });
-  root.querySelectorAll('.kbnav').forEach(b => b.onclick = () => go(step + +b.dataset.d));
-  root.querySelectorAll('.kbpips button').forEach(b => b.onclick = () => go(+b.dataset.go));
+  cv.addEventListener('click', e => { if (!D) return; const [k, x, y] = near(e); if (k >= 0 && k < 30) kbNote(D.top[k]); else show(k, x, y); });
   root.addEventListener('click', e => { const b = e.target.closest('[data-kbtop]'); if (b && D) kbNote(D.top[+b.dataset.kbtop]); });
-  go(0);
   fetch('assets/kbdots/a3.json').then(r => r.json()).then(d => { D = d; layout(); draw(); });
   let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { if (D) { layout(); draw(); } }, 120); });
 })();</script>
+<p>The reader put DP4A first in its brief: <q>Prototype groupwise DP4A GEMVs early.</q> The round-1 agent started on it
+8% of the way into its hour and finished at <b>34.0×</b>, the best result at that point.</p>
 <p>The second DP4A kernel came in round 3, from another lineage with different stuck points. Its brief also opened with
 DP4A, this time drawing on two other notes, an H100 microbenchmark of an int8 dot-product GEMV and a B200 run whose final
 kernel used DP4A, and it kept an exact bf16 path as a fallback in case accuracy slipped. That agent reached 36.3×,
@@ -1134,9 +1086,10 @@ method hands over looks very different:</p>
 <span><b>7%</b> earlier attempts in this experiment</span><span><b>19%</b> final write-ups of other runs</span><span><b>73%</b> experiments in the middle of other runs</span>
 </div>
 </div></figure>
-<p>Two files-only agents even searched for the word <code>dp4a</code>, and still never saw the note. A search only
-looks inside the files you point it at, and both pointed theirs at a single log from an earlier agent in this experiment,
-the file they were already reading for code:</p>
+<p>Two files-only agents even searched for the word <code>dp4a</code> and still never saw the note, because <b>each
+search looked inside only one file</b>. A search like this only reads the files you name. Both named a single log from an
+earlier agent in this experiment, the file they were already reading for code. The note was in a different file, so it
+could not come up.</p>
 <figure class="kbfig kbwherefig"><div class="kbwhere">
   <div class="kbwr">
 <div class="kbwl">Looked for</div>
@@ -1149,7 +1102,8 @@ the file they were already reading for code:</p>
   <div class="kbwr">
 <div class="kbwl">Looked in</div>
     <div class="kbwm">
-<b>One file:</b> the log of an earlier agent in this experiment, which they were reading for code.</div>
+<span class="kbwbig">1 file</span> of the 885 in memory: the log of an earlier agent in this
+      experiment, which they were reading for code.</div>
 </div>
   <div class="kbwr">
 <div class="kbwl">Got back</div>
@@ -1157,8 +1111,9 @@ the file they were already reading for code:</p>
 </div>
   <div class="kbwr on">
 <div class="kbwl">Never looked in</div>
-    <div class="kbwm">The other 884 files, including the notes of the best earlier attempt, where dp4a appears 110 times
-      and the 2× measurement is written down.</div>
+    <div class="kbwm">
+<span class="kbwbig">884 files</span> including the notes of the best earlier attempt, where dp4a
+      appears 110 times and the 2× measurement is written down.</div>
 </div>
 </div></figure>
 
@@ -1559,7 +1514,7 @@ the passages.</p>
 })();
 </script>
 </article>
-<script src="data.js?v=d79d604352"></script>
+<script src="data.js?v=3e6c27543f"></script>
 <script>
 (function () {
 "use strict";
