@@ -447,7 +447,7 @@ sitemap: false
 .pd .kbreads { font-size: 14.5px; color: #424a53; margin: 10px 0 8px; line-height: 1.5; }
 .pd .kbinside { font-size: 15px; line-height: 1.55; }
 .pd .kbinside q { quotes: "“" "”"; }
-.pd .kbwho { font-size: 14.5px; color: #286ee0; margin-top: 8px; }
+.pd .kbwho { font-size: 15px; line-height: 1.55; margin-top: 8px; }
 .pd .kbfig.kbsrc { max-width: 440px; }
 @media (max-width: 760px) {
   .pd .kbnotes3 { grid-template-columns: 1fr; gap: 26px; }
@@ -868,13 +868,13 @@ files-only agent sees when it skims a file or an index: hardware, position in th
 <div class="kbwide kbnotes3"><div class="kbnote"><div class="kbhead">h100<br>unit 50 of 141<br>W4A8 dp4a integration passes correctness in the fused decode kernel<br>best score after 15.8653</div>
   <div class="kbreads">Looks like the middle of a run, a correctness check and a step where the score did not move.</div>
   <div class="kbinside"><b>Inside:</b> <q>dp4a at 4 warps/NT=512 gives 906 GB/s vs 451 for the production loop</q></div>
-  <div class="kbwho">Our method’s top pick for the round-0 stuck point.</div></div><div class="kbnote"><div class="kbhead">h100<br>unit 12 of 79<br>Flat GEMV task grouping improved measured bandwidth<br>fate no_code_change</div>
+  <div class="kbwho"><b>Why it helps:</b> It answers the stuck agent’s exact problem: the same weight stream on an H100, read twice as fast, in a kernel that had already passed the correctness check (output cosine 0.9941 against a 0.98 bar).</div></div><div class="kbnote"><div class="kbhead">h100<br>unit 12 of 79<br>Flat GEMV task grouping improved measured bandwidth<br>fate no_code_change</div>
   <div class="kbreads">Looks like a microbenchmark about task grouping and a dead end that never reached the code.</div>
   <div class="kbinside"><b>Inside:</b> An int8-dot GEMV at <q>1522 GB/s with cosine similarity 0.999985</q></div>
-  <div class="kbwho">Cited first by the round-3 brief that led with DP4A.</div></div><div class="kbnote"><div class="kbhead">b200<br>final solution<br>Kimi-Linear B200 decode megakernel: official score 35.435×</div>
+  <div class="kbwho"><b>Why it helps:</b> It shows the precision cost is tiny: an integer-dot GEMV on an H100 running at 83% of a plain copy (1832 GB/s in that run) while matching the reference almost exactly.</div></div><div class="kbnote"><div class="kbhead">b200<br>final solution<br>Kimi-Linear B200 decode megakernel: official score 35.435×</div>
   <div class="kbreads">Looks like a result on another GPU.</div>
   <div class="kbinside"><b>Inside:</b> <q>bf16-rounded activations are quantized to int8 per 64-element group, then <code>dp4a</code> computes the dot products</q></div>
-  <div class="kbwho">Cited next to it.</div></div></div>
+  <div class="kbwho"><b>Why it helps:</b> It shows the idea survives a whole kernel for this task, not just a microbenchmark: DP4A is in the audited final solution, which scored 35.4× on B200, with the rounding details spelled out.</div></div></div>
 <p>None of them reads as a speedup for this kernel. What ties U050 to the round-0 agent is the problem it was having.
 That agent was stuck on its weight stream, and U050 starts from the same place, <q>weight-stream bandwidth was the main
 performance concern</q>, before solving it a different way. Start a search from the stuck point and the note is close
@@ -1167,7 +1167,7 @@ the passages.</p>
 })();
 </script>
 </article>
-<script src="data.js?v=8b4fc3c489"></script>
+<script src="data.js?v=985b6b58f0"></script>
 <script>
 (function () {
 "use strict";
