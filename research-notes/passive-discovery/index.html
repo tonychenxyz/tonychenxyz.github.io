@@ -378,11 +378,15 @@ sitemap: false
 .pd .rec .cap2 { font-size: 11px; color: var(--text-2); margin-bottom: 6px; }
 .pd .rec .lnk { font-size: 12px; margin-top: 5px; } .pd .rec .lnk a { margin-right: 12px; }
 .pd .exlead { font-size: 16.5px; margin: 34px 0 0; }
+.pd .srcp { display: flex; flex-direction: column; min-width: 0; }
+.pd .pshot { display: block; width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+.pd .pcap { font-size: 12.5px; color: var(--text-2); margin: 7px 0 12px; }
+.pd .srcp .plain { font-size: 14.5px; line-height: 1.56; }
 .pd h3.h9 { font-size: 20px; line-height: 1.3; letter-spacing: -0.012em; font-weight: 670; margin: 54px 0 10px; }
 .pd .ctx { font-size: 14.5px; line-height: 1.6; color: var(--text-2); margin: 0 0 4px; }
 .pd .ctx b { color: var(--text); font-weight: 640; }
 .pd .src .plain { font-size: 13.5px; line-height: 1.56; border-top: 1px dashed var(--border); padding-top: 9px; margin-top: auto; }
-.pd .src .plain .pk, .pd .hard .pk { display: block; font: 650 10.5px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); margin-bottom: 4px; }
+.pd .src .plain .pk, .pd .srcp .plain .pk, .pd .hard .pk { display: block; font: 650 10.5px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); margin-bottom: 4px; }
 .pd .hard { background: var(--panel); border-radius: 12px; padding: 12px 16px; margin-top: 14px; font-size: 15px; line-height: 1.6; }
 .pd .concl .sub { font-size: 15px; line-height: 1.6; color: var(--text); border-top: 1px solid #ccdcf6; margin-top: 10px; padding-top: 9px; }
 .pd .concl .sub .pk { display: block; font: 650 10.5px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: #1b55ad; margin-bottom: 3px; }
@@ -891,25 +895,19 @@ The judge read 1,000 other preprints against each of ten recent ones; a reader t
 and no ranks, and looked for links inside it. This one joins two preprints from different fields.</p>
 <div class="ex">
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
-    <div class="src" style="--c: var(--real)">
-      <div class="rec"><div class="src2">bioRxiv, July 2026, neuroscience</div>
-        <div class="rt">Loss of m6A unmasks a senescence-associated inflammatory program in human microglia</div>
-        <div class="lnk"><a href="https://doi.org/10.64898/2026.07.06.736874">bioRxiv 2026.07.06.736874</a></div></div>
-      <div class="quote"><span class="qk">from the abstract</span>&ldquo;Selective catalytic inhibition of METTL3 with
-        STM2457 <mark>lowers global m6A and is sufficient to induce a senescence-like inflammatory state</mark> in human
-        HMC3 microglia.&rdquo;</div>
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-m6a.png" alt="The bioRxiv page for the preprint, showing its title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 8 July 2026, neuroscience.
+        <a href="https://doi.org/10.64898/2026.07.06.736874">10.64898/2026.07.06.736874</a></div>
       <div class="plain"><span class="pk">In plain words</span>Cells put a small chemical tag called m6A on their RNA
         messages. This group blocked the enzyme that writes the tag, using a drug, in human brain immune cells. With
         fewer tags the cells turned senescent: they stopped dividing for good and started leaking inflammatory signals.
         The paper shows that losing the tags is enough, but not which message carries the effect.</div>
     </div>
-    <div class="src" style="--c: var(--tidy)">
-      <div class="rec"><div class="src2">bioRxiv, September 2026, genomics</div>
-        <div class="rt">Single-cell splice isoform usage reveals distinct axes of cellular identity and senescence</div>
-        <div class="lnk"><a href="https://doi.org/10.64898/2026.09.11.748700">bioRxiv 2026.09.11.748700</a></div></div>
-      <div class="quote"><span class="qk">from the abstract</span>&ldquo;We <mark>resolve p16INK4a and p14ARF transcripts
-        from the CDKN2A locus in individual cells</mark> and uncover cell-type-dependent isoform remodeling associated
-        with the p16INK4a senescence program.&rdquo;</div>
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-isoform.png" alt="The bioRxiv page for the preprint, showing its title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 14 September 2026, genomics.
+        <a href="https://doi.org/10.64898/2026.09.11.748700">10.64898/2026.09.11.748700</a></div>
       <div class="plain"><span class="pk">In plain words</span>One gene, CDKN2A, makes two different brake proteins, p16
         and p14ARF, depending on how its message gets cut up. p16 is the standard marker of senescence. This atlas of 26
         human tissues reads messages end to end in single cells, so for the first time it can say which of the two a cell
@@ -1079,7 +1077,7 @@ the passages.</p>
 })();
 </script>
 </article>
-<script src="data.js?v=6a7ddc643a"></script>
+<script src="data.js?v=48e08f4cca"></script>
 <script>
 (function () {
 "use strict";
