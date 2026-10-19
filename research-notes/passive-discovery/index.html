@@ -897,7 +897,7 @@ and no ranks, and looked for links inside it. This one joins two preprints from 
 <div class="ex">
   <div class="srcs" style="grid-template-columns: 1fr 1fr">
     <div class="srcp">
-      <img class="pshot" src="assets/preprint-m6a.png" alt="The bioRxiv page for the preprint, showing its title, authors, DOI and the start of the abstract.">
+      <img class="pshot" src="assets/preprint-m6a.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
       <div class="pcap">bioRxiv, posted 8 July 2026, neuroscience.
         <a href="https://doi.org/10.64898/2026.07.06.736874">10.64898/2026.07.06.736874</a></div>
       <div class="plain"><span class="pk">In plain words</span>Cells put a small chemical tag called m6A on their RNA
@@ -906,7 +906,7 @@ and no ranks, and looked for links inside it. This one joins two preprints from 
         The paper shows that losing the tags is enough, but not which message carries the effect.</div>
     </div>
     <div class="srcp">
-      <img class="pshot" src="assets/preprint-isoform.png" alt="The bioRxiv page for the preprint, showing its title, authors, DOI and the start of the abstract.">
+      <img class="pshot" src="assets/preprint-isoform.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
       <div class="pcap">bioRxiv, posted 14 September 2026, genomics.
         <a href="https://doi.org/10.64898/2026.09.11.748700">10.64898/2026.09.11.748700</a></div>
       <div class="plain"><span class="pk">In plain words</span>One gene, CDKN2A, makes two different brake proteins, p16
@@ -915,93 +915,168 @@ and no ranks, and looked for links inside it. This one joins two preprints from 
         made. The choice shifts by cell type and follows the p16 program. The paper does not ask what decides it.</div>
     </div>
   </div>
-  <div class="hard"><span class="pk">The connection is not obvious</span>Both are senescence papers, so they are not
-    strangers, and someone scanning titles for senescence could hit both. But they come from different communities,
-    brain immunology and single-cell genomics, and they share no molecules: the first never mentions CDKN2A, p16 or
-    splicing, and the second never mentions m6A. Joining them needs a third fact that neither supplies, that m6A tags
-    influence how a message is cut. The two were ranked 5th and 26th of 1,000 against the preprint the judge started
-    from, a short report about validating circular RNAs; the reader found the pair inside that group of thirty, not by
-    comparing either one against the starting paper.</div>
+  <div class="hard"><span class="pk">The connection is not obvious</span>Both are senescence papers, but they share no
+    molecules. The first never mentions CDKN2A or splicing; the second never mentions m6A. The bridge is a fact neither
+    states: m6A tags help decide how a message gets cut.</div>
   <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
   <div class="concl"><div class="lab">The conclusion</div>
     <div class="chead">Fewer m6A tags may tip CDKN2A toward making p16, and that shift could be the missing step between
       losing the tags and the cell turning senescent.</div>
     <div class="chain">
       <div class="lk"><span class="tag" style="--c: var(--real)">microglia paper</span><span>Lowering m6A is enough to
-        drive cells into senescence, by some unnamed message.</span></div>
+        make cells senescent, by some unnamed message.</span></div>
       <div class="lk"><span class="tag" style="--c: var(--tidy)">isoform atlas</span><span>A way to see, cell by cell,
         whether CDKN2A made p16 or p14ARF.</span></div>
-      <div class="lk res"><span class="tag">together</span><span>One has a cause with no mechanism, the other a precise
-        readout with nothing to turn. Put the drug into the atlas framework and measure the p16 to p14ARF ratio, and the
-        m6A tags on CDKN2A messages.</span></div>
+      <div class="lk res"><span class="tag">together</span><span>Give the drug and watch the ratio. If it tips toward
+        p16, the unnamed message is CDKN2A, and the missing mechanism is a change in how one gene gets cut.</span></div>
     </div>
-    <div class="sub"><span class="pk">What is known and what is not</span>Nobody has connected m6A to this particular
-      choice between p16 and p14ARF. But a closer search put the idea in a crowded neighbourhood rather than an empty
-      one: a 2024 paper already reports the same enzyme driving senescence through CDKN2B, the neighbouring gene in the
-      same family, with a worked-out mechanism. That m6A influences splicing is standard in that field, and the drop in
-      m6A in senescent cells is established. So this is the next experiment inside an active programme, one gene over
-      from published work.</div>
-    <div class="sub"><span class="pk">Why it matters</span>Drugs that block this enzyme are in cancer trials. If lowering
-      m6A tips healthy cells toward p16-driven senescence, that is a candidate mechanism for long-term side effects; read
-      the other way, it is a deliberate way to push tumour cells into senescence. It is also cheap to test, with one
-      existing drug and one existing assay.</div>
-    <div class="sub"><span class="pk">What this example shows, and does not</span>It shows the pipeline joining a cause
-      in one field to a measurement in another, in papers too recent for any model to have read. It does not show a
-      discovery. We first called this lead new on one web search and then found the adjacent gene on a second: a reminder
-      that a lead reading as fresh says nothing about whether it is.</div>
+    <div class="sub"><span class="pk">Why it matters</span>Drugs that block this enzyme are in cancer trials. Pushing
+      healthy cells toward senescence would be a side effect; pushing tumour cells there is the point.</div>
+    <div class="sub"><span class="pk">What the check found</span>Nobody has tied m6A to this p16 choice, but the
+      neighbouring gene is already published with the same enzyme. The next step in an active programme, not a leap.</div>
   </div>
 </div>
-
 
 <p class="h9s">Three more leads, read against the full abstracts</p>
 <p>A later round started from 20 preprints and scored 5,000 partners against each, so a top 30 is the top 0.6% of the
 pool. Twenty readers returned 136 leads. We took the three that looked strongest and checked each one against every
-abstract it cites, in full, rather than against the reader's own summary of them. One survived that reading.</p>
+abstract it cites, in full, rather than against the reader's own summary. One survived that reading.</p>
 
-<p><b>An off switch for a memory signal.</b> One preprint reports that anandamide, a lipid the brain makes, switches on
-a thalamic receptor and stretches how long working memory holds
-(<a href="https://doi.org/10.64898/2026.09.03.749183">Lipid activation of a thalamic GPCR extends working memory
-time-scales</a>). A biochemistry preprint reports an enzyme that adds a phosphate to anandamide and so redirects it to a
-different set of receptors (<a href="https://doi.org/10.64898/2026.09.21.753239">A phytocannabinoid-sensitive
-phosphorylation switch converts endocannabinoids into alternative lipid GPCR activators</a>). Neither mentions the other.
-If that enzyme works in the thalamus, the phosphate would be an off switch for the memory signal. A third preprint sharpens
-it: the sensor now used to watch anandamide in living brains
-(<a href="https://doi.org/10.64898/2026.08.06.743280">Selective GRAB sensors reveal distinct endocannabinoid dynamics in
-vivo</a>) was built before the phosphorylated form was described, so it may be blind to it and report the wrong pool.</p>
-<p><b>This one stands</b>, and the sensor check is cheap and decisive. But the animal experiment the reader proposed uses a
-compound that barely crosses into the brain and hits several targets, so it would settle nothing; that arm needs a genetic
-manipulation instead. And nobody has measured how much thalamic anandamide carries the phosphate. If it is a trace, the
-off-switch framing goes away.</p>
+<div class="ex">
+  <div class="srcs">
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-memory.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 8 September 2026, neuroscience.
+        <a href="https://doi.org/10.64898/2026.09.03.749183">10.64898/2026.09.03.749183</a></div>
+      <div class="plain"><span class="pk">In plain words</span>Anandamide, a lipid the brain makes, switches on a
+        receptor deep in the thalamus, and that stretches how long working memory can hold something.</div>
+    </div>
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-switch.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 22 September 2026, biochemistry.
+        <a href="https://doi.org/10.64898/2026.09.21.753239">10.64898/2026.09.21.753239</a></div>
+      <div class="plain"><span class="pk">In plain words</span>An enzyme adds a phosphate to anandamide. The modified
+        lipid stops activating its usual receptors and starts activating a different set.</div>
+    </div>
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-sensor.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 12 August 2026, neuroscience.
+        <a href="https://doi.org/10.64898/2026.08.06.743280">10.64898/2026.08.06.743280</a></div>
+      <div class="plain"><span class="pk">In plain words</span>A sensor that lights up when anandamide is present, used
+        to watch the lipid in living brains. It was designed before the phosphate form was described.</div>
+    </div>
+  </div>
+  <div class="hard"><span class="pk">The connection is not obvious</span>Three fields: memory, lipid chemistry, sensor
+    engineering. None of the three mentions either of the others.</div>
+  <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
+  <div class="concl"><div class="lab">The conclusion</div>
+    <div class="chead">The phosphate may be the off switch for this memory signal, and the sensor everyone uses to watch
+      it may be blind to it.</div>
+    <div class="chain">
+      <div class="lk"><span class="tag" style="--c: var(--real)">memory paper</span><span>Anandamide turns the memory
+        receptor on.</span></div>
+      <div class="lk"><span class="tag" style="--c: var(--tidy)">switch paper</span><span>A phosphate redirects
+        anandamide away from its usual receptors.</span></div>
+      <div class="lk"><span class="tag" style="--c: var(--render)">sensor paper</span><span>The sensor was built before
+        that phosphate was known.</span></div>
+      <div class="lk res"><span class="tag">together</span><span>If the enzyme works in the thalamus, memory has an off
+        switch nobody is watching, and the recordings everyone trusts may be counting the wrong pool.</span></div>
+    </div>
+    <div class="sub"><span class="pk">Why it matters</span>A signal with a known on switch and no known off switch is
+      half a mechanism. And a blind sensor would quietly bend every measurement made with it.</div>
+    <div class="sub"><span class="pk">What the check found</span>This one stands, and the sensor test is cheap. But the
+      animal experiment proposed uses a compound that barely reaches the brain, so that arm needs a genetic change
+      instead. Nobody has measured how much thalamic anandamide carries the phosphate; if it is a trace, the idea
+      fails.</div>
+  </div>
+</div>
 
-<p><b>A repair process holding a weakened aorta together.</b> The starting preprint
-(<a href="https://doi.org/10.64898/2026.10.09.757966">A cell death-independent role for MLKL in TGF-&beta; receptor
-recycling in Marfan syndrome</a>) reports that mice carrying a version of the MLKL protein that cannot be phosphorylated
-develop disorganised collagen and die of aortic rupture under stress. A bioengineering preprint
-(<a href="https://doi.org/10.64898/2026.08.24.746812">Blocking compensatory matrix cross-linking accelerates thoracic
-aortopathy in a mouse model of Marfan syndrome</a>) reports that the crosslinking which stiffens that collagen is
-protective: block it and mild disease turns into rupture. The lead asked whether the first failure is the second one.</p>
-<p><b>This one mostly collapses.</b> The starting preprint already reports disrupted collagen crosslinking chemistry and
-dysregulated collagen-modifying enzymes, so the headline question is largely answered inside a single paper, which is what
-the reader was told does not count. What is left is narrower: whether the rupture is caused by the crosslinking failure,
-and whether boosting the crosslinking enzyme rescues it. The lead also claimed both papers used the same Marfan mouse.
-They used different mutations and different stressors.</p>
+<div class="ex">
+  <div class="srcs" style="grid-template-columns: 1fr 1fr">
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-mlkl.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 13 October 2026, cell biology.
+        <a href="https://doi.org/10.64898/2026.10.09.757966">10.64898/2026.10.09.757966</a></div>
+      <div class="plain"><span class="pk">In plain words</span>Marfan syndrome weakens the wall of the aorta. In mice, a
+        protein called MLKL normally gets tagged with a phosphate; block that tag and the collagen in the wall comes out
+        disorganised and the aorta ruptures under stress.</div>
+    </div>
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-lox.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 25 August 2026, bioengineering.
+        <a href="https://doi.org/10.64898/2026.08.24.746812">10.64898/2026.08.24.746812</a></div>
+      <div class="plain"><span class="pk">In plain words</span>A weakened aorta compensates by stitching its collagen
+        together more tightly. Block the enzyme that does the stitching and mild disease turns into rupture, so the
+        stitching is holding the wall together.</div>
+    </div>
+  </div>
+  <div class="hard"><span class="pk">The connection is not obvious</span>One is about a cell-death protein doing a day
+    job; the other about the chemistry of collagen. Both end in a ruptured aorta, but neither cites the other's cause.</div>
+  <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
+  <div class="concl"><div class="lab">The conclusion</div>
+    <div class="chead">The two ruptures may be the same failure: MLKL could be what keeps the protective stitching
+      running.</div>
+    <div class="chain">
+      <div class="lk"><span class="tag" style="--c: var(--theme)">MLKL paper</span><span>Lose the phosphate tag, lose
+        orderly collagen, rupture.</span></div>
+      <div class="lk"><span class="tag" style="--c: var(--agent)">stitching paper</span><span>Lose the stitching
+        enzyme, rupture.</span></div>
+      <div class="lk res"><span class="tag">together</span><span>If MLKL is upstream of the stitching, then one
+        experiment settles it: add the stitching enzyme back to the MLKL mice and see if the aorta holds.</span></div>
+    </div>
+    <div class="sub"><span class="pk">Why it matters</span>It would turn a cell-death protein into a target for keeping
+      a weak aorta intact, which is a thing Marfan patients currently have no drug for.</div>
+    <div class="sub"><span class="pk">What the check found</span>This one mostly collapses. The first paper already
+      reports the stitching chemistry going wrong, so most of the question is answered inside one text. The lead also
+      claimed both papers used the same mouse. They did not.</div>
+  </div>
+</div>
 
-<p><b>Whether a clock's speed decides how well it anticipates.</b> A cyanobacteria preprint
-(<a href="https://doi.org/10.64898/2026.10.11.758360">Circadian phase alignment promotes survival under predictive
-oxidative stress</a>) links the free-running period of a clock to when it fires relative to the day, and that in turn to
-how well the organism competes. A fungal preprint
-(<a href="https://doi.org/10.64898/2026.06.30.735350">Circadian clock control of translation fidelity through
-MetRS-mediated methionine misincorporation</a>) reports that the clock drives errors in protein-building that peak at
-night, when oxidative stress does. The lead proposed to run the first paper's design in the second's organism.</p>
-<p><b>Here our own novelty claim was wrong.</b> We first wrote that tying the clock to translation errors was not
-established. It is established, by the fungal preprint itself, which we had not read closely enough. What remains is
-transferring an experimental design between organisms, which is legitimate but modest, and the donor paper half-predicts
-the answer.</p>
+<div class="ex">
+  <div class="srcs" style="grid-template-columns: 1fr 1fr">
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-cyano.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 12 October 2026, microbiology.
+        <a href="https://doi.org/10.64898/2026.10.11.758360">10.64898/2026.10.11.758360</a></div>
+      <div class="plain"><span class="pk">In plain words</span>Bacteria with a body clock survive a daily dose of
+        oxidative stress better when their clock runs at the right speed, because speed sets when in the day their
+        defences come up.</div>
+    </div>
+    <div class="srcp">
+      <img class="pshot" src="assets/preprint-fungal.png" alt="The bioRxiv page for this preprint: title, authors, DOI and the start of the abstract.">
+      <div class="pcap">bioRxiv, posted 1 July 2026, molecular biology.
+        <a href="https://doi.org/10.64898/2026.06.30.735350">10.64898/2026.06.30.735350</a></div>
+      <div class="plain"><span class="pk">In plain words</span>A fungus makes more mistakes building proteins at night,
+        on a schedule set by its clock, and those mistakes line up with the nightly peak in oxidative stress.</div>
+    </div>
+  </div>
+  <div class="hard"><span class="pk">The connection is not obvious</span>Different organisms and different readouts,
+    survival in one and protein-building errors in the other, joined only by both being clock papers.</div>
+  <div class="merge"><div class="arrow"></div><div class="mcap">read together</div><div class="arrow"></div></div>
+  <div class="concl"><div class="lab">The conclusion</div>
+    <div class="chead">Change the clock's speed in the fungus and the nightly mistakes should drift off the stress they
+      are supposed to meet.</div>
+    <div class="chain">
+      <div class="lk"><span class="tag" style="--c: var(--real)">bacteria paper</span><span>Clock speed decides when in
+        the day defences arrive, and that decides survival.</span></div>
+      <div class="lk"><span class="tag" style="--c: var(--tidy)">fungus paper</span><span>Protein-building mistakes peak
+        at night, with the stress.</span></div>
+      <div class="lk res"><span class="tag">together</span><span>Run the bacteria experiment in the fungus: speed the
+        clock up or slow it down, and see whether the mistakes still land on the stress, and whether the fungus still
+        survives it.</span></div>
+    </div>
+    <div class="sub"><span class="pk">Why it matters</span>It would make sloppy protein-building a scheduled defence
+      rather than a nightly failure.</div>
+    <div class="sub"><span class="pk">What the check found</span>Here our own claim was wrong. We said the clock had
+      not been tied to protein-building errors; the fungus paper itself does exactly that, and we had not read it
+      closely enough. What is left is carrying one experiment across to another organism.</div>
+  </div>
+</div>
 
-<p>That is the honest yield. Of eight leads checked in that round, three looked unaddressed, two assembled known pieces
-into something not written down, and three restated work already published. Reading the three closely left one standing
-with a broken arm, one narrow experiment, and one mistake of ours. <b>Nothing here has been verified as new</b>, and
-"nobody seems to have asked this" is a much weaker claim than "this is new".</p>
+<p>Of eight leads checked in that round, three looked unaddressed, two assembled known pieces into something not
+written down, and three restated work already published. Reading the three closely left one standing with a broken arm,
+one narrow experiment, and one mistake of ours. <b>Nothing here has been verified as new</b>, and "nobody seems to have
+asked this" is a much weaker claim than "this is new".</p>
 
 <h3 class="h9">Mathematics: a chain through three papers</h3>
 <p class="exlead" style="margin-top: 0">These are three research papers on C*-algebras, the mathematical objects used to describe quantum systems. The judge read 5,000 passages against each anchor; a reader then got the top 100 in full.</p>
@@ -1129,7 +1204,7 @@ the passages.</p>
 })();
 </script>
 </article>
-<script src="data.js?v=e46e1b6c33"></script>
+<script src="data.js?v=2d8ead6bd6"></script>
 <script>
 (function () {
 "use strict";
