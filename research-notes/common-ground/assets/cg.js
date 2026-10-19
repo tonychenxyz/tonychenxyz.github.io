@@ -1,6 +1,7 @@
 'use strict';
 
-// Common Ground: two tests of whether language models answer like two podcast guests.
+// Common Ground: two tests of whether language models answer like podcast guests.
+//   Guests with speaker.turnsTest === false have only the questions test; their turns view is a plain transcript.
 //   turns     - models continue the real conversation (data/raw)
 //   questions - models answer standalone questions about how the guest sees things (data/world)
 (() => {
@@ -45,6 +46,7 @@
     return {meta, data: WORLD, models: WORLD.models, notRun: [], stats: w.stats, units: w.items.length, items: w.items,
             topics: w.categories, rubrics: w.items.flatMap(i => i.rubrics.map(r => ({...r, topic: i.category, item: i.id})))};
   }
+  const transcriptOnly = meta => meta.turnsTest === false;
   const color = (c, m) => c.data.providers[m.provider].color;
   const followed = c => c.models.find(m => m.id === S.follow);
 
@@ -76,6 +78,7 @@
     const guest = p.get('guest') || p.get('speaker');
     S.guest = RAW.speakers.some(s => s.id === guest) ? guest : RAW.speakers[0].id;
     S.test = p.get('test') === 'questions' || p.get('view') === 'world' ? 'questions' : 'turns';
+    if (!p.has('test') && !p.has('turn') && transcriptOnly(RAW.speakers.find(s => s.id === S.guest))) S.test = 'questions';
     const c = ctx();
     S.topic = c.topics.some(t => t.id === p.get('topic')) ? p.get('topic') : 'all';
     S.follow = c.models.some(m => m.id === p.get('follow')) ? p.get('follow') : '';
@@ -90,7 +93,7 @@
       return `<button class="option guest-option ${S.guest === s.id ? 'active' : ''}" data-guest="${s.id}" aria-pressed="${S.guest === s.id}">
         <span class="avatar" aria-hidden="true">${esc(s.initials)}</span>
         <span class="option-body"><strong>${esc(s.name)}</strong><small>${esc(s.episode)}</small>
-        <span class="meta">${s.caseCount} scored turns · ${w.items.length} questions</span></span></button>`;
+        <span class="meta">${transcriptOnly(s) ? 'transcript' : `${s.caseCount} scored turns`} · ${w.items.length} questions</span></span></button>`;
     }).join('');
     const meta = RAW.speakers.find(s => s.id === S.guest);
     const runCount = meta.modelsRun ? meta.modelsRun.length : RAW.models.length;
@@ -98,12 +101,17 @@
                     questions: [WORLD.models.length, WORLD.speakers[S.guest].items.length, 'guest\'s answer and quotes']};
     $('tests').innerHTML = Object.entries(TESTS).map(([id, t]) => `<button class="option test-option ${S.test === id ? 'active' : ''}" data-test="${id}" aria-pressed="${S.test === id}">
         <span class="option-body"><strong>${t.title}</strong><small>${t.blurb}</small>
-        <span class="meta">${counts[id][0]} models · ${counts[id][1]} ${t.unit} · ${counts[id][2]}</span></span></button>`).join('');
+        <span class="meta">${id === 'turns' && transcriptOnly(meta) ? `Not run for ${esc(meta.name)} · ${counts[id][2]}` : `${counts[id][0]} models · ${counts[id][1]} ${t.unit} · ${counts[id][2]}`}</span></span></button>`).join('');
   }
 
   // ---- results: one ranked bar chart ----------------------------------------------------------
   function renderResults() {
     const c = ctx(), t = TESTS[S.test];
+    if (S.test === 'turns' && transcriptOnly(c.meta)) {
+      $('results').innerHTML = `<div class="block-head"><h2>Transcript only</h2>
+        <p>The conversation test has not been run for ${esc(c.meta.name)}, so there are no scores here. Read the full transcript${c.meta.audio === false ? '' : ' with audio'} below, or see how the models did on <button class="link" data-test="questions">${esc(c.meta.name)}'s standalone questions</button>.</p></div>`;
+      return;
+    }
     const topic = c.topics.find(x => x.id === S.topic);
     const stats = topic ? topic.stats : c.stats;
     const rows = [...c.models].sort((a, b) => rate(stats[b.id]) - rate(stats[a.id]) || stats[b.id].passed - stats[a.id].passed);
@@ -127,24 +135,26 @@
   // ---- explore: filters + examples ------------------------------------------------------------
   function renderExploreShell() {
     const c = ctx(), t = TESTS[S.test];
-    const intro = S.test === 'turns'
+    const plain = S.test === 'turns' && transcriptOnly(c.meta);
+    const intro = plain ? `The whole episode, cleaned of filler and backchannels. Open "Original wording" under a turn to see the raw transcript.${c.meta.audio === false ? '' : ' Press <b>▶ Listen</b> to hear the original audio.'}`
+      : S.test === 'turns'
       ? `The whole episode. In each <span class="tag scored">scored turn</span>, models had to write what ${esc(c.meta.name)} says next. Under the real turn you can see which of its ideas each model came up with, and open every model's answer.${c.meta.audio === false ? '' : ' Press <b>▶ Listen</b> to hear the original audio.'}`
       : `One card per question. Each card lists the ideas from ${esc(c.meta.name)}'s real answer and which models came up with them. Open a card's sections to read the guest's answer, the transcript quotes behind it, and every model's answer.`;
     $('explore').innerHTML = `
       <div class="block-head"><h2>${S.test === 'turns' ? 'Read the conversation' : 'Browse the questions'}</h2><p>${intro}</p></div>
-      <div class="topic-row"><span class="f-label">${t.topicLabel}</span><div class="topics" id="topics"></div></div>
+      <div class="topic-row" ${plain ? 'hidden' : ''}><span class="f-label">${t.topicLabel}</span><div class="topics" id="topics"></div></div>
       <div class="filters" id="filters" role="search">
         <div class="f-row">
-          <label class="search"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="query" type="search" placeholder="${S.test === 'turns' ? 'Search the transcript and ideas' : 'Search questions and ideas'}" aria-label="Search"></label>
-          <label class="select"><span>Show</span><select id="outcome" aria-label="Show"></select></label>
-          <label class="select"><span>Follow</span><select id="follow" aria-label="Follow a model"></select></label>
+          <label class="search"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="query" type="search" placeholder="${plain ? 'Search the transcript' : S.test === 'turns' ? 'Search the transcript and ideas' : 'Search questions and ideas'}" aria-label="Search"></label>
+          ${plain ? '' : `<label class="select"><span>Show</span><select id="outcome" aria-label="Show"></select></label>
+          <label class="select"><span>Follow</span><select id="follow" aria-label="Follow a model"></select></label>`}
         </div>
         <div class="f-status"><span id="count" role="status" aria-live="polite"></span><button id="clear" class="link" hidden>Clear filters</button></div>
       </div>
       <div id="list"></div>`;
     $('query').oninput = e => {S.query = e.target.value; renderList();};
-    $('outcome').onchange = e => {S.outcome = e.target.value; renderList();};
-    $('follow').onchange = e => setFollow(e.target.value);
+    if ($('outcome')) $('outcome').onchange = e => {S.outcome = e.target.value; renderList();};
+    if ($('follow')) $('follow').onchange = e => setFollow(e.target.value);
   }
 
   function renderFilters(c) {
@@ -154,8 +164,8 @@
     if (!f && S.outcome.startsWith('follow-')) S.outcome = 'all';
     const outcomes = [['all', 'Everything'], ['mixed', 'Ideas models disagree on'], ['all-pass', 'Ideas every model got'], ['all-fail', 'Ideas no model got'],
       ...(f ? [['follow-pass', `Ideas ${f.name} got`], ['follow-miss', `Ideas ${f.name} missed`]] : [])];
-    $('outcome').innerHTML = outcomes.map(([id, label]) => `<option value="${id}" ${S.outcome === id ? 'selected' : ''}>${esc(label)}</option>`).join('');
-    $('follow').innerHTML = `<option value="">No model</option>` + c.models.map(m => `<option value="${m.id}" ${S.follow === m.id ? 'selected' : ''}>${esc(m.name)}</option>`).join('');
+    if ($('outcome')) $('outcome').innerHTML = outcomes.map(([id, label]) => `<option value="${id}" ${S.outcome === id ? 'selected' : ''}>${esc(label)}</option>`).join('');
+    if ($('follow')) $('follow').innerHTML = `<option value="">No model</option>` + c.models.map(m => `<option value="${m.id}" ${S.follow === m.id ? 'selected' : ''}>${esc(m.name)}</option>`).join('');
     $('clear').hidden = !filtering();
   }
 
@@ -258,7 +268,8 @@
       if (filtering() && prev < transcript.turns.length - 1) parts.push(`<div class="gap">${transcript.turns.length - prev - 1} later turns hidden by the filters</div>`);
       const scoredShown = targets.filter(n => matching.has(n)).length;
       ideas = targets.reduce((n, t) => n + (matching.get(t)?.length || 0), 0);
-      $('count').textContent = filtering() ? `${targets.length} matching turns · ${ideas} ideas · nearby context shown faded` : `${transcript.turns.length} turns · ${scoredShown} scored turns · ${ideas} ideas`;
+      $('count').textContent = transcriptOnly(c.meta) ? (filtering() ? `${targets.length} matching turns · nearby context shown faded` : `${transcript.turns.length} turns`)
+        : filtering() ? `${targets.length} matching turns · ${ideas} ideas · nearby context shown faded` : `${transcript.turns.length} turns · ${scoredShown} scored turns · ${ideas} ideas`;
     }
     window.turnAudio?.reset();
     $('list').innerHTML = parts.join('') || '<div class="empty">Nothing matches these filters. <button class="link" id="clear2">Clear filters</button></div>';
@@ -353,6 +364,7 @@
     if (!b || !RAW) return;
     if (b.dataset.guest && b.dataset.guest !== S.guest) {
       S.guest = b.dataset.guest; S.topic = 'all'; S.outcome = 'all'; S.query = ''; S.follow = '';
+      if (S.test === 'turns' && transcriptOnly(RAW.speakers.find(s => s.id === S.guest))) S.test = 'questions';
       await show({push: true});
     } else if (b.dataset.test && b.dataset.test !== S.test) {
       S.test = b.dataset.test; S.topic = 'all'; S.outcome = 'all'; S.query = '';
