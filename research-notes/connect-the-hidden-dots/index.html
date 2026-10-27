@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1793070633">
+<link rel="stylesheet" href="/assets/css/main.css?v=1793070744">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/connect-the-hidden-dots/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -1285,7 +1285,7 @@ capex” and you get more about Meta and capital spending; the PG&amp;E call sha
 <li>
 <span>4</span>PG&amp;E is never reached</li>
 </ol>
-<figcaption class="space-cap"><b>Active search.</b> The agent starts from what it already expects, so its results stay next to Meta.</figcaption></figure>
+<figcaption class="space-cap"><b>Why active search misses non-obvious connections.</b> An agent can only search for what it already expects, so its results stay close to where it started, and a relevant document from a different corner of the corpus, like PG&amp;E here, never comes up.</figcaption></figure>
 <p>We see the same thing in our own experiments: agents given the same documents and a search tool walk past the links our method
 finds. The <a href="#kernels">kernel section</a> below has an example.</p>
 <p>Wegener came across his fossil report “quite accidentally.” Our method makes that kind of accident systematic.</p>
@@ -1673,7 +1673,7 @@ final solution. That makes 33,192 notes, filed by hardware, task and model. Nobo
       b.innerHTML = '<span></span><span class="kbn">' + fmt(n) + '</span>'; b.firstChild.textContent = name; b.title = name;
       b.onclick = () => pick(i); box.appendChild(b);
     });
-    const cur = box.children[on]; if (cur) cur.scrollIntoView({block: 'nearest', inline: 'nearest'});
+    const cur = box.children[on]; if (cur) { const r = cur.getBoundingClientRect(), br = box.getBoundingClientRect(); if (r.top < br.top || r.bottom > br.bottom) box.scrollTop += r.top - br.top - 8; }
   }
   function render() {
     const hw = M.tree[S.hw], task = hw[1][S.task], model = task[1][S.model];
