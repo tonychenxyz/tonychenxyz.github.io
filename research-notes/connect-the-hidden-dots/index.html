@@ -58,7 +58,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1793065223">
+<link rel="stylesheet" href="/assets/css/main.css?v=1793065409">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/connect-the-hidden-dots/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -426,6 +426,13 @@
 .hd details.more summary::after { content: "+"; font-size: 24px; font-weight: 300; color: var(--muted); }
 .hd details.more[open] summary::after { content: "–"; }
 .hd .more-hint { margin-left: auto; font: 500 12.5px var(--mono); color: var(--muted); }
+
+/* neutralize the site theme's blockquote and figure styles */
+.hd blockquote { border: 0 !important; padding: 0 !important; background: none !important; margin: 0; font-style: normal; }
+.hd .quote blockquote { margin: 0; }
+.hd figure { margin-bottom: 0; }
+.hd .wide-chart { margin-bottom: 26px; }
+.hd figcaption { font-style: normal; }
 </style>
 
 <div class="hd">
