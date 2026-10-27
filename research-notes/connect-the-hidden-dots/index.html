@@ -742,7 +742,7 @@ sitemap: false
 /* contents: inline block under the hero */
 
 /* contents: floating on the left once the inline block has scrolled away */
-.hd .ftoc { position: fixed; top: 96px; left: max(16px, calc(50% - 530px - 240px)); width: 210px; z-index: 30; opacity: 0; pointer-events: none;
+.hd .ftoc { position: fixed; top: 96px; left: max(16px, calc(50% - 530px - 240px)); width: 196px; z-index: 30; opacity: 0; pointer-events: none;
             transition: opacity .2s; }
 .hd .ftoc.show { opacity: 1; pointer-events: auto; }
 .hd .ftoc ol { list-style: none; margin: 0; padding: 0; }
@@ -752,7 +752,7 @@ sitemap: false
 .hd .ftoc a.on { color: var(--a); font-weight: 650; }
 .hd .ftoc a.on span { color: var(--a); }
 .hd .ftoc-btn { display: none; }
-@media (max-width: 1539px) {
+@media (max-width: 1279px) {
   .hd .ftoc { top: auto; bottom: 72px; left: 16px; width: min(300px, calc(100vw - 32px)); background: #fff; border-radius: 14px; padding: 12px 8px;
               box-shadow: 0 8px 30px rgba(20,23,28,.18); transform: translateY(8px); transition: opacity .15s, transform .15s; }
   .hd .ftoc.show { opacity: 0; pointer-events: none; }
@@ -881,6 +881,13 @@ body { background: #faf9f5 !important; }
 /* reused passive-discovery figures: same frame */
 .hd .pd.pd-embed .fig { background: #faf9f5; border: 1px solid var(--ink); border-radius: 0; }
 .hd .pd.pd-embed canvas.field, .hd .pd.pd-embed .panel, .hd .pd.pd-embed svg#m-svg { border-radius: 0; }
+
+/* leave room for the floating contents on laptop-width screens */
+@media (min-width: 1280px) and (max-width: 1539px) {
+  .hd .wide, .hd .cases, .hd .wide-chart, .hd .ideas { margin-left: calc(50% - min(530px, 50vw - 236px)); margin-right: calc(50% - min(530px, 50vw - 236px)); }
+  .hd .pd.pd-embed .fig, .hd .pd.pd-embed .kbwide { margin-left: calc(50% - min(530px, 50vw - 236px)); margin-right: calc(50% - min(530px, 50vw - 236px)); }
+  .hd .hd-hero { margin-left: calc(50% - min(540px, 50vw - 236px)); margin-right: calc(50% - min(540px, 50vw - 236px)); }
+}
 </style>
 
 <div class="hd">
@@ -1289,7 +1296,7 @@ kernel faster:</p>
   <div class="kbnr"><span>Looks like</span>a correctness check halfway through a run, with the score unchanged</div><div class="kbnr"><span>Actually</span>the moment DP4A was measured at twice the speed of the usual approach (906 vs 451 GB/s) on this same task and GPU</div></div><div class="kbnote"><div class="kbnt">Flat GEMV task grouping improved measured bandwidth</div>
   <div class="kbnr"><span>Looks like</span>a side experiment about task grouping that never made it into the kernel</div><div class="kbnr"><span>Actually</span>an int8 dot-product GEMV running at 1522 GB/s with almost no loss of accuracy</div></div><div class="kbnote"><div class="kbnt">Kimi-Linear B200 decode megakernel: official score 35.435×</div>
   <div class="kbnr"><span>Looks like</span>a result on a different GPU</div><div class="kbnr"><span>Actually</span>a complete kernel for this task built on DP4A, with the rounding details spelled out</div></div></div>
-<p>What ties the first note to the stuck agent is the problem, not the answer: both were limited by how fast the kernel
+<p>What ties the first note to the stuck agent is a shared problem: both were limited by how fast the kernel
 could stream its weights. Our method reads each note against the moment the agent got stuck, so that link shows up. A
 search for finished solutions never sees it.</p>
 
