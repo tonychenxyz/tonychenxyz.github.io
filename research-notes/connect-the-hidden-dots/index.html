@@ -1800,6 +1800,7 @@ section(function () {
     ctx.clearRect(0, 0, W, H);
     // drifting field, faint links between close neighbours
     for (const p of pts) {
+      if (lock && (p === lock.pair[0] || p === lock.pair[1])) continue;   // the linked pair holds still
       p.x += p.vx; p.y += p.vy;
       if (p.x < -5) p.x = W + 5; if (p.x > W + 5) p.x = -5; if (p.y < -5) p.y = H + 5; if (p.y > H + 5) p.y = -5;
     }
