@@ -914,13 +914,13 @@ body { background: #faf9f5 !important; }
   <div class="eyebrow">Research note, October 2026</div>
   <h1>Connect the Hidden Dots</h1>
   <p class="dek">Seeing that two unrelated-looking things belong together is a big part of what we call intelligence. Today's models may be smart
-  enough for it, but their harnesses only let them search, and you can only search for what you expect. We built a way to bring them
-  the pieces without a query.</p>
+  enough for it, but their harnesses only let them search, and you can only search for what you expect. Our method finds these
+  connections without a query: it reads documents in pairs across the whole corpus and keeps the pairs that say something new together.</p>
   <canvas id="hero-cv" class="hero-cv" aria-label="A field of documents; two distant ones light up and connect."></canvas>
 </header>
 
-<nav class="toc" aria-label="Contents"><div class="toc-h">Contents</div><ol><li><a href="#wegener"><span>1</span>A coastline and a fossil</a></li><li><a href="#everywhere"><span>2</span>Find connections everywhere</a></li><li><a href="#search"><span>3</span>Why agents miss it</a></li><li><a href="#method"><span>4</span>How our method works</a></li><li><a href="#results"><span>5</span>Does it help?</a><ol class="toc-sub"><li><a href="#forecasting">Prediction markets with news</a></li><li><a href="#trading">Stock trading with earnings calls</a></li><li><a href="#science">Picking proteins</a></li><li><a href="#research">Connecting biology research</a></li><li><a href="#math">Connecting math papers</a></li><li><a href="#kernels">Writing GPU kernels</a></li><li><a href="#personal">Personal memory</a></li></ol></li><li><a href="#next"><span>6</span>What's next</a></li></ol></nav>
-<nav class="ftoc" id="ftoc" aria-label="Contents"><div class="ftoc-h">Contents</div><ol><li><a href="#wegener"><span>1</span>A coastline and a fossil</a></li><li><a href="#everywhere"><span>2</span>Find connections everywhere</a></li><li><a href="#search"><span>3</span>Why agents miss it</a></li><li><a href="#method"><span>4</span>How our method works</a></li><li><a href="#results"><span>5</span>Does it help?</a><ol class="ftoc-sub"><li><a href="#forecasting">Prediction markets with news</a></li><li><a href="#trading">Stock trading with earnings calls</a></li><li><a href="#science">Picking proteins</a></li><li><a href="#research">Connecting biology research</a></li><li><a href="#math">Connecting math papers</a></li><li><a href="#kernels">Writing GPU kernels</a></li><li><a href="#personal">Personal memory</a></li></ol></li><li><a href="#next"><span>6</span>What's next</a></li></ol></nav><button class="ftoc-btn" id="ftocbtn" aria-controls="ftoc">Contents</button>
+<nav class="toc" aria-label="Contents"><div class="toc-h">Contents</div><ol><li><a href="#wegener"><span>1</span>A coastline and a fossil</a></li><li><a href="#everywhere"><span>2</span>Find connections everywhere</a></li><li><a href="#search"><span>3</span>Why today's agents miss it</a></li><li><a href="#method"><span>4</span>How our method works</a></li><li><a href="#results"><span>5</span>Does it help?</a><ol class="toc-sub"><li><a href="#forecasting">Prediction markets with news</a></li><li><a href="#trading">Stock trading with earnings calls</a></li><li><a href="#science">Picking proteins</a></li><li><a href="#research">Connecting biology research</a></li><li><a href="#math">Connecting math papers</a></li><li><a href="#kernels">Writing GPU kernels</a></li><li><a href="#personal">Personal memory</a></li></ol></li><li><a href="#next"><span>6</span>What's next</a></li></ol></nav>
+<nav class="ftoc" id="ftoc" aria-label="Contents"><div class="ftoc-h">Contents</div><ol><li><a href="#wegener"><span>1</span>A coastline and a fossil</a></li><li><a href="#everywhere"><span>2</span>Find connections everywhere</a></li><li><a href="#search"><span>3</span>Why today's agents miss it</a></li><li><a href="#method"><span>4</span>How our method works</a></li><li><a href="#results"><span>5</span>Does it help?</a><ol class="ftoc-sub"><li><a href="#forecasting">Prediction markets with news</a></li><li><a href="#trading">Stock trading with earnings calls</a></li><li><a href="#science">Picking proteins</a></li><li><a href="#research">Connecting biology research</a></li><li><a href="#math">Connecting math papers</a></li><li><a href="#kernels">Writing GPU kernels</a></li><li><a href="#personal">Personal memory</a></li></ol></li><li><a href="#next"><span>6</span>What's next</a></li></ol></nav><button class="ftoc-btn" id="ftocbtn" aria-controls="ftoc">Contents</button>
 
 <section id="wegener">
 <h2>A coastline and a fossil</h2>
@@ -967,7 +967,7 @@ different fields, and <b>every one came out of a document group our method assem
 </section>
 
 <section id="search">
-<h2>Why agents miss it</h2>
+<h2>Why today's agents miss it</h2>
 <p>Wegener's fossil report, the essay on population that Darwin read, a utility's remark about who turned up at its substation: in each
 case the second piece came from somewhere nobody would have thought to look. Today's models can often make
 the connection once they have both pieces, as in the four examples above. The gap is in the harness. An agent
