@@ -1046,11 +1046,12 @@ ways:</p>
 <h3 id="forecasting">Prediction markets with news</h3>
 <p>We used four dates between August 15 and October 1, 2026. On each date, each agent (GPT-5.6 Sol) got $10,000. The agent
 used the money to bet on open Polymarket questions. It kept each bet until the market settled. Each agent read 50 news articles
-that its method selected, or it searched about 1 GB of news itself. 75 agents ran on each date. For each start question, the
-decision model scored 10,000 articles and kept the top 50 (steps 3 to 5 above). Two hops keeps the top 25. Then it adds the top
+that its method selected, or it searched about 1 GB of news itself. 75 agents ran on each date. On each date, we randomly select three
+start questions from different events. For each start question, the decision model scores the relationship between the question
+and 10,000 other articles, and it keeps the top 50 (steps 3 to 5 above). Two hops keeps the top 25. Then it adds the top
 5 of 500 new articles for each of the first five (step 7).</p>
 <p>Each agent sees the full list of open markets. The agent searches the list and selects the questions for its bets. The news
-for the agent starts from one question, but the agent can bet on all questions.</p>
+for the agent starts from one of the start questions, but the agent can bet on all questions.</p>
 <p>No information from after a decision date gets to an agent. We keep an article only if Common Crawl recorded it at least
 one hour before the decision time. The market rules come from archived copies from that time. The prices are the last prices
 before that time. The agents cannot use the web. They can use only the files that we give them. OpenAI released GPT-5.6 Sol in
