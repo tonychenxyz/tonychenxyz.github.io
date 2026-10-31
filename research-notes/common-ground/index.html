@@ -1,7 +1,7 @@
 ---
 layout: null
-title: "Common Ground: do language models think like these researchers?"
-description: Three researchers' podcast conversations as a test. Models continue the guests' real conversation, and answer standalone questions about how the guests see people, papers and ideas. Up to thirteen Claude, GPT and other models, judged against rubrics from the guests' own answers.
+title: "Common Ground: how do these people see the world?"
+description: Standalone interview questions about how hundreds of AI researchers and builders see people, papers, methods and events, answered in their own words from long-form podcast interviews, with rubrics for checking a language model's answer.
 date: 2026-10-14
 permalink: /research-notes/common-ground/
 research_note: true
@@ -10,43 +10,33 @@ sitemap: false
 ---
 {% raw %}
 <!doctype html>
-<html lang="en" data-build="356ebcc298">
+<html lang="en" data-build="433a502ea8">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f6f2">
+  <meta name="theme-color" content="#f6f4ee">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="description" content="Do language models think like these researchers? Models continue real podcast conversations and answer standalone questions as the guest.">
-  <title>Common Ground · Do language models think like these researchers?</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%232d4b40'/%3E%3Cpath d='M30 14a12 12 0 1 0 0 20M36 14a12 12 0 1 0 0 20' stroke='%23f7f6f2' stroke-width='2' fill='none'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/cg.css?v=f22bc85fce">
-  <link rel="stylesheet" href="assets/turn-audio.css?v=85da09622a">
-  <script src="assets/turn-audio.js?v=ef1fbfcbeb" defer></script>
-  <script src="assets/cg.js?v=c02f2526be" defer></script>
+  <meta name="description" content="Standalone questions about how AI researchers and builders see the world, answered in their own words, with rubrics for checking language models.">
+  <title>Common Ground · How do these people see the world?</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='12' fill='%232d4b40'/%3E%3Cpath d='M30 14a12 12 0 1 0 0 20M36 14a12 12 0 1 0 0 20' stroke='%23f6f4ee' stroke-width='2' fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/cg.css?v=5d344272fb">
+  <script src="assets/cg.js?v=1ac02f117e" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#explore">Skip to examples</a>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
-    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">◔</span>Common Ground</a>
-    <nav aria-label="Page"><a href="#how">How it works</a><a href="/research-notes/">Research notes</a></nav>
+    <div class="topbar-inner">
+      <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true">◔</span>Common Ground</a>
+      <div class="jump" role="search">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+        <input id="jump" type="search" autocomplete="off" placeholder="Jump to a person…" aria-label="Jump to a person" role="combobox" aria-expanded="false" aria-controls="jump-list">
+        <ul id="jump-list" role="listbox" hidden></ul>
+      </div>
+      <nav aria-label="Page"><a href="#/about">How it works</a><a href="/research-notes/">Research notes</a></nav>
+    </div>
   </header>
-  <main class="page">
-    <section class="intro">
-      <p class="kicker">Research note · October 2026</p>
-      <h1>Do language models think like these researchers?</h1>
-      <p class="lede">We took podcast interviews with <strong>Karthik Narasimhan</strong>, <strong>Zhuang Liu</strong> and <strong>Ilya Sutskever</strong>, and asked language models to answer as the guest. Then we checked which of the guest's actual ideas each model came up with.</p>
-    </section>
-
-    <section class="chooser" aria-label="Choose what to look at">
-      <div class="step"><div class="step-label"><span>1</span>Pick a guest</div><div class="options" id="guests"></div></div>
-      <div class="step"><div class="step-label"><span>2</span>Pick a test</div><div class="options" id="tests"></div></div>
-    </section>
-
-    <section class="block" id="results" aria-live="polite"><div class="loading">Loading results…</div></section>
-    <section class="block" id="explore"></section>
-    <section class="block how" id="how"></section>
-    <div id="error" role="alert" hidden></div>
-  </main>
+  <main id="main" class="page" tabindex="-1"><div class="loading">Loading…</div></main>
+  <div id="tip" class="tip" role="tooltip" hidden></div>
 </body>
 </html>
 {% endraw %}
