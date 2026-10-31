@@ -1,15 +1,15 @@
 'use strict';
 
-// Common Ground: two tests of whether language models answer like podcast guests.
-//   Guests with speaker.turnsTest === false have only the questions test; their turns view is a plain transcript.
-//   turns     - models continue the real conversation (data/raw)
-//   questions - models answer standalone questions about how the guest sees things (data/world)
+// Common Ground: standalone questions about how people see the world, answered in their own words.
+//   #/            directory of people (search, category, sort)
+//   #/p/<id>      one person's questions; evaluated people also show model results
+//   #/about       method and caveats
 (() => {
-  const $ = id => document.getElementById(id);
+  const main = document.getElementById('main');
+  const tip = document.getElementById('tip');
   const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+  const fmt = n => n.toLocaleString('en-US');
   const rate = s => s && s.total ? 100 * s.passed / s.total : 0;
-  const pct = s => s && s.total ? `${rate(s).toFixed(1)}%` : '—';
-  const clock = s => Number.isFinite(s) ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '';
   const build = document.documentElement.dataset.build || '';
   const cache = new Map();
   const fetchJSON = path => {
@@ -20,395 +20,314 @@
     }).catch(e => {cache.delete(url); throw e;}));
     return cache.get(url);
   };
+  const PAGE = 30;
+  let D, byId, catName;
+  const dir = {query: '', cat: 'all', sort: 'category', evalOnly: false};
+  let person = null;  // {meta, data, query, topic, shown}
 
-  const TESTS = {
-    turns: {title: 'Continue the conversation', blurb: 'Models read the episode up to a guest turn and write what the guest says next.',
-            unit: 'scored turns', topicLabel: 'Thinking pattern'},
-    questions: {title: 'Answer standalone questions', blurb: 'Models get one question, with no transcript, and answer as the guest.',
-                unit: 'questions', topicLabel: 'Topic'},
-  };
-  const S = {guest: null, test: 'turns', topic: 'all', outcome: 'all', follow: '', query: ''};
-  let RAW, WORLD, transcript = null, version = 0;
+  const initials = name => name.replace(/\(.*\)/, '').split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join('');
+  const photo = (p, size) => p.image
+    ? `<img class="ph" src="${esc(p.image)}" alt="" width="${size}" height="${size}" loading="lazy" decoding="async">`
+    : `<span class="ph initials" style="width:${size}px;height:${size}px" aria-hidden="true">${esc(initials(p.name))}</span>`;
+  const latest = p => p.episodes.reduce((a, e) => (e.date || '') > a ? e.date : a, '');
+  const plural = (n, w) => `${fmt(n)} ${w}${n === 1 ? '' : 's'}`;
 
-  // ---- data access shared by both tests --------------------------------------------------------
-  function ctx() {
-    const meta = RAW.speakers.find(s => s.id === S.guest);
-    if (S.test === 'turns') {
-      const counts = {};
-      meta.rubrics.forEach(r => {counts[r.category] = (counts[r.category] || 0) + 1;});
-      const models = meta.modelsRun ? RAW.models.filter(m => meta.modelsRun.includes(m.id)) : RAW.models;
-      return {meta, data: RAW, models, notRun: (meta.notRun || []).map(n => ({...RAW.models.find(m => m.id === n.id), reason: n.reason})),
-              stats: meta.stats, units: meta.caseCount,
-              topics: meta.categories.map(c => ({...c, count: counts[c.id] || 0})).filter(c => c.count),
-              rubrics: meta.rubrics.map(r => ({...r, topic: r.category}))};
-    }
-    const w = WORLD.speakers[S.guest];
-    return {meta, data: WORLD, models: WORLD.models, notRun: [], stats: w.stats, units: w.items.length, items: w.items,
-            topics: w.categories, rubrics: w.items.flatMap(i => i.rubrics.map(r => ({...r, topic: i.category, item: i.id})))};
-  }
-  const transcriptOnly = meta => meta.turnsTest === false;
-  const color = (c, m) => c.data.providers[m.provider].color;
-  const followed = c => c.models.find(m => m.id === S.follow);
-
-  function rubricMatches(c, r) {
-    if (S.topic !== 'all' && r.topic !== S.topic) return false;
-    const n = c.models.filter(m => r.passes[m.id]).length;
-    switch (S.outcome) {
-      case 'mixed': return n > 0 && n < c.models.length;
-      case 'all-pass': return n === c.models.length;
-      case 'all-fail': return n === 0;
-      case 'follow-pass': return !!r.passes[S.follow];
-      case 'follow-miss': return !r.passes[S.follow];
-      default: return true;
-    }
-  }
-  const filtering = () => S.topic !== 'all' || S.outcome !== 'all' || S.query.trim() !== '';
-
-  // ---- URL state ------------------------------------------------------------------------------
-  function writeURL(push = false, anchor = null) {
-    const p = new URLSearchParams({guest: S.guest, test: S.test});
-    if (S.topic !== 'all') p.set('topic', S.topic);
-    if (S.follow) p.set('follow', S.follow);
-    if (anchor) p.set(anchor[0], anchor[1]);
-    history[push ? 'pushState' : 'replaceState'](null, '', `${location.pathname}#${p}`);
+  // ---- directory ------------------------------------------------------------------------------
+  function matchesDir(p) {
+    const q = dir.query.trim().toLowerCase();
+    if (dir.cat !== 'all' && p.category !== dir.cat) return false;
+    if (dir.evalOnly && !p.evaluated) return false;
+    return !q || `${p.name} ${p.description} ${catName[p.category] || ''} ${p.episodes.map(e => e.show).join(' ')}`.toLowerCase().includes(q);
   }
 
-  function readURL() {
-    const p = new URLSearchParams(location.hash.slice(1));
-    const guest = p.get('guest') || p.get('speaker');
-    S.guest = RAW.speakers.some(s => s.id === guest) ? guest : RAW.speakers[0].id;
-    S.test = p.get('test') === 'questions' || p.get('view') === 'world' ? 'questions' : 'turns';
-    if (!p.has('test') && !p.has('turn') && transcriptOnly(RAW.speakers.find(s => s.id === S.guest))) S.test = 'questions';
-    const c = ctx();
-    S.topic = c.topics.some(t => t.id === p.get('topic')) ? p.get('topic') : 'all';
-    S.follow = c.models.some(m => m.id === p.get('follow')) ? p.get('follow') : '';
-    S.outcome = 'all'; S.query = '';
-    return {turn: p.has('turn') ? Number(p.get('turn')) : null, item: p.get('q')};
+  function card(p) {
+    return `<a class="pcard" href="#/p/${encodeURIComponent(p.id)}">${photo(p, 56)}
+      <span class="pbody"><span class="pname">${esc(p.name)}</span><span class="pdesc">${esc(p.description)}</span>
+      <span class="pmeta">${plural(p.questions, 'question')}${p.evaluated ? '<span class="evalbadge">Model results</span>' : ''}</span></span></a>`;
   }
 
-  // ---- chooser --------------------------------------------------------------------------------
-  function renderChooser() {
-    $('guests').innerHTML = RAW.speakers.map(s => {
-      const w = WORLD.speakers[s.id];
-      return `<button class="option guest-option ${S.guest === s.id ? 'active' : ''}" data-guest="${s.id}" aria-pressed="${S.guest === s.id}">
-        <span class="avatar" aria-hidden="true">${esc(s.initials)}</span>
-        <span class="option-body"><strong>${esc(s.name)}</strong><small>${esc(s.episode)}</small>
-        <span class="meta">${transcriptOnly(s) ? 'transcript' : `${s.caseCount} scored turns`} · ${w.items.length} questions</span></span></button>`;
-    }).join('');
-    const meta = RAW.speakers.find(s => s.id === S.guest);
-    const runCount = meta.modelsRun ? meta.modelsRun.length : RAW.models.length;
-    const counts = {turns: [runCount, meta.caseCount, meta.audio === false ? 'full transcript' : 'full transcript with audio'],
-                    questions: [WORLD.models.length, WORLD.speakers[S.guest].items.length, 'guest\'s answer and quotes']};
-    $('tests').innerHTML = Object.entries(TESTS).map(([id, t]) => `<button class="option test-option ${S.test === id ? 'active' : ''}" data-test="${id}" aria-pressed="${S.test === id}">
-        <span class="option-body"><strong>${t.title}</strong><small>${t.blurb}</small>
-        <span class="meta">${id === 'turns' && transcriptOnly(meta) ? `Not run for ${esc(meta.name)} · ${counts[id][2]}` : `${counts[id][0]} models · ${counts[id][1]} ${t.unit} · ${counts[id][2]}`}</span></span></button>`).join('');
-  }
-
-  // ---- results: one ranked bar chart ----------------------------------------------------------
-  function renderResults() {
-    const c = ctx(), t = TESTS[S.test];
-    if (S.test === 'turns' && transcriptOnly(c.meta)) {
-      $('results').innerHTML = `<div class="block-head"><h2>Transcript only</h2>
-        <p>The conversation test has not been run for ${esc(c.meta.name)}, so there are no scores here. Read the full transcript${c.meta.audio === false ? '' : ' with audio'} below, or see how the models did on <button class="link" data-test="questions">${esc(c.meta.name)}'s standalone questions</button>.</p></div>`;
-      return;
-    }
-    const topic = c.topics.find(x => x.id === S.topic);
-    const stats = topic ? topic.stats : c.stats;
-    const rows = [...c.models].sort((a, b) => rate(stats[b.id]) - rate(stats[a.id]) || stats[b.id].passed - stats[a.id].passed);
-    const providers = [...new Set(c.models.map(m => m.provider))];
-    $('results').innerHTML = `
-      <div class="block-head"><h2>How the models did</h2>
-        <p>Share of the ideas in ${esc(c.meta.name)}'s real ${S.test === 'turns' ? 'turns' : 'answers'} that each model came up with, across ${c.units} ${t.unit}${topic ? ` (only <strong>${esc(topic.name)}</strong>)` : ''}. <span class="hint">Click a model to follow it through the examples below.</span></p></div>
-      <div class="legend" aria-label="Providers">${providers.map(p => `<span><i style="--c:${c.data.providers[p].color}"></i>${esc(c.data.providers[p].name)}</span>`).join('')}</div>
-      <ol class="board">${rows.map((m, i) => {
-        const s = stats[m.id], on = S.follow === m.id;
-        return `<li><button class="board-row ${on ? 'active' : ''}" data-follow="${m.id}" aria-pressed="${on}" title="${on ? 'Stop following' : 'Follow'} ${esc(m.name)}">
-          <span class="rank">${i + 1}</span>
-          <span class="bname">${esc(m.name)}<small>${esc(c.data.providers[m.provider].name)} · ${esc(m.effort)}</small></span>
-          <span class="bar" aria-hidden="true"><span style="width:${rate(s)}%;--c:${color(c, m)}"></span></span>
-          <span class="bval">${pct(s)}</span><span class="bfrac">${s.passed} / ${s.total}</span></button></li>`;
-      }).join('')}</ol>
-      ${c.notRun.length ? `<p class="fine">Not run for ${esc(c.meta.name)} yet: ${c.notRun.map(m => `${esc(m.name)} (${esc(m.reason)})`).join('; ')}.</p>` : ''}
-      <p class="fine">Judge: ${esc(c.data.judge.name)}. Every model is scored on the same ideas. Scores show coverage of the guest's ideas, not overall answer quality. <a href="#how">How it works</a></p>`;
-  }
-
-  // ---- explore: filters + examples ------------------------------------------------------------
-  function renderExploreShell() {
-    const c = ctx(), t = TESTS[S.test];
-    const plain = S.test === 'turns' && transcriptOnly(c.meta);
-    const intro = plain ? `The whole episode, cleaned of filler and backchannels. Open "Original wording" under a turn to see the raw transcript.${c.meta.audio === false ? '' : ' Press <b>▶ Listen</b> to hear the original audio.'}`
-      : S.test === 'turns'
-      ? `The whole episode. In each <span class="tag scored">scored turn</span>, models had to write what ${esc(c.meta.name)} says next. Under the real turn you can see which of its ideas each model came up with, and open every model's answer.${c.meta.audio === false ? '' : ' Press <b>▶ Listen</b> to hear the original audio.'}`
-      : `One card per question. Each card lists the ideas from ${esc(c.meta.name)}'s real answer and which models came up with them. Open a card's sections to read the guest's answer, the transcript quotes behind it, and every model's answer.`;
-    $('explore').innerHTML = `
-      <div class="block-head"><h2>${S.test === 'turns' ? 'Read the conversation' : 'Browse the questions'}</h2><p>${intro}</p></div>
-      <div class="topic-row" ${plain ? 'hidden' : ''}><span class="f-label">${t.topicLabel}</span><div class="topics" id="topics"></div></div>
-      <div class="filters" id="filters" role="search">
-        <div class="f-row">
-          <label class="search"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="query" type="search" placeholder="${plain ? 'Search the transcript' : S.test === 'turns' ? 'Search the transcript and ideas' : 'Search questions and ideas'}" aria-label="Search"></label>
-          ${plain ? '' : `<label class="select"><span>Show</span><select id="outcome" aria-label="Show"></select></label>
-          <label class="select"><span>Follow</span><select id="follow" aria-label="Follow a model"></select></label>`}
+  function renderDirectory() {
+    document.title = 'Common Ground · How do these people see the world?';
+    const T = D.totals;
+    main.innerHTML = `
+      <section class="hero">
+        <div><p class="kicker">Research note · October 2026</p>
+          <h1>How do these <em>${fmt(T.people)}</em> people see the world?</h1>
+          <p class="lede">Each question asks how one person sees a person, paper, method or event, and is answered in their own words from a long-form podcast interview. Every answer comes with rubrics: the specific ideas a language model would need to come up with to think like them.</p></div>
+        <div class="stats" aria-label="Totals">
+          <div class="stat"><b>${fmt(T.people)}</b><span>people</span></div>
+          <div class="stat"><b>${fmt(T.questions)}</b><span>questions</span></div>
+          <div class="stat"><b>${fmt(T.rubrics)}</b><span>rubric ideas</span></div>
+          <div class="stat"><b>${fmt(T.evaluated)}</b><span>with model results</span></div>
         </div>
-        <div class="f-status"><span id="count" role="status" aria-live="polite"></span><button id="clear" class="link" hidden>Clear filters</button></div>
-      </div>
-      <div id="list"></div>`;
-    $('query').oninput = e => {S.query = e.target.value; renderList();};
-    if ($('outcome')) $('outcome').onchange = e => {S.outcome = e.target.value; renderList();};
-    if ($('follow')) $('follow').onchange = e => setFollow(e.target.value);
+      </section>
+      <section class="toolbar" aria-label="Find people">
+        <div class="tool-row">
+          <label class="field"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+            <input id="dq" type="search" placeholder="Search by name, title or show" aria-label="Search people" value="${esc(dir.query)}"></label>
+          <label class="select">Sort<select id="dsort" aria-label="Sort people">
+            ${[['category', 'By area'], ['name', 'Name A–Z'], ['questions', 'Most questions'], ['recent', 'Most recent episode']]
+              .map(([v, l]) => `<option value="${v}" ${dir.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
+          <button class="toggle" id="deval" aria-pressed="${dir.evalOnly}">With model results</button>
+        </div>
+        <div class="chips" role="group" aria-label="Area">
+          <button class="chip" data-cat="all" aria-pressed="${dir.cat === 'all'}">All<span>${fmt(T.people)}</span></button>
+          ${D.categories.map(c => `<button class="chip" data-cat="${c.id}" aria-pressed="${dir.cat === c.id}">${esc(c.name)}<span>${c.count}</span></button>`).join('')}
+        </div>
+      </section>
+      <div id="dcount" class="count-line" aria-live="polite"></div>
+      <div id="dgrid"></div>`;
+    renderGrid();
+    const q = document.getElementById('dq');
+    q.addEventListener('input', () => {dir.query = q.value; renderGrid();});
+    document.getElementById('dsort').addEventListener('change', e => {dir.sort = e.target.value; renderGrid();});
+    document.getElementById('deval').addEventListener('click', e => {
+      dir.evalOnly = !dir.evalOnly; e.currentTarget.setAttribute('aria-pressed', dir.evalOnly); renderGrid();
+    });
+    main.querySelectorAll('[data-cat]').forEach(b => b.addEventListener('click', () => {
+      dir.cat = b.dataset.cat;
+      main.querySelectorAll('[data-cat]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      renderGrid();
+    }));
   }
 
-  function renderFilters(c) {
-    const all = {id: 'all', name: 'All', count: S.test === 'turns' ? c.rubrics.length : c.units};
-    $('topics').innerHTML = [all, ...c.topics].map(x => `<button class="chip ${S.topic === x.id ? 'active' : ''}" data-topic="${x.id}" aria-pressed="${S.topic === x.id}" ${x.description ? `title="${esc(x.description)}"` : ''}>${esc(x.name)} <span>${x.count}</span></button>`).join('');
-    const f = followed(c);
-    if (!f && S.outcome.startsWith('follow-')) S.outcome = 'all';
-    const outcomes = [['all', 'Everything'], ['mixed', 'Ideas models disagree on'], ['all-pass', 'Ideas every model got'], ['all-fail', 'Ideas no model got'],
-      ...(f ? [['follow-pass', `Ideas ${f.name} got`], ['follow-miss', `Ideas ${f.name} missed`]] : [])];
-    if ($('outcome')) $('outcome').innerHTML = outcomes.map(([id, label]) => `<option value="${id}" ${S.outcome === id ? 'selected' : ''}>${esc(label)}</option>`).join('');
-    if ($('follow')) $('follow').innerHTML = `<option value="">No model</option>` + c.models.map(m => `<option value="${m.id}" ${S.follow === m.id ? 'selected' : ''}>${esc(m.name)}</option>`).join('');
-    $('clear').hidden = !filtering();
-  }
-
-  function chip(c, m) {
-    return `<span class="mchip ${S.follow === m.id ? 'on' : ''}"><i style="--c:${color(c, m)}"></i>${esc(m.name)}</span>`;
-  }
-
-  function ideaHTML(c, r, showTopic) {
-    const got = c.models.filter(m => r.passes[m.id]), missed = c.models.filter(m => !r.passes[m.id]);
-    const f = followed(c);
-    const fv = f ? `<span class="fverdict ${r.passes[f.id] ? 'pass' : 'fail'}">${r.passes[f.id] ? '✓' : '×'} ${esc(f.name)}</span>` : '';
-    const topic = showTopic ? c.topics.find(t => t.id === r.topic) : null;
-    return `<div class="idea">
-      <p class="idea-text">${fv}${esc(r.text)}${topic ? ` <button class="tag" data-topic="${topic.id}" title="Show only ${esc(topic.name)}">${esc(topic.name)}</button>` : ''}</p>
-      <div class="who"><span class="who-label pass">✓ Got it <b>${got.length}</b></span><span class="chips">${got.map(m => chip(c, m)).join('') || '<span class="none">no model</span>'}</span></div>
-      <div class="who"><span class="who-label fail">× Missed <b>${missed.length}</b></span><span class="chips">${missed.map(m => chip(c, m)).join('') || '<span class="none">no model</span>'}</span></div>
-    </div>`;
-  }
-
-  function ideasBlock(c, rubrics, total, label, showTopic) {
-    const hidden = total - rubrics.length;
-    return `<div class="ideas"><div class="ideas-label">${label}</div>${rubrics.map(r => ideaHTML(c, r, showTopic)).join('')}${hidden ? `<p class="fine">${hidden} more idea${hidden === 1 ? '' : 's'} hidden by the filters.</p>` : ''}</div>`;
-  }
-
-  const answersToggle = (key, n, attrs) => `<details class="answers" ${attrs}><summary>All ${n} model answers</summary><div class="answers-body"><div class="loading">Loading answers…</div></div></details>`;
-
-  // Questions test
-  function questionCard(c, item, rubrics) {
-    const topic = c.topics.find(t => t.id === item.category);
-    return `<article class="card" id="q-${item.id}">
-      <div class="card-top"><button class="tag" data-topic="${topic.id}" title="Show only ${esc(topic.name)}">${esc(topic.name)}</button>
-        <button class="link" data-goto-turn="${item.start}" title="Open this part of the transcript">From the episode at ${clock(item.startTime)} ↗</button></div>
-      <h3 class="question">${esc(item.question)}</h3>
-      <p class="object">About: ${esc(item.object)}</p>
-      ${item.rubrics.length ? ideasBlock(c, rubrics, item.rubrics.length, `Ideas from ${esc(c.meta.name)}'s real answer`, false) : '<p class="fine">No ideas were selected from this answer, so it is not scored.</p>'}
-      <div class="more">
-        <details><summary>${esc(c.meta.name)}'s answer <span class="badge">Synthesized</span></summary><p class="note">Not a verbatim quote. ${esc(WORLD.synthesis)}</p><div class="prose">${esc(item.reference)}</div></details>
-        <details><summary>Transcript quotes (${item.quotes.length})</summary><ul class="quotes">${item.quotes.map(q => `<li>“${esc(q)}”</li>`).join('')}</ul></details>
-        ${answersToggle(item.id, c.models.length, `data-item="${item.id}"`)}
-      </div>
-    </article>`;
-  }
-
-  // Transcript test
-  function turnCard(c, turn, rubrics, contextual) {
-    const scored = turn.caseId && turn.status !== 'preview';
-    const all = c.rubrics.filter(r => r.turn === turn.turn);
-    const status = {preview: 'Preview clip · not scored', excluded: 'Not scored', no_rubrics: 'No ideas selected · not scored'}[turn.status];
-    const listen = turn.audio ? `<button class="listen" data-audio="${esc(turn.audio)}" data-audio-name="${esc(turn.name)}, turn ${turn.turn}" aria-pressed="false"><span data-audio-icon aria-hidden="true">▶</span><span data-audio-label>Listen</span></button>` : '';
-    return `<article class="transcript-turn turn ${turn.role === 'guest' ? 'guest' : 'host'} ${scored && !contextual ? 'scored' : ''} ${contextual ? 'context' : ''}" id="turn-${turn.turn}">
-      <header class="turn-head"><span class="turn-name">${esc(turn.name)}${scored && !contextual ? ' <span class="tag scored">scored turn</span>' : ''}</span>
-        <span class="turn-meta">${listen}<span>${clock(turn.start)}</span><button class="link" data-copy-turn="${turn.turn}" title="Copy a link to this turn">#${turn.turn}</button></span></header>
-      <div class="turn-audio-slot" hidden><div class="turn-audio-status" role="status"></div></div>
-      <div class="turn-text">${esc(turn.text)}</div>
-      ${turn.originalText && turn.originalText !== turn.text ? `<details class="orig"><summary>Original wording${turn.sourceTurns?.length > 1 ? ` · ${turn.sourceTurns.length} source turns` : ''}</summary><div>${esc(turn.originalText)}</div></details>` : ''}
-      ${status && !contextual ? `<p class="fine">${status}</p>` : ''}
-      ${scored && !contextual && all.length ? ideasBlock(c, rubrics, all.length, 'Ideas in this turn', true) + `<div class="more">${answersToggle(turn.caseId, c.models.length, `data-case="${turn.caseId}"`)}</div>` : ''}
-    </article>`;
-  }
-
-  function renderList() {
-    const c = ctx();
-    renderFilters(c);
-    const q = S.query.trim().toLowerCase();
-    const parts = [];
-    let shown = 0, ideas = 0;
-    if (S.test === 'questions') {
-      for (const item of c.items) {
-        const rubrics = c.rubrics.filter(r => r.item === item.id && rubricMatches(c, r));
-        const text = [item.question, item.object, item.reference, ...item.rubrics.map(r => r.text)].join(' ').toLowerCase();
-        if (q && !text.includes(q)) continue;
-        if ((S.topic !== 'all' && item.category !== S.topic) || (S.outcome !== 'all' && !rubrics.length)) continue;
-        parts.push(questionCard(c, item, rubrics)); shown++; ideas += rubrics.length;
-      }
-      $('count').textContent = `${shown} of ${c.items.length} questions · ${ideas} ideas`;
-    } else if (!transcript) {
-      parts.push('<div class="loading">Loading transcript…</div>');
+  function renderGrid() {
+    const list = D.people.filter(matchesDir);
+    const sorters = {name: (a, b) => a.name.localeCompare(b.name), questions: (a, b) => b.questions - a.questions || a.name.localeCompare(b.name),
+                     recent: (a, b) => latest(b).localeCompare(latest(a)) || a.name.localeCompare(b.name)};
+    let html;
+    if (dir.sort === 'category') {
+      html = D.categories.map(c => {
+        const members = list.filter(p => p.category === c.id).sort(sorters.name);
+        return members.length ? `<div class="group-head"><h2>${esc(c.name)}</h2><span>${plural(members.length, 'person').replace('persons', 'people')}</span></div>
+          <div class="grid">${members.map(card).join('')}</div>` : '';
+      }).join('');
     } else {
-      const matching = new Map();
-      c.rubrics.filter(r => rubricMatches(c, r)).forEach(r => matching.set(r.turn, [...(matching.get(r.turn) || []), r]));
-      const ruleFilter = S.topic !== 'all' || S.outcome !== 'all';
-      const targets = transcript.turns.filter(t => {
-        if (!filtering()) return true;
-        if (ruleFilter && !matching.has(t.turn)) return false;
-        return !q || [t.text, ...c.rubrics.filter(r => r.turn === t.turn).map(r => r.text)].join(' ').toLowerCase().includes(q);
-      }).map(t => t.turn);
-      const targetSet = new Set(targets), show = new Set();
-      transcript.turns.forEach((t, i) => {
-        if (!filtering()) show.add(i);
-        else if (targetSet.has(t.turn)) for (let j = Math.max(0, i - (t.role === 'guest' ? 2 : 0)); j <= i; j++) show.add(j);
-      });
-      let prev = -1;
-      for (const i of [...show].sort((a, b) => a - b)) {
-        const t = transcript.turns[i];
-        if (i > prev + 1) parts.push(`<div class="gap">${i - prev - 1} turns hidden by the filters</div>`);
-        const ctxTurn = filtering() && !targetSet.has(t.turn);
-        parts.push(turnCard(c, t, matching.get(t.turn) || [], ctxTurn));
-        prev = i;
-      }
-      if (filtering() && prev < transcript.turns.length - 1) parts.push(`<div class="gap">${transcript.turns.length - prev - 1} later turns hidden by the filters</div>`);
-      const scoredShown = targets.filter(n => matching.has(n)).length;
-      ideas = targets.reduce((n, t) => n + (matching.get(t)?.length || 0), 0);
-      $('count').textContent = transcriptOnly(c.meta) ? (filtering() ? `${targets.length} matching turns · nearby context shown faded` : `${transcript.turns.length} turns`)
-        : filtering() ? `${targets.length} matching turns · ${ideas} ideas · nearby context shown faded` : `${transcript.turns.length} turns · ${scoredShown} scored turns · ${ideas} ideas`;
+      html = `<div class="grid">${[...list].sort(sorters[dir.sort]).map(card).join('')}</div>`;
     }
-    window.turnAudio?.reset();
-    $('list').innerHTML = parts.join('') || '<div class="empty">Nothing matches these filters. <button class="link" id="clear2">Clear filters</button></div>';
+    document.getElementById('dgrid').innerHTML = list.length ? html : '<div class="empty">No one matches. Try another name or area.</div>';
+    document.getElementById('dcount').textContent = list.length === D.people.length ? '' :
+      `${list.length} of ${D.people.length} people · ${fmt(list.reduce((n, p) => n + p.questions, 0))} questions`;
   }
 
-  // ---- model answers (lazy) -------------------------------------------------------------------
-  async function loadAnswers(el) {
-    if (el.dataset.loaded || el.dataset.loading) return;
-    el.dataset.loading = '1';
-    const c = ctx(), body = el.querySelector('.answers-body');
+  // ---- person ---------------------------------------------------------------------------------
+  async function renderPerson(id, focus) {
+    const meta = byId.get(id);
+    if (!meta) {main.innerHTML = '<div class="empty">Person not found. <a href="#/">See everyone</a></div>'; return;}
+    document.title = `${meta.name} · Common Ground`;
+    if (!person || person.meta.id !== id) {
+      main.innerHTML = `<a class="back" href="#/">← All people</a><div class="loading">Loading ${esc(meta.name)}…</div>`;
+      let data;
+      try {data = await fetchJSON(`data/people/${encodeURIComponent(id)}.json`);}
+      catch (e) {main.innerHTML = `<div class="empty">${esc(e.message)}</div>`; return;}
+      person = {meta, data, query: '', topic: 'all', shown: PAGE};
+    }
+    const p = person.meta, data = person.data;
+    const episodes = p.episodes.map(e => `<span>${esc(e.show)}${e.date ? `, ${esc(e.date.slice(0, 7))}` : ''}${e.url ? ` · <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title || 'Watch')} ↗</a>` : ''}</span>`).join('');
+    main.innerHTML = `
+      <a class="back" href="#/">← All people</a>
+      <section class="profile">${photo(p, 112)}
+        <div><h1>${esc(p.name)}</h1><p class="role">${esc(p.description)}</p>
+          <div class="facts"><span class="cat">${esc(catName[p.category] || '')}</span><span>${plural(p.questions, 'question')} · ${plural(p.rubrics, 'rubric idea')}</span></div>
+          <div class="facts">${episodes}</div></div>
+      </section>
+      ${p.evaluated ? '<section class="section" id="results"></section>' : ''}
+      <section class="section" id="questions">
+        <div class="section-head"><div><h2>Questions</h2>
+          <p>Each answer is ${esc(p.name.replace(/\s*\(.*\)/, ''))}'s own reply in the interview, lightly cleaned. Open a question to see the answer, the rubric ideas, and the supporting quotes${p.evaluated ? ', plus how each model answered' : ''}.</p></div></div>
+        <div class="qtools">
+          <label class="field"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+            <input id="qq" type="search" placeholder="Search questions, answers and ideas" aria-label="Search questions"></label>
+          <span class="count-line" id="qcount" style="margin:0" aria-live="polite"></span>
+        </div>
+        ${data.topics ? `<div class="topics" role="group" aria-label="Topic"><button class="chip" data-topic="all" aria-pressed="true">All topics<span>${data.items.length}</span></button>${data.topics.map(t => `<button class="chip" data-topic="${esc(t.id)}" aria-pressed="false">${esc(t.name)}<span>${t.count}</span></button>`).join('')}</div>` : ''}
+        <div class="qlist" id="qlist"></div>
+      </section>`;
+    if (p.evaluated) renderBoard();
+    renderQuestions();
+    const q = document.getElementById('qq');
+    q.addEventListener('input', () => {person.query = q.value; person.shown = PAGE; renderQuestions();});
+    main.querySelectorAll('[data-topic]').forEach(b => b.addEventListener('click', () => {
+      person.topic = b.dataset.topic; person.shown = PAGE;
+      main.querySelectorAll('[data-topic]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      renderBoard(); renderQuestions();
+    }));
+    window.scrollTo(0, 0);
+    if (focus) openItem(focus);
+  }
+
+  function renderBoard() {
+    const el = document.getElementById('results');
+    if (!el) return;
+    const data = person.data, topic = data.topics?.find(t => t.id === person.topic);
+    const stats = topic ? topic.stats : data.stats;
+    const rows = [...D.models].filter(m => stats[m.id]?.total).sort((a, b) => rate(stats[b.id]) - rate(stats[a.id]));
+    const providers = [...new Set(rows.map(m => m.provider))];
+    el.innerHTML = `<div class="section-head"><div><h2>How the models did</h2>
+        <p>Share of the rubric ideas in ${esc(person.meta.name)}'s real answers that each model came up with when asked the same question${topic ? `, for <strong>${esc(topic.name)}</strong> only` : ''}.</p></div></div>
+      <div class="legend" aria-label="Providers">${providers.map(p => `<span><i style="--c:${D.providers[p].color}"></i>${esc(D.providers[p].name)}</span>`).join('')}</div>
+      <ol class="board">${rows.map((m, i) => {
+        const s = stats[m.id];
+        return `<li class="brow" data-tip="${esc(`${m.name} (${D.providers[m.provider].name}, ${m.effort})<br>${fmt(s.passed)} of ${fmt(s.total)} ideas · ${rate(s).toFixed(1)}%`)}">
+          <span class="rank">${i + 1}</span><span class="bname">${esc(m.name)}<small>${esc(D.providers[m.provider].name)}</small></span>
+          <span class="bar" aria-hidden="true"><span style="width:${rate(s)}%;--c:${D.providers[m.provider].color}"></span></span>
+          <span class="bval">${rate(s).toFixed(1)}%</span></li>`;
+      }).join('')}</ol>
+      <p class="fine">Judge: ${esc(D.judge.name)}, which never sees the guest's answer. Scores measure coverage of the guest's ideas, not overall answer quality. <a href="#/about">How it works</a></p>`;
+  }
+
+  function itemMatches(it) {
+    if (person.topic !== 'all' && it.topic !== person.topic) return false;
+    const q = person.query.trim().toLowerCase();
+    return !q || [it.question, it.object, it.answer, ...it.rubrics.map(r => r.text)].join(' ').toLowerCase().includes(q);
+  }
+
+  function renderQuestions() {
+    const list = person.data.items.filter(itemMatches);
+    const shown = list.slice(0, person.shown);
+    const models = D.models.length;
+    document.getElementById('qlist').innerHTML = shown.map(it => {
+      const passMeta = it.rubrics.length && it.rubrics[0].passes
+        ? ` · ${(100 * it.rubrics.reduce((n, r) => n + Object.values(r.passes).filter(Boolean).length, 0) / (it.rubrics.length * models)).toFixed(0)}% matched`
+        : '';
+      return `<details class="q" id="q-${esc(it.id)}" data-item="${esc(it.id)}">
+        <summary><span><span class="qtext">${esc(it.question)}</span><span class="qobj">${esc(it.object)}</span></span>
+          <span class="qside"><span class="chev" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m6 9 6 6 6-6"/></svg></span>
+          <span class="qcount">${plural(it.rubrics.length, 'idea')}${passMeta}</span></span></summary>
+        <div class="qbody"></div></details>`;
+    }).join('') + (list.length > shown.length ? `<button class="more-btn" id="qmore">Show ${Math.min(PAGE, list.length - shown.length)} more of ${fmt(list.length - shown.length)}</button>` : '')
+      || '<div class="empty">No questions match.</div>';
+    document.getElementById('qcount').textContent = `${fmt(list.length)} of ${fmt(person.data.items.length)} questions`;
+    document.getElementById('qmore')?.addEventListener('click', () => {person.shown += PAGE; renderQuestions();});
+    document.querySelectorAll('#qlist details.q').forEach(d => d.addEventListener('toggle', () => {
+      if (d.open) fillItem(d);
+      history.replaceState(null, '', `#/p/${encodeURIComponent(person.meta.id)}${d.open ? `/${encodeURIComponent(d.dataset.item)}` : ''}`);
+    }));
+  }
+
+  function fillItem(d) {
+    const body = d.querySelector('.qbody');
+    if (body.dataset.filled) return;
+    body.dataset.filled = '1';
+    const it = person.data.items.find(x => x.id === d.dataset.item);
+    const models = D.models.length;
+    const ideas = it.rubrics.length ? `<ol class="ideas">${it.rubrics.map(r => {
+      const n = r.passes ? Object.values(r.passes).filter(Boolean).length : null;
+      return `<li>${esc(r.text)}${n === null ? '' : `<span class="score">${n}/${models} models</span>`}</li>`;
+    }).join('')}</ol>` : '<p class="fine">No rubric ideas for this answer.</p>';
+    body.innerHTML = `<div class="cols">
+        <div><p class="label">${esc(person.meta.name.replace(/\s*\(.*\)/, ''))}'s answer</p><div class="answer">${esc(it.answer)}</div>
+          <details class="sub"><summary>Supporting quotes from the transcript (${it.quotes.length})</summary><ul class="quotes">${it.quotes.map(q => `<li>“${esc(q)}”</li>`).join('')}</ul></details></div>
+        <div><p class="label">Rubric ideas</p>${ideas}</div>
+      </div>
+      ${it.answers ? `<details class="sub models"><summary>How each model answered</summary><div class="answers-body"><div class="loading">Loading answers…</div></div></details>` : ''}`;
+    const md = body.querySelector('.models');
+    md?.addEventListener('toggle', () => md.open && loadAnswers(md, it));
+  }
+
+  async function loadAnswers(el, it) {
+    if (el.dataset.loaded) return;
+    el.dataset.loaded = '1';
+    const box = el.querySelector('.answers-body');
     try {
-      const detail = el.dataset.item ? await fetchJSON(`data/world/items/${encodeURIComponent(el.dataset.item)}.json`)
-                                     : await fetchJSON(`data/raw/turns/${encodeURIComponent(el.dataset.case)}.json`);
-      const rubrics = el.dataset.item ? c.items.find(i => i.id === el.dataset.item).rubrics : detail.rubrics;
-      const order = [...c.models].sort((a, b) => (b.id === S.follow) - (a.id === S.follow));
-      body.innerHTML = `<p class="note">${el.dataset.item ? 'Each model saw only a one-line host introduction and this question.' : 'Each model saw the conversation up to this turn.'} ${S.follow ? 'The model you follow is first.' : ''}</p>
-        <div class="answer-grid">${order.map(m => {
+      const detail = await fetchJSON(`data/answers/${encodeURIComponent(it.id)}.json`);
+      box.innerHTML = `<p class="fine" style="margin:4px 0 8px">Each model saw only a one-line host introduction and this question.</p>
+        <div class="answer-grid">${D.models.map(m => {
           const a = detail.models[m.id];
-          if (!a || a.status === 'not_run') return `<div class="answer muted"><div class="answer-head">${chip(c, m)}<span>Not run</span></div></div>`;
-          const passed = rubrics.filter(r => a.judgments[r.rubricId]?.pass).length;
-          return `<div class="answer ${m.id === S.follow ? 'on' : ''}"><div class="answer-head">${chip(c, m)}<span>${rubrics.length ? `${passed} / ${rubrics.length} idea${rubrics.length === 1 ? '' : 's'}` : 'unscored'}</span></div>
-            <div class="answer-text">${esc(a.text)}</div><button class="link more-text" hidden>Read all</button>
-            ${rubrics.length ? `<details class="judge"><summary>Judge's notes</summary>${rubrics.map(r => {
-              const j = a.judgments[r.rubricId];
-              return `<p><b class="${j.pass ? 'pass' : 'fail'}">${j.pass ? '✓' : '×'}</b> ${esc(j.rationale)}</p>`;
-            }).join('')}</details>` : ''}</div>`;
+          const head = `<b><span class="dot" style="--c:${D.providers[m.provider].color}"></span>${esc(m.name)}</b>`;
+          if (!a) return `<div class="mans"><div class="mans-head">${head}<span>Not run</span></div></div>`;
+          const passed = it.rubrics.filter(r => a.judgments[r.id]?.pass).length;
+          return `<div class="mans"><div class="mans-head">${head}<span>${passed} / ${it.rubrics.length} idea${it.rubrics.length === 1 ? '' : 's'}</span></div>
+            <div class="mans-text">${esc(a.text)}</div><button class="link more-text" hidden>Read all</button>
+            <details class="sub judge"><summary>Judge's notes</summary>${it.rubrics.map(r => {
+              const j = a.judgments[r.id];
+              return j ? `<p><b class="${j.pass ? 'pass' : 'fail'}">${j.pass ? '✓' : '×'}</b> ${esc(j.rationale)}</p>` : '';
+            }).join('')}</details></div>`;
         }).join('')}</div>`;
-      body.querySelectorAll('.answer-text').forEach(t => {
+      box.querySelectorAll('.mans-text').forEach(t => {
         const b = t.nextElementSibling;
         if (t.scrollHeight > t.clientHeight + 2) {
           b.hidden = false;
-          b.onclick = () => {const open = t.classList.toggle('open'); b.textContent = open ? 'Show less' : 'Read all';};
+          b.onclick = () => {b.textContent = t.classList.toggle('open') ? 'Show less' : 'Read all';};
         }
       });
-      el.dataset.loaded = '1';
-    } catch (e) {
-      body.innerHTML = `<div class="loading">${esc(e.message)}</div>`;
-    } finally {delete el.dataset.loading;}
+    } catch (e) {box.innerHTML = `<div class="loading">${esc(e.message)}</div>`; delete el.dataset.loaded;}
   }
 
-  // ---- how it works ---------------------------------------------------------------------------
-  function renderHow() {
-    const col = (id, about) => `<div><h3>${TESTS[id].title}</h3><p>${esc(about[0])}</p><details><summary>Method and caveats</summary>${about.slice(1).map(p => `<p>${esc(p)}</p>`).join('')}</details></div>`;
-    $('how').innerHTML = `<div class="block-head"><h2>How it works</h2><p>Both tests use rubrics: short, one-idea statements written from the guest's real words. A judge model checks each model's answer against each idea.</p></div>
-      <div class="how-grid">${col('turns', RAW.about)}${col('questions', WORLD.about)}</div>`;
+  function openItem(itemId) {
+    const idx = person.data.items.findIndex(x => x.id === itemId);
+    if (idx < 0) return;
+    if (idx >= person.shown) {person.shown = idx + 1; renderQuestions();}
+    const d = document.getElementById(`q-${itemId}`);
+    if (d) {d.open = true; d.scrollIntoView({block: 'start'});}
   }
 
-  // ---- navigation -----------------------------------------------------------------------------
-  function setFollow(id) {
-    S.follow = S.follow === id ? '' : id;
-    writeURL();
-    renderResults(); renderList();
+  // ---- about ----------------------------------------------------------------------------------
+  function renderAbout() {
+    document.title = 'How it works · Common Ground';
+    main.innerHTML = `<a class="back" href="#/">← All people</a><section class="about"><p class="kicker">Method</p><h1>How it works</h1>
+      ${D.about.map(p => `<p>${esc(p)}</p>`).join('')}</section>`;
+    window.scrollTo(0, 0);
   }
 
-  async function loadTranscript() {
-    const v = ++version;
-    transcript = null;
-    const t = await fetchJSON(`data/raw/transcripts/${S.guest}.json`);
-    if (v === version) transcript = t;
+  // ---- jump-to-person typeahead -----------------------------------------------------------------
+  function setupJump() {
+    const input = document.getElementById('jump'), list = document.getElementById('jump-list');
+    let hits = [], sel = 0;
+    const close = () => {list.hidden = true; input.setAttribute('aria-expanded', 'false');};
+    const draw = () => {
+      list.innerHTML = hits.map((p, i) => `<li role="option" id="jo-${i}" aria-selected="${i === sel}" data-id="${esc(p.id)}">${photo(p, 30)}<span>${esc(p.name)}<small>${esc(p.description)}</small></span></li>`).join('');
+      list.hidden = !hits.length; input.setAttribute('aria-expanded', String(!!hits.length));
+      if (hits.length) input.setAttribute('aria-activedescendant', `jo-${sel}`);
+    };
+    const go = id => {close(); input.value = ''; location.hash = `#/p/${encodeURIComponent(id)}`;};
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      hits = q ? D.people.filter(p => `${p.name} ${p.description}`.toLowerCase().includes(q))
+        .sort((a, b) => a.name.toLowerCase().startsWith(q) ? -1 : b.name.toLowerCase().startsWith(q) ? 1 : 0).slice(0, 8) : [];
+      sel = 0; draw();
+    });
+    input.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') {sel = Math.min(sel + 1, hits.length - 1); draw(); e.preventDefault();}
+      else if (e.key === 'ArrowUp') {sel = Math.max(sel - 1, 0); draw(); e.preventDefault();}
+      else if (e.key === 'Enter' && hits[sel]) go(hits[sel].id);
+      else if (e.key === 'Escape') close();
+    });
+    list.addEventListener('mousedown', e => {const li = e.target.closest('li'); if (li) go(li.dataset.id);});
+    input.addEventListener('blur', () => setTimeout(close, 120));
+    document.addEventListener('keydown', e => {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {e.preventDefault(); input.focus();}
+    });
   }
 
-  async function show({push = false, anchor = null} = {}) {
-    renderChooser(); renderResults(); renderExploreShell(); renderList();
-    writeURL(push, anchor);
-    if (S.test === 'turns') {
-      try {await loadTranscript(); renderList();} catch (e) {$('list').innerHTML = `<div class="loading">${esc(e.message)}</div>`;}
-    }
-  }
-
-  function scrollToEl(el) {
-    if (!el) return;
-    const bar = $('filters');
-    const offset = bar && getComputedStyle(bar).position === 'sticky' ? bar.offsetHeight + 12 : 12;
-    window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - offset});
-  }
-
-  function nearestTurn(n) {
-    if (!transcript || n === null) return n;
-    const exact = transcript.turns.find(t => t.turn === n || t.sourceTurns?.includes(n));
-    return (exact || transcript.turns.find(t => Math.min(...(t.sourceTurns || [t.turn])) >= n))?.turn ?? n;
-  }
-
-  async function jump({turn, item}) {
-    if (turn !== null && S.test === 'turns') {
-      const n = nearestTurn(turn);
-      scrollToEl($(`turn-${n}`));
-    } else if (item) scrollToEl($(`q-${item}`));
-  }
-
-  document.addEventListener('click', async e => {
-    const b = e.target.closest('button');
-    if (!b || !RAW) return;
-    if (b.dataset.guest && b.dataset.guest !== S.guest) {
-      S.guest = b.dataset.guest; S.topic = 'all'; S.outcome = 'all'; S.query = ''; S.follow = '';
-      if (S.test === 'turns' && transcriptOnly(RAW.speakers.find(s => s.id === S.guest))) S.test = 'questions';
-      await show({push: true});
-    } else if (b.dataset.test && b.dataset.test !== S.test) {
-      S.test = b.dataset.test; S.topic = 'all'; S.outcome = 'all'; S.query = '';
-      if (!ctx().models.some(m => m.id === S.follow)) S.follow = '';
-      await show({push: true});
-      $('results').scrollIntoView({block: 'start'});
-    } else if (b.dataset.follow !== undefined && b.classList.contains('board-row')) {
-      setFollow(b.dataset.follow);
-    } else if (b.dataset.topic) {
-      S.topic = S.topic === b.dataset.topic && b.dataset.topic !== 'all' ? 'all' : b.dataset.topic;
-      writeURL(); renderResults(); renderList();
-      $('explore').scrollIntoView({block: 'start'});
-    } else if (b.id === 'clear' || b.id === 'clear2') {
-      S.topic = 'all'; S.outcome = 'all'; S.query = ''; $('query').value = '';
-      writeURL(); renderResults(); renderList();
-    } else if (b.dataset.gotoTurn) {
-      S.test = 'turns'; S.topic = 'all'; S.outcome = 'all'; S.query = '';
-      if (!ctx().models.some(m => m.id === S.follow)) S.follow = '';
-      await show({push: true});
-      const n = nearestTurn(Number(b.dataset.gotoTurn));
-      writeURL(false, ['turn', n]);
-      scrollToEl($(`turn-${n}`));
-    } else if (b.dataset.copyTurn) {
-      writeURL(false, ['turn', b.dataset.copyTurn]);
-      try {await navigator.clipboard.writeText(location.href); b.textContent = 'Copied';} catch {b.textContent = 'In URL';}
-      setTimeout(() => {if (b.isConnected) b.textContent = `#${b.dataset.copyTurn}`;}, 1600);
-    }
+  // ---- tooltip for leaderboard rows -------------------------------------------------------------
+  document.addEventListener('mousemove', e => {
+    const row = e.target.closest?.('[data-tip]');
+    if (!row) {tip.hidden = true; return;}
+    tip.innerHTML = row.dataset.tip; tip.hidden = false;
+    const x = Math.min(e.clientX + 14, innerWidth - tip.offsetWidth - 8), y = e.clientY + 16;
+    tip.style.left = `${x}px`; tip.style.top = `${y}px`;
   });
-  document.addEventListener('toggle', e => {
-    if (e.target.matches?.('details.answers') && e.target.open) loadAnswers(e.target);
-  }, true);
 
-  async function boot() {
-    try {
-      [RAW, WORLD] = await Promise.all([fetchJSON('data/raw/index.json'), fetchJSON('data/world/index.json')]);
-      const target = readURL();
-      renderHow();
-      await show();
-      await jump(target);
-      window.addEventListener('popstate', async () => {const t = readURL(); await show(); await jump(t);});
-    } catch (e) {
-      $('error').hidden = false; $('error').textContent = e.message;
-      $('results').innerHTML = '';
-    }
+  // ---- routing --------------------------------------------------------------------------------
+  function route() {
+    const parts = location.hash.replace(/^#\/?/, '').split('/').map(decodeURIComponent);
+    if (parts[0] === 'p' && parts[1]) return renderPerson(parts[1], parts[2]);
+    if (parts[0] === 'about') return renderAbout();
+    person = null;
+    renderDirectory();
   }
-  boot();
+
+  fetchJSON('data/index.json').then(index => {
+    D = index;
+    byId = new Map(D.people.map(p => [p.id, p]));
+    catName = Object.fromEntries(D.categories.map(c => [c.id, c.name]));
+    setupJump();
+    window.addEventListener('hashchange', () => {
+      const parts = location.hash.replace(/^#\/?/, '').split('/');
+      if (parts[0] === 'p' && person && decodeURIComponent(parts[1]) === person.meta.id && document.getElementById('qlist')) return;
+      route();
+    });
+    route();
+  }).catch(e => {main.innerHTML = `<div class="empty">${esc(e.message)}</div>`;});
 })();

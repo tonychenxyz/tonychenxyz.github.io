@@ -1,49 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" data-build="356ebcc298">
+<html lang="en" data-build="433a502ea8">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f6f2">
+  <meta name="theme-color" content="#f6f4ee">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="description" content="Do language models think like these researchers? Models continue real podcast conversations and answer standalone questions as the guest.">
-  <title>Common Ground · Do language models think like these researchers?</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3E%3Crect%20width='48'%20height='48'%20rx='12'%20fill='%232d4b40'/%3E%3Cpath%20d='M30%2014a12%2012%200%201%200%200%2020M36%2014a12%2012%200%201%200%200%2020'%20stroke='%23f7f6f2'%20stroke-width='2'%20fill='none'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/cg.css?v=f22bc85fce">
-  <link rel="stylesheet" href="assets/turn-audio.css?v=85da09622a">
-  <script src="assets/turn-audio.js?v=ef1fbfcbeb" defer></script>
-  <script src="assets/cg.js?v=c02f2526be" defer></script>
+  <meta name="description" content="Standalone questions about how AI researchers and builders see the world, answered in their own words, with rubrics for checking language models.">
+  <title>Common Ground · How do these people see the world?</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3E%3Crect%20width='48'%20height='48'%20rx='12'%20fill='%232d4b40'/%3E%3Cpath%20d='M30%2014a12%2012%200%201%200%200%2020M36%2014a12%2012%200%201%200%200%2020'%20stroke='%23f6f4ee'%20stroke-width='2'%20fill='none'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/cg.css?v=5d344272fb">
+  <script src="assets/cg.js?v=1ac02f117e" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#explore">Skip to examples</a>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
-    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">◔</span>Common Ground</a>
-    <nav aria-label="Page"><a href="#how">How it works</a><a href="/research-notes/">Research notes</a></nav>
+    <div class="topbar-inner">
+      <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true">◔</span>Common Ground</a>
+      <div class="jump" role="search">
+        <svg aria-hidden="true" width="15" height="15" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m16 16 5 5"></path></svg>
+        <input id="jump" type="search" autocomplete="off" placeholder="Jump to a person…" aria-label="Jump to a person" role="combobox" aria-expanded="false" aria-controls="jump-list">
+        <ul id="jump-list" role="listbox" hidden></ul>
+      </div>
+      <nav aria-label="Page"><a href="#/about">How it works</a><a href="/research-notes/">Research notes</a></nav>
+    </div>
   </header>
-  <main class="page">
-    <section class="intro">
-      <p class="kicker">Research note · October 2026</p>
-      <h1>Do language models think like these researchers?</h1>
-      <p class="lede">We took podcast interviews with <strong>Karthik Narasimhan</strong>, <strong>Zhuang Liu</strong> and <strong>Ilya Sutskever</strong>, and asked language models to answer as the guest. Then we checked which of the guest's actual ideas each model came up with.</p>
-    </section>
-
-    <section class="chooser" aria-label="Choose what to look at">
-      <div class="step">
-<div class="step-label">
-<span>1</span>Pick a guest</div>
-<div class="options" id="guests"></div>
-</div>
-      <div class="step">
-<div class="step-label">
-<span>2</span>Pick a test</div>
-<div class="options" id="tests"></div>
-</div>
-    </section>
-
-    <section class="block" id="results" aria-live="polite"><div class="loading">Loading results…</div></section>
-    <section class="block" id="explore"></section>
-    <section class="block how" id="how"></section>
-    <div id="error" role="alert" hidden></div>
-  </main>
+  <main id="main" class="page" tabindex="-1"><div class="loading">Loading…</div></main>
+  <div id="tip" class="tip" role="tooltip" hidden></div>
 </body>
 </html>
