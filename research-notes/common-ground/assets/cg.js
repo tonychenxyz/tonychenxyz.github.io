@@ -22,13 +22,18 @@
   };
   const PAGE = 30;
   let D, byId, catName;
-  const dir = {query: '', cat: 'all', sort: 'category', evalOnly: false};
+  const dir = {query: '', cat: 'all', sort: 'category'};
   let person = null;  // {meta, data, query, topic, shown}
 
   const initials = name => name.replace(/\(.*\)/, '').split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join('');
   const photo = (p, size) => p.image
     ? `<img class="ph" src="${esc(p.image)}" alt="" width="${size}" height="${size}" loading="lazy" decoding="async">`
     : `<span class="ph initials" style="width:${size}px;height:${size}px" aria-hidden="true">${esc(initials(p.name))}</span>`;
+  const pmodels = () => person.data.models || D.models;
+  const topScore = p => {
+    const best = Object.entries(p.scores || {}).sort((a, b) => b[1] - a[1])[0];
+    return best ? ` · best model ${best[1].toFixed(0)}%` : '';
+  };
   const latest = p => p.episodes.reduce((a, e) => (e.date || '') > a ? e.date : a, '');
   const plural = (n, w) => `${fmt(n)} ${w}${n === 1 ? '' : 's'}`;
 
@@ -36,14 +41,13 @@
   function matchesDir(p) {
     const q = dir.query.trim().toLowerCase();
     if (dir.cat !== 'all' && p.category !== dir.cat) return false;
-    if (dir.evalOnly && !p.evaluated) return false;
     return !q || `${p.name} ${p.description} ${catName[p.category] || ''} ${p.episodes.map(e => e.show).join(' ')}`.toLowerCase().includes(q);
   }
 
   function card(p) {
     return `<a class="pcard" href="#/p/${encodeURIComponent(p.id)}">${photo(p, 56)}
       <span class="pbody"><span class="pname">${esc(p.name)}</span><span class="pdesc">${esc(p.description)}</span>
-      <span class="pmeta">${plural(p.questions, 'question')}${p.evaluated ? '<span class="evalbadge">Model results</span>' : ''}</span></span></a>`;
+      <span class="pmeta">${plural(p.questions, 'question')}${topScore(p)}</span></span></a>`;
   }
 
   function renderDirectory() {
@@ -58,9 +62,10 @@
           <div class="stat"><b>${fmt(T.people)}</b><span>people</span></div>
           <div class="stat"><b>${fmt(T.questions)}</b><span>questions</span></div>
           <div class="stat"><b>${fmt(T.rubrics)}</b><span>rubric ideas</span></div>
-          <div class="stat"><b>${fmt(T.evaluated)}</b><span>with model results</span></div>
+          <div class="stat"><b>${D.models.length}</b><span>models tested</span></div>
         </div>
       </section>
+      ${overallBoard()}
       <section class="toolbar" aria-label="Find people">
         <div class="tool-row">
           <label class="field"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
@@ -68,7 +73,6 @@
           <label class="select">Sort<select id="dsort" aria-label="Sort people">
             ${[['category', 'By area'], ['name', 'Name A–Z'], ['questions', 'Most questions'], ['recent', 'Most recent episode']]
               .map(([v, l]) => `<option value="${v}" ${dir.sort === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
-          <button class="toggle" id="deval" aria-pressed="${dir.evalOnly}">With model results</button>
         </div>
         <div class="chips" role="group" aria-label="Area">
           <button class="chip" data-cat="all" aria-pressed="${dir.cat === 'all'}">All<span>${fmt(T.people)}</span></button>
@@ -81,14 +85,30 @@
     const q = document.getElementById('dq');
     q.addEventListener('input', () => {dir.query = q.value; renderGrid();});
     document.getElementById('dsort').addEventListener('change', e => {dir.sort = e.target.value; renderGrid();});
-    document.getElementById('deval').addEventListener('click', e => {
-      dir.evalOnly = !dir.evalOnly; e.currentTarget.setAttribute('aria-pressed', dir.evalOnly); renderGrid();
-    });
     main.querySelectorAll('[data-cat]').forEach(b => b.addEventListener('click', () => {
       dir.cat = b.dataset.cat;
       main.querySelectorAll('[data-cat]').forEach(x => x.setAttribute('aria-pressed', x === b));
       renderGrid();
     }));
+  }
+
+  function boardRows(models, stats) {
+    return [...models].filter(m => stats[m.id]?.total).sort((a, b) => rate(stats[b.id]) - rate(stats[a.id])).map((m, i) => {
+      const s = stats[m.id];
+      return `<li class="brow" data-tip="${esc(`${m.name} (${D.providers[m.provider].name}, ${m.effort} effort)<br>${fmt(s.passed)} of ${fmt(s.total)} ideas · ${rate(s).toFixed(1)}%`)}">
+        <span class="rank">${i + 1}</span><span class="bname">${esc(m.name)}<small>${esc(D.providers[m.provider].name)} · ${esc(m.effort)} effort</small></span>
+        <span class="bar" aria-hidden="true"><span style="width:${rate(s)}%;--c:${D.providers[m.provider].color}"></span></span>
+        <span class="bval">${rate(s).toFixed(1)}%</span></li>`;
+    }).join('');
+  }
+
+  function overallBoard() {
+    const n = D.people.filter(p => p.scores && Object.keys(p.scores).length === D.models.length).length;
+    return `<section class="section overall" aria-label="Overall results"><div class="section-head"><div><h2>How the models did</h2>
+      <p>Share of the rubric ideas in ${fmt(n)} people's real answers that each model came up with, answering each question as that person. Open a person to see their own leaderboard and every model's answers.</p></div></div>
+      <div class="legend" aria-label="Providers">${[...new Set(D.models.map(m => m.provider))].map(p => `<span><i style="--c:${D.providers[p].color}"></i>${esc(D.providers[p].name)}</span>`).join('')}</div>
+      <ol class="board">${boardRows(D.models, D.overall)}</ol>
+      <p class="fine">Judge: ${esc(D.judge.name)}, which never sees the guest's answer. ${D.excluded} questions refused by a model are left out for every model. <a href="#/about">How it works</a></p></section>`;
   }
 
   function renderGrid() {
@@ -161,18 +181,12 @@
     if (!el) return;
     const data = person.data, topic = data.topics?.find(t => t.id === person.topic);
     const stats = topic ? topic.stats : data.stats;
-    const rows = [...D.models].filter(m => stats[m.id]?.total).sort((a, b) => rate(stats[b.id]) - rate(stats[a.id]));
-    const providers = [...new Set(rows.map(m => m.provider))];
+    const models = pmodels();
+    const providers = [...new Set(models.map(m => m.provider))];
     el.innerHTML = `<div class="section-head"><div><h2>How the models did</h2>
         <p>Share of the rubric ideas in ${esc(person.meta.name)}'s real answers that each model came up with when asked the same question${topic ? `, for <strong>${esc(topic.name)}</strong> only` : ''}.</p></div></div>
       <div class="legend" aria-label="Providers">${providers.map(p => `<span><i style="--c:${D.providers[p].color}"></i>${esc(D.providers[p].name)}</span>`).join('')}</div>
-      <ol class="board">${rows.map((m, i) => {
-        const s = stats[m.id];
-        return `<li class="brow" data-tip="${esc(`${m.name} (${D.providers[m.provider].name}, ${m.effort})<br>${fmt(s.passed)} of ${fmt(s.total)} ideas · ${rate(s).toFixed(1)}%`)}">
-          <span class="rank">${i + 1}</span><span class="bname">${esc(m.name)}<small>${esc(D.providers[m.provider].name)}</small></span>
-          <span class="bar" aria-hidden="true"><span style="width:${rate(s)}%;--c:${D.providers[m.provider].color}"></span></span>
-          <span class="bval">${rate(s).toFixed(1)}%</span></li>`;
-      }).join('')}</ol>
+      <ol class="board">${boardRows(models, stats)}</ol>
       <p class="fine">Judge: ${esc(D.judge.name)}, which never sees the guest's answer. Scores measure coverage of the guest's ideas, not overall answer quality. <a href="#/about">How it works</a></p>`;
   }
 
@@ -185,7 +199,7 @@
   function renderQuestions() {
     const list = person.data.items.filter(itemMatches);
     const shown = list.slice(0, person.shown);
-    const models = D.models.length;
+    const models = pmodels().length;
     document.getElementById('qlist').innerHTML = shown.map(it => {
       const passMeta = it.rubrics.length && it.rubrics[0].passes
         ? ` · ${(100 * it.rubrics.reduce((n, r) => n + Object.values(r.passes).filter(Boolean).length, 0) / (it.rubrics.length * models)).toFixed(0)}% matched`
@@ -210,7 +224,7 @@
     if (body.dataset.filled) return;
     body.dataset.filled = '1';
     const it = person.data.items.find(x => x.id === d.dataset.item);
-    const models = D.models.length;
+    const models = pmodels().length;
     const ideas = it.rubrics.length ? `<ol class="ideas">${it.rubrics.map(r => {
       const n = r.passes ? Object.values(r.passes).filter(Boolean).length : null;
       return `<li>${esc(r.text)}${n === null ? '' : `<span class="score">${n}/${models} models</span>`}</li>`;
@@ -232,7 +246,7 @@
     try {
       const detail = await fetchJSON(`data/answers/${encodeURIComponent(it.id)}.json`);
       box.innerHTML = `<p class="fine" style="margin:4px 0 8px">Each model saw only a one-line host introduction and this question.</p>
-        <div class="answer-grid">${D.models.map(m => {
+        <div class="answer-grid">${pmodels().map(m => {
           const a = detail.models[m.id];
           const head = `<b><span class="dot" style="--c:${D.providers[m.provider].color}"></span>${esc(m.name)}</b>`;
           if (!a) return `<div class="mans"><div class="mans-head">${head}<span>Not run</span></div></div>`;
