@@ -147,8 +147,8 @@
     if (!el || !D.featured.length) return;
     const f = D.featured[example % D.featured.length], p = byId.get(f.person);
     el.innerHTML = `<div class="ex-card">
-      <div class="ex-head"><span class="kicker">One question, one person, four models</span>
-        <button class="ghost" id="ex-next">Show another <span aria-hidden="true">→</span></button></div>
+      <div class="ex-head"><span class="kicker">Random example · one question, one person, four models</span>
+        <button class="ghost dice-btn" id="ex-next" aria-label="Show a random example"><svg class="dice" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="8.5" cy="8.5" r="1.4"/><circle cx="15.5" cy="8.5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="8.5" cy="15.5" r="1.4"/><circle cx="15.5" cy="15.5" r="1.4"/></svg>Random example</button></div>
       <div class="ex-grid">
         <div class="ex-left">
           <a class="who" href="#/p/${encodeURIComponent(p.id)}">${photo(p, 44)}<span><b>${esc(p.name)}</b><small>${esc(p.description)}</small></span></a>
@@ -161,7 +161,13 @@
           <a class="more-link" href="#/p/${encodeURIComponent(p.id)}/${encodeURIComponent(f.id)}">Read every model's answer →</a>
         </div>
       </div></div>`;
-    document.getElementById('ex-next').addEventListener('click', () => {example++; renderExample();});
+    document.getElementById('ex-next').addEventListener('click', e => {
+      const n = D.featured.length;  // a different random example each roll
+      if (n > 1) example = (example + 1 + Math.floor(Math.random() * (n - 1))) % n;
+      e.currentTarget.querySelector('.dice').classList.remove('roll');
+      renderExample();
+      document.querySelector('#ex-next .dice')?.classList.add('roll');
+    });
   }
 
   // Ideas x models grid: a check where the judge said the model's answer contains the idea.
