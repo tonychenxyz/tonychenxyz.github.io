@@ -220,7 +220,6 @@
     }
     const p = person.meta, data = person.data, models = modelsOf();
     const name = short(p.name);
-    const ranked = [...models].sort((a, b) => rate(data.stats[b.id]) - rate(data.stats[a.id]));
     main.innerHTML = `
       <a class="back" href="#/">← All people</a>
       <section class="profile">
@@ -230,8 +229,7 @@
           <h1>${esc(p.name)}</h1><p class="role">${esc(p.description)}</p>
           <p class="facts">${plural(p.questions, 'question')} · ${plural(p.rubrics, 'idea')} · from ${p.episodes.map(e => `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.show)}${e.date ? `, ${esc(e.date.slice(0, 4))}` : ''} ↗</a>`).join(', ')}</p>
         </div>
-        <div class="scorecard" aria-label="Match rate by model">${ranked.map(m => `<div class="sc" ${tipAttr(`${esc(m.name)}: ${fmt(data.stats[m.id].passed)} of ${fmt(data.stats[m.id].total)} ideas`)}>
-          <span class="sc-v">${rate(data.stats[m.id]).toFixed(0)}<small>%</small></span><span class="sc-n">${dot(m)}${esc(m.name)}</span></div>`).join('')}</div>
+        <div class="scorebox"><div class="scorecard" id="scorecard" aria-live="polite" aria-label="Match rate by model"></div><p class="sc-note" id="sc-note"></p></div>
       </section>
       <section class="section" aria-labelledby="q-h">
         <div class="section-head"><h2 id="q-h">Questions</h2>
@@ -245,7 +243,7 @@
           <label class="select"><span>Order</span><select id="qord">
             <option value="interview">Interview order</option><option value="hardest">Hardest first</option><option value="easiest">Easiest first</option></select></label>
         </div>
-        ${data.topics ? `<div class="chips topics" role="group" aria-label="Topic"><button class="chip" data-topic="all" aria-pressed="true">All topics<span>${data.items.length}</span></button>${data.topics.filter(t => t.count).map(t => `<button class="chip" data-topic="${esc(t.id)}" aria-pressed="false">${esc(t.name)}<span>${t.count}</span></button>`).join('')}</div>` : ''}
+        ${data.topics ? `<div class="topicbar"><span class="label">Topics</span><div class="chips topics" role="group" aria-label="Topic"><button class="chip" data-topic="all" aria-pressed="true">All<span>${data.items.length}</span></button>${data.topics.filter(t => t.count).map(t => `<button class="chip" data-topic="${esc(t.id)}" aria-pressed="false" ${t.description ? tipAttr(esc(t.description)) : ''}>${esc(t.name)}<span>${t.count}</span></button>`).join('')}</div></div>` : ''}
         <p class="count-line" id="qcount" aria-live="polite"></p>
         <div class="qlist" id="qlist"></div>
       </section>`;
@@ -277,8 +275,25 @@
     return !q || [it.question, it.object, it.answer, ...it.rubrics.map(r => r.text)].join(' ').toLowerCase().includes(q);
   }
 
+  // Score cards follow the filters: match rate over the questions currently shown.
+  function renderScores(list) {
+    const el = document.getElementById('scorecard');
+    if (!el) return;
+    const models = modelsOf(), filtered = list.length !== person.data.items.length;
+    const stats = Object.fromEntries(models.map(m => [m.id, {
+      passed: list.reduce((n, it) => n + it.rubrics.filter(r => r.passes?.[m.id]).length, 0),
+      total: list.reduce((n, it) => n + it.rubrics.length, 0)}]));
+    el.innerHTML = [...models].sort((a, b) => rate(stats[b.id]) - rate(stats[a.id])).map(m => `<div class="sc" ${tipAttr(`${esc(m.name)}: ${fmt(stats[m.id].passed)} of ${fmt(stats[m.id].total)} ideas`)}>
+      <span class="sc-v">${stats[m.id].total ? rate(stats[m.id]).toFixed(0) : '–'}<small>%</small></span><span class="sc-n">${dot(m)}${esc(m.name)}</span></div>`).join('');
+    const topic = person.data.topics?.find(t => t.id === person.topic);
+    document.getElementById('sc-note').innerHTML = filtered
+      ? `Match rate on the <b>${fmt(list.length)}</b> question${list.length === 1 ? '' : 's'} shown${topic ? ` in <b>${esc(topic.name)}</b>` : ''}`
+      : `Match rate on all ${fmt(list.length)} questions`;
+  }
+
   function renderQuestions() {
     let list = person.data.items.filter(itemMatches);
+    renderScores(list);
     if (person.order !== 'interview') {
       const sign = person.order === 'hardest' ? 1 : -1;
       list = [...list].sort((a, b) => sign * (itemMean(a) - itemMean(b)));
