@@ -1,0 +1,218 @@
+---
+layout: research-note
+title: "Egocentric soccer players: watch through their eyes"
+description: Interactive replays of 11v11 games played by policies that see only their own camera pixels. Follow the player closest to the ball, or click any player to watch the game from their eyes.
+date: 2026-11-01
+permalink: /research-notes/egocentric-soccer/
+research_note: true
+listed: true
+sitemap: false
+---
+{% raw %}
+<style>
+.es { --text:#1f2328; --text-2:#57606a; --border:#e5e7eb; --panel:#f6f7f9; --theme:#286ee0; --hi:#e8a400;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-family:var(--sans); color:var(--text); font-size:16px; line-height:1.6; max-width:1400px; margin:0 auto; padding:48px 20px 120px; }
+.es * { box-sizing:border-box; }
+.es h1 { font-size:34px; line-height:1.15; letter-spacing:-.02em; font-weight:700; margin:0 0 12px; }
+.es .dek { font-size:17px; max-width:860px; margin:0 0 18px; }
+.es .note { font-size:13.5px; color:var(--text-2); max-width:860px; margin:0 0 22px; }
+.es .bar { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 12px; }
+.es .bar .lab { font-size:13px; color:var(--text-2); margin-right:4px; }
+.es button { font:inherit; font-size:13.5px; border:1px solid #d0d7de; background:#fff; color:var(--text); border-radius:999px; padding:4px 12px; cursor:pointer; }
+.es button:hover { border-color:var(--text); }
+.es button.on { background:var(--text); color:#fff; border-color:var(--text); }
+.es .stage { display:grid; grid-template-columns:minmax(0,16fr) minmax(0,9fr); gap:10px; background:#0e0f12; border-radius:10px; padding:10px; }
+.es .stage canvas { width:100%; height:auto; display:block; border-radius:6px; background:#000; }
+.es .big { position:relative; }
+.es .big .cap { position:absolute; left:10px; top:8px; color:#fff; font-size:14px; font-weight:600; text-shadow:0 1px 2px #000; pointer-events:none; }
+.es .big .cap small { display:block; font-weight:400; font-size:12px; opacity:.85; }
+.es .big .inset { position:absolute; right:8px; bottom:8px; width:26%; border:2px solid #fff; border-radius:4px; image-rendering:pixelated; }
+.es .big .inset-cap { position:absolute; right:10px; bottom:calc(26% + 14px); color:#fff; font-size:11px; text-shadow:0 1px 2px #000; }
+.es .ctl { display:flex; align-items:center; gap:10px; margin:10px 0 8px; }
+.es .ctl input[type=range] { flex:1; }
+.es .ctl .t { font-variant-numeric:tabular-nums; font-size:13px; color:var(--text-2); min-width:92px; text-align:right; }
+.es .strip { display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); gap:6px; margin-top:6px; }
+.es .cell { border:2px solid transparent; border-radius:6px; padding:3px; cursor:pointer; background:var(--panel); text-align:center; }
+.es .cell:hover { border-color:#8c959f; }
+.es .cell.sel { border-color:var(--hi); }
+.es .cell.auto-cur { box-shadow:inset 0 0 0 1px var(--theme); }
+.es .cell canvas { width:100%; height:auto; display:block; border-radius:3px; background:#000; }
+.es .cell canvas.nat { image-rendering:pixelated; margin-top:3px; }
+.es .cell .n { font-size:12px; font-weight:600; margin:2px 0 1px; }
+.es .cell .n i { font-style:normal; font-weight:400; color:var(--text-2); }
+.es .cell.autobtn { display:flex; flex-direction:column; justify-content:center; font-weight:600; font-size:13px; }
+.es .cell.autobtn span { font-weight:400; font-size:11.5px; color:var(--text-2); }
+.es .legend { font-size:12.5px; color:var(--text-2); margin-top:8px; }
+.es h2 { font-size:21px; margin:40px 0 8px; }
+.es .about { max-width:860px; font-size:15px; }
+.es .about li { margin-bottom:4px; }
+.es .loading { color:#fff; font-size:14px; padding:20px; }
+@media (max-width:900px) { .es .stage { grid-template-columns:1fr; } .es .strip { grid-template-columns:repeat(6,minmax(0,1fr)); } }
+</style>
+
+<div class="es">
+  <h1>Egocentric soccer players: watch through their eyes</h1>
+  <p class="dek">Each red player is controlled by a policy that sees only its own camera: low-resolution pixels from its eyes,
+    plus its own body sense, the match clock and score, and what teammates say or gesture. No positions, no map. The blue team is GRFBot, a scripted opponent
+    with full knowledge of the game state.</p>
+  <p class="note">Pick a game. <b>Auto</b> follows the red player closest to the ball. Click any player below to watch the game
+    from their eyes instead. The big view is the player's widest eye camera re-rendered at high resolution with a slightly
+    smoothed gaze (display only). The small pixelated image is exactly what the policy receives: 96 x 96 pixels, 10 times a second.
+    Each clip is one illustrative game, not an evaluation.</p>
+
+  <div class="bar" id="games"><span class="lab">Game</span></div>
+
+  <div class="stage">
+    <canvas id="stadium" width="1600" height="900"></canvas>
+    <div class="big">
+      <canvas id="big" width="900" height="900"></canvas>
+      <div class="cap" id="bigcap"></div>
+      <canvas class="inset" id="bignat" width="96" height="96"></canvas>
+      <div class="inset-cap">policy input (96 px)</div>
+    </div>
+  </div>
+
+  <div class="ctl">
+    <button id="play">Play</button>
+    <input type="range" id="seek" min="0" max="1000" value="0">
+    <span class="t" id="time">0:00 / 0:00</span>
+    <button id="speed">1x</button>
+  </div>
+
+  <div class="strip" id="strip"></div>
+  <div class="legend">Yellow ring on the stadium view = the player whose eyes you are watching. Blue outline in the strip = the
+    player Auto would show now. #1 is the goalkeeper.</div>
+
+  <h2>What you are seeing</h2>
+  <div class="about"><ul>
+    <li>11v11 on a full pitch, simulated in MuJoCo-Warp. Each clip is the first 60 seconds of a game.</li>
+    <li>Red: a pixel-only policy trained by imitation of a full-state teacher, then reinforcement learning with self-play, past
+      versions and GRFBot as opponents. Each player runs the same network on its own camera stream.</li>
+    <li>The policy's eye has four nested views (wide 120 degrees down to a 4 degree fovea); only the widest is shown. Black corners
+      are outside the field of view, which narrows at sprint speed.</li>
+    <li>Games 1-3: the current best balanced checkpoint (in a 32-game evaluation against GRFBot: 11 wins, 20 draws, 1 loss).
+      Game 4: a variant trained without the imitation term, which scores more but passes less.</li>
+    <li>Results are against GRFBot only, and each clip is a single sampled game.</li>
+  </ul></div>
+</div>
+
+<script>
+(function () {
+  const GAMES = [
+    { id: 1, label: "Game 1", sub: "best balanced, 0-0", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
+    { id: 2, label: "Game 2", sub: "best balanced, 0-0", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
+    { id: 3, label: "Game 3", sub: "best balanced, red won 1-0", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
+    { id: 4, label: "Game 4", sub: "goal-heavy variant, red won 1-0", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
+  ];
+  const $ = (id) => document.getElementById(id);
+  const video = document.createElement("video");
+  video.muted = true; video.playsInline = true; video.preload = "auto"; video.loop = true;
+  const stadium = $("stadium"), big = $("big"), bignat = $("bignat");
+  const sctx = stadium.getContext("2d"), bctx = big.getContext("2d"), nctx = bignat.getContext("2d");
+  nctx.imageSmoothingEnabled = false;
+  let TL = null, sel = -1, speed = 1, cells = [], loadedId = 0;
+
+  // game buttons
+  GAMES.forEach((g) => {
+    const b = document.createElement("button");
+    b.textContent = g.label + " (" + g.sub.split(", ").pop() + ")"; b.title = g.sub; b.onclick = () => load(g);
+    b.dataset.id = g.id; $("games").appendChild(b);
+  });
+
+  // player strip: Auto + 11 players
+  function buildStrip(n) {
+    const strip = $("strip"); strip.innerHTML = ""; cells = [];
+    const a = document.createElement("div"); a.className = "cell autobtn"; a.innerHTML = "Auto<span>closest to the ball</span>";
+    a.onclick = () => select(-1); strip.appendChild(a); cells.push({ el: a });
+    for (let k = 0; k < n; k++) {
+      const c = document.createElement("div"); c.className = "cell";
+      const name = document.createElement("div"); name.className = "n"; name.innerHTML = "#" + (k + 1) + (k === 0 ? " <i>GK</i>" : "");
+      const hi = document.createElement("canvas"); hi.width = 208; hi.height = 208;
+      const nat = document.createElement("canvas"); nat.className = "nat"; nat.width = 96; nat.height = 96;
+      c.append(name, hi, nat); c.onclick = () => select(k); strip.appendChild(c);
+      const nc = nat.getContext("2d"); nc.imageSmoothingEnabled = false;
+      cells.push({ el: c, hi: hi.getContext("2d"), nat: nc });
+    }
+    markSel();
+  }
+  function markSel() { cells.forEach((c, i) => c.el.classList.toggle("sel", (i - 1) === sel)); }
+  function select(k) { sel = k; markSel(); draw(); }
+
+  function load(g) {
+    loadedId = g.id;
+    document.querySelectorAll("#games button").forEach((b) => b.classList.toggle("on", +b.dataset.id === g.id));
+    TL = null; sctx.fillStyle = "#000"; sctx.fillRect(0, 0, 1600, 900);
+    sctx.fillStyle = "#fff"; sctx.font = "28px sans-serif"; sctx.fillText("Loading " + g.label + "...", 40, 70);
+    fetch(g.tl).then((r) => r.json()).then((t) => {
+      if (loadedId !== g.id) return;
+      TL = t; buildStrip(t.meta.red_players);
+      video.src = g.src; video.playbackRate = speed;
+      video.play().then(() => { $("play").textContent = "Pause"; }).catch(() => { $("play").textContent = "Play"; });
+    });
+  }
+
+  function frameIndex() {
+    if (!TL) return 0;
+    const f = Math.floor(video.currentTime * TL.meta.fps + 1e-3);
+    return Math.max(0, Math.min(TL.closest.length - 1, f));
+  }
+
+  function draw() {
+    if (!TL || video.readyState < 2) return;
+    const M = TL.meta, f = frameIndex(), auto = TL.closest[f], who = sel < 0 ? auto : sel;
+    const [sx, sy, sw, sh] = M.stadium;
+    sctx.drawImage(video, sx, sy, sw, sh, 0, 0, 1600, 900);
+    // ring on the stadium view
+    const p = TL.uv[f][who], h = TL.head_uv[f][who];
+    if (p) {
+      sctx.lineWidth = 4; sctx.strokeStyle = "#ffd400";
+      sctx.beginPath(); sctx.ellipse(p[0], p[1], 26, 13, 0, 0, 2 * Math.PI); sctx.stroke();
+      if (h) {
+        const tag = "#" + (who + 1);
+        sctx.font = "bold 20px sans-serif"; const w = sctx.measureText(tag).width + 12;
+        sctx.fillStyle = "rgba(0,0,0,.75)"; sctx.fillRect(h[0] - w / 2, h[1] - 30, w, 26);
+        sctx.fillStyle = "#ffd400"; sctx.fillText(tag, h[0] - w / 2 + 6, h[1] - 10);
+      }
+    }
+    // big POV: the auto stream at full resolution, or the selected player's tile
+    if (sel < 0) { const [x, y, w, hh] = M.auto_pov; bctx.drawImage(video, x, y, w, hh, 0, 0, 900, 900); }
+    else { const [x, y, w, hh] = M.pov_tiles[who]; bctx.imageSmoothingQuality = "high"; bctx.drawImage(video, x, y, w, hh, 0, 0, 900, 900); }
+    const [nx, ny, nw, nh] = M.policy_inputs[who];
+    nctx.drawImage(video, nx, ny, nw, nh, 0, 0, 96, 96);
+    const carrier = TL.carrier[f] === who ? " · has the ball" : "";
+    $("bigcap").innerHTML = "#" + (who + 1) + (who === 0 ? " (goalkeeper)" : "") + carrier +
+      "<small>" + (sel < 0 ? "Auto: closest red player to the ball, rendered 900 px" : "Selected player, rendered 416 px") + "</small>";
+    // strip
+    for (let k = 0; k < M.red_players; k++) {
+      const c = cells[k + 1], [x, y, w, hh] = M.pov_tiles[k], [ax, ay, aw, ah] = M.policy_inputs[k];
+      c.hi.drawImage(video, x, y, w, hh, 0, 0, 208, 208);
+      c.nat.drawImage(video, ax, ay, aw, ah, 0, 0, 96, 96);
+      c.el.classList.toggle("auto-cur", k === auto);
+    }
+    const d = video.duration || 0, t = video.currentTime;
+    $("time").textContent = fmt(t) + " / " + fmt(d);
+    if (!seeking && d) $("seek").value = Math.round(1000 * t / d);
+  }
+  const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+
+  // drawing loop: once per decoded frame where supported
+  if ("requestVideoFrameCallback" in HTMLVideoElement.prototype) {
+    const cb = () => { draw(); video.requestVideoFrameCallback(cb); };
+    video.requestVideoFrameCallback(cb);
+  } else {
+    const loop = () => { draw(); requestAnimationFrame(loop); }; requestAnimationFrame(loop);
+  }
+  video.addEventListener("seeked", draw);
+  video.addEventListener("loadeddata", draw);
+
+  $("play").onclick = () => { if (video.paused) { video.play(); $("play").textContent = "Pause"; } else { video.pause(); $("play").textContent = "Play"; } };
+  let seeking = false;
+  $("seek").addEventListener("input", (e) => { seeking = true; if (video.duration) video.currentTime = video.duration * e.target.value / 1000; });
+  $("seek").addEventListener("change", () => { seeking = false; });
+  $("speed").onclick = () => { speed = speed === 1 ? 0.5 : speed === 0.5 ? 0.25 : 1; video.playbackRate = speed; $("speed").textContent = speed + "x"; };
+
+  load(GAMES[0]);
+})();
+</script>
+{% endraw %}
