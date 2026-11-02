@@ -247,3 +247,10 @@ summary::-webkit-details-marker{display:none}
 .topicbar .label{margin:0;flex:none}
 .topicbar .chips{margin-top:0}
 @media (max-width:900px){.scorebox{grid-column:1/-1}.sc-note{text-align:left;margin-left:0;max-width:none}}
+
+.dice-btn{display:inline-flex;align-items:center;gap:8px}
+.dice{width:18px;height:18px;fill:none;stroke:var(--forest);stroke-width:1.6}
+.dice circle{fill:var(--forest);stroke:none}
+.dice.roll{animation:roll .45s ease-out}
+@keyframes roll{from{transform:rotate(-200deg) scale(.7)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.dice.roll{animation:none}}
