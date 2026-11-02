@@ -209,7 +209,7 @@ summary::-webkit-details-marker{display:none}
 @media (max-width:900px){
   .two,.ex-grid,.qgrid{grid-template-columns:1fr}
   .profile{grid-template-columns:auto minmax(0,1fr)}
-  .scorecard{grid-column:1/-1;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .scorecard{grid-template-columns:repeat(4,minmax(0,1fr))}
   .steps{grid-template-columns:1fr 1fr}
 }
 @media (max-width:640px){
@@ -239,3 +239,11 @@ summary::-webkit-details-marker{display:none}
   .steps{grid-template-columns:1fr}
 }
 .qtools~.count-line{margin:8px 0 12px}
+
+.scorebox{display:flex;flex-direction:column;gap:6px}
+.sc-note{font-size:11.5px;color:var(--muted);text-align:right;max-width:240px;margin-left:auto}
+.sc-note b{color:var(--ink);font-weight:600}
+.topicbar{display:flex;align-items:center;gap:12px;margin:2px 0 6px}
+.topicbar .label{margin:0;flex:none}
+.topicbar .chips{margin-top:0}
+@media (max-width:900px){.scorebox{grid-column:1/-1}.sc-note{text-align:left;margin-left:0;max-width:none}}
