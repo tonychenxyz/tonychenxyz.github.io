@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1793831966">
+<link rel="stylesheet" href="/assets/css/main.css?v=1793846295">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/egocentric-soccer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -261,8 +261,8 @@
     either GRFBot, a scripted opponent with full knowledge of the game state (games 1-4), or the full-state teacher the red
     players first learned from (games 5-6).</p>
   <p class="note">Pick a game. <b>Auto</b> follows the red player closest to the ball. Click any player below to watch the game
-    from their eyes instead. The big view is the player's widest eye camera re-rendered at high resolution with a slightly
-    smoothed gaze (display only). The small pixelated image is exactly what the policy receives: 96 x 96 pixels, 10 times a second.
+    from their eyes instead. The big view is the player's widest eye camera re-rendered at high resolution (900 px for Auto, 630 px for a selected
+    player) with a slightly smoothed gaze (display only). The videos are 4K, so give them a moment to buffer. The small pixelated image is exactly what the policy receives: 96 x 96 pixels, 10 times a second.
     Each clip is one illustrative game, not an evaluation.</p>
 
   <div class="bar" id="games"><span class="lab">Game</span></div>
@@ -307,12 +307,12 @@
 <script>
 (function () {
   const GAMES = [
-    { id: 1, label: "Game 1", sub: "vs GRFBot, red won 1-0", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
-    { id: 2, label: "Game 2", sub: "vs GRFBot, 0-0", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
-    { id: 3, label: "Game 3", sub: "vs GRFBot, red won 1-0", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
-    { id: 4, label: "Game 4", sub: "vs GRFBot, 0-0", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
-    { id: 5, label: "Game 5", sub: "vs teacher, red won 1-0", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
-    { id: 6, label: "Game 6", sub: "vs teacher, red won 1-0", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
+    { id: 1, label: "Game 1", sub: "vs GRFBot, red won 3-0", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
+    { id: 2, label: "Game 2", sub: "vs GRFBot, red won 1-0", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
+    { id: 3, label: "Game 3", sub: "vs GRFBot, 0-0", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
+    { id: 4, label: "Game 4", sub: "vs GRFBot, red won 1-0", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
+    { id: 5, label: "Game 5", sub: "vs teacher, 0-0", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
+    { id: 6, label: "Game 6", sub: "vs teacher, 0-0", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
   ];
   const $ = (id) => document.getElementById(id);
   const video = document.createElement("video");
@@ -391,7 +391,7 @@
     nctx.drawImage(video, nx, ny, nw, nh, 0, 0, 96, 96);
     const carrier = TL.carrier[f] === who ? " · has the ball" : "";
     $("bigcap").innerHTML = "#" + (who + 1) + (who === 0 ? " (goalkeeper)" : "") + carrier +
-      "<small>" + (sel < 0 ? "Auto: closest red player to the ball, rendered 900 px" : "Selected player, rendered 416 px") + "</small>";
+      "<small>" + (sel < 0 ? "Auto: closest red player to the ball, rendered 900 px" : "Selected player, rendered " + M.pov_tiles[who][2] + " px") + "</small>";
     // strip
     for (let k = 0; k < M.red_players; k++) {
       const c = cells[k + 1], [x, y, w, hh] = M.pov_tiles[k], [ax, ay, aw, ah] = M.policy_inputs[k];
