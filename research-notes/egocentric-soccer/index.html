@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1794107709">
+<link rel="stylesheet" href="/assets/css/main.css?v=1794251977">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/egocentric-soccer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -295,9 +295,11 @@
       versions and GRFBot as opponents. Each player runs the same network on its own camera stream.</li>
     <li>The policy's eye has four nested views (wide 120 degrees down to a 4 degree fovea); only the widest is shown. Black corners
       are outside the field of view, which narrows at sprint speed.</li>
-    <li>All six games: the current best checkpoint (updated November 8). Across its evaluations it won all 96 games against
-      GRFBot (386 goals for, 7 against), and against the full-state teacher it won 170, drew 21 and lost 1 of 192 games of
-      5 minutes (378 goals for, 28 against). The clips show only the first minute, so most are low-scoring.</li>
+    <li>All six games: the current best checkpoint (updated November 9). It replaced the previous best by beating it head to
+      head, both sides seeing only pixels (23 wins, 29 draws, 12 losses in 64 games). Across its evaluations it won 121 and drew
+      7 of 128 games against GRFBot (499 goals for, 26 against), and against the full-state teacher it won 410, drew 36 and
+      lost 2 of 448 games of 5 minutes (912 goals for, 45 against). The clips show only the first minute, so most are
+      low-scoring.</li>
     <li>The teacher sees the full game state and was trained first; the red players learned from it by imitation, then kept
       improving with reinforcement learning. They now beat it while seeing only pixels.</li>
     <li>Each clip is a single sampled game, not an evaluation.</li>
@@ -307,12 +309,12 @@
 <script>
 (function () {
   const GAMES = [
-    { id: 1, label: "Game 1", sub: "vs GRFBot, red won 1-0", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
-    { id: 2, label: "Game 2", sub: "vs GRFBot, red won 1-0", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
-    { id: 3, label: "Game 3", sub: "vs GRFBot, red won 2-0", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
+    { id: 1, label: "Game 1", sub: "vs GRFBot, 0-0", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
+    { id: 2, label: "Game 2", sub: "vs GRFBot, red won 2-0", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
+    { id: 3, label: "Game 3", sub: "vs GRFBot, red won 1-0", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
     { id: 4, label: "Game 4", sub: "vs GRFBot, red won 1-0", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
     { id: 5, label: "Game 5", sub: "vs teacher, 0-0", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
-    { id: 6, label: "Game 6", sub: "vs teacher, 0-0", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
+    { id: 6, label: "Game 6", sub: "vs teacher, red won 1-0", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
   ];
   const $ = (id) => document.getElementById(id);
   const video = document.createElement("video");
