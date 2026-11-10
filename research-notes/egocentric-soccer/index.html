@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1794278445">
+<link rel="stylesheet" href="/assets/css/main.css?v=1794283225">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/egocentric-soccer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -295,7 +295,8 @@
       versions and GRFBot as opponents. Each player runs the same network on its own camera stream.</li>
     <li>The policy's eye has four nested views (wide 120 degrees down to a 4 degree fovea); only the widest is shown. Black corners
       are outside the field of view, which narrows at sprint speed.</li>
-    <li>All six games: the current best checkpoint (updated November 9). It replaced the previous best by beating it head to
+    <li>Games 7 and 8 are self-play: the same pixel-only policy controls both teams (the views shown are red's).</li>
+    <li>All eight games: the current best checkpoint (updated November 9). It replaced the previous best by beating it head to
       head, both sides seeing only pixels (23 wins, 29 draws, 12 losses in 64 games). Across its evaluations it won 121 and drew
       7 of 128 games against GRFBot (499 goals for, 26 against), and against the full-state teacher it won 410, drew 36 and
       lost 2 of 448 games of 5 minutes (912 goals for, 45 against). The clips show only the first minute, so most are
@@ -315,6 +316,8 @@
     { id: 4, label: "Game 4", sub: "vs GRFBot, red won 1-0", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
     { id: 5, label: "Game 5", sub: "vs teacher, 0-0", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
     { id: 6, label: "Game 6", sub: "vs teacher, red won 1-0", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
+    { id: 7, label: "Game 7", sub: "self-play, red won 1-0", src: "media/game7_web.mp4", tl: "media/game7_timeline.json", poster: "media/game7_poster.jpg" },
+    { id: 8, label: "Game 8", sub: "self-play, red won 1-0", src: "media/game8_web.mp4", tl: "media/game8_timeline.json", poster: "media/game8_poster.jpg" },
   ];
   const $ = (id) => document.getElementById(id);
   const video = document.createElement("video");
