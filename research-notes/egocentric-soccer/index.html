@@ -146,7 +146,7 @@ sitemap: false
     markSel();
   }
   function markSel() { cells.forEach((c, i) => c.el.classList.toggle("sel", (i - 1) === sel)); }
-  function select(k) { sel = k; markSel(); draw(); }
+  function select(k) { sel = k; markSel(); draw(true); }
 
   function load(g) {
     loadedId = g.id;
@@ -167,7 +167,7 @@ sitemap: false
     return Math.max(0, Math.min(TL.closest.length - 1, f));
   }
 
-  function draw() {
+  function draw(force) {
     if (!TL || video.readyState < 2) return;
     const M = TL.meta, f = frameIndex(), auto = TL.closest[f], who = sel < 0 ? auto : sel;
     const [sx, sy, sw, sh] = M.stadium;
@@ -190,19 +190,26 @@ sitemap: false
     const [nx, ny, nw, nh] = M.policy_inputs[who];
     nctx.drawImage(video, nx, ny, nw, nh, 0, 0, 96, 96);
     const carrier = TL.carrier[f] === who ? " · has the ball" : "";
-    $("bigcap").innerHTML = "#" + (who + 1) + (who === 0 ? " (goalkeeper)" : "") + carrier +
+    const cap = "#" + (who + 1) + (who === 0 ? " (goalkeeper)" : "") + carrier +
       "<small>" + (sel < 0 ? "Auto: closest red player to the ball, rendered 900 px" : "Selected player, rendered " + M.pov_tiles[who][2] + " px") + "</small>";
-    // strip
+    if (cap !== lastCap) { $("bigcap").innerHTML = cap; lastCap = cap; }  // no DOM rewrite when unchanged
+    // strip: 22 small views copied out of the 4K frame; while playing, refresh them every 4th frame (12.5 Hz at 50 fps) so
+    // the stadium and the big view keep the full frame rate; every frame when paused, seeking or switching players
+    if (!video.paused && !video.seeking && !force && (stripTick++ % 4) !== 0) return finish();
     for (let k = 0; k < M.red_players; k++) {
       const c = cells[k + 1], [x, y, w, hh] = M.pov_tiles[k], [ax, ay, aw, ah] = M.policy_inputs[k];
       c.hi.drawImage(video, x, y, w, hh, 0, 0, 208, 208);
       c.nat.drawImage(video, ax, ay, aw, ah, 0, 0, 96, 96);
       c.el.classList.toggle("auto-cur", k === auto);
     }
-    const d = video.duration || 0, t = video.currentTime;
-    $("time").textContent = fmt(t) + " / " + fmt(d);
+    finish();
+  }
+  function finish() {
+    const d = video.duration || 0, t = video.currentTime, txt = fmt(t) + " / " + fmt(d);
+    if (txt !== lastTime) { $("time").textContent = txt; lastTime = txt; }
     if (!seeking && d) $("seek").value = Math.round(1000 * t / d);
   }
+  let lastCap = "", lastTime = "", stripTick = 0;
   const fmt = (s) => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
 
   // drawing loop: once per decoded frame where supported
@@ -212,7 +219,8 @@ sitemap: false
   } else {
     const loop = () => { draw(); requestAnimationFrame(loop); }; requestAnimationFrame(loop);
   }
-  video.addEventListener("seeked", draw);
+  video.addEventListener("seeked", () => draw(true));
+  video.addEventListener("pause", () => draw(true));
   video.addEventListener("loadeddata", draw);
 
   $("play").onclick = () => { if (video.paused) { video.play(); $("play").textContent = "Pause"; } else { video.pause(); $("play").textContent = "Play"; } };
