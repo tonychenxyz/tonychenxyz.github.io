@@ -21,7 +21,7 @@
   
 </title>
 <meta name="author" content="Haozhe (Tony) Chen ">
-<meta name="description" content="Interactive replays of 11v11 games played by policies that see only their own camera pixels. Follow the player closest to the ball, or click any player to watch the game from their eyes.">
+<meta name="description" content="Interactive replays of 6v6 games (and one 11v11 game) played by policies that see only their own camera pixels, with no voice. Follow the player closest to the ball, or click any player to watch the game from their eyes.">
 
   <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1794283225">
+<link rel="stylesheet" href="/assets/css/main.css?v=1794765390">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/egocentric-soccer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -257,9 +257,9 @@
 <div class="es">
   <h1>Egocentric soccer players: watch through their eyes</h1>
   <p class="dek">Each red player is controlled by a policy that sees only its own camera: low-resolution pixels from its eyes,
-    plus its own body sense, the match clock and score, and what teammates say or gesture. No positions, no map. The blue team is
-    either GRFBot, a scripted opponent with full knowledge of the game state (games 1-4), or the full-state teacher the red
-    players first learned from (games 5-6).</p>
+    plus its own body sense, the match clock and score, and teammates' gestures. No positions, no map, and no voice: players
+    cannot call to each other, so they have to look. The blue team is either GRFBot, a scripted opponent with full knowledge of
+    the game state (games 1-3 and 8), or the same pixel-only policy (self-play, games 4-7).</p>
   <p class="note">Pick a game. <b>Auto</b> follows the red player closest to the ball. Click any player below to watch the game
     from their eyes instead. The big view is the player's widest eye camera re-rendered at high resolution (900 px for Auto, 630 px for a selected
     player) with a slightly smoothed gaze (display only). The videos are 4K, so give them a moment to buffer. The small pixelated image is exactly what the policy receives: 96 x 96 pixels, 10 times a second.
@@ -290,19 +290,24 @@
 
   <h2>What you are seeing</h2>
   <div class="about"><ul>
-    <li>11v11 on a full pitch, simulated in MuJoCo-Warp. Each clip is the first 60 seconds of a game.</li>
-    <li>Red: a pixel-only policy trained by imitation of a full-state teacher, then reinforcement learning with self-play, past
-      versions and GRFBot as opponents. Each player runs the same network on its own camera stream.</li>
+    <li>Games 1-7 are 6v6 on a pitch scaled to the team size; game 8 is 11v11 on the full pitch. Simulated in MuJoCo-Warp. Each
+      clip is the first 60 seconds of a game.</li>
+    <li>Red: a pixel-only policy trained by imitation of a full-state teacher, then reinforcement learning. Its latest training
+      is 6v6 self-play against itself and its past versions, with no voice and a reward of only goals scored minus goals
+      conceded. Each player runs the same network on its own camera stream.</li>
     <li>The policy's eye has four nested views (wide 120 degrees down to a 4 degree fovea); only the widest is shown. Black corners
       are outside the field of view, which narrows at sprint speed.</li>
-    <li>Games 7 and 8 are self-play: the same pixel-only policy controls both teams (the views shown are red's).</li>
-    <li>All eight games: the current best checkpoint (updated November 9). It replaced the previous best by beating it head to
-      head, both sides seeing only pixels (23 wins, 29 draws, 12 losses in 64 games). Across its evaluations it won 121 and drew
-      7 of 128 games against GRFBot (499 goals for, 26 against), and against the full-state teacher it won 410, drew 36 and
-      lost 2 of 448 games of 5 minutes (912 goals for, 45 against). The clips show only the first minute, so most are
-      low-scoring.</li>
-    <li>The teacher sees the full game state and was trained first; the red players learned from it by imitation, then kept
-      improving with reinforcement learning. They now beat it while seeing only pixels.</li>
+    <li>Games 4-7 are self-play: the same pixel-only policy controls both teams (the views shown are red's).</li>
+    <li>All eight games: the current best checkpoint (updated November 15). It replaced the previous best by beating it head to
+      head in 6v6 with no voice, both sides seeing only pixels: 59 wins, 2 draws and 3 losses in 64 games of 5 minutes, about 5
+      goals per game better.</li>
+    <li>What to look for: most goals are solo runs, often straight from kickoff (game 3, and #10 in game 8 within 7 seconds);
+      in game 4 red's goalkeeper hands the ball to #4, who dribbles for 9 seconds and scores. Without voice the players
+      have to turn their heads to find the ball and teammates: watch the selected player's view swing away from the ball
+      and back.</li>
+    <li>Measured over 32 games of 5 minutes against GRFBot in 6v6, it scores 3.1 goals per game (fewer than the previous best's
+      4.0, even though it beats that model head to head) and keeps the ball in view about 76% of the time. In 11v11, which
+      it no longer trains on, it scores 2.1 per game.</li>
     <li>Each clip is a single sampled game, not an evaluation.</li>
   </ul></div>
 </div>
@@ -310,14 +315,14 @@
 <script>
 (function () {
   const GAMES = [
-    { id: 1, label: "Game 1", sub: "vs GRFBot, 0-0", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
+    { id: 1, label: "Game 1", sub: "vs GRFBot, red won 2-1", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
     { id: 2, label: "Game 2", sub: "vs GRFBot, red won 2-0", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
     { id: 3, label: "Game 3", sub: "vs GRFBot, red won 1-0", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
-    { id: 4, label: "Game 4", sub: "vs GRFBot, red won 1-0", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
-    { id: 5, label: "Game 5", sub: "vs teacher, 0-0", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
-    { id: 6, label: "Game 6", sub: "vs teacher, red won 1-0", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
-    { id: 7, label: "Game 7", sub: "self-play, red won 1-0", src: "media/game7_web.mp4", tl: "media/game7_timeline.json", poster: "media/game7_poster.jpg" },
-    { id: 8, label: "Game 8", sub: "self-play, red won 1-0", src: "media/game8_web.mp4", tl: "media/game8_timeline.json", poster: "media/game8_poster.jpg" },
+    { id: 4, label: "Game 4", sub: "self-play, 2-2", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
+    { id: 5, label: "Game 5", sub: "self-play, 3-2", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
+    { id: 6, label: "Game 6", sub: "self-play, 1-4", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
+    { id: 7, label: "Game 7", sub: "self-play, 1-2", src: "media/game7_web.mp4", tl: "media/game7_timeline.json", poster: "media/game7_poster.jpg" },
+    { id: 8, label: "Game 8", sub: "11v11 vs GRFBot, red won 1-0", src: "media/game8_web.mp4", tl: "media/game8_timeline.json", poster: "media/game8_poster.jpg" },
   ];
   const $ = (id) => document.getElementById(id);
   const video = document.createElement("video");
@@ -334,7 +339,7 @@
     b.dataset.id = g.id; $("games").appendChild(b);
   });
 
-  // player strip: Auto + 11 players
+  // player strip: Auto + one cell per red player (meta.red_players)
   function buildStrip(n) {
     const strip = $("strip"); strip.innerHTML = ""; cells = [];
     const a = document.createElement("div"); a.className = "cell autobtn"; a.innerHTML = "Auto<span>closest to the ball</span>";
