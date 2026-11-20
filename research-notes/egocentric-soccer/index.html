@@ -21,7 +21,7 @@
   
 </title>
 <meta name="author" content="Haozhe (Tony) Chen ">
-<meta name="description" content="Interactive replays of 6v6 games (and one 11v11 game) played by policies that see only their own camera pixels, with no voice. Follow the player closest to the ball, or click any player to watch the game from their eyes.">
+<meta name="description" content="Interactive replays of eight 6v6 self-play goals by a policy that sees only its own camera pixels, with no voice. Follow the player closest to the ball, or click any player to watch the game from their eyes.">
 
   <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795106922">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795133732">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/egocentric-soccer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -258,12 +258,12 @@
   <h1>Egocentric soccer players: watch through their eyes</h1>
   <p class="dek">Each red player is controlled by a policy that sees only its own camera: low-resolution pixels from its eyes,
     plus its own body sense, the match clock and score, and teammates' gestures. No positions, no map, and no voice: players
-    cannot call to each other, so they have to look. The blue team is either GRFBot, a scripted opponent with full knowledge of
-    the game state (games 1-3, 7 and 8), or the same pixel-only policy (self-play, games 4-6).</p>
+    cannot call to each other, so they have to look. Both teams are the same pixel-only
+    policy playing itself (self-play); the views shown are red's.</p>
   <p class="note">Pick a game. <b>Auto</b> follows the red player closest to the ball. Click any player below to watch the game
     from their eyes instead. The big view is the player's widest eye camera re-rendered at high resolution (900 px for Auto, 630 px for a selected
     player) with a slightly smoothed gaze (display only). The videos are 4K, so give them a moment to buffer. The small pixelated image is exactly what the policy receives: 96 x 96 pixels, 10 times a second.
-    Each clip is one illustrative game, not an evaluation.</p>
+    Each clip is the build-up to one red goal, not an evaluation.</p>
 
   <div class="bar" id="games"><span class="lab">Game</span></div>
 
@@ -290,39 +290,37 @@
 
   <h2>What you are seeing</h2>
   <div class="about"><ul>
-    <li>Games 1-6 are 6v6 on a pitch scaled to the team size; games 7 and 8 are 11v11 on the full pitch. Simulated in MuJoCo-Warp.
-      Each clip is the first 60 seconds of a game.</li>
-    <li>Red: a pixel-only policy trained by imitation of a full-state teacher, then reinforcement learning. Its recent training
-      is 6v6 with no voice and a reward of only goals scored minus goals conceded: full 5-minute matches and short games from
-      random positions, against itself and a league of 16 past versions. The checkpoint shown averages the weights of two
-      sibling training runs. Each player runs the same network on its own camera stream.</li>
+    <li>Eight goals from 20 games of 5 minutes, 6v6 on a pitch scaled to the team size, simulated in MuJoCo-Warp. Both teams
+      are the same pixel-only policy (self-play). Each clip is the 22 seconds before a red goal plus 3 seconds after, at normal
+      speed (use the speed button to slow it down).</li>
+    <li>How the eight were picked: from the 43 red goals in those games, the ones where the ball moved between red players most
+      often in the 20 seconds before the goal, ignoring quick solo runs right after a kickoff. The buttons list the red players
+      who had the ball, in order; in most clips blue also touched the ball in between (in self-play the ball changes team on
+      almost every touch). Uninterrupted passing moves are still rare: one of the 43 goals came from three red passes in a row
+      (goal 1).</li>
+    <li>Red: a pixel-only policy trained by imitation of a full-state teacher, then reinforcement learning with a reward of only
+      goals scored minus goals conceded, in 6v6 with no voice, against itself and a league of 24 past versions. The checkpoint
+      shown is the current best (November 19): it beat the previous best head to head, both sides seeing only pixels, by 38
+      wins, 14 draws and 12 losses in 64 games of 5 minutes. Each player runs the same network on its own camera stream.</li>
     <li>The policy's eye has four nested views (wide 120 degrees down to a 4 degree fovea); only the widest is shown. Black corners
       are outside the field of view, which narrows at sprint speed.</li>
-    <li>Games 4-6 are self-play: the same pixel-only policy controls both teams (the views shown are red's).</li>
-    <li>All eight games: the current best checkpoint (updated November 19). It replaced the previous best by beating it head to
-      head in 6v6 with no voice, both sides seeing only pixels: 36 wins, 9 draws and 19 losses in 64 games of 5 minutes.</li>
-    <li>What to look for: the defending. Against itself (games 4-6) neither side scores in the first minute, and red keeps the
-      ball by passing (9 passes between red players in game 4). In game 2, #4 scores twice, the second after a pass from #6;
-      in game 7, #6 finds #10 before the second goal. Without voice the players have to turn their heads to find the ball and
-      teammates: watch the selected player's view swing away from the ball and back.</li>
-    <li>Measured over 128 games of 5 minutes against GRFBot in 6v6, it scores 5.5 goals per game and concedes 0.3 (the model on
-      this page before, from November 15, scored 3.1). It keeps the ball in view about 94% of the time with about 2.5
-      teammates in view.</li>
-    <li>Each clip is a single sampled game, not an evaluation.</li>
+    <li>What to look for: without voice the players have to turn their heads to find the ball and teammates. Select the player
+      who scores and watch their view in the seconds before the goal.</li>
+    <li>Each clip is one sampled game, not an evaluation.</li>
   </ul></div>
 </div>
 
 <script>
 (function () {
   const GAMES = [
-    { id: 1, label: "Game 1", sub: "vs GRFBot, red won 1-0", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
-    { id: 2, label: "Game 2", sub: "vs GRFBot, red won 2-0", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
-    { id: 3, label: "Game 3", sub: "vs GRFBot, 0-0", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
-    { id: 4, label: "Game 4", sub: "self-play, 0-0", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
-    { id: 5, label: "Game 5", sub: "self-play, 0-0", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
-    { id: 6, label: "Game 6", sub: "self-play, 0-0", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
-    { id: 7, label: "Game 7", sub: "11v11 vs GRFBot, red won 2-0", src: "media/game7_web.mp4", tl: "media/game7_timeline.json", poster: "media/game7_poster.jpg" },
-    { id: 8, label: "Game 8", sub: "11v11 vs GRFBot, red won 2-0", src: "media/game8_web.mp4", tl: "media/game8_timeline.json", poster: "media/game8_poster.jpg" },
+    { id: 1, label: "Goal 1", sub: "red touches #5 → #3 → #4 → #3 → #4, #4 scores", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
+    { id: 2, label: "Goal 2", sub: "red touches #1 → #4 → #3 → #6, #6 scores", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
+    { id: 3, label: "Goal 3", sub: "red touches #4 → #5 → #4, #4 scores", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
+    { id: 4, label: "Goal 4", sub: "red touches #4 → #3 → #2 → #1 → #6, #6 scores", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
+    { id: 5, label: "Goal 5", sub: "red touches #3 → #4 → #3, #3 scores", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
+    { id: 6, label: "Goal 6", sub: "red touches #6 → #3 → #6, #6 scores", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
+    { id: 7, label: "Goal 7", sub: "red touches #6 → #3 → #4, #4 scores", src: "media/game7_web.mp4", tl: "media/game7_timeline.json", poster: "media/game7_poster.jpg" },
+    { id: 8, label: "Goal 8", sub: "red touches #3 → #5, #5 scores", src: "media/game8_web.mp4", tl: "media/game8_timeline.json", poster: "media/game8_poster.jpg" },
   ];
   const $ = (id) => document.getElementById(id);
   const video = document.createElement("video");
