@@ -1,7 +1,7 @@
 ---
 layout: research-note
 title: "Egocentric soccer players: watch through their eyes"
-description: Interactive replays of eight 6v6 self-play goals by a policy that sees only its own camera pixels, with no voice. Follow the player closest to the ball, or click any player to watch the game from their eyes.
+description: Interactive replays of six 6v6 self-play goals by a policy that sees only its own camera pixels, with no voice. Follow the player closest to the ball, or click any player to watch the game from their eyes.
 date: 2026-11-01
 permalink: /research-notes/egocentric-soccer/
 research_note: true
@@ -88,18 +88,18 @@ sitemap: false
 
   <h2>What you are seeing</h2>
   <div class="about"><ul>
-    <li>Eight goals from 20 games of 5 minutes, 6v6 on a pitch scaled to the team size, simulated in MuJoCo-Warp. Both teams
+    <li>Six goals from 20 games of 5 minutes, 6v6 on a pitch scaled to the team size, simulated in MuJoCo-Warp. Both teams
       are the same pixel-only policy (self-play). Each clip is the 22 seconds before a red goal plus 3 seconds after, at normal
       speed (use the speed button to slow it down).</li>
-    <li>How the eight were picked: from the 43 red goals in those games, the ones where the ball moved between red players most
-      often in the 20 seconds before the goal, ignoring quick solo runs right after a kickoff. The buttons list the red players
+    <li>How the six were picked: from the 35 red goals in those games, every one where the ball moved from one red player to
+      another at least once in the 20 seconds before the goal, ignoring quick solo runs right after a kickoff. The buttons list the red players
       who had the ball, in order; in most clips blue also touched the ball in between (in self-play the ball changes team on
-      almost every touch). Uninterrupted passing moves are still rare: one of the 43 goals came from three red passes in a row
-      (goal 1).</li>
+      almost every touch). Passing moves are still rare: one of the 35 goals came from four red passes in a row
+      (goal 1, #5 and #4 passing back and forth).</li>
     <li>Red: a pixel-only policy trained by imitation of a full-state teacher, then reinforcement learning with a reward of only
       goals scored minus goals conceded, in 6v6 with no voice, against itself and a league of 24 past versions. The checkpoint
-      shown is the current best (November 19): it beat the previous best head to head, both sides seeing only pixels, by 38
-      wins, 14 draws and 12 losses in 64 games of 5 minutes. Each player runs the same network on its own camera stream.</li>
+      shown is vision85mf (November 22): it beat the previous best head to head, both sides seeing only pixels, by 43
+      wins, 9 draws and 12 losses in 64 games of 5 minutes. Each player runs the same network on its own camera stream.</li>
     <li>The policy's eye has four nested views (wide 120 degrees down to a 4 degree fovea); only the widest is shown. Black corners
       are outside the field of view, which narrows at sprint speed.</li>
     <li>What to look for: without voice the players have to turn their heads to find the ball and teammates. Select the player
@@ -111,14 +111,12 @@ sitemap: false
 <script>
 (function () {
   const GAMES = [
-    { id: 1, label: "Goal 1", sub: "red touches #5 → #3 → #4 → #3 → #4, #4 scores", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
-    { id: 2, label: "Goal 2", sub: "red touches #1 → #4 → #3 → #6, #6 scores", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
-    { id: 3, label: "Goal 3", sub: "red touches #4 → #5 → #4, #4 scores", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
-    { id: 4, label: "Goal 4", sub: "red touches #4 → #3 → #2 → #1 → #6, #6 scores", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
-    { id: 5, label: "Goal 5", sub: "red touches #3 → #4 → #3, #3 scores", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
-    { id: 6, label: "Goal 6", sub: "red touches #6 → #3 → #6, #6 scores", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
-    { id: 7, label: "Goal 7", sub: "red touches #6 → #3 → #4, #4 scores", src: "media/game7_web.mp4", tl: "media/game7_timeline.json", poster: "media/game7_poster.jpg" },
-    { id: 8, label: "Goal 8", sub: "red touches #3 → #5, #5 scores", src: "media/game8_web.mp4", tl: "media/game8_timeline.json", poster: "media/game8_poster.jpg" },
+    { id: 1, label: "Goal 1", sub: "red touches #3 → #5 → #4 → #5 → #4 → #5, #5 scores", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
+    { id: 2, label: "Goal 2", sub: "red touches #4 → #3 → #5 → #3, #3 scores", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
+    { id: 3, label: "Goal 3", sub: "red touches #3 → #4 → #5 → #6, #6 scores", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
+    { id: 4, label: "Goal 4", sub: "red touches #3 → #4 → #2, #2 scores", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
+    { id: 5, label: "Goal 5", sub: "red touches #4 → #5 → #4, #4 scores", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
+    { id: 6, label: "Goal 6", sub: "red touches #4 → #3 → #6, #6 scores", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
   ];
   const $ = (id) => document.getElementById(id);
   const video = document.createElement("video");
