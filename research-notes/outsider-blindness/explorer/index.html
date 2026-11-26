@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795723720">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795733454">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/explorer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -302,6 +302,7 @@
 .obx .tip { position:fixed; z-index:60; pointer-events:none; max-width:340px; background:#fff; border:1px solid var(--line); border-radius:8px; box-shadow:0 10px 30px rgba(31,30,29,.14); padding:10px 12px; font-size:13px; line-height:1.45; opacity:0; transition:opacity .12s; }
 .obx .tip.on { opacity:1; } .obx .tip b { display:block; font-weight:600; margin-bottom:2px; }
 .obx .empty { color:var(--ink2); padding:40px 0; }
+.obx .credits { font-size:12px; color:var(--ink2); border-top:1px solid var(--line); padding:14px 24px 40px; line-height:1.55; }
 @media (max-width:860px) {
   .obx .wrap { grid-template-columns:1fr; } .obx aside { position:static; max-height:none; border-right:0; border-bottom:1px solid var(--line); }
   .obx .list { max-height:46vh; overflow:auto; } .obx main { padding:20px 16px 100px; } .obx .k8 { grid-template-columns:repeat(4,1fr); }
@@ -333,12 +334,13 @@
     </aside>
     <main><div class="empty">Loading…</div></main>
   </div>
+  <div class="credits">Clips play from the original interviews on YouTube. Portraits are frames from the interviews. For nine guests whose interviews show no face, they come from other public videos or from Wikimedia Commons: Jigar Shah (U.S. Department of Energy, public domain), Jeff Currie (<a href="https://commons.wikimedia.org/wiki/File:Jeffrey_Currie.jpg" rel="external nofollow noopener" target="_blank">LakeSe121</a>, CC BY 4.0) and Vincent Clerc (<a href="https://commons.wikimedia.org/wiki/File:Visit_of_Wopke_Hoekstra,_European_Commissioner,_to_Denmark_(P-070377-00-05).jpg" rel="external nofollow noopener" target="_blank">© European Union</a>, CC BY 4.0), cropped.</div>
   <div class="tip" role="tooltip"></div>
 </div>
 
 <script>
 (function () {
-const D = {"heads":["001_andrej_karpathy","006_boris_cherny","007_bryan_cantrill","008_kelsey_hightower","009_mitchell_hashimoto","010_tri_dao","014_michael_mauboussin","016_carson_block","017_cliff_asness","019_boaz_weinstein","021_derek_lowe","023_jennifer_doudna","024_john_jumper","025_patrick_hsu","026_anna_lembke","028_esther_perel","029_siddhartha_mukherjee","033_dylan_patel","034_jim_keller","035_tom_mueller","036_brian_potter","037_bjarke_ingels","038_matt_risinger","039_moses_kagan","040_jonathan_gray","041_casey_handmer","049_ryan_petersen","052_david_chang","054_j_kenji_l_pez_alt","055_dan_barber","056_ben_francis","057_emma_grede","059_tobias_l_tke","060_will_guidara","062_john_carmack","082_steven_strogatz","084_sean_carroll","085_terence_tao","090_lisa_blatt","101_chris_olah","102_mark_chen","103_noam_brown","104_oriol_vinyals","105_sholto_douglas","106_albert_gu","107_john_schulman","108_ilya_sutskever","109_horace_he","110_matei_zaharia","111_guillermo_rauch","112_karina_nguyen","113_michael_truell","114_mike_krieger","115_chelsea_finn","116_chris_urmson","117_drago_anguelov","118_eric_jang","119_raquel_urtasun","122_karri_saarinen","127_david_baker","130_nima_arkani_hamed","133_feng_zhang","134_daniela_lamas","135_karl_deisseroth","136_alfred_lin","137_gavin_baker","138_josh_wolfe","140_peter_beck","141_rj_scaringe","144_ren_redzepi","145_nick_kokonas","146_paul_clement","147_john_quinn","151_rory_sutherland","152_alex_schultz","153_elena_verna","154_april_dunford","155_emily_heyward","161_patrick_collison","162_max_levchin","163_david_v_lez","164_zach_perret","165_pieter_van_der_does","171_philippe_laffont","172_chris_power","173_john_ketchum","174_bob_mumgaard","175_scott_kirby","177_brad_smith","178_kathleen_sullivan","180_percy_liang"]};
+const D = {"heads":["001_andrej_karpathy","004_soumith_chintala","006_boris_cherny","007_bryan_cantrill","008_kelsey_hightower","009_mitchell_hashimoto","010_tri_dao","014_michael_mauboussin","016_carson_block","017_cliff_asness","019_boaz_weinstein","020_zoltan_pozsar","021_derek_lowe","023_jennifer_doudna","024_john_jumper","025_patrick_hsu","026_anna_lembke","028_esther_perel","029_siddhartha_mukherjee","033_dylan_patel","034_jim_keller","035_tom_mueller","036_brian_potter","037_bjarke_ingels","038_matt_risinger","039_moses_kagan","040_jonathan_gray","041_casey_handmer","045_jigar_shah","047_craig_fuller","048_petter_h_rnfeldt","049_ryan_petersen","052_david_chang","054_j_kenji_l_pez_alt","055_dan_barber","056_ben_francis","057_emma_grede","059_tobias_l_tke","060_will_guidara","062_john_carmack","082_steven_strogatz","084_sean_carroll","085_terence_tao","090_lisa_blatt","101_chris_olah","102_mark_chen","103_noam_brown","104_oriol_vinyals","105_sholto_douglas","106_albert_gu","107_john_schulman","108_ilya_sutskever","109_horace_he","110_matei_zaharia","111_guillermo_rauch","112_karina_nguyen","113_michael_truell","114_mike_krieger","115_chelsea_finn","116_chris_urmson","117_drago_anguelov","118_eric_jang","119_raquel_urtasun","122_karri_saarinen","127_david_baker","130_nima_arkani_hamed","133_feng_zhang","134_daniela_lamas","135_karl_deisseroth","136_alfred_lin","137_gavin_baker","138_josh_wolfe","139_jeff_currie","140_peter_beck","141_rj_scaringe","142_tim_latimer","143_chris_young","144_ren_redzepi","145_nick_kokonas","146_paul_clement","147_john_quinn","151_rory_sutherland","152_alex_schultz","153_elena_verna","154_april_dunford","155_emily_heyward","161_patrick_collison","162_max_levchin","163_david_v_lez","164_zach_perret","165_pieter_van_der_does","171_philippe_laffont","172_chris_power","173_john_ketchum","174_bob_mumgaard","175_scott_kirby","176_vincent_clerc","177_brad_smith","178_kathleen_sullivan","180_percy_liang"]};
 const COLOR = { Anthropic: '#eb6834', Google: '#1baf7a', OpenAI: '#2a78d6' };
 const PC = ['#6f56e8', '#d99a00', '#e0457f', '#4f9a1d'];
 const PB = ['rgba(111,86,232,.20)', 'rgba(232,170,0,.26)', 'rgba(224,69,127,.18)', 'rgba(95,158,31,.22)'];
