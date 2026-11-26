@@ -51,8 +51,8 @@
   {% endunless %}
 {% endif %}
 
-{% if page.og_video and site.serve_og_meta != true %}
-  <!-- Per-page link preview with a looping video (iMessage plays og:video inline); site-wide OG tags stay off -->
+{% if page.og_image and site.serve_og_meta != true %}
+  <!-- Per-page link preview (image, plus a looping video when og_video is set; iMessage plays og:video inline); site-wide OG tags stay off -->
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="{{ title }}">
   <meta property="og:title" content="{{ page.title }}">
@@ -61,11 +61,13 @@
   <meta property="og:image" content="{{ page.og_image }}">
   <meta property="og:image:width" content="{{ page.og_width }}">
   <meta property="og:image:height" content="{{ page.og_height }}">
+  {% if page.og_video %}
   <meta property="og:video" content="{{ page.og_video }}">
   <meta property="og:video:secure_url" content="{{ page.og_video }}">
   <meta property="og:video:type" content="video/mp4">
   <meta property="og:video:width" content="{{ page.og_width }}">
   <meta property="og:video:height" content="{{ page.og_height }}">
+  {% endif %}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{{ page.title }}">
   <meta name="twitter:description" content="{{ page.description }}">
