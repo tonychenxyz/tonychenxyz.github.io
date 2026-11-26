@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Research notes: reachable only by direct link (not in the homepage navbar); their own navbar shows "research notes". -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Metadata, OpenGraph and Schema.org -->
+
+
+
+
+<!-- Standard metadata -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  
+  
+    
+      Explorer · LLM's Outsider Blindness | Tony Chen
+    
+  
+</title>
+<meta name="author" content="Haozhe (Tony) Chen ">
+<meta name="description" content="Every question, practitioner answer, model answer, web search and grader verdict from the Outsider Blindness test: 500 questions from 100 practitioners, answered by six frontier models.">
+
+  <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap & MDB -->
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css?2fb83a6dbc622464e2ca0f07c26f4486">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+<!-- Bootstrap Table -->
+
+
+<!-- Fonts & Icons -->
+<link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
+<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+
+<!-- Code Syntax Highlighting -->
+<link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
+
+
+
+<!-- Styles -->
+
+<!-- pseudocode -->
+
+
+
+  <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
+
+<link rel="stylesheet" href="/assets/css/main.css?v=1795723444">
+<link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/explorer/">
+
+<!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
+<meta name="color-scheme" content="only light">
+<style>
+  :root {
+    color-scheme: only light;
+  }
+</style>
+
+<!-- Dark Mode -->
+<script src="/assets/js/theme.js?9a0c749ec5240d9cda97bc72359a72c0"></script>
+
+
+<!-- GeoJSON support via Leaflet -->
+
+
+<!-- diff2html -->
+
+
+
+
+
+
+    <style>
+      .rn-host {
+        padding-top: 8px;
+      }
+      .rn-host .rn {
+        padding-top: 32px;
+      }
+    </style>
+  </head>
+
+  <body class="fixed-top-nav ">
+    <header>
+  <!-- Nav Bar -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation">
+    <div class="container">
+      
+        <a class="navbar-brand title font-weight-lighter" href="/">
+          Tony Chen
+        </a>
+      
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/">about
+              
+            </a>
+          </li>
+
+          <!-- Other pages -->
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/blog/">blog
+                    
+                  </a>
+                </li>
+              
+            
+          
+          
+            <!-- Research notes: only shown on research-notes pages, never on the homepage -->
+            <li class="nav-item active">
+              <a class="nav-link" href="/research-notes/">research notes</a>
+            </li>
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+    <!-- Scrolling Progress Bar -->
+    <progress id="progress" value="0">
+      <div class="progress-container">
+        <span class="progress-bar"></span>
+      </div>
+    </progress>
+  
+</header>
+
+
+    <div class="container-fluid px-0 rn-host" role="main">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+.obx { --bg:#faf9f5; --panel:#f0eee6; --panel2:#e8e5da; --ink:#1f1e1d; --ink2:#5e5d59; --muted:#8f8d86; --line:#e3e0d6;
+  --serif:'Source Serif 4',Georgia,serif; --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:14.5px; line-height:1.5; margin-top:-8px; min-height:100vh; -webkit-font-smoothing:antialiased; }
+.obx * { box-sizing:border-box; }
+.obx [hidden] { display:none !important; }
+.obx a { color:var(--ink); text-underline-offset:3px; text-decoration-color:rgba(31,30,29,.35); }
+.obx .top { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 18px; padding:22px 24px 16px; border-bottom:1px solid var(--line); }
+.obx .top h1 { font-family:var(--serif); font-weight:500; font-size:28px; margin:0; letter-spacing:-.01em; }
+.obx .top .sub { color:var(--ink2); font-size:13.5px; }
+.obx .top .links { margin-left:auto; display:flex; gap:16px; font-size:13.5px; }
+.obx .wrap { display:grid; grid-template-columns:360px 1fr; min-height:calc(100vh - 140px); }
+.obx aside { border-right:1px solid var(--line); padding:16px 16px 40px; position:sticky; top:0; align-self:start; max-height:100vh; overflow:auto; }
+.obx .ctl { display:grid; gap:8px; margin:0 0 10px; }
+.obx select, .obx input { font:inherit; font-size:13.5px; border:1px solid var(--line); border-radius:8px; padding:7px 10px; background:#fff; color:var(--ink); width:100%; }
+.obx .count { font-size:12.5px; color:var(--ink2); margin:4px 0 8px; }
+.obx .item { all:unset; box-sizing:border-box; display:grid; grid-template-columns:30px 1fr auto; gap:10px; align-items:center; width:100%; padding:9px 8px; border-radius:8px; cursor:pointer; }
+.obx .item:hover { background:var(--panel); }
+.obx .item[aria-current=true] { background:var(--panel2); }
+.obx .item .who { font-size:12px; color:var(--ink2); }
+.obx .item .qq { font-size:13.5px; line-height:1.4; }
+.obx .mini { display:flex; gap:2px; align-items:flex-end; height:22px; }
+.obx .mini i { width:5px; border-radius:2px 2px 0 0; background:var(--c); min-height:2px; }
+.obx .mini i.z { background:#d9d5c9; }
+.obx .avatar { width:30px; height:30px; border-radius:50%; object-fit:cover; background:var(--panel2); display:inline-flex; align-items:center; justify-content:center; font-size:10.5px; color:var(--ink2); flex:none; }
+.obx .avatar.lg { width:56px; height:56px; font-size:16px; }
+.obx main { padding:26px 34px 120px; max-width:980px; }
+.obx .head { display:flex; gap:14px; align-items:center; margin:0 0 10px; }
+.obx .head .nm { font-size:16px; font-weight:500; }
+.obx .head .src { font-size:13px; color:var(--ink2); }
+.obx h2.q { font-family:var(--serif); font-weight:500; font-size:27px; line-height:1.3; margin:10px 0 22px; letter-spacing:-.008em; }
+.obx .lbl { font-size:11.5px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:28px 0 10px; }
+.obx .ref { font-family:var(--serif); font-size:17.5px; line-height:1.62; border-left:2px solid var(--ink); padding-left:16px; margin:0 0 12px; }
+.obx .play { font:inherit; font-size:13px; font-weight:500; display:inline-flex; align-items:center; gap:8px; background:var(--ink); color:#fff; border:0; border-radius:999px; padding:7px 14px 7px 10px; cursor:pointer; }
+.obx .play svg { width:15px; height:15px; }
+.obx .video { position:relative; aspect-ratio:16/9; max-width:720px; border-radius:8px; overflow:hidden; background:#000; }
+.obx .video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+.obx .pt { display:grid; grid-template-columns:24px 1fr auto; gap:10px; align-items:start; padding:9px 0; border-top:1px solid var(--line); }
+.obx .nb { width:20px; height:20px; border-radius:50%; background:var(--pc); color:#fff; font-size:11.5px; font-weight:600; display:inline-flex; align-items:center; justify-content:center; }
+.obx .pt .note { font-size:12.5px; color:var(--ink2); margin-top:3px; }
+.obx .pt details summary { font-size:12px; color:var(--ink2); cursor:pointer; margin-top:2px; }
+.obx .d6 { display:flex; gap:4px; padding-top:3px; }
+.obx .d6 b { width:11px; height:11px; border-radius:50%; border:1.6px solid var(--c); }
+.obx .d6 b.y { background:var(--c); }
+.obx .tabs { display:flex; flex-wrap:wrap; gap:4px 20px; border-bottom:1px solid var(--line); margin:0 0 18px; }
+.obx .tabs button { font:inherit; font-size:13.5px; color:var(--ink2); background:none; border:0; border-bottom:2px solid transparent; padding:0 0 9px; margin-bottom:-1px; cursor:pointer; display:inline-flex; gap:7px; align-items:center; }
+.obx .tabs button[aria-selected=true] { color:var(--ink); border-bottom-color:var(--ink); }
+.obx .tabs button i { width:8px; height:8px; border-radius:50%; display:inline-block; }
+.obx .tabs button small { color:var(--muted); }
+.obx .seg { display:inline-flex; gap:4px; background:var(--panel); border-radius:999px; padding:3px; margin:0 0 14px; }
+.obx .seg button { font:inherit; font-size:12.5px; color:var(--ink2); background:none; border:0; border-radius:999px; padding:4px 12px; cursor:pointer; }
+.obx .seg button[aria-pressed=true] { background:var(--ink); color:#fff; }
+.obx .atext { font-family:var(--serif); font-size:17px; line-height:1.64; white-space:pre-line; background:#fff; border:1px solid var(--line); border-radius:10px; padding:16px 18px; }
+.obx mark.hl { color:inherit; background:var(--hb); border-bottom:2px solid var(--hc); padding:1px 0; box-decoration-break:clone; -webkit-box-decoration-break:clone; cursor:help; }
+.obx mark.hl sup { font-size:10px; font-weight:600; color:var(--hc); margin-left:2px; }
+.obx .meta { font-size:12.5px; color:var(--ink2); margin:8px 0 0; }
+.obx .vd { display:grid; grid-template-columns:24px 18px 1fr; gap:8px; align-items:baseline; font-size:13px; padding:6px 0; border-top:1px solid var(--line); color:var(--ink2); }
+.obx .vd:first-child { border-top:0; }
+.obx .vd .ok { color:#1a7f37; font-weight:600; } .obx .vd .no { color:#b42318; font-weight:600; }
+.obx .vd q { color:var(--ink); }
+.obx .traj { margin-top:6px; }
+.obx .srch { border-top:1px solid var(--line); padding:10px 0; }
+.obx .srch code { font-family:var(--mono); font-size:12.5px; background:var(--panel); padding:3px 8px; border-radius:6px; display:inline-block; overflow-wrap:anywhere; }
+.obx .srch .act { font-size:11.5px; color:var(--ink2); margin-left:8px; }
+.obx .chips { display:flex; flex-wrap:wrap; gap:4px; margin:6px 0 2px; }
+.obx .chips span { font-size:11px; color:var(--ink2); border:1px solid var(--line); border-radius:999px; padding:0 7px; background:#fff; }
+.obx .chips span.b { text-decoration:line-through; color:var(--muted); }
+.obx .srch details summary { font-size:12px; color:var(--ink2); cursor:pointer; margin-top:4px; }
+.obx .res { display:grid; gap:6px; margin:8px 0 0 12px; }
+.obx .res div { font-size:12.5px; line-height:1.45; }
+.obx .res .t { color:var(--ink); }
+.obx .res .d { color:var(--ink2); font-size:11.5px; }
+.obx .res .s { color:var(--ink2); }
+.obx .res .blk { color:var(--muted); text-decoration:line-through; }
+.obx .k8 { display:grid; grid-template-columns:repeat(8,1fr); gap:6px; margin:0 0 12px; }
+.obx .k8 button { font:inherit; font-size:12px; border:1px solid var(--line); background:#fff; border-radius:8px; padding:6px 4px; cursor:pointer; text-align:center; }
+.obx .k8 button[aria-pressed=true] { border-color:var(--ink); }
+.obx .k8 .dots { display:flex; gap:2px; justify-content:center; margin-top:4px; }
+.obx .k8 .dots i { width:7px; height:7px; border-radius:50%; background:#e1ddd1; }
+.obx pre.prompt { white-space:pre-wrap; font-family:var(--mono); font-size:12px; line-height:1.55; background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+.obx details.box { border-top:1px solid var(--line); margin-top:26px; }
+.obx details.box > summary { cursor:pointer; padding:12px 0; font-size:14px; color:var(--ink); }
+.obx .tip { position:fixed; z-index:60; pointer-events:none; max-width:340px; background:#fff; border:1px solid var(--line); border-radius:8px; box-shadow:0 10px 30px rgba(31,30,29,.14); padding:10px 12px; font-size:13px; line-height:1.45; opacity:0; transition:opacity .12s; }
+.obx .tip.on { opacity:1; } .obx .tip b { display:block; font-weight:600; margin-bottom:2px; }
+.obx .empty { color:var(--ink2); padding:40px 0; }
+@media (max-width:860px) {
+  .obx .wrap { grid-template-columns:1fr; } .obx aside { position:static; max-height:none; border-right:0; border-bottom:1px solid var(--line); }
+  .obx .list { max-height:46vh; overflow:auto; } .obx main { padding:20px 16px 100px; } .obx .k8 { grid-template-columns:repeat(4,1fr); }
+}
+</style>
+
+<div class="obx" id="obx">
+  <div class="top">
+    <h1>Explorer</h1>
+<span class="sub">LLM’s Outsider Blindness · 500 questions, 100 practitioners, 6 models</span>
+    <span class="links"><a href="../">← Back to the post</a><a href="https://huggingface.co/datasets/tonychenxyz/outsider-blindness" rel="external nofollow noopener" target="_blank">Dataset</a><a href="#prompts" id="prompts-link">Prompts</a></span>
+  </div>
+  <div class="wrap">
+    <aside>
+      <div class="ctl">
+        <input id="f-search" type="search" placeholder="Search questions, names or points" aria-label="Search">
+        <select id="f-dom" aria-label="Industry"><option value="">All industries</option></select>
+        <select id="f-person" aria-label="Practitioner"><option value="">All practitioners</option></select>
+        <select id="f-show" aria-label="Outcome">
+          <option value="">All questions</option>
+          <option value="zero">No model made any point</option>
+          <option value="all">Every model made every point</option>
+          <option value="searched">At least one model searched</option>
+          <option value="k8">In the eight-sample test</option>
+        </select>
+      </div>
+      <div class="count"></div>
+      <div class="list"></div>
+    </aside>
+    <main><div class="empty">Loading…</div></main>
+  </div>
+  <div class="tip" role="tooltip"></div>
+</div>
+
+<script>
+(function () {
+const D = {"heads":["001_andrej_karpathy","006_boris_cherny","007_bryan_cantrill","008_kelsey_hightower","009_mitchell_hashimoto","010_tri_dao","014_michael_mauboussin","016_carson_block","017_cliff_asness","019_boaz_weinstein","021_derek_lowe","023_jennifer_doudna","024_john_jumper","025_patrick_hsu","026_anna_lembke","028_esther_perel","029_siddhartha_mukherjee","033_dylan_patel","034_jim_keller","035_tom_mueller","036_brian_potter","037_bjarke_ingels","038_matt_risinger","039_moses_kagan","040_jonathan_gray","041_casey_handmer","049_ryan_petersen","052_david_chang","054_j_kenji_l_pez_alt","055_dan_barber","056_ben_francis","057_emma_grede","059_tobias_l_tke","060_will_guidara","062_john_carmack","082_steven_strogatz","084_sean_carroll","085_terence_tao","090_lisa_blatt","101_chris_olah","102_mark_chen","103_noam_brown","104_oriol_vinyals","105_sholto_douglas","106_albert_gu","107_john_schulman","108_ilya_sutskever","109_horace_he","110_matei_zaharia","111_guillermo_rauch","112_karina_nguyen","113_michael_truell","114_mike_krieger","115_chelsea_finn","116_chris_urmson","117_drago_anguelov","118_eric_jang","119_raquel_urtasun","122_karri_saarinen","127_david_baker","130_nima_arkani_hamed","133_feng_zhang","134_daniela_lamas","135_karl_deisseroth","136_alfred_lin","137_gavin_baker","138_josh_wolfe","140_peter_beck","141_rj_scaringe","144_ren_redzepi","145_nick_kokonas","146_paul_clement","147_john_quinn","151_rory_sutherland","152_alex_schultz","153_elena_verna","154_april_dunford","155_emily_heyward","161_patrick_collison","162_max_levchin","163_david_v_lez","164_zach_perret","165_pieter_van_der_does","171_philippe_laffont","172_chris_power","173_john_ketchum","174_bob_mumgaard","175_scott_kirby","177_brad_smith","178_kathleen_sullivan","180_percy_liang"]};
+const COLOR = { Anthropic: '#eb6834', Google: '#1baf7a', OpenAI: '#2a78d6' };
+const PC = ['#6f56e8', '#d99a00', '#e0457f', '#4f9a1d'];
+const PB = ['rgba(111,86,232,.20)', 'rgba(232,170,0,.26)', 'rgba(224,69,127,.18)', 'rgba(95,158,31,.22)'];
+const HEADS = new Set(D.heads);
+const root = document.getElementById('obx'), main = root.querySelector('main'), list = root.querySelector('.list'), tip = root.querySelector('.tip');
+const F = { s: document.getElementById('f-search'), d: document.getElementById('f-dom'), p: document.getElementById('f-person'), o: document.getElementById('f-show') };
+let IDX = null, MODELS = null, PROMPTS = null, rows = [], current = null;
+
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function mmss(s) { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function slugOf(id) { return id.replace(/_q\d+$/, ''); }
+function initials(n) { return n.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join(''); }
+function avatar(slug, name, lg) {
+  if (HEADS.has(slug)) { const i = el('img', 'avatar' + (lg ? ' lg' : '')); i.src = '../heads/' + slug + '.jpg'; i.alt = name; i.loading = 'lazy'; return i; }
+  return el('span', 'avatar' + (lg ? ' lg' : ''), initials(name));
+}
+function showTip(ev, title, body) {
+  tip.textContent = ''; if (title) tip.appendChild(el('b', null, title)); if (body) tip.appendChild(document.createTextNode(body));
+  tip.classList.add('on'); const w = tip.offsetWidth, h = tip.offsetHeight; let x = ev.clientX + 14, y = ev.clientY + 14;
+  if (x + w > innerWidth - 8) x = ev.clientX - w - 14; if (y + h > innerHeight - 8) y = ev.clientY - h - 14;
+  tip.style.left = Math.max(8, x) + 'px'; tip.style.top = Math.max(8, y) + 'px';
+}
+function hideTip() { tip.classList.remove('on'); }
+const PLAY = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#fff"/><path d="M6.4 4.9v6.2L11.2 8z" fill="#1f1e1d"/></svg>';
+function playButton(box, v, t0, t1, who) {
+  const b = el('button', 'play'); b.type = 'button'; b.innerHTML = PLAY; b.appendChild(document.createTextNode('Play the clip · ' + mmss(t1 - t0)));
+  b.addEventListener('click', () => { const f = el('div', 'video'); const ifr = document.createElement('iframe');
+    ifr.src = 'https://www.youtube-nocookie.com/embed/' + v + '?start=' + t0 + '&end=' + t1 + '&autoplay=1&rel=0&modestbranding=1';
+    ifr.allow = 'autoplay; encrypted-media; picture-in-picture'; ifr.allowFullscreen = true; ifr.title = who; f.appendChild(ifr); b.replaceWith(f); });
+  box.appendChild(b);
+}
+function highlighted(text, spans, points, verdicts) {
+  const out = el('div', 'atext');
+  const cuts = new Set([0, text.length]); spans.forEach(([a, b]) => { cuts.add(a); cuts.add(b); });
+  const xs = Array.from(cuts).sort((a, b) => a - b);
+  for (let i = 0; i < xs.length - 1; i++) {
+    const a = xs[i], b = xs[i + 1], seg = text.slice(a, b), cover = spans.filter(([s, e]) => s <= a && e >= b).map(x => x[2]);
+    if (!cover.length) { out.appendChild(document.createTextNode(seg)); continue; }
+    const pi = Math.min(...cover), m = el('mark', 'hl', seg); m.style.setProperty('--hb', PB[pi]); m.style.setProperty('--hc', PC[pi]);
+    if (spans.some(([s, e, p]) => e === b && p === pi)) m.appendChild(el('sup', null, String(pi + 1)));
+    m.addEventListener('pointermove', ev => showTip(ev, 'Point ' + (pi + 1) + (cover.length > 1 ? ' (also ' + cover.filter(x => x !== pi).map(x => x + 1).join(', ') + ')' : ''), points[pi].core + ' Grader: ' + verdicts[pi].why));
+    m.addEventListener('pointerleave', hideTip); out.appendChild(m);
+  }
+  return out;
+}
+function verdictList(points, grade) {
+  const box = el('div');
+  points.forEach((p, i) => {
+    const v = grade.points[i], r = el('div', 'vd'); r.style.setProperty('--pc', PC[i]);
+    const t = el('span'); t.appendChild(document.createTextNode(v.why));
+    v.quotes.forEach(q => { t.appendChild(document.createTextNode(' ')); t.appendChild(el('q', null, q)); });
+    r.append(el('span', 'nb', String(i + 1)), el('span', v.ok ? 'ok' : 'no', v.ok ? '✓' : '✗'), t); box.appendChild(r);
+  });
+  return box;
+}
+function trajectory(searches) {
+  const box = el('div', 'traj');
+  if (!searches.length) { box.appendChild(el('div', 'meta', 'No web searches.')); return box; }
+  searches.forEach((s, k) => {
+    const w = el('div', 'srch'); w.appendChild(el('code', null, s.q));
+    const act = { clean: '', withheld: 'some results withheld by the filter', refused_name: 'refused: the query named the guest' }[s.a];
+    if (act) w.appendChild(el('span', 'act', act));
+    if (s.r.length) {
+      const chips = el('div', 'chips'), seen = new Set();
+      s.r.forEach(r => { const dm = r.d.replace(/^www\./, ''); if (dm && !seen.has(dm)) { seen.add(dm); chips.appendChild(el('span', r.b ? 'b' : '', dm)); } });
+      w.appendChild(chips);
+      const det = el('details'); det.appendChild(el('summary', null, 'Show ' + s.r.length + ' results' + (s.r.some(r => r.b) ? ' (' + s.r.filter(r => r.b).length + ' blocked)' : '')));
+      const res = el('div', 'res');
+      s.r.forEach(r => { const d = el('div'); const t = el('div', r.b ? 't blk' : 't', r.t || r.u); d.appendChild(t);
+        d.appendChild(el('div', 'd', (r.b ? 'blocked · ' : '') + r.d)); if (r.s && !r.b) d.appendChild(el('div', 's', r.s)); res.appendChild(d); });
+      det.appendChild(res); w.appendChild(det);
+    }
+    box.appendChild(w);
+  });
+  return box;
+}
+
+function renderModel(box, Q, m) {
+  box.textContent = '';
+  let mode = 'web';
+  const seg = el('div', 'seg');
+  const views = [['web', 'With search']].concat(m.noweb ? [['noweb', 'Rerun without search']] : []);
+  if (views.length > 1) views.forEach(([k, l]) => { const b = el('button', null, l); b.type = 'button'; b.setAttribute('aria-pressed', k === mode); b.addEventListener('click', () => { mode = k; seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); }); seg.appendChild(b); });
+  box.appendChild(seg);
+  const body = el('div'); box.appendChild(body);
+  function draw() {
+    body.textContent = '';
+    const a = mode === 'web' ? m : m.noweb, g = a.grade;
+    body.appendChild(highlighted(a.answer, g.spans, Q.points, g.points));
+    body.appendChild(el('div', 'meta', m.model + ' · ' + a.words + ' words' + (mode === 'web' && m.seconds ? ' · ' + Math.round(m.seconds) + ' s' : '') + ' · ' + g.points.filter(p => p.ok).length + ' of ' + Q.points.length + ' points'));
+    body.appendChild(el('div', 'lbl', 'Grader verdicts (GPT-6.2-Sol)'));
+    body.appendChild(verdictList(Q.points, g));
+    if (mode === 'web') { body.appendChild(el('div', 'lbl', 'Search trajectory · ' + m.searches.length + (m.searches.length === 1 ? ' search' : ' searches'))); body.appendChild(trajectory(m.searches)); }
+  }
+  draw();
+}
+function renderSamples(box, Q, S) {
+  box.textContent = '';
+  const keys = Object.keys(S); let sk = keys[0], si = 0;
+  const seg = el('div', 'seg'); keys.forEach(k => { const b = el('button', null, S[k].label); b.type = 'button'; b.setAttribute('aria-pressed', k === sk); b.addEventListener('click', () => { sk = k; si = 0; seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); }); seg.appendChild(b); });
+  box.appendChild(seg); const body = el('div'); box.appendChild(body);
+  function draw() {
+    body.textContent = '';
+    const arr = S[sk].answers, grid = el('div', 'k8');
+    arr.forEach((a, i) => { const b = el('button'); b.type = 'button'; b.setAttribute('aria-pressed', i === si); b.appendChild(document.createTextNode('Answer ' + (i + 1)));
+      const ds = el('div', 'dots'); a.grade.points.forEach((p, j) => { const d = el('i'); if (p.ok) d.style.background = PC[j]; ds.appendChild(d); }); b.appendChild(ds);
+      b.addEventListener('click', () => { si = i; draw(); }); grid.appendChild(b); });
+    body.appendChild(grid);
+    const counts = Q.points.map((p, j) => arr.filter(a => a.grade.points[j].ok).length);
+    body.appendChild(el('div', 'meta', 'Answers that made each point: ' + counts.map((c, j) => 'point ' + (j + 1) + ' in ' + c + ' of 8').join(', ') + '. Graded by ' + S[sk].grader + '.'));
+    const a = arr[si]; const h = highlighted(a.answer, a.grade.spans, Q.points, a.grade.points); h.style.marginTop = '12px'; body.appendChild(h);
+    body.appendChild(verdictList(Q.points, a.grade));
+  }
+  draw();
+}
+
+function renderQuestion(id, modelIdx) {
+  current = id; list.querySelectorAll('.item').forEach(b => b.setAttribute('aria-current', b.dataset.id === id));
+  main.textContent = ''; main.appendChild(el('div', 'empty', 'Loading…'));
+  fetch('data/q/' + id + '.json').then(r => r.json()).then(Q => {
+    if (current !== id) return;
+    main.textContent = '';
+    const h = el('div', 'head'); h.appendChild(avatar(slugOf(id), Q.speaker, true));
+    const t = el('div'); t.appendChild(el('div', 'nm', Q.speaker + ' · ' + Q.domain));
+    const src = el('div', 'src'); const a = el('a', null, Q.title); a.href = 'https://www.youtube.com/watch?v=' + Q.video + '&t=' + Q.t0 + 's'; a.target = '_blank'; a.rel = 'noopener';
+    src.append(a, document.createTextNode(' · ' + Q.channel)); t.appendChild(src); h.appendChild(t); main.appendChild(h);
+    main.appendChild(el('h2', 'q', Q.question));
+    main.appendChild(el('div', 'lbl', 'What ' + Q.speaker + ' said (reference answer)'));
+    main.appendChild(el('div', 'ref', Q.guest));
+    playButton(main, Q.video, Q.t0, Q.t1, Q.speaker);
+    main.appendChild(el('div', 'lbl', 'The points'));
+    const lg = el('div', 'meta'); lg.style.margin = '-4px 0 8px'; lg.appendChild(document.createTextNode('Dots from left: '));
+    MODELS.forEach((m, j) => { const i = el('i'); i.style.cssText = 'display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 4px 0 ' + (j ? 10 : 2) + 'px;background:' + COLOR[m.lab]; lg.append(i, document.createTextNode(m.label)); });
+    lg.appendChild(document.createTextNode('. Filled means the model made the point.')); main.appendChild(lg);
+    Q.points.forEach((p, i) => {
+      const r = el('div', 'pt'); r.style.setProperty('--pc', PC[i]); r.appendChild(el('span', 'nb', String(i + 1)));
+      const c = el('div', null, p.core); const det = el('details'); det.appendChild(el('summary', null, 'Grader note')); det.appendChild(el('div', 'note', p.note)); c.appendChild(det); r.appendChild(c);
+      const d6 = el('div', 'd6'); Q.models.forEach(m => { const b = el('b', m.grade.points[i].ok ? 'y' : ''); b.style.setProperty('--c', COLOR[m.lab]); b.title = m.label + (m.grade.points[i].ok ? ': made it' : ': missed it'); d6.appendChild(b); });
+      r.appendChild(d6); main.appendChild(r);
+    });
+    main.appendChild(el('div', 'lbl', 'Model answers · highlights are the quotes the grader cited for each point'));
+    const tabs = el('div', 'tabs'), mbox = el('div'); main.append(tabs, mbox);
+    Q.models.forEach((m, j) => {
+      const b = el('button'); b.type = 'button'; const i = el('i'); i.style.background = COLOR[m.lab];
+      b.append(i, document.createTextNode(m.label), el('small', null, m.grade.points.filter(p => p.ok).length + '/' + Q.points.length));
+      b.setAttribute('aria-selected', j === (modelIdx || 0));
+      b.addEventListener('click', () => { tabs.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', x === b)); renderModel(mbox, Q, m); history.replaceState(null, '', '#' + id + '/' + j); });
+      tabs.appendChild(b);
+    });
+    renderModel(mbox, Q, Q.models[modelIdx || 0]);
+    if (Q.samples && Object.keys(Q.samples).length) {
+      const det = el('details', 'box'); det.appendChild(el('summary', null, 'Eight sampled answers (sampling test)'));
+      const sb = el('div'); det.appendChild(sb); main.appendChild(det); det.addEventListener('toggle', () => { if (det.open && !sb.firstChild) renderSamples(sb, Q, Q.samples); });
+    }
+    const pd = el('details', 'box'); pd.id = 'prompts'; pd.appendChild(el('summary', null, 'Prompts used for answering and grading'));
+    pd.appendChild(el('div', 'lbl', 'Answer prompt (with search)')); pd.appendChild(el('pre', 'prompt', PROMPTS.ANSWER_PROMPT.replace('{question}', Q.question)));
+    pd.appendChild(el('div', 'lbl', 'Answer prompt (without search)')); pd.appendChild(el('pre', 'prompt', PROMPTS.NO_WEB_PROMPT.replace('{question}', Q.question)));
+    pd.appendChild(el('div', 'lbl', 'Grader prompt (template)')); pd.appendChild(el('pre', 'prompt', PROMPTS.GRADER_PROMPT));
+    main.appendChild(pd);
+    window.scrollTo({ top: Math.min(window.scrollY, root.offsetTop), behavior: 'smooth' });
+  }).catch(() => { main.textContent = ''; main.appendChild(el('div', 'empty', 'Could not load this question.')); });
+}
+
+function filter() {
+  const s = F.s.value.trim().toLowerCase(), d = F.d.value, p = F.p.value, o = F.o.value;
+  rows = IDX.filter(q => (!d || q.d === d) && (!p || slugOf(q.id) === p)
+    && (!o || (o === 'zero' ? q.p.every(b => b === '000000') : o === 'all' ? q.p.every(b => b === '111111') : o === 'searched' ? q.w.some(x => x > 0) : q.k8))
+    && (!s || (q.q + ' ' + q.s + ' ' + q.d).toLowerCase().includes(s)));
+  drawList();
+}
+function drawList() {
+  list.textContent = ''; root.querySelector('.count').textContent = rows.length + (rows.length === 1 ? ' question' : ' questions');
+  const frag = document.createDocumentFragment();
+  rows.forEach(q => {
+    const b = el('button', 'item'); b.type = 'button'; b.dataset.id = q.id; b.setAttribute('aria-current', q.id === current);
+    b.appendChild(avatar(slugOf(q.id), q.s));
+    const t = el('div'); t.appendChild(el('div', 'who', q.s + ' · ' + q.d)); t.appendChild(el('div', 'qq', q.q)); b.appendChild(t);
+    const mini = el('div', 'mini'); MODELS.forEach((m, j) => { const sc = q.p.reduce((a, bits) => a + (bits[j] === '1' ? 1 : 0), 0) / q.p.length; const i = el('i', sc === 0 ? 'z' : ''); i.style.setProperty('--c', COLOR[m.lab]); i.style.height = Math.max(2, sc * 22) + 'px'; mini.appendChild(i); });
+    b.appendChild(mini);
+    b.addEventListener('click', () => { history.replaceState(null, '', '#' + q.id); renderQuestion(q.id); if (innerWidth < 860) main.scrollIntoView({ behavior: 'smooth' }); });
+    frag.appendChild(b);
+  });
+  list.appendChild(frag);
+}
+function fromHash() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h.startsWith('p=')) { F.s.value = ''; F.d.value = ''; F.o.value = ''; F.p.value = h.slice(2); filter(); if (rows[0]) renderQuestion(rows[0].id); return; }
+  const [id, mi] = h.split('/');
+  if (id && IDX.some(q => q.id === id)) { renderQuestion(id, mi ? +mi : 0); const it = list.querySelector('[data-id="' + id + '"]'); if (it) it.scrollIntoView({ block: 'nearest' }); return; }
+  if (rows[0]) renderQuestion(rows[0].id);
+}
+fetch('data/index.json').then(r => r.json()).then(j => {
+  IDX = j.questions; MODELS = j.models; PROMPTS = j.prompts;
+  Array.from(new Set(IDX.map(q => q.d))).sort().forEach(d => { const o = el('option', null, d); o.value = d; F.d.appendChild(o); });
+  const ppl = {}; IDX.forEach(q => (ppl[slugOf(q.id)] = q.s));
+  Object.entries(ppl).sort((a, b) => a[1].localeCompare(b[1])).forEach(([sl, n]) => { const o = el('option', null, n); o.value = sl; F.p.appendChild(o); });
+  [F.d, F.p, F.o].forEach(x => x.addEventListener('change', filter)); F.s.addEventListener('input', filter);
+  filter(); fromHash();
+  window.addEventListener('hashchange', fromHash);
+  document.getElementById('prompts-link').addEventListener('click', ev => { ev.preventDefault(); const pd = document.getElementById('prompts'); if (pd) { pd.open = true; pd.scrollIntoView({ behavior: 'smooth' }); } });
+});
+})();
+</script>
+
+</div>
+
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="/assets/js/mdb.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    
+
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
+
+
+
+<!-- Bootstrap Table -->
+
+
+<!-- Load Common JS -->
+<script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script>
+<script defer src="/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
+
+<!-- Jupyter Open External Links New Tab -->
+<script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script>
+
+
+
+    
+
+
+
+    
+  <!-- Scrolling Progress Bar -->
+  <script type="text/javascript">
+    /*
+     * This JavaScript code has been adapted from the article
+     * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar,
+     * published on the website https://css-tricks.com on the 7th of May, 2014.
+     * Couple of changes were made to the original code to make it compatible
+     * with the `al-foio` theme.
+     */
+    const progressBar = $('#progress');
+    /*
+     * We set up the bar after all elements are done loading.
+     * In some cases, if the images in the page are larger than the intended
+     * size they'll have on the page, they'll be resized via CSS to accomodate
+     * the desired size. This mistake, however, breaks the computations as the
+     * scroll size is computed as soon as the elements finish loading.
+     * To account for this, a minimal delay was introduced before computing the
+     * values.
+     */
+    window.onload = function () {
+      setTimeout(progressBarSetup, 50);
+    };
+    /*
+     * We set up the bar according to the browser.
+     * If the browser supports the progress element we use that.
+     * Otherwise, we resize the bar thru CSS styling
+     */
+    function progressBarSetup() {
+      if ('max' in document.createElement('progress')) {
+        initializeProgressElement();
+        $(document).on('scroll', function () {
+          progressBar.attr({ value: getCurrentScrollPosition() });
+        });
+        $(window).on('resize', initializeProgressElement);
+      } else {
+        resizeProgressBar();
+        $(document).on('scroll', resizeProgressBar);
+        $(window).on('resize', resizeProgressBar);
+      }
+    }
+    /*
+     * The vertical scroll position is the same as the number of pixels that
+     * are hidden from view above the scrollable area. Thus, a value > 0 is
+     * how much the user has scrolled from the top
+     */
+    function getCurrentScrollPosition() {
+      return $(window).scrollTop();
+    }
+
+    function initializeProgressElement() {
+      let navbarHeight = $('#navbar').outerHeight(true);
+      $('body').css({ 'padding-top': navbarHeight });
+      $('progress-container').css({ 'padding-top': navbarHeight });
+      progressBar.css({ top: navbarHeight });
+      progressBar.attr({
+        max: getDistanceToScroll(),
+        value: getCurrentScrollPosition(),
+      });
+    }
+    /*
+     * The offset between the html document height and the browser viewport
+     * height will be greater than zero if vertical scroll is possible.
+     * This is the distance the user can scroll
+     */
+    function getDistanceToScroll() {
+      return $(document).height() - $(window).height();
+    }
+
+    function resizeProgressBar() {
+      progressBar.css({ width: getWidthPercentage() + '%' });
+    }
+    // The scroll ratio equals the percentage to resize the bar
+    function getWidthPercentage() {
+      return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+    }
+  </script>
+
+
+    
+
+  </body>
+</html>
