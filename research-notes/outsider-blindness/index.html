@@ -25,7 +25,7 @@ sitemap: false
 .obp [hidden] { display:none !important; }
 .obp a { color:var(--link); text-decoration:underline; text-decoration-color:rgba(31,30,29,.35); text-underline-offset:3px; }
 .obp a:hover { text-decoration-color:var(--ink); }
-.obp .col { max-width:660px; margin:0 auto; padding:0 22px; }
+.obp .tcol { max-width:660px; margin:0 auto; padding:0 22px; }
 .obp .wide { max-width:1000px; margin:0 auto; padding:0 22px; }
 .obp .xwide { max-width:1120px; margin:0 auto; padding:0 22px; }
 .obp p { font-size:20px; line-height:1.62; margin:0 0 22px; letter-spacing:-.003em; }
@@ -39,7 +39,7 @@ sitemap: false
 .obp .term { font-style:italic; }
 
 /* hero */
-.obp .hero .panel { padding:22px 22px 18px; }
+.obp .hero .fpanel { padding:22px 22px 18px; }
 .obp .title-art { margin-top:36px; }
 .obp .art { position:relative; border-radius:6px; overflow:hidden; background:#7aa6dc; aspect-ratio:1000/430; }
 .obp .art svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
@@ -69,7 +69,7 @@ sitemap: false
 
 /* figures */
 .obp figure.fig { margin:38px auto 44px; }
-.obp .panel { background:var(--panel); border-radius:10px; padding:26px 28px 24px; }
+.obp .fpanel { background:var(--panel); border-radius:10px; padding:26px 28px 24px; }
 .obp figcaption { display:flex; gap:22px; font-family:var(--sans); font-size:13.5px; line-height:1.5; color:var(--ink2); margin:12px 2px 0; }
 .obp figcaption .fn { font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; color:var(--ink2); white-space:nowrap; padding-top:1px; }
 .obp .lbl { font-family:var(--sans); font-size:11.5px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 8px; }
@@ -197,8 +197,8 @@ sitemap: false
 .obp .cta .faces { display:flex; flex-wrap:wrap; gap:3px; max-width:520px; }
 .obp .cta .faces .avatar { width:26px; height:26px; font-size:9px; }
 .obp .cta p { font-size:19px; margin:0 0 14px; }
-.obp .btn { font-family:var(--sans); font-size:14.5px; font-weight:500; display:inline-block; background:var(--ink); color:#fff !important; text-decoration:none !important; border-radius:999px; padding:10px 18px; }
-.obp .btn.ghost { background:transparent; color:var(--ink) !important; border:1px solid var(--ink); margin-left:8px; }
+.obp .obtn { font-family:var(--sans); font-size:14.5px; font-weight:500; display:inline-block; background:var(--ink); color:#fff !important; text-decoration:none !important; border-radius:999px; padding:10px 18px; }
+.obp .obtn.ghost { background:transparent; color:var(--ink) !important; border:1px solid var(--ink); margin-left:8px; }
 .obp .foot { font-family:var(--sans); font-size:13.5px; color:var(--ink2); border-top:1px solid var(--line); padding-top:16px; margin-top:64px; line-height:1.6; }
 .obp .tip { position:fixed; z-index:60; pointer-events:none; max-width:330px; background:#fff; color:var(--ink); border:1px solid var(--line); border-radius:8px; box-shadow:0 10px 30px rgba(31,30,29,.14); padding:10px 12px; font-family:var(--sans); font-size:13px; line-height:1.45; opacity:0; transition:opacity .12s; }
 .obp .tip.on { opacity:1; }
@@ -214,7 +214,7 @@ sitemap: false
   .obp h1 { font-size:42px; } .obp .dek { font-size:21px; } .obp p { font-size:18.5px; } .obp h2 { font-size:27px; }
   .obp .chapters { grid-template-columns:1fr 1fr; } .obp .ex-grid, .obp .gr-grid { grid-template-columns:1fr; gap:22px; }
   .obp .queries { grid-template-columns:1fr; } .obp .cta { grid-template-columns:1fr; }
-  .obp .panel { padding:18px 16px; } .obp figcaption { flex-direction:column; gap:4px; }
+  .obp .fpanel { padding:18px 16px; } .obp figcaption { flex-direction:column; gap:4px; }
   .obp .brow { grid-template-columns:100px 1fr; gap:10px; } .obp .bgrid { left:110px; } .obp .bname { font-size:12.5px; } .obp .bname small { font-size:11px; }
   .obp .drow, .obp .daxis { grid-template-columns:86px 1fr 40px; gap:8px; } .obp .dheads { display:none; } .obp .daxis > div:nth-child(2) { display:none; }
   .obp .mrow { grid-template-columns:1fr; gap:2px; } .obp .pt { grid-template-columns:1fr; gap:4px; }
@@ -237,14 +237,14 @@ sitemap: false
     <a href="#close"><b><span class="k">5</span>Closing the gap</b><span>Where practitioners learn it</span></a>
   </nav>
 
-  <div class="col">
+  <div class="tcol">
     <p>AI labs have a concrete picture of where this goes. You train a model as good as your best researcher, then run thousands of copies of it. Each copy picks its own problems and decides what to try next. Dario Amodei calls this <a href="https://www.darioamodei.com/essay/machines-of-loving-grace">“a country of geniuses in a datacenter.”</a></p>
     <p>We are not there yet. Models already write much of the code at AI labs, but researchers still decide what the code is for. Outside AI it is the same. A model can do a well-specified task in almost any field. Give it an open-ended job, like choosing which research bet to make or fixing a broken supply chain, and you still want someone from the field checking its work.</p>
     <p>Ask people why, and you hear “taste matters” or “you still need domain experts.” I think they are right, but that doesn’t tell us what to fix. What does the expert know that the model doesn’t?</p>
     <h2 id="test">The test</h2>
     <p>To find out, we turned to podcasts. In a long interview, people who do the work explain how it actually works, in their own words, with details they rarely write down. We picked interviews with 100 practitioners in 20 industries: bankers, chip designers, short sellers, chefs, airline executives, physicists and AI researchers. From each interview we took five moments where the guest explains how something works, and wrote each one as a plain question anyone might ask an AI, without naming the guest. That gave us 500 questions. We asked six frontier models from Anthropic, Google and OpenAI to answer them.</p>
   </div>
-  <figure class="fig hero wide reveal" id="hero" aria-label="100 practitioners and the points each model made"><div class="panel">
+  <figure class="fig hero wide reveal" id="hero" aria-label="100 practitioners and the points each model made"><div class="fpanel">
     <div class="hero-svg"></div>
     <div class="hero-cap">
       <div class="hero-say"><span class="n"></span><span class="t"></span></div>
@@ -253,7 +253,7 @@ sitemap: false
     <figcaption><span class="fn">FIGURE 1</span><span>The 100 practitioners. Each ring is one person, with one segment for each point they made. Press play to see which points each model also made; hover a face for details.</span></figcaption>
   </figure>
 
-  <div class="col">
+  <div class="tcol">
     <details class="aside"><summary>Why podcasts?</summary><div class="in"><p>Most practitioners never write down how their work actually runs. What does get written, like papers, filings and press releases, passes through editors, lawyers and PR first. A long interview is different in two ways.</p>
 <p>First, the host keeps asking. Experts leave out much of what they know when they describe their own work, usually without noticing. In one small study, surgeons teaching a procedure left out 73% of the decision steps. When an interviewer prompted them, the share of steps they described rose from 44% to 66% (<a href="https://doi.org/10.1097/ACM.0000000000000224">Sullivan et al., 2014</a>).</p>
 <p>Second, people relax. Over a long conversation, guests drop their prepared lines and say what they actually think, sometimes more than they meant to. After Mindbody was sold, its CEO told a podcast host that 98% of his net worth had been locked in the company’s stock, and that selling it bit by bit was “kind of like sucking through a very small straw.” When shareholders later sued over the sale, the Delaware Court of Chancery quoted that line and found his own statements outside the courtroom “far more persuasive than the trial testimony” (<a href="https://courts.delaware.gov/Opinions/Download.aspx?id=345390">In re Mindbody, 2023</a>).</p>
@@ -261,44 +261,44 @@ sitemap: false
     <p>Here is one of the questions: why does nobody at a frontier AI lab know the true capability ceiling of a model it has just released?</p>
   </div>
 
-  <figure class="fig wide reveal" id="fig-open"><div class="panel"></div>
+  <figure class="fig wide reveal" id="fig-open"><div class="fpanel"></div>
     <figcaption><span class="fn">FIGURE 2</span><span>One question, six models and the practitioner. Each tab is a different question. Press play to hear the practitioner say it.</span></figcaption></figure>
 
-  <div class="col">
+  <div class="tcol">
     <p>All six models gave the same kind of answer. Capability isn’t a fixed property, it depends on prompts, tools and scaffolding, and evaluations can only show a lower bound. That is all true. Noam Brown of OpenAI gave a different reason on the No Priors podcast: to know what a model can do after a month of work, you have to run it for a month, and new models come out every two or three months. As models take on longer tasks, finding their limits takes longer, and the next model ships first. None of the six models said this, including the two made by OpenAI.</p>
     <p>The other two tabs, about bank lending and commodity stocks, follow the same pattern. The questions are plain, and the models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field without ever working in it. The practitioners answer from inside. We call this gap <span class="term">outsider blindness</span>.</p>
     <p>To measure it, we split each practitioner’s answer into three or four points, 1,691 in all. GPT-6.2-Sol graded every answer, and for each point it either quoted the sentence that makes it or marked it missing. An answer gets a point if it says the same thing in any words. Answers were limited to about 180 words, and every model could search the web with the source podcasts, video sites and transcript sites blocked.</p>
   </div>
 
-  <figure class="fig wide reveal" id="fig-grade"><div class="panel"></div>
+  <figure class="fig wide reveal" id="fig-grade"><div class="fpanel"></div>
     <figcaption><span class="fn">FIGURE 3</span><span>How an answer is graded. Each colored highlight is the sentence the grader quoted for that point. Switch models to compare; hover a highlight for the grader’s reason.</span></figcaption></figure>
 
-  <div class="col">
+  <div class="tcol">
     <p>Here every model made the textbook point that people like structured answers. Four made the point about labs training on each other’s outputs. None made Schulman’s most concrete point: that the people hired to write training data paste in answers from their favorite chatbot.</p>
     <h2 id="miss">What they miss</h2>
     <p>Across all 500 questions, the best models made about 44% of the points. The GPT-6.2 models made about 30%, even though a GPT-6.2 model was the grader.</p>
   </div>
 
-  <figure class="fig wide reveal" id="fig-scores"><div class="panel">
+  <figure class="fig wide reveal" id="fig-scores"><div class="fpanel">
     <div class="seg" role="group" aria-label="Web search"><button aria-pressed="true" data-web="1">With web search</button><button aria-pressed="false" data-web="0">Without</button></div>
     <div class="bars"></div></div>
     <figcaption><span class="fn">FIGURE 4</span><span>Share of the practitioners’ points each model made, over 500 questions. Lines show 95% confidence intervals. Turning web search off barely moves any model.</span></figcaption></figure>
 
-  <div class="col">
+  <div class="tcol">
     <details class="aside"><summary>Why do the GPT-6.2 models score lower?</summary><div class="in"><p>Their answers are shorter (a median of about 135 words, against 157 to 195 for the others) and more hedged: words like “may”, “can” and “depends” come up about three times as often per word. They make fewer separate claims, and each claim is another chance to make one of the practitioner’s points. Even at the same length, 145 to 175 words, they score lower: 25.3% and 26.3%, against 40.6% to 48.0% for the others.</p>
 <p>The gap between labs isn’t the main result here. The points that all six models miss are.</p></div></details>
     <p>The scores turned out to matter less than which points the models missed. For each of the 1,691 points, count how many of the six models made it.</p>
   </div>
 
-  <figure class="fig wide reveal" id="fig-units"><div class="panel"><div class="units-box"></div></div>
+  <figure class="fig wide reveal" id="fig-units"><div class="fpanel"><div class="units-box"></div></div>
     <figcaption><span class="fn">FIGURE 5</span><span>Every point a practitioner made, by how many of the six models made it too. Hover to read a point; click to open it in the explorer.</span></figcaption></figure>
 
-  <div class="col">
+  <div class="tcol">
     <p>723 points, 43%, were missed by all six models. Another 328 were made by all six. The models come from three labs that train them separately, and they miss largely the same things. If you could pick the best of the six answers to every question, you would still get only 55%. On 50 questions, no model made a single point.</p>
     <p>Reading through the misses, the same few patterns keep coming up. They are about how things work, not about how the answers are written. Here are four, with one example each.</p>
   </div>
   <div class="wide" id="modes"></div>
-  <div class="col">
+  <div class="tcol">
     <p style="margin-top:50px">A fair objection is that several of the models’ answers are also true. Software compatibility does make chip rewrites hard, and cheap steel does help shipyards. A rubric built from one person’s answer can’t be the only right answer. But the practitioners are rarely adding one more item to a list. They are saying which factor decides the outcome, and often they name the common explanation and set it aside, as Nima does. That judgment, about which factor matters most, is what we set out to measure.</p>
 
     <h2 id="inside">Is it in there somewhere?</h2>
@@ -306,12 +306,12 @@ sitemap: false
     <p>We haven’t run RL on this, but we can check the premise. If the knowledge is in the model, it should show up when we sample many answers. We took 50 of the questions, with 168 points, and sampled eight answers to each from Gemini Neon and GPT-6.2-Sol.</p>
   </div>
 
-  <figure class="fig wide reveal" id="fig-k8"><div class="panel">
+  <figure class="fig wide reveal" id="fig-k8"><div class="fpanel">
     <div class="seg" role="group" aria-label="Model"><button aria-pressed="true" data-m="neon">Gemini Neon</button><button aria-pressed="false" data-m="sol">GPT-6.2-Sol</button></div>
     <div class="units-box"></div></div>
     <figcaption><span class="fn">FIGURE 6</span><span>The 168 points of the sampling test, by how many of eight answers made them. Most points show up in nearly every answer or in none.</span></figcaption></figure>
 
-  <div class="col">
+  <div class="tcol">
     <p>Of the 168 points, Neon made 56 in all eight answers and 74 in none. GPT-6.2-Sol never made 97 of them. Taking the best of eight answers raises Neon’s score from 45.5% to 55.5%, and part of that gain is grader noise: when we graded Sol’s answers a second time, about 40% of its best-of-eight gain went away.</p>
     <p>So for most of these points, the answer is no. The knowledge doesn’t seem to be in the model in a form that sampling can reach. This also means the length limit isn’t what holds the models back. Eight answers come to over a thousand words, and within each model, longer answers don’t score higher.</p>
 
@@ -321,10 +321,10 @@ sitemap: false
     <p>Carson Block’s question from above shows what happens when models do search. Four of them searched 17 times between them and found an academic study of how companies respond to short sellers. None of them made any of Block’s four points.</p>
   </div>
 
-  <figure class="fig wide reveal" id="fig-search"><div class="panel"><div class="queries"></div><div class="verdict0">Each of these models made 0 of Carson Block’s 4 points.</div></div>
+  <figure class="fig wide reveal" id="fig-search"><div class="fpanel"><div class="queries"></div><div class="verdict0">Each of these models made 0 of Carson Block’s 4 points.</div></div>
     <figcaption><span class="fn">FIGURE 7</span><span>Every search the models ran for “After an activist short seller exposes an alleged corporate fraud, how does management’s response typically unfold across the next two quarterly earnings reports?” Under each query are the sites it returned; struck-out sites were blocked.</span></figcaption></figure>
 
-  <div class="col">
+  <div class="tcol">
     <p>Search hands the model more of what it has already read: papers, news and commentary written about a field from the outside.</p>
 
     <h2 id="close">Where did the practitioners learn it?</h2>
@@ -333,12 +333,12 @@ sitemap: false
     <p>The scores by industry fit this picture.</p>
   </div>
 
-  <figure class="fig wide reveal" id="fig-dom"><div class="panel">
+  <figure class="fig wide reveal" id="fig-dom"><div class="fpanel">
     <div class="legend"><span><i class="dot" style="background:var(--anth)"></i>Anthropic</span><span><i class="dot" style="background:var(--goog)"></i>Google</span><span><i class="dot" style="background:var(--oai)"></i>OpenAI</span><span><i style="display:inline-block;width:2px;height:12px;background:var(--ink)"></i>All six</span></div>
     <div class="dplot"></div></div>
     <figcaption><span class="fn">FIGURE 8</span><span>Share of points made in each industry, from five practitioners and 25 questions each. The black tick is the average of all six models; dots are the average for each lab.</span></figcaption></figure>
 
-  <div class="col">
+  <div class="tcol">
     <p>Models do best in law, biotech, robotics and science, where much of the reasoning is published in court opinions and papers. They do worst in fintech, manufacturing, construction, food and investing, where most of what people know stays in the work.</p>
     <p>It also suggests our numbers understate the gap. Everything we tested was said in public. Most of what practitioners know is never said into a microphone at all.</p>
 
@@ -348,13 +348,13 @@ sitemap: false
     <p>The second is to let models learn it the way practitioners do: inside real environments, and from people. People are very good at compressing years of local experience into a few sentences, as these podcasts show. A model that knows what to ask the loan officer or the shipyard manager, and notices when the answer contradicts what it believed, can pick up much of this on the job. That needs models that are good at talking with people, and the infrastructure to let them do it in real time.</p>
   </div>
 
-  <div class="wide reveal" style="margin-top:56px"><div class="panel cta">
+  <div class="wide reveal" style="margin-top:56px"><div class="fpanel cta">
     <div><p>Every question, every model’s answer, its searches and the grader’s verdict on each point are in the explorer, with a clip of each practitioner’s answer.</p>
-      <a class="btn" href="explorer/">Open the explorer</a><a class="btn ghost" href="https://huggingface.co/datasets/tonychenxyz/outsider-blindness">Download the dataset</a></div>
+      <a class="obtn" href="explorer/">Open the explorer</a><a class="obtn ghost" href="https://huggingface.co/datasets/tonychenxyz/outsider-blindness">Download the dataset</a></div>
     <div class="faces" id="cta-faces"></div>
   </div></div>
 
-  <div class="col">
+  <div class="tcol">
     <details class="aside" style="margin-top:44px"><summary>How we built and graded the test</summary><div class="in"><p><b>Questions.</b> 100 practitioners, five per industry in 20 industries, each from one long-form interview on YouTube. We transcribed the interviews with ElevenLabs and lightly cleaned them of filler words. For each person we took five passages where they explain how something works, and wrote a question a curious user might ask, without naming the person or asking the model to play a role. We avoided “what should I do” questions. Each answer was split into three or four short points (1,691 in total), and each point has a grader note saying what counts and what doesn’t.</p>
 <p><b>Models.</b> Claude Fable 5.2 and Claude Opus 5.5 in Claude Code, Gemini Carbon and Gemini Neon in Antigravity, GPT-6.2-Sol and GPT-6.2-Astra in Codex. Each was asked for a plain-prose answer under 180 words. The Claude models often went over (median 185 and 195 words); cutting their answers at 180 words and grading again moves Fable from 44.3% to 43.4% and Opus from 42.7% to 41.5%.</p>
 <p><b>Search.</b> All models used the same search tool, with their built-in web tools turned off. It blocked 122 domains (video and audio hosts, transcript sites and the podcasts’ own sites) and all 100 source video IDs. A rerun that refused any search naming the guest changed scores by at most 0.2 points.</p>
@@ -572,7 +572,7 @@ function exampleCard(box, ids, compact) {
   }
   box.appendChild(body); renderExample(body, D.feat[ids[0]], compact);
 }
-exampleCard(document.querySelector('#fig-open .panel'), D.opening, false);
+exampleCard(document.querySelector('#fig-open .fpanel'), D.opening, false);
 const modes = document.getElementById('modes');
 D.modes.forEach((md, k) => {
   const s = el('section', 'mode');
@@ -581,7 +581,7 @@ D.modes.forEach((md, k) => {
   hd.appendChild(el('h3', null, md.title));
   hd.appendChild(el('p', 'line', md.line));
   s.appendChild(hd);
-  const c = el('div', 'panel reveal'); c.style.marginTop = '16px'; exampleCard(c, [md.id], true); s.appendChild(c);
+  const c = el('div', 'fpanel reveal'); c.style.marginTop = '16px'; exampleCard(c, [md.id], true); s.appendChild(c);
   modes.appendChild(s);
 });
 
@@ -607,7 +607,7 @@ function highlighted(text, spans, why, points) {
   return out;
 }
 (function () {
-  const G = D.grading, box = document.querySelector('#fig-grade .panel');
+  const G = D.grading, box = document.querySelector('#fig-grade .fpanel');
   box.appendChild(el('div', 'lbl', G.domain));
   box.appendChild(el('div', 'ex-q', G.q));
   const grid = el('div', 'gr-grid'); box.appendChild(grid);
