@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795751318">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795752101">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -340,7 +340,11 @@
   <path d="M21 16v2a4 4 0 0 1-4 4h-5"></path></g></symbol><symbol id="i-messages-square" viewbox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 10a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 14.286V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
   <path d="M20 9a2 2 0 0 1 2 2v10.286a.71.71 0 0 1-1.212.502l-2.202-2.202A2 2 0 0 0 17.172 19H10a2 2 0 0 1-2-2v-1"></path></g></symbol><symbol id="i-mic" viewbox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19v3"></path>
   <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
-  <rect x="9" y="2" width="6" height="13" rx="3"></rect></g></symbol></svg>
+  <rect x="9" y="2" width="6" height="13" rx="3"></rect></g></symbol><symbol id="i-scale" viewbox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"></path>
+  <path d="m19 8 3 8a5 5 0 0 1-6 0zV7"></path>
+  <path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"></path>
+  <path d="m5 8 3 8a5 5 0 0 1-6 0zV7"></path>
+  <path d="M7 21h10"></path></g></symbol></svg>
 <style>
 .obp { --bg:#fff; --ink:#0d0d0f; --text:#2b2c30; --muted:#2b2c30; --faint:#2b2c30; --line:#e5e6e9; --tint:#f5f5f6; --tint2:#ebecee; --anth:#eb6834; --goog:#2a78d6; --oai:#1baf7a; --navh:57px;
   --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -399,10 +403,47 @@
 .obp b { font-weight:600; color:var(--ink); }
 .obp .term { font-style:italic; color:var(--ink); }
 .obp h3.sub { margin:44px 0 14px; }
-.obp .cite-txt { font-size:16px; line-height:1.6; }
-.obp .bib { position:relative; margin:0 0 40px; }
-.obp .bib pre { font-family:var(--mono); font-size:12.5px; line-height:1.65; color:var(--ink); background:var(--tint); border:0; border-radius:14px; padding:18px 20px; padding-top:52px; margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
-.obp .bib .obtn { position:absolute; top:10px; right:10px; background:#fff; box-shadow:0 0 0 1px var(--line); }
+/* Figure: how each answer is graded */
+.obp .pipe { display:grid; grid-template-columns:minmax(0, 1.2fr) 92px minmax(0, 1fr) 92px minmax(0, 1.1fr); align-items:stretch; padding:10px 0 4px; }
+.obp .pcard { position:relative; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 14px 15px; box-shadow:0 1px 2px rgba(13,13,15,.04), 0 6px 16px -10px rgba(13,13,15,.12); }
+.obp .pcard.ctx { border:1.5px dashed var(--ink); box-shadow:none; }
+.obp .pk { position:absolute; top:-9px; left:12px; background:#fff; padding:0 6px; font-size:11.5px; font-weight:600; color:var(--ink); white-space:nowrap; }
+.obp .ph { display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink); margin:0 0 9px; white-space:nowrap; }
+.obp .ph .avatar { width:20px; height:20px; }
+.obp .pq { font-size:13.5px; line-height:1.45; font-weight:500; color:var(--ink); }
+.obp .plines i { display:block; height:6px; border-radius:3px; background:var(--tint2); margin:9px 0 0; }
+.obp .plines i:first-child { margin-top:4px; }
+.obp .plines i.h { background:rgba(111,86,232,.3); box-shadow:inset 0 -2px 0 #6f56e8; }
+.obp .plines i.s { width:58%; }
+.obp .prow { display:flex; align-items:center; gap:8px; margin-top:9px; }
+.obp .prow b { width:17px; height:17px; flex:none; border-radius:50%; background:var(--c); color:#fff; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
+.obp .prow i { flex:1; height:6px; border-radius:3px; background:var(--tint2); }
+.obp .prow.ok i { background:rgba(111,86,232,.3); }
+.obp .prow span { width:14px; text-align:center; font-size:14px; font-weight:700; color:var(--ink); }
+.obp .parr { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; padding:0 6px; }
+.obp .pbadge { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; align-content:center; gap:1px 2px; padding:7px; background:#fff; border:1px solid var(--line); box-shadow:0 1px 2px rgba(13,13,15,.06); }
+.obp .pbadge.mdl svg.ic { width:12px; height:12px; }
+.obp .pbadge.mdl svg:nth-child(1) { color:var(--anth); } .obp .pbadge.mdl svg:nth-child(2) { color:var(--goog); } .obp .pbadge.mdl svg:nth-child(3) { color:var(--oai); }
+.obp .pbadge.jdg { background:var(--ink); border-color:var(--ink); color:#fff; } .obp .pbadge.jdg svg.ic { width:20px; height:20px; }
+.obp .pline { position:relative; width:100%; height:10px; }
+.obp .pline::before { content:''; position:absolute; left:2px; right:4px; top:50%; border-top:1.5px solid var(--ink); }
+.obp .pline::after { content:''; position:absolute; right:2px; top:50%; width:6px; height:6px; border-top:1.5px solid var(--ink); border-right:1.5px solid var(--ink); transform:translateY(-50%) rotate(45deg); }
+.obp .pline i { position:absolute; top:50%; left:0; width:7px; height:7px; margin-top:-3.5px; border-radius:50%; background:#f0b429; box-shadow:0 0 7px 2px rgba(240,180,41,.55); opacity:0; }
+.obp .pcap { font-size:11.5px; font-weight:600; color:var(--ink); text-align:center; line-height:1.3; }
+.obp .seen .pline i { animation:pflow 4.4s cubic-bezier(.45,0,.55,1) infinite; }
+.obp .seen .parr:nth-of-type(4) .pline i { animation-delay:1.6s; }
+@keyframes pflow { 0% { left:0; opacity:0; } 6% { opacity:1; } 30% { left:calc(100% - 9px); opacity:1; } 36%, 100% { left:calc(100% - 9px); opacity:0; } }
+@media (prefers-reduced-motion: reduce) { .obp .seen .pline i { animation:none; } }
+@media (max-width:620px) {
+  .obp .pipe { grid-template-columns:1fr; row-gap:4px; }
+  .obp .parr { flex-direction:row; justify-content:center; padding:8px 0; gap:10px; }
+  .obp .pline { width:12px; height:26px; order:2; }
+  .obp .pline::before { left:50%; right:auto; top:2px; bottom:4px; border-top:0; border-left:1.5px solid var(--ink); }
+  .obp .pline::after { right:auto; left:50%; top:auto; bottom:2px; transform:translateX(-50%) rotate(135deg); }
+  .obp .pline i { display:none; }
+  .obp .pbadge { order:1; width:38px; height:38px; } .obp .pcap { order:3; text-align:left; }
+  .obp .pbadge.mdl { width:auto; height:34px; padding:0 10px; border-radius:999px; flex-wrap:nowrap; gap:4px; }
+}
 .obp .tldr { background:var(--tint); border-radius:16px; padding:22px 26px 8px; margin:0 0 40px; }
 .obp .tldr .tt { font-size:13px; font-weight:700; letter-spacing:.06em; color:var(--ink); margin:0 0 12px; }
 .obp .tldr ul.bl { font-size:16.5px; line-height:1.6; margin-bottom:12px; }
@@ -794,7 +835,50 @@
 <p>Most of what practitioners know never gets written down, and what does goes through editors, lawyers and PR first.</p>
 <p>Long interviews draw out more. Experts skip most decision steps when they describe their own work until an interviewer prompts them (<a href="https://doi.org/10.1097/ACM.0000000000000224" rel="external nofollow noopener" target="_blank">Sullivan et al., 2014</a>). Relaxed guests also say more than they meant to. One court weighed a CEO’s podcast remarks over his own trial testimony (<a href="https://courts.delaware.gov/Opinions/Download.aspx?id=345390" rel="external nofollow noopener" target="_blank">In re Mindbody, 2023</a>).</p>
 </div></aside>
-      <p><b>We introduce Insider-500.</b> We took interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. From each, we picked five moments where the guest explains how something works, wrote each as a plain question without naming the guest, and split the answer into three or four rubric points.</p>
+      <p><b>We introduce Insider-500.</b> It has 500 questions from long podcast interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. Each question comes with three or four rubric points taken from the practitioner’s own answer.</p>
+      <p>A model gets only the question, with no interview, name or other context, and writes a short answer. GPT-6.2-Sol then checks the answer against the rubric points, one at a time, and has to quote the sentence that covers each one.</p>
+
+      <figure class="fig narrow reveal" id="fig-pipe"><div class="fpanel"><div class="pipe">
+        <div class="pcard ctx">
+<div class="pk">All the model sees</div>
+<div class="ph">Question</div>
+<div class="pq">In product growth, why does requiring an A/B test for every change backfire?</div>
+</div>
+        <div class="parr">
+<div class="pbadge mdl">
+<svg class="ic"><use href="#logo-claude"></use></svg><svg class="ic"><use href="#logo-googlegemini"></use></svg><svg class="ic"><use href="#logo-openai"></use></svg>
+</div>
+<div class="pline"><i></i></div>
+<div class="pcap">Model answers</div>
+</div>
+        <div class="pcard">
+<div class="ph">Answer</div>
+<div class="plines">
+<i></i><i class="h"></i><i></i><i></i><i class="s"></i>
+</div>
+</div>
+        <div class="parr">
+<div class="pbadge jdg"><svg class="ic"><use href="#i-scale"></use></svg></div>
+<div class="pline"><i></i></div>
+<div class="pcap">GPT-6.2-Sol grades</div>
+</div>
+        <div class="pcard">
+<div class="ph">
+<img class="avatar" src="heads/153_elena_verna.jpg" alt="Elena Verna">Rubric points</div>
+          <div class="prow ok" style="--c:#6f56e8">
+<b>1</b><i></i><span>✓</span>
+</div>
+          <div class="prow" style="--c:#d99a00">
+<b>2</b><i></i><span>✗</span>
+</div>
+          <div class="prow" style="--c:#e0457f">
+<b>3</b><i></i><span>✗</span>
+</div>
+</div>
+      </div></div>
+        <figcaption><span class="fn">Figure 1</span><span>How each answer is graded. The model sees only the question, and the grader quotes the sentence that covers each rubric point.</span></figcaption></figure>
+
+      <p>From each interview we picked five moments where the guest explains how something works, and wrote each as a plain question without naming the guest. The questions lean toward how the world works rather than what to do. About three in five ask why something happens, and fewer than ten of the 500 ask what someone should do.</p>
 
       <figure class="fig reveal" id="fig-people"><div class="fpanel">
         <div class="ptop"><button class="obtn" type="button" id="p-rand"><svg class="ic"><use href="#i-shuffle"></use></svg>Random question</button></div>
@@ -809,13 +893,13 @@
         </div>
         <div class="pdetail" id="p-detail"></div>
       </div>
-        <figcaption><span class="fn">Figure 1</span><span>The 100 practitioners, grouped by industry. Click a face to see their five questions, each with the clip, their answer, the rubric points we grade against and how each of the six models answered.</span></figcaption>
+        <figcaption><span class="fn">Figure 2</span><span>The 100 practitioners, grouped by industry. Click a face to see their five questions, each with the clip, their answer, the rubric points we grade against and how each of the six models answered.</span></figcaption>
         <div class="fig-act"><a class="obtn" id="p-explore" href="explorer/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-compass"></use></svg>Explore more in the explorer<svg class="ic"><use href="#i-arrow-up-right"></use></svg></a></div></figure>
 
       <h2 id="results" data-toc="Results">Frontier models miss more than half of the rubric points</h2>
       <aside class="mnote"><div class="nt">How we kept models from finding the exact podcast</div>
 <div class="nbody"><p>Every model used the same search tool, with its built-in web tools turned off. The tool dropped results from 122 domains (video and audio hosts, transcript sites and each podcast’s own site) and from all 100 source videos by ID, and it refused any search that named the guest.</p></div></aside>
-      <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. GPT-6.2-Sol graded each answer one rubric point at a time, quoting the sentence that covers it. <b>Even the best model covers fewer than half of the rubric points.</b></p>
+      <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. <b>Even the best model covers fewer than half of the rubric points.</b></p>
 
       <figure class="fig narrow reveal" id="fig-scores"><div class="fpanel">
         <div class="seg" role="group" aria-label="Web search">
@@ -823,14 +907,14 @@
 </div>
         <div class="bars"></div>
 </div>
-        <figcaption><span class="fn">Figure 2</span><span>The share of the practitioners’ rubric points that each model covered, over all 500 questions. Lines show 95% confidence intervals.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 3</span><span>The share of the practitioners’ rubric points that each model covered, over all 500 questions. Lines show 95% confidence intervals.</span></figcaption></figure>
 
       <p><b>The models also miss the same things.</b> 43% of the rubric points were missed by all six, even though they come from three labs that train them separately. Picking the best of the six answers to every question would still reach only 55%.</p>
       <p>Many of the episodes aired before the models’ knowledge cutoffs (76 of the 100 aired before 2026). <b>The models may have seen these very interviews in training, and they still miss what the guests said.</b></p>
       <p><b>Every model could search the web, and it barely mattered.</b> Gemini 4 Carbon, Gemini 4 Neon and GPT-6.2-Sol searched often. On the questions where they searched, their answers covered 1.8 to 3.3 percentage points more of the rubric points than their answers to the same questions without search, and none of these gains is statistically significant. Here is what the searching looked like.</p>
 
       <figure class="fig reveal" id="fig-traj"><div class="fpanel"></div>
-        <figcaption><span class="fn">Figure 3</span><span>How Gemini 4 Carbon, the model that searched most, worked through three questions, showing what it was thinking, what it searched for and which sites came back. None of the three answers covered any of the practitioner’s rubric points.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 4</span><span>How Gemini 4 Carbon, the model that searched most, worked through three questions, showing what it was thinking, what it searched for and which sites came back. None of the three answers covered any of the practitioner’s rubric points.</span></figcaption></figure>
 
       <p><b>They search with generic words from the question.</b> More than half of Gemini 4 Neon’s queries take most of their words from the question. On Jigar Shah’s question, Carbon searched for “energy project finance commercial banks refuse lend new asset class pipeline bankability.”</p>
       <p><b>What comes back is secondhand.</b> Those searches returned a U.S. Commerce Department climate finance handbook, OECD guidance on blended finance and an EU legal document.</p>
@@ -845,7 +929,7 @@
       <p>Many of them mention it in the answers we graded against.</p>
 
       <figure class="fig reveal" id="fig-learn"><div class="fpanel"><div class="learn"></div></div>
-        <figcaption><span class="fn">Figure 4</span><span>Practitioners describing where a rubric point came from, in the answers we graded against. The highlights mark the experience they point to.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 5</span><span>Practitioners describing where a rubric point came from, in the answers we graded against. The highlights mark the experience they point to.</span></figcaption></figure>
 
       <ul class="bl">
         <li>
@@ -859,7 +943,7 @@
 <div class="legend"></div>
 <div class="dplot"></div>
 </div>
-        <figcaption><span class="fn">Figure 5</span><span>The share of rubric points each model covered in each industry, from five practitioners and 25 questions per industry. The black tick is the average of all six models, and industries are sorted by it. For each lab, the filled logo is the model with the higher overall score.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 6</span><span>The share of rubric points each model covered in each industry, from five practitioners and 25 questions per industry. The black tick is the average of all six models, and industries are sorted by it. For each lab, the filled logo is the model with the higher overall score.</span></figcaption></figure>
 
       <p>Fields that publish their reasoning, in court opinions and papers, come out on top. <b>Fields where most of what people know stays in the work come out at the bottom.</b> Among them are fintech, manufacturing, construction, investing and food. Jim Keller knows why chip companies resist rewriting an old architecture because he has led those rewrites himself. David Chang knows how a restaurant group grows into new concepts because he built one. That kind of knowledge lives in teams and kitchens, and rarely ends up in public internet data.</p>
       <p><b>Our numbers likely understate the gap.</b> Everything we tested was said in public, and most of what practitioners know never reaches a microphone.</p>
@@ -869,7 +953,7 @@
       <p><b>As models get smarter, their intelligence is bottlenecked by the information they are exposed to.</b> Thus insider information is even more valuable for better models, and better models can turn insider information into greater value.</p>
 
       <figure class="fig narrow reveal" id="fig-engine"><div class="fpanel artp"><div class="engart"></div></div>
-        <figcaption><span class="fn">Figure 6</span><span>Insider information in, value out. Welcome to the Era of Insider Information.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 7</span><span>Insider information in, value out. Welcome to the Era of Insider Information.</span></figcaption></figure>
 
       <p>Exposure can take two forms, the same two ways the practitioners learned.</p>
       <ul class="bl">
@@ -902,7 +986,7 @@
       <p>We ran five generations of Claude Opus, from 4.6 to 5.5, on a fixed set of 100 questions, five from each industry.</p>
 
       <figure class="fig narrow reveal" id="fig-opus"><div class="fpanel"><div class="opus-box"></div></div>
-        <figcaption><span class="fn">Figure 7</span><span>The share of rubric points each Claude Opus generation covered on the same 100 questions, with 95% confidence intervals. All were graded by GPT-6.2-Sol, with web search available and searches naming the guest refused.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 8</span><span>The share of rubric points each Claude Opus generation covered on the same 100 questions, with 95% confidence intervals. All were graded by GPT-6.2-Sol, with web search available and searches naming the guest refused.</span></figcaption></figure>
 
       <p><b>Have the models gotten better? Yes, but slowly.</b></p>
 
@@ -910,13 +994,13 @@
       <p>Maybe the models know these things but don’t say them, and reinforcement learning could sharpen them out. We haven’t run RL, but if the knowledge is in the model, it should show up across many samples. We sampled eight answers to 50 questions from Gemini 4 Neon and GPT-6.2-Sol, with and without web search.</p>
 
       <figure class="fig narrow reveal" id="fig-k8"><div class="fpanel"><div class="lines-box"></div></div>
-        <figcaption><span class="fn">Figure 8</span><span>The share of rubric points covered when we keep the best of N answers to each of 50 questions. Solid lines are with web search and dashed lines without. Neon was graded by GPT-6.1-Sol and Sol by GPT-6.2-Sol.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 9</span><span>The share of rubric points covered when we keep the best of N answers to each of 50 questions. Solid lines are with web search and dashed lines without. Neon was graded by GPT-6.1-Sol and Sol by GPT-6.2-Sol.</span></figcaption></figure>
 
       <p>All four curves flatten after the first few answers, and going from four answers to eight adds less than 3 points. </p>
       <p><b>Do the models know it somewhere deep inside? No.</b></p>
 
       <h2 id="methods" data-num="C" data-toc="Method details">Method details</h2>
-      <p><b>Questions.</b> 100 practitioners, five per industry in 20 industries, each from one long-form interview on YouTube. We transcribed the interviews with ElevenLabs and lightly cleaned them of filler words. For each person we took five passages where they explain how something works, and wrote a question a curious user might ask, without naming the person or asking the model to play a role. We avoided “what should I do” questions. Each answer was split into three or four short rubric points, and each rubric point has a grader note saying what counts and what doesn’t.</p>
+      <p><b>Questions.</b> 100 practitioners, five per industry in 20 industries, each from one long-form interview on YouTube. We transcribed the interviews with ElevenLabs and lightly cleaned them of filler words. For each person we took five passages where they explain how something works, and wrote a question a curious user might ask, without naming the person or asking the model to play a role. We steered away from “what should I do” questions. Each answer was split into three or four short rubric points, and each rubric point has a grader note saying what counts and what doesn’t.</p>
       <p><b>Models.</b> Claude Fable 5.2 and Claude Opus 5.5 in Claude Code, Gemini 4 Carbon and Gemini 4 Neon in Antigravity, GPT-6.2-Sol and GPT-6.2-Astra in Codex. Each was asked for a plain-prose answer under 180 words. The Claude models often went over (median 185 and 195 words); cutting their answers at 180 words and grading again moves Fable from 44.3% to 43.4% and Opus from 42.7% to 41.5%.</p>
       <p><b>Search.</b> All models used the same search tool, with their built-in web tools turned off. It blocked 122 domains (video and audio hosts, transcript sites and the podcasts’ own sites), all 100 source video IDs and any search that named the guest.</p>
       <p><b>Grading.</b> GPT-6.2-Sol graded every answer against the rubric points and grader notes, and had to quote the sentence that covers each rubric point; quotes were checked against the answer. Grading 1,344 verdicts a second time gave 96.6% agreement (κ = 0.92). In the sampling test, Neon’s answers were graded by GPT-6.1-Sol and Sol’s by GPT-6.2-Sol; with and without search use the same grader. With a second grading, Sol’s best-of-eight gain falls from 8.9 to 5.3 points.</p>
