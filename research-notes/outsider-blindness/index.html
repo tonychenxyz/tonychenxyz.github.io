@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795755782">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795757366">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -374,16 +374,16 @@
 .obp .lbtn svg.ic { width:17px; height:17px; }
 
 /* the wall: everyone is blurred except what the lens passes over */
-.obp .art { position:relative; aspect-ratio:1168 / 380; border-radius:18px; overflow:hidden; background:#9cc0ea; touch-action:pan-y; }
+.obp .art { position:relative; aspect-ratio:1168 / 380; border-radius:16px; overflow:hidden; background:#9cc0ea; touch-action:pan-y; }
 .obp .art svg { position:absolute; inset:0; width:100%; height:100%; display:block; }
 
 /* frame: contents | text | side notes */
 .obp .page { max-width:1218px; margin:0 auto; padding:60px 24px 0; display:grid; grid-template-columns:180px 946px; column-gap:44px; justify-content:center; }
 .obp .main { width:946px; min-width:0; }
-.obp .main > * { max-width:660px; }
+.obp .main > * { max-width:640px; }
 .obp .main > .fig, .obp .main > .wide { max-width:none; clear:both; }
-.obp .main > .fig.narrow { max-width:660px; clear:none; }
-@media (max-width:1009px) { .obp .main > .fig.narrow { max-width:none; } }
+.obp .main > .fig.narrow { max-width:640px; clear:none; }
+@media (max-width:1009px) { .obp .main > .fig.narrow { max-width:680px; } }
 .obp .toc { position:sticky; top:calc(var(--navh) + 30px); align-self:start; font-size:13px; line-height:1.35; max-height:calc(100vh - var(--navh) - 50px); overflow:auto; scrollbar-width:none; }
 .obp .toc::-webkit-scrollbar { display:none; }
 .obp .toc .tt { font-size:12.5px; font-weight:600; color:var(--ink); margin:4px 0 12px; }
@@ -402,6 +402,8 @@
 .obp ul.bl li { position:relative; margin:0 0 14px; padding-left:28px; }
 .obp ul.bl li::before { content:''; position:absolute; left:8px; top:.74em; width:6px; height:6px; border-radius:50%; background:var(--ink); }
 .obp b { font-weight:600; color:var(--ink); }
+.obp h1, .obp h2, .obp h3, .obp .dek, .obp .q, .obp .tj-q, .obp .cta p { text-wrap:balance; }
+.obp p, .obp li, .obp figcaption span { text-wrap:pretty; }
 .obp .term { font-style:italic; color:var(--ink); }
 .obp h3.sub { margin:44px 0 14px; }
 .obp .exl { display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600; color:var(--ink); margin:30px 0 10px; }
@@ -409,11 +411,11 @@
 .obp .exl .cat { display:inline-flex; align-items:center; gap:6px; margin:0; font-size:13px; font-weight:500; color:var(--ink); }
 .obp .cite-txt { font-size:16px; line-height:1.6; }
 .obp .bib { position:relative; margin:0 0 40px; }
-.obp .bib pre { font-family:var(--mono); font-size:12.5px; line-height:1.65; color:var(--ink); background:var(--tint); border:0; border-radius:14px; padding:52px 20px 18px; margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
+.obp .bib pre { font-family:var(--mono); font-size:12.5px; line-height:1.65; color:var(--ink); background:var(--tint); border:0; border-radius:16px; padding:52px 22px 20px; margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
 .obp .bib .obtn { position:absolute; top:10px; right:10px; background:#fff; box-shadow:0 0 0 1px var(--line); }
 /* Figure: how each answer is graded */
 .obp .pipe { display:grid; grid-template-columns:minmax(0, 1.2fr) 92px minmax(0, 1fr) 92px minmax(0, 1.1fr); align-items:stretch; padding:10px 0 4px; }
-.obp .pcard { position:relative; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 14px 15px; box-shadow:0 1px 2px rgba(13,13,15,.04), 0 6px 16px -10px rgba(13,13,15,.12); }
+.obp .pcard { position:relative; background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px 14px 15px; box-shadow:0 1px 2px rgba(13,13,15,.04), 0 6px 16px -10px rgba(13,13,15,.12); }
 .obp .pcard.ctx { border:1.5px dashed var(--ink); box-shadow:none; }
 .obp .pipe .pk { position:absolute; top:-9px; left:12px; background:#fff; padding:0 6px; font-size:11.5px; font-weight:600; color:var(--ink); white-space:nowrap; }
 .obp .ph { display:flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--ink); margin:0 0 10px; white-space:nowrap; }
@@ -453,7 +455,7 @@
   .obp .pbadge.mdl { width:auto; height:34px; padding:0 10px; border-radius:999px; flex-wrap:nowrap; gap:4px; }
 }
 .obp .tldr { background:var(--tint); border-radius:16px; padding:22px 26px 8px; margin:0 0 40px; }
-.obp .tldr .tt { font-size:13px; font-weight:700; letter-spacing:.06em; color:var(--ink); margin:0 0 12px; }
+.obp .tldr .tt { font-size:14px; font-weight:600; letter-spacing:0; color:var(--ink); margin:0 0 10px; }
 .obp .tldr ul.bl { font-size:16.5px; line-height:1.6; margin-bottom:12px; }
 .obp .tldr ul.bl li { margin-bottom:8px; }
 .obp .fpanel.artp { padding:0; overflow:hidden; border:0; background:#9cc0ea; }
@@ -483,15 +485,15 @@
 @keyframes spin { to { transform:rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .obp .fwires path, .obp .engine .pis, .obp .engine .fly { animation:none; } }
 @media (max-width:620px) { .obp .eng { grid-template-columns:1fr; row-gap:20px; } .obp .motor { max-width:260px; margin:0 auto; } .obp .fwires { display:none; } .obp .fuel { flex-direction:row; flex-wrap:wrap; } .obp .fuel .fg { width:100%; } .obp .motor::before { content:'↓'; display:block; text-align:center; color:#c77c02; font-size:22px; line-height:1; margin:0 0 10px; } }
-.obp .apx { margin:104px 0 0; padding-top:22px; border-top:1px solid var(--line); font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }
+.obp .apx { margin:104px 0 0; padding-top:22px; border-top:1px solid var(--line); font-size:15px; font-weight:600; letter-spacing:-.005em; color:var(--ink); }
 .obp .apx + h2 { margin-top:18px; }
 .obp .apx { scroll-margin-top:calc(var(--navh) + 26px); }
 .obp h2 { font-family:var(--sans); font-weight:600; font-size:32px; line-height:1.15; letter-spacing:-.03em; color:var(--ink); margin:92px 0 20px; scroll-margin-top:calc(var(--navh) + 26px); }
 .obp h3 { font-family:var(--sans); font-weight:600; font-size:23px; line-height:1.25; letter-spacing:-.022em; color:var(--ink); margin:0 0 8px; }
 
 /* side notes */
-.obp .mnote { float:right; clear:right; width:250px; margin:5px 0 0 36px; padding:1px 0 1px 16px; border-left:1px solid var(--line); font-size:13px; line-height:1.55; color:var(--muted); }
-.obp .main > .mnote { max-width:250px; }
+.obp .mnote { float:right; clear:right; width:256px; margin:5px 0 0 44px; padding:1px 0 1px 16px; border-left:1px solid var(--line); font-size:13px; line-height:1.55; color:var(--muted); }
+.obp .main > .mnote { max-width:256px; }
 .obp .mnote .nt { font-weight:600; font-size:13.5px; line-height:1.4; color:var(--ink); margin:0 0 7px; }
 .obp .mnote .nbody { position:relative; overflow:hidden; }
 .obp .mnote.clamped .nbody { overflow-y:auto; scrollbar-width:thin; padding-right:8px; }
@@ -679,7 +681,7 @@
 .obp .legend svg.ic { width:14px; height:14px; }
 
 /* closing */
-.obp .cta { display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center; padding:40px; background:var(--ink); border-color:var(--ink); border-radius:18px; }
+.obp .cta { display:grid; grid-template-columns:1fr auto; gap:40px; align-items:center; padding:40px; background:var(--ink); border-color:var(--ink); border-radius:16px; }
 .obp .cta p { font-size:22px; font-weight:500; line-height:1.36; letter-spacing:-.02em; color:#fff; margin:0 0 24px; max-width:460px; }
 .obp .cta .lbtn { background:rgba(255,255,255,.14); color:#fff; }
 .obp .cta .lbtn:hover { background:rgba(255,255,255,.22); color:#fff; }
@@ -710,6 +712,7 @@
 
 /* no room for the contents column: it becomes a sticky bar under the site header */
 @media (max-width:1219px) {
+  .obp .mast { max-width:994px; }
   .obp .page { grid-template-columns:minmax(0, 946px); padding-top:0; }
   .obp .main { width:auto; padding-top:44px; }
   .obp .toc { top:var(--navh); z-index:20; margin:40px -24px 0; padding:0 24px; max-height:none; overflow-x:auto; overflow-y:hidden; background:rgba(255,255,255,.93); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); border-top:1px solid var(--line); }
@@ -722,15 +725,22 @@
 }
 /* no room for the side-note gutter: notes sit in the text column */
 @media (max-width:1009px) {
-  .obp .main > * { max-width:none; }
-  .obp .mnote, .obp .main > .mnote { float:none; width:auto; max-width:none; margin:0 0 26px; padding:14px 16px 12px; border-left:0; border-radius:12px; background:var(--tint); }
+  .obp .main > * { max-width:680px; }
+  .obp .main > .fig, .obp .main > .wide { max-width:none; }
+  .obp .mnote, .obp .main > .mnote { float:none; width:auto; max-width:680px; margin:0 0 26px; padding:14px 16px 12px; border-left:0; border-radius:12px; background:var(--tint); }
   .obp h1 { font-size:54px; } .obp .dek { font-size:21px; } .obp .art { aspect-ratio:2 / 1; }
   .obp .groups { grid-template-columns:repeat(2, minmax(0, 1fr)); }
-  .obp .qcol { position:static; min-height:0; } .obp .qcol > .qscroll { position:static; max-height:300px; }
-  .obp .ins.rows .irow { grid-template-columns:22px minmax(0, 1fr); } .obp .ins.rows .rc { grid-column:2; flex-wrap:wrap; margin-top:4px; }
-  .obp .pgrid, .obp .ex-top, .obp .gr-grid, .obp .ma-grid, .obp .queries, .obp .cta { grid-template-columns:1fr; gap:24px; }
+}
+@media (max-width:900px) {
+  .obp .cta { grid-template-columns:1fr; gap:24px; } .obp .cta p { max-width:560px; }
   .obp .cta .faces { grid-template-columns:repeat(auto-fill, 28px); }
 }
+@media (max-width:820px) {
+  .obp .qcol { position:static; min-height:0; } .obp .qcol > .qscroll { position:static; max-height:300px; }
+  .obp .ins.rows .irow { grid-template-columns:22px minmax(0, 1fr); } .obp .ins.rows .rc { grid-column:2; justify-content:start; margin-top:6px; }
+  .obp .pgrid, .obp .ex-top, .obp .gr-grid, .obp .ma-grid, .obp .queries { grid-template-columns:1fr; gap:22px; }
+}
+
 @media (max-width:640px) {
   .obp .mast { padding:40px 18px 0; } .obp .page { padding:0 18px; } .obp .toc { margin:32px -18px 0; padding:0 18px; }
   .obp .main { padding-top:34px; }
@@ -738,13 +748,18 @@
   .obp p, .obp ul.bl { font-size:17px; } .obp h2 { font-size:26px; margin-top:72px; } .obp h3 { font-size:21px; } .obp .q { font-size:20px; }
 .obp .art { border-radius:14px; aspect-ratio:2 / 1; }
   .obp .fpanel { padding:18px 16px; border-radius:14px; } .obp figcaption { flex-direction:column; gap:4px; }
-  .obp .cta { padding:26px 22px; } .obp .cta p { font-size:19px; }
+  .obp .cta { padding:26px 22px; border-radius:14px; } .obp .cta p { font-size:19px; }
+  .obp .tldr { padding:18px 18px 6px; border-radius:14px; } .obp .tldr ul.bl { font-size:16px; } .obp .tldr ul.bl li { padding-left:22px; } .obp .tldr ul.bl li::before { left:5px; }
+  .obp .bib pre { border-radius:14px; padding:50px 16px 16px; font-size:11.5px; }
   .obp .brow { grid-template-columns:1fr; gap:3px; min-height:0; margin-bottom:14px; } .obp .bgrid { left:0; } .obp .bgrid span { border-left-color:transparent; }
   .obp .bname { font-size:13.5px; gap:7px; } .obp .bname svg.ic { width:15px; height:15px; } .obp .bname small { display:inline; font-size:12px; margin:0 0 0 6px; } .obp .btrack { height:24px; }
-  .obp .drow, .obp .daxis { grid-template-columns:118px 1fr 40px; gap:8px; } .obp .dheads { display:none; } .obp .daxis > div:nth-child(2) { display:none; }
+  .obp .drow, .obp .daxis { grid-template-columns:106px 1fr 40px; gap:8px; } .obp .dheads { display:none; } .obp .daxis > div:nth-child(2) { display:none; }
+  .obp .dname { font-size:12.5px; gap:6px; } .obp .dtrack .lm { width:16px; height:16px; margin:-8px 0 0 -8px; } .obp .dtrack .lm svg.ic { width:10.5px; height:10.5px; } .obp .dval { font-size:12.5px; }
+  .obp #fig-dom .legend { gap:6px 12px; font-size:12.5px; }
   .obp .mrow { grid-template-columns:1fr; gap:2px; }
 }
 @media (max-width:440px) { .obp .groups { grid-template-columns:1fr; } .obp .grp .fs { gap:7px; } }
+@media (max-width:440px) { .obp .mchip { font-size:10.5px; height:21px; gap:3px; padding:0 6px 0 5px; } .obp .mchip svg.ic { width:11px; height:11px; } .obp .ins.rows .rc { gap:3px; } }
 
 /* added: hint, HF logo, nested bullets, search trajectories, learning quotes, heatmap */
 .obp .hint { display:flex; align-items:center; gap:7px; font-size:13.5px; color:var(--ink); margin:14px 2px 0; }
@@ -771,7 +786,9 @@
 .obp .st .tts { font-size:12.5px; color:var(--ink); margin-top:5px; line-height:1.45; }
 .obp .st.answer .tt2 { font-size:15px; line-height:1.55; color:var(--ink); }
 .obp .learn { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:16px; }
-.obp .lc { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px 14px; display:flex; flex-direction:column; gap:10px; }
+.obp #fig-learn .fpanel { padding:0; border:0; border-radius:0; background:none; }
+@media (max-width:700px) { .obp .learn { grid-template-columns:1fr; gap:12px; } }
+.obp .lc { background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 20px 16px; display:flex; flex-direction:column; gap:10px; }
 .obp .lc .lh { display:flex; align-items:center; gap:10px; }
 .obp .lc .lh .avatar { width:36px; height:36px; }
 .obp .lc .lh .nm { font-size:14.5px; font-weight:600; color:var(--ink); }
@@ -791,7 +808,7 @@
 .obp .heat td.dn { text-align:left; white-space:nowrap; padding-right:10px; color:var(--ink); }
 .obp .heat td.dn svg.ic { width:14px; height:14px; margin-right:6px; }
 .obp .heat td.avg { font-weight:600; }
-@media (max-width:820px) { .obp .learn { grid-template-columns:1fr; } }
+
 
 .obp .more .mlab { font-weight:600; color:var(--ink); margin-right:4px; }
 .obp .more a.mlink { display:inline-flex; align-items:center; gap:7px; text-decoration:none; color:var(--ink); background:#fff; border:1px solid var(--line); border-radius:999px; padding:3px 12px 3px 3px; }
@@ -1821,7 +1838,7 @@ fetch('data/questions.json').then(r => r.json()).then(j => {
     notes.forEach(n => {
       const body = n.querySelector('.nbody');
       n.classList.remove('clamped'); body.style.maxHeight = '0px';
-      let room = 168;
+      let room = Infinity;
       if (getComputedStyle(n).float !== 'none') {
         let nx = n.nextElementSibling;
         while (nx && nx.tagName !== 'H2' && getComputedStyle(nx).clear === 'none') nx = nx.nextElementSibling;
