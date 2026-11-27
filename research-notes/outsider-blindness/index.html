@@ -112,7 +112,7 @@ sitemap: false
   <path d="M7.753 16.239a6 6 0 0 1 0-8.478" />
   <circle cx="12" cy="12" r="2" /></g></symbol></svg>
 <style>
-.obp { --bg:#fff; --ink:#0d0d0f; --text:#2b2c30; --muted:#696b71; --faint:#8a8c92; --line:#e5e6e9; --tint:#f5f5f6; --tint2:#ebecee; --anth:#eb6834; --goog:#2a78d6; --oai:#1baf7a; --navh:57px;
+.obp { --bg:#fff; --ink:#0d0d0f; --text:#2b2c30; --muted:#2b2c30; --faint:#2b2c30; --line:#e5e6e9; --tint:#f5f5f6; --tint2:#ebecee; --anth:#eb6834; --goog:#2a78d6; --oai:#1baf7a; --navh:57px;
   --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   background:var(--bg); color:var(--text); font-family:var(--sans); font-size:16px; font-weight:400; line-height:1.5; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; margin-top:-8px; padding:0 0 120px; }
 .obp * { box-sizing:border-box; }
@@ -155,6 +155,7 @@ sitemap: false
 .obp .toc .tl a { display:grid; grid-template-columns:19px 1fr; text-decoration:none; color:var(--muted); padding:6px 0 6px 13px; border-left:1px solid var(--line); transition:color .15s; }
 .obp .toc .tl a i { font-style:normal; font-variant-numeric:tabular-nums; }
 .obp .toc .tl a:hover { color:var(--ink); }
+.obp .toc .tl a.sub { padding-left:29px; font-size:12.5px; padding-top:5px; padding-bottom:5px; }
 .obp .toc .tl a.on { color:var(--ink); font-weight:600; border-left-color:var(--ink); box-shadow:inset 1px 0 0 var(--ink); }
 .obp .toc .tx { display:grid; gap:9px; margin-top:20px; padding-top:16px; border-top:1px solid var(--line); }
 .obp .toc .tx a { display:inline-flex; align-items:center; gap:5px; font-size:12.5px; color:var(--muted); text-decoration:none; }
@@ -193,6 +194,7 @@ sitemap: false
 @media (max-width:760px) { .obp .routes { grid-template-columns:1fr; row-gap:18px; } .obp .rsrc, .obp .rmodel, .obp .rlane { grid-column:1; grid-row:auto; } .obp .rsrc { display:flex; align-items:center; justify-content:center; gap:12px; } .obp .rsrc .rlab, .obp .rmodel .rlab { margin:0; } .obp .rfaces { grid-template-columns:repeat(6, 30px); } .obp .rfaces .avatar { width:30px; height:30px; } .obp .rmodel { display:flex; align-items:center; justify-content:center; gap:14px; } .obp .rnode { width:56px; height:56px; margin:0; } .obp .rnode svg.ic { width:24px; height:24px; } .obp .rwires { display:none; } .obp .rsub { padding-left:0; } }
 .obp .apx { margin:104px 0 0; padding-top:22px; border-top:1px solid var(--line); font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }
 .obp .apx + h2 { margin-top:18px; }
+.obp .apx { scroll-margin-top:calc(var(--navh) + 26px); }
 .obp h2 { font-family:var(--sans); font-weight:600; font-size:32px; line-height:1.15; letter-spacing:-.03em; color:var(--ink); margin:92px 0 20px; scroll-margin-top:calc(var(--navh) + 26px); }
 .obp h3 { font-family:var(--sans); font-weight:600; font-size:23px; line-height:1.25; letter-spacing:-.022em; color:var(--ink); margin:0 0 8px; }
 
@@ -419,6 +421,7 @@ sitemap: false
   .obp .toc .tl { display:flex; gap:24px; white-space:nowrap; }
   .obp .toc .tl a { display:inline-flex; gap:6px; align-items:baseline; padding:13px 0 11px; border-left:0; border-bottom:2px solid transparent; }
   .obp .toc .tl a.on { border-bottom-color:var(--ink); box-shadow:none; }
+  .obp .toc .tl a.sub { padding:13px 0 11px; font-size:inherit; } .obp .toc .tl a.tap i { display:none; }
   .obp h2 { scroll-margin-top:calc(var(--navh) + 70px); }
 }
 /* no room for the side-note gutter: notes sit in the text column */
@@ -505,11 +508,10 @@ sitemap: false
 
 <div class="obp" id="obp">
   <header class="mast">
-    <div class="kicker"><span>Research note</span><i></i><span>November 26, 2026</span></div>
     <h1>LLM’s Outsider Blindness</h1>
     <p class="dek">What frontier AI doesn’t know about how the world works</p>
     <div class="mast-row">
-      <div class="by">By <b>Tony Chen</b></div>
+      <div class="by">By <b>Tony Chen</b> · November 26, 2026</div>
       <div class="links">
         <a class="lbtn pri" href="explorer/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-compass"/></svg>Explore all 500 questions</a>
         <a class="lbtn" href="https://huggingface.co/datasets/tonychenxyz/outsider-blindness" target="_blank" rel="noopener"><img class="hflogo" src="assets/hf-logo.svg" alt="">Insider-500 on Hugging Face</a>
@@ -541,7 +543,7 @@ sitemap: false
         </div>
         <div class="pdetail" id="p-detail"></div>
       </div>
-        <figcaption><span class="fn">Figure 1</span><span>The 100 practitioners, grouped by industry. Click a face to see one of their five questions, the clip, their answer, the rubric points we grade against and how each of the six models answered.</span></figcaption>
+        <figcaption><span class="fn">Figure 1</span><span>The 100 practitioners, grouped by industry. Click a face to see their five questions, each with the clip, their answer, the rubric points we grade against and how each of the six models answered.</span></figcaption>
         <div class="fig-act"><a class="obtn" id="p-explore" href="explorer/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-compass"/></svg>Explore more in the explorer<svg class="ic"><use href="#i-arrow-up-right"/></svg></a></div></figure>
 
       <h2 id="results" data-toc="Results">Frontier models miss more than half of the rubric points</h2>
@@ -627,7 +629,7 @@ sitemap: false
         <div class="faces" id="cta-faces"></div>
       </div></div>
 
-      <div class="apx">Appendix</div>
+      <div class="apx" id="appendix">Appendix</div>
       <h2 id="newer" data-num="A" data-toc="Improvement over generations">Have the models gotten better?</h2>
       <p>We ran five generations of Claude Opus, from 4.6 to 5.5, on a fixed set of 100 questions, five from each industry.</p>
 
@@ -644,12 +646,12 @@ sitemap: false
 
       <p>All four curves flatten after the first few answers, and going from four answers to eight adds less than 3 points. <b>For most rubric points, the answer is no.</b> More sampling doesn’t reach them, and the length limit isn’t the reason either, since eight answers together run past a thousand words.</p>
 
-      <h2 id="methods" data-num="C" data-toc="Methods">How we built and graded the test</h2>
+      <h2 id="methods" data-num="C" data-toc="Method details">Method details</h2>
       <p><b>Questions.</b> 100 practitioners, five per industry in 20 industries, each from one long-form interview on YouTube. We transcribed the interviews with ElevenLabs and lightly cleaned them of filler words. For each person we took five passages where they explain how something works, and wrote a question a curious user might ask, without naming the person or asking the model to play a role. We avoided “what should I do” questions. Each answer was split into three or four short rubric points, and each rubric point has a grader note saying what counts and what doesn’t.</p>
       <p><b>Models.</b> Claude Fable 5.2 and Claude Opus 5.5 in Claude Code, Gemini 4 Carbon and Gemini 4 Neon in Antigravity, GPT-6.2-Sol and GPT-6.2-Astra in Codex. Each was asked for a plain-prose answer under 180 words. The Claude models often went over (median 185 and 195 words); cutting their answers at 180 words and grading again moves Fable from 44.3% to 43.4% and Opus from 42.7% to 41.5%.</p>
       <p><b>Search.</b> All models used the same search tool, with their built-in web tools turned off. It blocked 122 domains (video and audio hosts, transcript sites and the podcasts’ own sites), all 100 source video IDs and any search that named the guest.</p>
       <p><b>Grading.</b> GPT-6.2-Sol graded every answer against the rubric points and grader notes, and had to quote the sentence that made each rubric point; quotes were checked against the answer. Grading 1,344 verdicts a second time gave 96.6% agreement (κ = 0.92). In the sampling test, Neon’s answers were graded by GPT-6.1-Sol and Sol’s by GPT-6.2-Sol; with and without search use the same grader. With a second grading, Sol’s best-of-eight gain falls from 8.9 to 5.3 points.</p>
-      <p><b>Limits.</b> Each question has one practitioner’s answer, and other experts might weigh things differently. The grader accepts any wording, but it can still miss a rubric point made indirectly. Many interviews were public before the models were trained, so the models may have seen them. If anything, that makes the test easier.</p>
+      <p><b>Limits.</b> Each question has one practitioner’s answer, and other experts might weigh things differently. The grader accepts any wording, but it can still miss a rubric point made indirectly. Many interviews were public before the models were trained, so the models may have seen them. If anything, that makes the questions easier.</p>
 
       <div class="foot">Tony Chen · November 2026. Clips play from the original interviews on YouTube. Quotes are from our transcripts, lightly cleaned of filler words. Portraits are frames from the interviews. For nine guests whose interviews show no face, they come from other public videos or from Wikimedia Commons: Jigar Shah (U.S. Department of Energy, public domain), Jeff Currie (<a href="https://commons.wikimedia.org/wiki/File:Jeffrey_Currie.jpg">LakeSe121</a>, CC BY 4.0) and Vincent Clerc (<a href="https://commons.wikimedia.org/wiki/File:Visit_of_Wopke_Hoekstra,_European_Commissioner,_to_Denmark_(P-070377-00-05).jpg">© European Union</a>, CC BY 4.0), cropped. Model logos from Simple Icons; icons from Lucide.</div>
     </div>
@@ -823,7 +825,8 @@ let showPerson = null;
 (function () {
   const toc = root.querySelector('.toc'), list = toc.querySelector('.tl'), hs = Array.from(root.querySelectorAll('.main h2[id]')), links = [];
   hs.forEach((h, k) => {
-    const a = el('a'); a.href = '#' + h.id; a.title = h.textContent;
+    if (h.dataset.num && !list.querySelector('.tap')) { const ap = el('a', 'tap'); ap.href = '#appendix'; ap.append(el('i'), el('span', null, 'Appendix')); list.appendChild(ap); }
+    const a = el('a', h.dataset.num ? 'sub' : ''); a.href = '#' + h.id; a.title = h.textContent;
     a.append(el('i', null, h.dataset.num || String(k + 1)), el('span', null, h.dataset.toc || h.textContent));
     list.appendChild(a); links.push([h, a]);
   });
