@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795739512">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795740712">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/explorer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -279,7 +279,7 @@
 .obx .pt .gnote { font-size:12.5px; line-height:1.5; color:var(--muted); margin-top:4px; }
 .obx .pt details summary { font-size:12px; color:var(--muted); cursor:pointer; margin-top:6px; }
 .obx .pt details summary:hover { color:var(--ink); }
-/* which models made an insight: outlined = made it, grey = missed it */
+/* which models made a rubric point: outlined = made it, grey = missed it */
 .obx .rc { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
 .obx .mchip { display:inline-flex; align-items:center; gap:4px; height:22px; font-size:11.5px; line-height:1; border-radius:999px; padding:0 8px 0 6px; white-space:nowrap; border:1px solid transparent; }
 .obx .mchip svg.ic { width:12px; height:12px; }
@@ -445,13 +445,13 @@
   <div class="wrap">
     <aside>
       <div class="ctl">
-        <input id="f-search" type="search" placeholder="Search questions, names or insights" aria-label="Search">
+        <input id="f-search" type="search" placeholder="Search questions, names or rubric points" aria-label="Search">
         <select id="f-dom" aria-label="Industry"><option value="">All industries</option></select>
         <select id="f-person" aria-label="Practitioner"><option value="">All practitioners</option></select>
         <select id="f-show" aria-label="Outcome">
           <option value="">All questions</option>
-          <option value="zero">No model made any insight</option>
-          <option value="all">Every model made every insight</option>
+          <option value="zero">No model made any rubric point</option>
+          <option value="all">Every model made every rubric point</option>
           <option value="searched">At least one model searched</option>
           <option value="k8">In the eight-sample test</option>
         </select>
@@ -519,14 +519,14 @@ function marks(out, text, spans, tip, stagger) {
   }
   return out;
 }
-/* where in the practitioner's own words each insight is stated (data/guest_quotes.json: question id -> passages per insight) */
+/* where in the practitioner's own words each rubric point is stated (data/guest_quotes.json: question id -> passages per rubric point) */
 let GQ = null;
 function guestSpans(text, qid) { const out = []; ((GQ && GQ[qid]) || []).forEach((qs, pi) => qs.forEach(s => { const a = text.indexOf(s); if (a >= 0) out.push([a, a + s.length, pi]); })); return out; }
 let REF = null;
-function fillRef() { if (!REF) return; const node = REF[0], Q = REF[1]; node.textContent = ''; marks(node, Q.guest, guestSpans(Q.guest, Q.id), pi => ['Insight ' + (pi + 1), Q.points[pi].core]); }
+function fillRef() { if (!REF) return; const node = REF[0], Q = REF[1]; node.textContent = ''; marks(node, Q.guest, guestSpans(Q.guest, Q.id), pi => ['Rubric point ' + (pi + 1), Q.points[pi].core]); }
 fetch('../data/guest_quotes.json').then(r => r.json()).then(j => { GQ = j; if (REF && REF[0].isConnected) fillRef(); }).catch(() => {});
 function highlighted(text, spans, points, verdicts) {
-  return marks(el('div', 'atext'), text, spans, (pi, cover) => ['Insight ' + (pi + 1) + (cover.length > 1 ? ' (also ' + cover.filter(x => x !== pi).map(x => x + 1).join(', ') + ')' : ''), points[pi].core + ' Grader: ' + verdicts[pi].why]);
+  return marks(el('div', 'atext'), text, spans, (pi, cover) => ['Rubric point ' + (pi + 1) + (cover.length > 1 ? ' (also ' + cover.filter(x => x !== pi).map(x => x + 1).join(', ') + ')' : ''), points[pi].core + ' Grader: ' + verdicts[pi].why]);
 }
 function verdictList(points, grade) {
   const box = el('div');
@@ -572,8 +572,8 @@ function renderModel(box, Q, m) {
     body.textContent = '';
     const a = mode === 'web' ? m : m.noweb, g = a.grade;
     body.appendChild(highlighted(a.answer, g.spans, Q.points, g.points));
-    if (!g.spans.length) body.appendChild(el('div', 'meta', 'The grader matched none of the insights in this answer, so nothing is highlighted.'));
-    body.appendChild(el('div', 'meta', m.model + ' · ' + a.words + ' words' + (mode === 'web' && m.seconds ? ' · ' + Math.round(m.seconds) + ' s' : '') + ' · ' + g.points.filter(p => p.ok).length + ' of ' + Q.points.length + ' insights'));
+    if (!g.spans.length) body.appendChild(el('div', 'meta', 'The grader matched none of the rubric points in this answer, so nothing is highlighted.'));
+    body.appendChild(el('div', 'meta', m.model + ' · ' + a.words + ' words' + (mode === 'web' && m.seconds ? ' · ' + Math.round(m.seconds) + ' s' : '') + ' · ' + g.points.filter(p => p.ok).length + ' of ' + Q.points.length + ' rubric points'));
     body.appendChild(el('div', 'lbl', 'Grader verdicts (GPT-6.2-Sol)'));
     body.appendChild(verdictList(Q.points, g));
     if (mode === 'web') { body.appendChild(el('div', 'lbl', 'Search trajectory · ' + m.searches.length + (m.searches.length === 1 ? ' search' : ' searches'))); body.appendChild(trajectory(m.searches)); }
@@ -593,7 +593,7 @@ function renderSamples(box, Q, S) {
       b.addEventListener('click', () => { si = i; draw(); }); grid.appendChild(b); });
     body.appendChild(grid);
     const counts = Q.points.map((p, j) => arr.filter(a => a.grade.points[j].ok).length);
-    body.appendChild(el('div', 'meta', 'Answers that made each insight: ' + counts.map((c, j) => 'insight ' + (j + 1) + ' in ' + c + ' of 8').join(', ') + '. Graded by ' + S[sk].grader + '.'));
+    body.appendChild(el('div', 'meta', 'Answers that made each rubric point: ' + counts.map((c, j) => 'rubric point ' + (j + 1) + ' in ' + c + ' of 8').join(', ') + '. Graded by ' + S[sk].grader + '.'));
     const a = arr[si]; const h = highlighted(a.answer, a.grade.spans, Q.points, a.grade.points); h.style.marginTop = '12px'; body.appendChild(h);
     body.appendChild(verdictList(Q.points, a.grade));
   }
@@ -614,16 +614,16 @@ function renderQuestion(id, modelIdx) {
     main.appendChild(el('div', 'lbl', 'What ' + Q.speaker + ' said (reference answer)'));
     clip(main, Q.video, Q.t0, Q.t1, Q.speaker);
     const ref = el('div', 'ref'); REF = [ref, Q]; fillRef(); main.appendChild(ref);
-    main.appendChild(el('div', 'lbl', 'The insights, and which models made them'));
+    main.appendChild(el('div', 'lbl', 'The rubric points, and which models made them'));
     Q.points.forEach((p, i) => {
       const r = el('div', 'pt'); r.style.setProperty('--pc', PC[i]); r.appendChild(el('span', 'nb', String(i + 1)));
       const c = el('div', null, p.core); const rc = el('div', 'rc');
-      Q.models.forEach((m, j) => { const ok = m.grade.points[i].ok; const ch = el('span', 'mchip ' + (ok ? 'y' : 'n')); ch.title = m.label + (ok ? ' made this insight' : ' missed this insight'); ch.append(logo(m.lab), document.createTextNode(D.short[j]), el('span', 'mk', ok ? '✓' : '✗')); rc.appendChild(ch); });
+      Q.models.forEach((m, j) => { const ok = m.grade.points[i].ok; const ch = el('span', 'mchip ' + (ok ? 'y' : 'n')); ch.title = m.label + (ok ? ' made this rubric point' : ' missed this rubric point'); ch.append(logo(m.lab), document.createTextNode(D.short[j]), el('span', 'mk', ok ? '✓' : '✗')); rc.appendChild(ch); });
       c.appendChild(rc);
       const det = el('details'); det.appendChild(el('summary', null, 'Grader note')); det.appendChild(el('div', 'gnote', p.note)); c.appendChild(det); r.appendChild(c);
       main.appendChild(r);
     });
-    main.appendChild(el('div', 'lbl', 'Model answers. Sentences the grader matched to an insight are highlighted.'));
+    main.appendChild(el('div', 'lbl', 'Model answers. Sentences the grader matched to a rubric point are highlighted.'));
     const tabs = el('div', 'tabs'), mbox = el('div'); main.append(tabs, mbox);
     Q.models.forEach((m, j) => {
       const b = el('button'); b.type = 'button';
