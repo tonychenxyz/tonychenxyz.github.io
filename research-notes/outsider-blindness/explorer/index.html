@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795740712">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795740956">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/explorer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -484,6 +484,7 @@ fetch('../data/people.json').then(r => r.json()).then(j => { BIO = j; root.query
 (function () { const nav = document.querySelector('header nav'); const clear = () => { if (nav && getComputedStyle(nav).position === 'fixed') root.style.setProperty('--navh', Math.round(nav.getBoundingClientRect().height) + 'px'); }; clear(); window.addEventListener('resize', clear); window.addEventListener('load', clear); })();
 
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function hms(s) { s = Math.max(0, Math.round(s)); const hh = Math.floor(s / 3600), mm = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, '0'); return hh ? hh + ':' + String(mm).padStart(2, '0') + ':' + ss : mm + ':' + ss; }
 function mmss(s) { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
 function slugOf(id) { return id.replace(/_q\d+$/, ''); }
 function initials(n) { return n.split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join(''); }
@@ -503,7 +504,7 @@ function clip(box, v, t0, t1, who) {
   ifr.src = 'https://www.youtube-nocookie.com/embed/' + v + '?start=' + t0 + '&end=' + t1 + '&rel=0&modestbranding=1&playsinline=1';
   ifr.loading = 'lazy'; ifr.allow = 'autoplay; encrypted-media; picture-in-picture'; ifr.allowFullscreen = true; ifr.title = who + ', clip from the interview';
   f.appendChild(ifr); box.appendChild(f);
-  box.appendChild(el('div', 'vcap', mmss(t1 - t0) + ' clip, starting at ' + mmss(t0) + ' in the interview'));
+  box.appendChild(el('div', 'vcap', hms(t0) + ' – ' + hms(t1)));
 }
 function marks(out, text, spans, tip, stagger) {
   const cuts = new Set([0, text.length]); spans.forEach(([a, b]) => { cuts.add(a); cuts.add(b); });
