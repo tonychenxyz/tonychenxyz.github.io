@@ -182,6 +182,10 @@ sitemap: false
 .obp b { font-weight:600; color:var(--ink); }
 .obp .term { font-style:italic; color:var(--ink); }
 .obp h3.sub { margin:44px 0 14px; }
+.obp .cite-txt { font-size:16px; line-height:1.6; }
+.obp .bib { position:relative; margin:0 0 40px; }
+.obp .bib pre { font-family:var(--mono); font-size:12.5px; line-height:1.65; color:var(--ink); background:var(--tint); border:0; border-radius:14px; padding:18px 20px; padding-top:52px; margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
+.obp .bib .obtn { position:absolute; top:10px; right:10px; background:#fff; box-shadow:0 0 0 1px var(--line); }
 .obp .tldr { background:var(--tint); border-radius:16px; padding:22px 26px 8px; margin:0 0 40px; }
 .obp .tldr .tt { font-size:13px; font-weight:700; letter-spacing:.06em; color:var(--ink); margin:0 0 12px; }
 .obp .tldr ul.bl { font-size:16.5px; line-height:1.6; margin-bottom:12px; }
@@ -672,6 +676,17 @@ sitemap: false
       <p><b>Grading.</b> GPT-6.2-Sol graded every answer against the rubric points and grader notes, and had to quote the sentence that covers each rubric point; quotes were checked against the answer. Grading 1,344 verdicts a second time gave 96.6% agreement (κ = 0.92). In the sampling test, Neon’s answers were graded by GPT-6.1-Sol and Sol’s by GPT-6.2-Sol; with and without search use the same grader. With a second grading, Sol’s best-of-eight gain falls from 8.9 to 5.3 points.</p>
       <p><b>Limits.</b> Each question has one practitioner’s answer, and other experts might weigh things differently. The grader accepts any wording, but it can still miss a rubric point that an answer covers indirectly. Many interviews were public before the models were trained, so the models may have seen them. If anything, that makes the questions easier.</p>
 
+      <h2 id="cite" data-plain="1" data-toc="Citation">Citation</h2>
+      <p>If you use Insider-500 or refer to this post, please cite it as</p>
+      <p class="cite-txt">Tony Chen. “LLM’s Outsider Blindness: What Frontier AI Doesn’t Know About How the World Works.” November 2026. <a href="https://tonychen.xyz/research-notes/outsider-blindness/">https://tonychen.xyz/research-notes/outsider-blindness/</a></p>
+      <div class="bib"><button class="obtn" type="button" id="bib-copy">Copy BibTeX</button><pre id="bib-text">@misc{chen2026outsiderblindness,
+  title        = {LLM's Outsider Blindness: What Frontier AI Doesn't Know About How the World Works},
+  author       = {Chen, Tony},
+  year         = {2026},
+  month        = {nov},
+  howpublished = {\url{https://tonychen.xyz/research-notes/outsider-blindness/}},
+  note         = {Blog post. Insider-500 dataset: \url{https://huggingface.co/datasets/tonychenxyz/outsider-blindness}}
+}</pre></div>
       <div class="foot">Tony Chen · November 2026. Clips play from the original interviews on YouTube. Quotes are from our transcripts, lightly cleaned of filler words. Portraits are frames from the interviews. For nine guests whose interviews show no face, they come from other public videos or from Wikimedia Commons: Jigar Shah (U.S. Department of Energy, public domain), Jeff Currie (<a href="https://commons.wikimedia.org/wiki/File:Jeffrey_Currie.jpg">LakeSe121</a>, CC BY 4.0) and Vincent Clerc (<a href="https://commons.wikimedia.org/wiki/File:Visit_of_Wopke_Hoekstra,_European_Commissioner,_to_Denmark_(P-070377-00-05).jpg">© European Union</a>, CC BY 4.0), cropped. Model logos from Simple Icons; icons from Lucide.</div>
     </div>
   </div>
@@ -882,8 +897,8 @@ let showPerson = null;
   const toc = root.querySelector('.toc'), list = toc.querySelector('.tl'), hs = Array.from(root.querySelectorAll('.main h2[id]')), links = [];
   hs.forEach((h, k) => {
     if (h.dataset.num && !list.querySelector('.tap')) { const ap = el('a', 'tap'); ap.href = '#appendix'; ap.append(el('i'), el('span', null, 'Appendix')); list.appendChild(ap); }
-    const a = el('a', h.dataset.num ? 'sub' : ''); a.href = '#' + h.id; a.title = h.textContent;
-    a.append(el('i', null, h.dataset.num || String(k + 1)), el('span', null, h.dataset.toc || h.textContent));
+    const a = el('a', h.dataset.num ? 'sub' : h.dataset.plain ? 'tap' : ''); a.href = '#' + h.id; a.title = h.textContent;
+    a.append(el('i', null, h.dataset.plain ? '' : h.dataset.num || String(k + 1)), el('span', null, h.dataset.toc || h.textContent));
     list.appendChild(a); links.push([h, a]);
   });
   /* the site header is fixed and wraps to two lines on phones, so measure it instead of assuming a height */
@@ -1403,6 +1418,11 @@ function drawUnits() {
   }
   if (REDUCED) { frame(4000); return; }
   new IntersectionObserver(es => es.forEach(e => { on = e.isIntersecting; if (on) { last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); } })).observe(box);
+})();
+
+(function () {
+  const b = document.getElementById('bib-copy'); if (!b) return;
+  b.addEventListener('click', () => { const t = document.getElementById('bib-text').textContent; (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy BibTeX'), 1600); }).catch(() => { const r = document.createRange(); r.selectNodeContents(document.getElementById('bib-text')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }); });
 })();
 
 (function () { const f = document.getElementById('cta-faces'); D.people.forEach(p => f.appendChild(avatar(p.slug, p.name))); })();
