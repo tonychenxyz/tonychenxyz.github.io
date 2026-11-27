@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795742261">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795742303">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -760,11 +760,6 @@
 
       <p><b>Have the models gotten better? Yes, but slowly.</b></p>
 
-      <h2 id="missing" data-toc="What models miss">What are the models missing?</h2>
-      <p>The models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field without ever working in it. <b>We call this <span class="term">outsider blindness</span>.</b> The misses fall into a few patterns, all about how things work.</p>
-      <div class="wide" id="patterns-box"></div>
-      <p style="margin-top:56px">Some of the models’ answers are also true. Software compatibility does make chip rewrites hard, and cheap steel does help shipyards. A rubric built from one person’s answer isn’t the only right answer. But the practitioners are rarely adding one more item to a list. They say which factor decides the outcome, and often name the common explanation and set it aside, as Nima does. That judgment is what we set out to measure.</p>
-
       <h2 id="inside" data-toc="Is it in the model?">Do the models know it somewhere deep inside?</h2>
       <p>Maybe the models know these things but don’t say them, and reinforcement learning could sharpen them out. We haven’t run RL, but if the knowledge is in the model, it should show up across many samples. We sampled eight answers to 50 questions from Gemini 4 Neon and GPT-6.2-Sol, with and without web search.</p>
 
@@ -777,6 +772,11 @@
         <li>About 40% of Sol’s best-of-eight gain was grader noise. It went away when we graded the same answers a second time.</li>
       </ul>
       <p><b>For most rubric points, the answer is no.</b> Sampling doesn’t reach them. Nor is the length limit to blame, since eight answers run past a thousand words.</p>
+
+      <h2 id="missing" data-toc="What models miss">What are the models missing?</h2>
+      <p>The models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field without ever working in it. <b>We call this <span class="term">outsider blindness</span>.</b> The misses fall into a few patterns, all about how things work.</p>
+      <div class="wide" id="patterns-box"></div>
+      <p style="margin-top:56px">Some of the models’ answers are also true. Software compatibility does make chip rewrites hard, and cheap steel does help shipyards. A rubric built from one person’s answer isn’t the only right answer. But the practitioners are rarely adding one more item to a list. They say which factor decides the outcome, and often name the common explanation and set it aside, as Nima does. That judgment is what we set out to measure.</p>
 
       <h2 id="learn" data-toc="How experts learned">How did the practitioners learn these things?</h2>
       <p><b>Not from reading.</b> In their answers, they often say where it came from.</p>
