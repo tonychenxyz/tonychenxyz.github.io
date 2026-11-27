@@ -186,6 +186,9 @@ sitemap: false
 .obp b { font-weight:600; color:var(--ink); }
 .obp .term { font-style:italic; color:var(--ink); }
 .obp h3.sub { margin:44px 0 14px; }
+.obp .exl { display:flex; align-items:center; gap:10px; font-size:14px; font-weight:600; color:var(--ink); margin:30px 0 10px; }
+.obp .exl.first { margin-top:0; }
+.obp .exl .cat { display:inline-flex; align-items:center; gap:6px; margin:0; font-size:13px; font-weight:500; color:var(--ink); }
 .obp .cite-txt { font-size:16px; line-height:1.6; }
 .obp .bib { position:relative; margin:0 0 40px; }
 .obp .bib pre { font-family:var(--mono); font-size:12.5px; line-height:1.65; color:var(--ink); background:var(--tint); border:0; border-radius:14px; padding:52px 20px 18px; margin:0; white-space:pre-wrap; overflow-wrap:anywhere; }
@@ -195,7 +198,7 @@ sitemap: false
 .obp .pcard { position:relative; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 14px 15px; box-shadow:0 1px 2px rgba(13,13,15,.04), 0 6px 16px -10px rgba(13,13,15,.12); }
 .obp .pcard.ctx { border:1.5px dashed var(--ink); box-shadow:none; }
 .obp .pk { position:absolute; top:-9px; left:12px; background:#fff; padding:0 6px; font-size:11.5px; font-weight:600; color:var(--ink); white-space:nowrap; }
-.obp .ph { display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:var(--ink); margin:0 0 9px; white-space:nowrap; }
+.obp .ph { display:flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--ink); margin:0 0 10px; white-space:nowrap; }
 .obp .ph .avatar { width:20px; height:20px; }
 .obp .pq { font-size:13.5px; line-height:1.45; font-weight:500; color:var(--ink); }
 .obp .plines i { display:block; height:6px; border-radius:3px; background:var(--tint2); margin:9px 0 0; }
@@ -203,10 +206,10 @@ sitemap: false
 .obp .plines i.h { background:rgba(111,86,232,.3); box-shadow:inset 0 -2px 0 #6f56e8; }
 .obp .plines i.s { width:58%; }
 .obp .prow { display:flex; align-items:center; gap:8px; margin-top:9px; }
-.obp .prow b { width:17px; height:17px; flex:none; border-radius:50%; background:var(--ink); color:#fff; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
+.obp .prow b { width:17px; height:17px; flex:none; border-radius:50%; background:#fff; border:1.5px solid var(--ink); color:var(--ink); font-size:9.5px; font-weight:600; display:inline-flex; align-items:center; justify-content:center; }
 .obp .prow i { flex:1; height:6px; border-radius:3px; background:var(--tint2); }
 .obp .prow.ok i { background:rgba(111,86,232,.3); }
-.obp .prow span { width:14px; text-align:center; font-size:14px; font-weight:700; color:var(--ink); }
+.obp .prow span { width:14px; text-align:center; font-size:13px; font-weight:600; color:var(--ink); }
 .obp .parr { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:7px; padding:0 6px; }
 .obp .pbadge { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-wrap:wrap; align-content:center; gap:1px 2px; padding:7px; background:#fff; border:1px solid var(--line); box-shadow:0 1px 2px rgba(13,13,15,.06); }
 .obp .pbadge.mdl svg.ic { width:12px; height:12px; }
@@ -713,6 +716,9 @@ sitemap: false
         <div class="faces" id="cta-faces"></div>
       </div></div>
 
+      <h2 id="ack" data-plain="1" data-toc="Acknowledgments">Acknowledgments</h2>
+      <p>Thanks to Ang Li and Wenhao Chai for feedback and discussion.</p>
+
       <div class="apx" id="appendix">Appendix</div>
       <h2 id="newer" data-num="A" data-toc="Improvement over generations">Have the models gotten better?</h2>
       <p>We ran five generations of Claude Opus, from 4.6 to 5.5, on a fixed set of 100 questions, five from each industry.</p>
@@ -1008,7 +1014,8 @@ let showPerson = null;
     fetch('explorer/data/q/' + p.q[i] + '.json').then(r => r.json()).then(Q => {
       if (my !== token) return;
       detail.textContent = ''; detail.style.opacity = '1';
-      detail.appendChild(el('div', 'q', Q.question));
+      detail.appendChild(el('div', 'exl first', 'Question')); detail.appendChild(el('div', 'q', Q.question));
+      detail.appendChild(el('div', 'exl', 'Reference answer'));
       const g = el('div', 'pgrid');
       const cores = Q.points.map(x => x.core);
       const left = el('div'); clip(left, Q.video, Q.t0, Q.t1, Q.speaker);
@@ -1016,9 +1023,11 @@ let showPerson = null;
       g.append(left, right); detail.appendChild(g);
       /* the rubric, with which of the six models covered each point */
       const bits = Q.points.map((_, k) => Q.models.map(m => (m.grade.points[k].ok ? '1' : '0')).join(''));
+      detail.appendChild(el('div', 'exl', 'Rubrics and results'));
       detail.appendChild(insightList(cores, bits, null, true));
       if (!bits.some(x => x.indexOf('1') >= 0)) { const n = el('div', 'none'); n.append(ic('i-x'), document.createTextNode('No model covered any of these rubric points.')); detail.appendChild(n); }
       /* each model's answer, with the sentences the grader quoted for each rubric point */
+      detail.appendChild(el('div', 'exl', 'Model responses'));
       const ma = el('div', 'manswers');
       const tabs = el('div', 'tabs'), holder = el('div', 'ma-grid'); ma.append(tabs, holder); detail.appendChild(ma);
       const answer = j => {
@@ -1046,15 +1055,18 @@ let showPerson = null;
 /* ---------- example cards ---------- */
 function renderExample(box, f, compact) {
   box.textContent = '';
-  const cat = el('div', 'cat'); cat.append(indIcon(f.domain), document.createTextNode(f.domain)); box.appendChild(cat);
+  const cat = el('div', 'exl first'); const dm = el('span', 'cat'); dm.append(indIcon(f.domain), document.createTextNode(f.domain)); cat.append(document.createTextNode('Question'), dm); box.appendChild(cat);
   box.appendChild(el('div', 'q', f.q));
+  box.appendChild(el('div', 'exl', 'Reference answer'));
   box.appendChild(whoLine(f.slug, f.speaker));
   const top = el('div', 'ex-top');
   const left = el('div'); clip(left, f.v, f.t0, f.t1, f.speaker);
   const right = el('div', 'qcol'); right.appendChild(clamped(quote(f.guest || f.quote, f.id, f.r), 300));
   top.append(left, right); box.appendChild(top);
+  box.appendChild(el('div', 'exl', 'Rubrics and results'));
   box.appendChild(insightList(f.r, f.p, null, true));
   if (!f.p.some(b => b.indexOf('1') >= 0)) { const n = el('div', 'none'); n.append(ic('i-x'), document.createTextNode('No model covered any of these rubric points.')); box.appendChild(n); }
+  box.appendChild(el('div', 'exl', 'Model responses'));
   const ml = el('div', 'mlist');
   const shown = compact ? [0, 1, 4] : [0, 1, 2, 3, 4, 5];
   const rows = f.lines.map((t, j) => {
