@@ -579,7 +579,7 @@ sitemap: false
 
       <h2 id="results" data-toc="Results">Frontier models miss more than half of the rubric points</h2>
       <aside class="mnote"><div class="nt">How we kept models from finding the exact podcast</div><div class="nbody"><p>Every model used the same search tool, with its built-in web tools turned off. The tool dropped results from 122 domains (video and audio hosts, transcript sites and each podcast’s own site) and from all 100 source videos by ID, and it refused any search that named the guest.</p></div></aside>
-      <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. GPT-6.2-Sol graded each answer one rubric point at a time, quoting the sentence that covers it. Any wording counts.</p>
+      <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. GPT-6.2-Sol graded each answer one rubric point at a time, quoting the sentence that covers it.</p>
 
       <figure class="fig reveal" id="fig-scores"><div class="fpanel">
         <div class="seg" role="group" aria-label="Web search"><button aria-pressed="true" data-web="1" type="button">With web search</button><button aria-pressed="false" data-web="0" type="button">Without web search</button></div>
@@ -595,7 +595,7 @@ sitemap: false
 
       <ul class="bl">
         <li><b>They search with generic words from the question.</b> More than half of Gemini 4 Neon’s queries take most of their words from the question. On Jigar Shah’s question, Carbon searched for “energy project finance commercial banks refuse lend new asset class pipeline bankability.”</li>
-        <li><b>What comes back is written from the outside.</b> Those searches returned a U.S. Commerce Department climate finance handbook, OECD guidance on blended finance and an EU legal document. Jigar Shah’s answer, that loan officers aren’t paid to learn a new asset class, comes from years of pitching banks.</li>
+        <li><b>What comes back is secondhand.</b> Those searches returned a U.S. Commerce Department climate finance handbook, OECD guidance on blended finance and an EU legal document.</li>
         <li><b>They search for what they already believe.</b> On Gavin Baker’s question, Carbon’s second query was “fragmentation AI chip startups helps Nvidia software moat.” That became its answer.</li>
       </ul>
 
@@ -614,7 +614,7 @@ sitemap: false
         <li><b>They learned by doing the work.</b> Moses Kagan found out what in-house property management costs by paying for it out of deal fees every month.</li>
         <li><b>They learned by talking to the people involved.</b> Jigar Shah heard from bankers why his deals were hard to fund, and Nima Arkani-Hamed learned from mathematicians when to be precise.</li>
       </ul>
-      <p>None of them learned it from a generic Google search like the ones the models ran. Little of that gets written down, and what does get said in public is outnumbered by text written from the outside, which is what pretraining and search see. The scores by industry fit this picture.</p>
+      <p>None of them learned it from a generic Google search like the ones the models ran. Little of that gets written down, and what does get said in public is outnumbered by secondhand accounts, which is what pretraining and search see. The scores by industry fit this picture.</p>
 
       <figure class="fig reveal" id="fig-dom"><div class="fpanel"><div class="legend"></div><div class="dplot"></div></div>
         <figcaption><span class="fn">Figure 5</span><span>The share of rubric points each model covered in each industry, from five practitioners and 25 questions per industry. The black tick is the average of all six models, and industries are sorted by it. For each lab, the filled logo is the model with the higher overall score.</span></figcaption></figure>
