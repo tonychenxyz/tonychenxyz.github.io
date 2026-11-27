@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795738968">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795739512">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -356,9 +356,9 @@
 
 /* text */
 .obp p { font-size:18px; line-height:1.68; letter-spacing:-.008em; color:var(--text); margin:0 0 22px; }
-.obp ul.bl { font-size:18px; line-height:1.62; letter-spacing:-.008em; color:var(--text); list-style:none; margin:0 0 26px; padding:0; }
-.obp ul.bl li { position:relative; margin:0 0 10px; padding-left:24px; }
-.obp ul.bl li::before { content:''; position:absolute; left:2px; top:.76em; width:9px; height:1.5px; background:var(--faint); }
+.obp ul.bl { font-size:18px; line-height:1.75; letter-spacing:-.008em; color:var(--text); list-style:none; margin:0 0 28px; padding:0; }
+.obp ul.bl li { position:relative; margin:0 0 14px; padding-left:28px; }
+.obp ul.bl li::before { content:''; position:absolute; left:8px; top:.74em; width:6px; height:6px; border-radius:50%; background:var(--ink); }
 .obp b { font-weight:600; color:var(--ink); }
 .obp .term { font-style:italic; color:var(--ink); }
 .obp h2 { font-family:var(--sans); font-weight:600; font-size:32px; line-height:1.15; letter-spacing:-.03em; color:var(--ink); margin:92px 0 20px; scroll-margin-top:calc(var(--navh) + 26px); }
@@ -637,20 +637,18 @@
 </div></nav>
     <div class="main">
 
-      <p>AI labs have a concrete picture of where this goes. You train a model as good as your best researcher, then run thousands of copies of it. Each copy picks its own problems and decides what to try next. Dario Amodei calls this <a href="https://www.darioamodei.com/essay/machines-of-loving-grace" rel="external nofollow noopener" target="_blank">“a country of geniuses in a datacenter.”</a></p>
-      <p>We are not there yet. Models already write much of the code at AI labs, but researchers still decide what the code is for. Outside AI it is the same. A model can do a well-specified task in almost any field. Give it an open-ended job, like choosing which research bet to make or fixing a broken supply chain, and you still want someone from the field checking its work.</p>
-      <p>Ask people why, and you hear “taste matters” or “you still need domain experts.” I think they are right, but that doesn’t tell us what to fix. What does the expert know that the model doesn’t?</p>
+      <p>AI keeps getting better at well-specified tasks. But we still can’t drop it into the open world and ask it to make us a billion dollars.</p>
+      <p>People say “taste matters,” and in practice domain experts still work alongside AI to get real problems solved. So where exactly is the gap?</p>
 
-      <h2 id="people" data-toc="The dataset">We collected 500 questions from 100 practitioners in 20 industries</h2>
+      <h2 id="people" data-toc="Insight-500">Insight-500: Evaluating insider knowledge with podcast Q&amp;A</h2>
       <aside class="mnote"><div class="nt">Why podcasts?</div>
 <div class="nbody">
 <p>Most practitioners never write down how their work actually runs. What does get written, like papers, filings and press releases, passes through editors, lawyers and PR first. A long interview is different in two ways.</p>
 <p>First, the host keeps asking. Experts leave out much of what they know when they describe their own work, usually without noticing. In one small study, surgeons teaching a procedure left out 73% of the decision steps. When an interviewer prompted them, the share of steps they described rose from 44% to 66% (<a href="https://doi.org/10.1097/ACM.0000000000000224" rel="external nofollow noopener" target="_blank">Sullivan et al., 2014</a>).</p>
 <p>Second, people relax. Over a long conversation, guests drop their prepared lines and say what they actually think, sometimes more than they meant to. After Mindbody was sold, its CEO told a podcast host that 98% of his net worth had been locked in the company’s stock, and that selling it bit by bit was “kind of like sucking through a very small straw.” When shareholders later sued over the sale, the Delaware Court of Chancery quoted that line and found his own statements outside the courtroom “far more persuasive than the trial testimony” (<a href="https://courts.delaware.gov/Opinions/Download.aspx?id=345390" rel="external nofollow noopener" target="_blank">In re Mindbody, 2023</a>).</p>
-<p>Podcasts are also public and timestamped, so every answer here can be checked against the original clip. Each example on this page has a button that plays it.</p>
 </div></aside>
-      <p>To find out, we turned to podcasts. In a long interview, people who do the work explain how it actually works, in their own words, with details they rarely write down.</p>
-      <p>We picked interviews with 100 practitioners: bankers, chip designers, short sellers, chefs, airline executives, physicists and AI researchers. From each interview we took five moments where the guest explains how something works. We wrote each one as a plain question anyone might ask an AI, without naming the guest, and split the guest’s answer into three or four insights. That gave us 500 questions and 1,691 insights.</p>
+      <p>In long podcast interviews, people who do the work explain how it actually works, with details they rarely write down.</p>
+      <p>We took interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. From each, we picked five moments where the guest explains how something works, wrote each as a plain question without naming the guest, and split the answer into three or four insights. The result, Insight-500, has 500 questions and 1,691 insights.</p>
 
       <figure class="fig reveal" id="fig-people"><div class="fpanel">
         <div class="groups"></div>
@@ -667,16 +665,16 @@
         <div class="fig-act"><a class="obtn" id="p-explore" href="explorer/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-compass"></use></svg>Explore more in the explorer<svg class="ic"><use href="#i-arrow-up-right"></use></svg></a></div></figure>
 
       <h2 id="outsider" data-toc="Answering like outsiders">Frontier models answer these questions like outsiders</h2>
-      <p>We asked six frontier models from Anthropic, Google and OpenAI to answer every question. Here is one: why does nobody at a frontier AI lab know the true capability ceiling of a model it has just released?</p>
+      <p>We asked six frontier models from Anthropic, Google and OpenAI every question. Take this one: why does nobody at a frontier AI lab know the true capability ceiling of a model it just released?</p>
 
       <figure class="fig reveal" id="fig-open"><div class="fpanel"></div>
         <figcaption><span class="fn">Figure 2</span><span>One question with the practitioner’s answer, which models made each insight, and what each model said. Each tab is a different question.</span></figcaption></figure>
 
-      <p>All six models gave the same kind of answer. Capability isn’t a fixed property, it depends on prompts, tools and scaffolding, and evaluations can only show a lower bound. That is all true. Noam Brown of OpenAI gave a different reason on the No Priors podcast: to know what a model can do after a month of work, you have to run it for a month, and new models come out every two or three months. As models take on longer tasks, finding their limits takes longer, and the next model ships first. None of the six models said this, including the two made by OpenAI.</p>
-      <p>The other two tabs, about bank lending and commodity stocks, follow the same pattern. The questions are plain, and the models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field without ever working in it. The practitioners answer from inside. We call this gap <span class="term">outsider blindness</span>.</p>
+      <p>All six gave the same kind of answer: capability isn’t a fixed property, it depends on prompts, tools and scaffolding, and evaluations only show a lower bound. That is true. Noam Brown of OpenAI gave a different reason on the No Priors podcast: to know what a model can do after a month of work, you have to run it for a month, and new models ship every two or three months. None of the six models said this, including the two made by OpenAI.</p>
+      <p>The other two tabs, on bank lending and commodity stocks, look the same. The models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field without ever working in it. The practitioners answer from inside. We call this gap <span class="term">outsider blindness</span>.</p>
 
       <h2 id="grading" data-toc="How answers are graded">A grader checks each answer for each of the practitioner’s insights</h2>
-      <p>GPT-6.2-Sol graded every answer. For each insight it either quoted the sentence of the answer that makes it or marked it missing. An answer gets credit if it says the same thing in any words. Answers were limited to about 180 words, and every model could search the web with the source podcasts, video sites and transcript sites blocked.</p>
+      <p>GPT-6.2-Sol graded every answer, quoting the sentence that makes each insight or marking it missing. Any wording counts. Answers were limited to about 180 words, and every model could search the web with the source podcasts, video sites and transcript sites blocked.</p>
 
       <figure class="fig reveal" id="fig-grade"><div class="fpanel"></div>
         <figcaption><span class="fn">Figure 3</span><span>How an answer is graded. Each colored highlight is the sentence the grader quoted for that insight. Switch models to compare, and hover a highlight for the grader’s reason.</span></figcaption></figure>
@@ -703,7 +701,7 @@
 </div>
         <figcaption><span class="fn">Figure 4</span><span>The share of the practitioners’ insights that each model made, over all 500 questions. Lines show 95% confidence intervals.</span></figcaption></figure>
 
-      <p>The scores turned out to matter less than which insights the models missed. For each of the 1,691 insights, count how many of the six models made it.</p>
+      <p>Which insights the models missed matters more than the scores. Here is how many of the six models made each of the 1,691 insights.</p>
 
       <figure class="fig reveal" id="fig-units"><div class="fpanel"><div class="units-box"></div></div>
         <figcaption><span class="fn">Figure 5</span><span>Every insight, placed by how many of the six models made it. Hover to read one, and click to open its question in the explorer.</span></figcaption></figure>
@@ -717,13 +715,13 @@
       </ul>
 
       <h2 id="patterns" data-toc="Four patterns in the misses">The missed insights follow four patterns</h2>
-      <p>Reading through the misses, the same few patterns keep coming up. They are about how things work, not about how the answers are written.</p>
+      <p>The misses fall into a few recurring patterns. All of them are about how things work, not how the answers are written.</p>
       <div class="wide" id="patterns-box"></div>
-      <p style="margin-top:56px">A fair objection is that several of the models’ answers are also true. Software compatibility does make chip rewrites hard, and cheap steel does help shipyards. A rubric built from one person’s answer can’t be the only right answer. But the practitioners are rarely adding one more item to a list. They are saying which factor decides the outcome, and often they name the common explanation and set it aside, as Nima does. That judgment, about which factor matters most, is what we set out to measure.</p>
+      <p style="margin-top:56px">Some of the models’ answers are also true: software compatibility does make chip rewrites hard, and cheap steel does help shipyards. A rubric built from one person’s answer isn’t the only right answer. But the practitioners are rarely adding one more item to a list. They say which factor decides the outcome, and often name the common explanation and set it aside, as Nima does. That judgment is what we set out to measure.</p>
 
       <h2 id="inside" data-toc="More samples don’t help">Sampling more answers does not surface the missing insights</h2>
-      <p>Maybe the models know these things and just don’t say them. Post-training pushes models toward safe, standard answers, and the practitioner’s view could still be sitting in the tail of the distribution. If so, reinforcement learning could sharpen the model and bring it out.</p>
-      <p>We haven’t run RL on this, but we can check the premise. If the knowledge is in the model, it should show up when we sample many answers. We took 50 of the questions, with 168 insights, and sampled eight answers to each from Gemini 4 Neon and GPT-6.2-Sol.</p>
+      <p>Maybe the models know these things but don’t say them. Post-training favors safe, standard answers, and the practitioner’s view could sit in the tail of the distribution, where reinforcement learning could sharpen it out.</p>
+      <p>We haven’t run RL, but we can test the premise: if the knowledge is in the model, it should show up across many samples. We sampled eight answers to 50 questions (168 insights) from Gemini 4 Neon and GPT-6.2-Sol.</p>
 
       <figure class="fig reveal" id="fig-k8"><div class="fpanel"><div class="lines-box"></div></div>
         <figcaption><span class="fn">Figure 6</span><span>The share of insights made when we keep the best of N answers to each question, for N from 1 to 8. Hover to read the values.</span></figcaption></figure>
@@ -734,17 +732,17 @@
 <b>74 of the 168 insights never appeared in any of Neon’s eight answers</b>, and 97 never appeared in Sol’s.</li>
         <li>Part of the gain is grader noise. When we graded Sol’s answers a second time, about 40% of its best-of-eight gain went away.</li>
       </ul>
-      <p>So for most of these insights, the answer is no. The knowledge doesn’t seem to be in the model in a form that sampling can reach. This also means the length limit isn’t what holds the models back: eight answers come to over a thousand words, and within each model, longer answers don’t score higher.</p>
+      <p>For most insights, the answer is no. The knowledge isn’t in the model in a form sampling can reach. The length limit isn’t the bottleneck either: eight answers run past a thousand words, and longer answers don’t score higher.</p>
 
       <h2 id="web" data-toc="Web search doesn’t help">Web search does not find the missing insights</h2>
-      <p>Every answer in this test was said out loud on a podcast, and podcasts are part of the public internet. So in some sense the information is out there. To see what search added, we ran every model again with search turned off.</p>
+      <p>Every answer here was said on a public podcast, so in some sense the information is online. To see what search adds, we reran every model without it.</p>
       <ul class="bl">
         <li>No model moved by more than a point (Figure 4).</li>
         <li>Gemini 4 Carbon searched 577 times across 205 questions and gained 0.7 points.</li>
         <li>Claude Fable 5.2 searched once in 500 questions and still had the top score.</li>
         <li>With eight samples, Gemini 4 Neon reached 55.5% with search and 55.3% without.</li>
       </ul>
-      <p>Carson Block’s question from the patterns above shows what happens when models do search. Four of them searched 17 times between them and found an academic study of how companies respond to short sellers. None of them made any of Block’s four insights.</p>
+      <p>Carson Block’s question shows what searching looks like. Four models ran 17 searches between them and found an academic study of how companies respond to short sellers. None made any of his four insights.</p>
 
       <figure class="fig reveal" id="fig-search"><div class="fpanel">
 <div class="queries"></div>
@@ -755,7 +753,7 @@
       <p>Search hands the model more of what it has already read: papers, news and commentary written about a field from the outside.</p>
 
       <h2 id="learn" data-toc="Learned by doing the work">Practitioners learned these insights by doing the work</h2>
-      <p>Look at how the practitioners came to know these things.</p>
+      <p>Here is how the practitioners learned these things:</p>
       <ul class="bl">
         <li>Jigar Shah tried to borrow against a $500 million pipeline and heard the loan officers’ reasons.</li>
         <li>Carson Block has watched the earnings of the companies he shorted, one quarter after another.</li>
@@ -763,7 +761,7 @@
         <li>Noam Brown builds the models and sees how long it takes to find their limits.</li>
         <li>Nima Arkani-Hamed has spent years at blackboards with mathematicians.</li>
       </ul>
-      <p>None of them learned it by reading about their field. They learned it by doing the work and talking to the people involved. Very little of that gets written down. What does get said, on a podcast for example, sits on an internet where most of the text about any field is written from outside: textbooks, news, analyst notes, blog posts and summaries. Pretraining sees the world in that proportion, and so does search. The scores by industry fit this picture.</p>
+      <p>None of them learned it from reading. They learned it by doing the work and talking to the people involved, and little of that gets written down. What does get said in public sits among far more text written from the outside, and pretraining and search both see the world in that proportion. The scores by industry fit this picture.</p>
 
       <figure class="fig reveal" id="fig-dom"><div class="fpanel">
         <div class="legend"></div>
@@ -772,7 +770,7 @@
         <figcaption><span class="fn">Figure 8</span><span>The share of insights made in each industry, from five practitioners and 25 questions each. The black tick is the average of all six models, and each logo is the average for that lab.</span></figcaption></figure>
 
       <p>Models do best in law, biotech, robotics and science, where much of the reasoning is published in court opinions and papers. They do worst in fintech, manufacturing, construction, food and investing, where most of what people know stays in the work.</p>
-      <p>It also suggests our numbers understate the gap. Everything we tested was said in public. Most of what practitioners know is never said into a microphone at all.</p>
+      <p>Our numbers likely understate the gap. Everything we tested was said in public, and most of what practitioners know never reaches a microphone.</p>
 
       <h2 id="close" data-toc="Closing the gap">Better priors or learning from people could close the gap</h2>
       <p>If outsider blindness comes from where models learn, there are two ways to close it.</p>
