@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795755060">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795755229">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -414,7 +414,7 @@
 .obp .pipe { display:grid; grid-template-columns:minmax(0, 1.2fr) 92px minmax(0, 1fr) 92px minmax(0, 1.1fr); align-items:stretch; padding:10px 0 4px; }
 .obp .pcard { position:relative; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 14px 15px; box-shadow:0 1px 2px rgba(13,13,15,.04), 0 6px 16px -10px rgba(13,13,15,.12); }
 .obp .pcard.ctx { border:1.5px dashed var(--ink); box-shadow:none; }
-.obp .pk { position:absolute; top:-9px; left:12px; background:#fff; padding:0 6px; font-size:11.5px; font-weight:600; color:var(--ink); white-space:nowrap; }
+.obp .pipe .pk { position:absolute; top:-9px; left:12px; background:#fff; padding:0 6px; font-size:11.5px; font-weight:600; color:var(--ink); white-space:nowrap; }
 .obp .ph { display:flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:var(--ink); margin:0 0 10px; white-space:nowrap; }
 .obp .ph .avatar { width:20px; height:20px; }
 .obp .pq { font-size:13.5px; line-height:1.45; font-weight:500; color:var(--ink); }
@@ -802,6 +802,19 @@
 
 .obp svg.opus { width:100%; height:auto; display:block; overflow:visible; }
 .obp svg.opus .ln { fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; transition:stroke-dashoffset 1.4s ease; }
+@media (max-width:620px) {
+  .obp .groups { grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px; }
+  .obp .grp { padding:10px 9px 11px; border-radius:10px; }
+  .obp .grp .gh { font-size:12px; gap:6px; margin:0 0 8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .obp .grp .fs { gap:3px; }
+  .obp .face .avatar { width:24px; height:24px; }
+  .obp .manswers .tabs { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; gap:2px 18px; margin-right:-16px; padding-right:16px; }
+  .obp .manswers .tabs::-webkit-scrollbar { display:none; }
+  .obp .manswers .tabs button { white-space:nowrap; flex:none; }
+  .obp .st .tts { display:none; }
+  .obp .st .doms span:nth-child(n+4) { display:none; }
+  .obp .tj { max-height:560px; overflow-y:auto; scrollbar-width:thin; padding-right:6px; -webkit-mask-image:linear-gradient(to bottom, #000 88%, transparent); mask-image:linear-gradient(to bottom, #000 88%, transparent); }
+}
 </style>
 
 <div class="obp" id="obp">
@@ -989,7 +1002,7 @@
       </div></div>
 
       <h2 id="ack" data-plain="1" data-toc="Acknowledgments">Acknowledgments</h2>
-      <p>Thanks to Ang Li and Wenhao Chai for feedback and discussion.</p>
+      <p>Thanks to Ang Li, Wenhao Chai, Zhuang Liu and Karthik Narasimhan for feedback and discussion.</p>
 
       <div class="apx" id="appendix">Appendix</div>
       <h2 id="newer" data-num="A" data-toc="Improvement over generations">Have the models gotten better?</h2>
@@ -1495,7 +1508,7 @@ function drawUnits() {
 /* ---------- Claude Opus generations ---------- */
 (function () {
   const box = document.querySelector('#fig-opus .opus-box'); if (!box) return;
-  const W = 600, H = 330, L = 50, R = 30, T = 42, B = 48, lo = 20, hi = 50, n = D.opus.length;
+  const W = Math.max(340, Math.min(600, Math.round(box.clientWidth || 600))), H = W < 480 ? 300 : 330, L = W < 480 ? 42 : 50, R = W < 480 ? 24 : 30, T = 42, B = 48, lo = 20, hi = 50, n = D.opus.length;
   const X = i => L + i / (n - 1) * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
   const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('class', 'opus'); svg.setAttribute('role', 'img');
   svg.setAttribute('aria-label', 'Share of rubric points by Claude Opus generation: ' + D.opus.map(o => o.label + ' ' + o.score + '%').join(', ') + '.');
@@ -1527,7 +1540,7 @@ function drawUnits() {
   [['Google', 'Gemini 4 Neon'], ['OpenAI', 'GPT-6.2-Sol']].forEach(([lab, n]) => { const s = el('span'); s.append(logo(lab), document.createTextNode(n)); lgd.appendChild(s); });
   [['', 'With web search'], ['5 4', 'Without web search']].forEach(([da, n]) => { const s = el('span'); const k = document.createElementNS(NS, 'svg'); k.setAttribute('width', 26); k.setAttribute('height', 10); const l = document.createElementNS(NS, 'line'); l.setAttribute('x1', 1); l.setAttribute('x2', 25); l.setAttribute('y1', 5); l.setAttribute('y2', 5); l.setAttribute('stroke', '#0d0d0f'); l.setAttribute('stroke-width', 2); if (da) l.setAttribute('stroke-dasharray', da); k.appendChild(l); s.append(k, document.createTextNode(n)); lgd.appendChild(s); });
   box.appendChild(lgd);
-  const W = 600, H = 360, L = 50, R = 176, T = 20, B = 44, lo = 25, hi = 60;
+  const W = Math.max(340, Math.min(600, Math.round(box.clientWidth || 600))), H = W < 480 ? 330 : 360, L = W < 480 ? 40 : 50, R = W < 480 ? 104 : 176, T = 20, B = 44, lo = 25, hi = 60;
   const X = n => L + (n - 1) / 7 * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
   const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('class', 'lines'); svg.setAttribute('role', 'img');
   svg.setAttribute('aria-label', 'Best-of-N share of rubric points from 1 to 8 answers. Gemini 4 Neon: 45.5% to 55.5% with search, 45.2% to 55.3% without. GPT-6.2-Sol: 32.7% to 39.8% with search, 31.0% to 40.3% without.');
@@ -1543,8 +1556,9 @@ function drawUnits() {
     if (s.label) {
       const end = pts[pts.length - 1];
       const fo = document.createElementNS(NS, 'foreignObject'); fo.setAttribute('x', end[0] + 12); fo.setAttribute('y', end[1] - 12); fo.setAttribute('width', R - 16); fo.setAttribute('height', 64);
-      const lab = el('div'); lab.style.cssText = 'font-family:var(--sans);font-size:13px;line-height:1.3;display:flex;gap:6px;align-items:flex-start;color:var(--ink)';
-      const tx = el('div'); tx.append(el('div', null, s.name), el('div', null, s.v[0].toFixed(1) + '% → ' + s.v[7].toFixed(1) + '%'), el('div', null, 'with search'));
+      const lab = el('div'); lab.style.cssText = 'font-family:var(--sans);font-size:' + (W < 480 ? 11.5 : 13) + 'px;line-height:1.3;display:flex;gap:6px;align-items:flex-start;color:var(--ink)';
+      const tx = el('div'); const nm = W < 480 ? ({ 'Gemini 4 Neon': 'Neon 4', 'GPT-6.2-Sol': 'Sol 6.2' }[s.name] || s.name) : s.name;
+      tx.append(el('div', null, nm), el('div', null, s.v[0].toFixed(1) + '% → ' + s.v[7].toFixed(1) + '%')); if (W >= 480) tx.appendChild(el('div', null, 'with search'));
       lab.append(logo(s.lab), tx); fo.appendChild(lab); svg.appendChild(fo);
     }
     return { path, s };
