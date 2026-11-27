@@ -258,7 +258,8 @@ sitemap: false
 .obp .ex-top { display:grid; grid-template-columns:minmax(0, .92fr) minmax(0, 1.08fr); gap:36px; align-items:start; margin-bottom:26px; }
 .obp .ex-top .vcap { margin-bottom:0; }
 .obp .ins.rows .irow { grid-template-columns:22px minmax(0, 1fr) auto; column-gap:14px; align-items:center; }
-.obp .ins.rows .rc { margin-top:0; flex-wrap:nowrap; }
+.obp .ins.rows .rc { margin-top:0; display:grid; grid-template-columns:repeat(3, auto); justify-content:end; gap:4px; }
+.obp .ins.rows .rc:has(> :only-child) { grid-template-columns:auto; }
 .obp .more { display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; font-size:13px; color:var(--muted); margin-top:18px; padding-top:16px; border-top:1px solid var(--line); }
 .obp .pattern { margin:60px 0 0; }
 .obp .pattern .pk { display:block; font-size:14px; font-weight:500; color:var(--muted); margin-bottom:8px; }
@@ -525,13 +526,12 @@ sitemap: false
       <p>Yes, but slowly.</p>
 
       <h2 id="missing" data-toc="What models miss">What are the models missing?</h2>
-      <p>The models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field without ever working in it. The practitioners answer from inside. We call this gap <span class="term">outsider blindness</span>. The misses fall into a few patterns, all about how things work rather than how the answers are written.</p>
+      <p>The models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field without ever working in it. We call this <span class="term">outsider blindness</span>. The misses fall into a few patterns, all about how things work.</p>
       <div class="wide" id="patterns-box"></div>
       <p style="margin-top:56px">Some of the models’ answers are also true: software compatibility does make chip rewrites hard, and cheap steel does help shipyards. A rubric built from one person’s answer isn’t the only right answer. But the practitioners are rarely adding one more item to a list. They say which factor decides the outcome, and often name the common explanation and set it aside, as Nima does. That judgment is what we set out to measure.</p>
 
       <h2 id="inside" data-toc="Is it in the model?">Do the models know it somewhere deep inside?</h2>
-      <p>Maybe the models know these things but don’t say them. Post-training favors safe, standard answers, and the practitioner’s view could sit in the tail of the distribution, where reinforcement learning could sharpen it out.</p>
-      <p>We haven’t run RL, but we can test the premise: if the knowledge is in the model, it should show up across many samples. We sampled eight answers to 50 questions from Gemini 4 Neon and GPT-6.2-Sol, with and without web search.</p>
+      <p>Maybe the models know these things but don’t say them, and reinforcement learning could sharpen them out. We haven’t run RL, but if the knowledge is in the model, it should show up across many samples. We sampled eight answers to 50 questions from Gemini 4 Neon and GPT-6.2-Sol, with and without web search.</p>
 
       <figure class="fig reveal" id="fig-k8"><div class="fpanel"><div class="lines-box"></div></div>
         <figcaption><span class="fn">Figure 5</span><span>The share of rubric points made when we keep the best of N answers to each of 50 questions. Solid lines are with web search and dashed lines without. Neon was graded by GPT-6.1-Sol and Sol by GPT-6.2-Sol.</span></figcaption></figure>
@@ -540,7 +540,7 @@ sitemap: false
         <li><b>74 of the 168 rubric points never appeared</b> in any of Neon’s eight answers, and 97 never appeared in Sol’s.</li>
         <li>About 40% of Sol’s best-of-eight gain was grader noise. It went away when we graded the same answers a second time.</li>
       </ul>
-      <p>For most rubric points, the answer is no. The knowledge isn’t in the model in a form sampling can reach. The length limit isn’t the bottleneck either: eight answers run past a thousand words, and longer answers don’t score higher.</p>
+      <p>For most rubric points, the answer is no: sampling doesn’t reach them. Nor is the length limit to blame, since eight answers run past a thousand words.</p>
 
       <h2 id="learn" data-toc="How experts learned">How did the practitioners learn these things?</h2>
       <p>Not from reading. In their answers, they often say where it came from.</p>
@@ -548,7 +548,7 @@ sitemap: false
       <figure class="fig reveal" id="fig-learn"><div class="fpanel"><div class="learn"></div></div>
         <figcaption><span class="fn">Figure 6</span><span>Practitioners describing where a rubric point came from, in the answers we graded against. The highlights mark the experience they point to.</span></figcaption></figure>
 
-      <p>They learned by doing the work and talking to the people involved, and little of that gets written down. What does get said in public sits among far more text written from the outside, and pretraining and search both see the world in that proportion. The scores by industry fit this picture.</p>
+      <p>They learned by doing the work and talking to the people involved, and little of that gets written down. What does get said in public is outnumbered by text written from the outside, which is what pretraining and search see. The scores by industry fit this picture.</p>
 
       <figure class="fig reveal" id="fig-dom"><div class="fpanel"><div class="heat"></div></div>
         <figcaption><span class="fn">Figure 7</span><span>The share of rubric points each model made in each industry, from five practitioners and 25 questions per industry. Industries are sorted by the average of all six models.</span></figcaption></figure>
@@ -1091,7 +1091,7 @@ function drawUnits() {
     const a = step('answer', 'i-quote', 'Its answer begins'); a.appendChild(el('div', 'tt2', '“' + t.answer + '”'));
     body.appendChild(tj);
     const il = insightList(t.r, null, t.speaker + '’s rubric points, and whether Carbon’s answer made them', true);
-    il.querySelectorAll('.irow').forEach((row, i) => { const rc = el('div', 'rc'); const ch = el('span', 'mchip ' + (t.ok[i] ? 'y' : 'n')); ch.append(logo('Google'), document.createTextNode('Carbon 4'), el('span', 'mk', t.ok[i] ? '✓' : '✗')); rc.appendChild(ch); (row.lastElementChild || row).appendChild(rc); });
+    il.querySelectorAll('.irow').forEach((row, i) => { const rc = el('div', 'rc'); const ch = el('span', 'mchip ' + (t.ok[i] ? 'y' : 'n')); ch.append(logo('Google'), document.createTextNode('Carbon 4'), el('span', 'mk', t.ok[i] ? '✓' : '✗')); rc.appendChild(ch); row.appendChild(rc); });
     body.appendChild(il);
     if (REDUCED) body.classList.add('shown'); else requestAnimationFrame(() => requestAnimationFrame(() => body.classList.add('shown')));
   }
