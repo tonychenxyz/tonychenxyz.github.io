@@ -309,7 +309,7 @@ sitemap: false
 .obp .ins .irow:first-of-type { border-top:0; padding-top:2px; }
 .obp .nb { width:22px; height:22px; border-radius:50%; background:var(--pc, var(--tint2)); color:#fff; font-size:11.5px; font-weight:600; display:inline-flex; align-items:center; justify-content:center; font-variant-numeric:tabular-nums; }
 
-/* which models made a rubric point: solid = made it, ghost = missed it */
+/* which models covered a rubric point: solid = covered it, ghost = missed it */
 .obp .rc { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
 .obp .mchip { display:inline-flex; align-items:center; gap:4px; height:22px; font-size:11.5px; line-height:1; border-radius:999px; padding:0 8px 0 6px; white-space:nowrap; border:1px solid transparent; }
 .obp .mchip svg.ic { width:12px; height:12px; }
@@ -549,7 +549,7 @@ sitemap: false
 
       <div class="tldr"><div class="tt">TL;DR</div><ul class="bl">
         <li>We built Insider-500, 500 questions from long podcast interviews with 100 practitioners in 20 industries, each graded against what the practitioner said.</li>
-        <li>Six frontier models make fewer than half of the rubric points, and 43% of the points are missed by all six. Web search barely helps.</li>
+        <li>Six frontier models cover fewer than half of the rubric points, and 43% of the points are missed by all six. Web search barely helps.</li>
         <li>What the models miss is what practitioners learn by doing the work and talking to people, and little of it is written down.</li>
         <li>Closing the gap means exposing models to insider information, in pretraining or in environments at test time.</li>
       </ul></div>
@@ -579,19 +579,19 @@ sitemap: false
 
       <h2 id="results" data-toc="Results">Frontier models miss more than half of the rubric points</h2>
       <aside class="mnote"><div class="nt">How we kept models from finding the exact podcast</div><div class="nbody"><p>Every model used the same search tool, with its built-in web tools turned off. The tool dropped results from 122 domains (video and audio hosts, transcript sites and each podcast’s own site) and from all 100 source videos by ID, and it refused any search that named the guest.</p></div></aside>
-      <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. GPT-6.2-Sol graded each answer one rubric point at a time, quoting the sentence that makes it. Any wording counts.</p>
+      <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. GPT-6.2-Sol graded each answer one rubric point at a time, quoting the sentence that covers it. Any wording counts.</p>
 
       <figure class="fig reveal" id="fig-scores"><div class="fpanel">
         <div class="seg" role="group" aria-label="Web search"><button aria-pressed="true" data-web="1" type="button">With web search</button><button aria-pressed="false" data-web="0" type="button">Without web search</button></div>
         <div class="bars"></div></div>
-        <figcaption><span class="fn">Figure 2</span><span>The share of the practitioners’ rubric points that each model made, over all 500 questions. Lines show 95% confidence intervals.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 2</span><span>The share of the practitioners’ rubric points that each model covered, over all 500 questions. Lines show 95% confidence intervals.</span></figcaption></figure>
 
       <p><b>The models also miss the same things.</b> 43% of the rubric points were missed by all six, even though they come from three labs that train them separately. Picking the best of the six answers to every question would still reach only 55%.</p>
       <p>Many of the episodes aired before the models’ knowledge cutoffs (76 of the 100 aired before 2026), so the models may have seen these interviews in training.</p>
       <p><b>Every model could search the web, and it barely mattered.</b> On the questions where a model chose to search, search added between 1.8 and 3.3 points, and none of these gains is statistically significant. Here is what the searching looked like.</p>
 
       <figure class="fig reveal" id="fig-traj"><div class="fpanel"></div>
-        <figcaption><span class="fn">Figure 3</span><span>How Gemini 4 Carbon, the model that searched most, worked through three questions, showing what it was thinking, what it searched for and which sites came back. None of the three answers made any of the practitioner’s rubric points.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 3</span><span>How Gemini 4 Carbon, the model that searched most, worked through three questions, showing what it was thinking, what it searched for and which sites came back. None of the three answers covered any of the practitioner’s rubric points.</span></figcaption></figure>
 
       <ul class="bl">
         <li><b>They search with generic words from the question.</b> More than half of Gemini 4 Neon’s queries take most of their words from the question. On Jigar Shah’s question, Carbon searched for “energy project finance commercial banks refuse lend new asset class pipeline bankability.”</li>
@@ -617,7 +617,7 @@ sitemap: false
       <p>None of them learned it from a generic Google search like the ones the models ran. Little of that gets written down, and what does get said in public is outnumbered by text written from the outside, which is what pretraining and search see. The scores by industry fit this picture.</p>
 
       <figure class="fig reveal" id="fig-dom"><div class="fpanel"><div class="legend"></div><div class="dplot"></div></div>
-        <figcaption><span class="fn">Figure 5</span><span>The share of rubric points each model made in each industry, from five practitioners and 25 questions per industry. The black tick is the average of all six models, and industries are sorted by it. For each lab, the filled logo is the model with the higher overall score.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 5</span><span>The share of rubric points each model covered in each industry, from five practitioners and 25 questions per industry. The black tick is the average of all six models, and industries are sorted by it. For each lab, the filled logo is the model with the higher overall score.</span></figcaption></figure>
 
       <p>Fields that publish their reasoning, in court opinions and papers, come out on top. Fields where most of what people know stays in the work come out at the bottom, among them fintech, manufacturing, construction, investing and food. Jim Keller knows why chip companies resist rewriting an old architecture because he has led those rewrites himself. David Chang knows how a restaurant group grows into new concepts because he built one. That kind of knowledge lives in teams and kitchens, and rarely in anything a model can read.</p>
       <p><b>Our numbers likely understate the gap.</b> Everything we tested was said in public, and most of what practitioners know never reaches a microphone.</p>
@@ -652,7 +652,7 @@ sitemap: false
       <p>We ran five generations of Claude Opus, from 4.6 to 5.5, on a fixed set of 100 questions, five from each industry.</p>
 
       <figure class="fig narrow reveal" id="fig-opus"><div class="fpanel"><div class="opus-box"></div></div>
-        <figcaption><span class="fn">Figure 7</span><span>The share of rubric points each Claude Opus generation made on the same 100 questions, with 95% confidence intervals. All were graded by GPT-6.2-Sol, with web search available and searches naming the guest refused.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 7</span><span>The share of rubric points each Claude Opus generation covered on the same 100 questions, with 95% confidence intervals. All were graded by GPT-6.2-Sol, with web search available and searches naming the guest refused.</span></figcaption></figure>
 
       <p><b>Have the models gotten better? Yes, but slowly.</b></p>
 
@@ -660,7 +660,7 @@ sitemap: false
       <p>Maybe the models know these things but don’t say them, and reinforcement learning could sharpen them out. We haven’t run RL, but if the knowledge is in the model, it should show up across many samples. We sampled eight answers to 50 questions from Gemini 4 Neon and GPT-6.2-Sol, with and without web search.</p>
 
       <figure class="fig narrow reveal" id="fig-k8"><div class="fpanel"><div class="lines-box"></div></div>
-        <figcaption><span class="fn">Figure 8</span><span>The share of rubric points made when we keep the best of N answers to each of 50 questions. Solid lines are with web search and dashed lines without. Neon was graded by GPT-6.1-Sol and Sol by GPT-6.2-Sol.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 8</span><span>The share of rubric points covered when we keep the best of N answers to each of 50 questions. Solid lines are with web search and dashed lines without. Neon was graded by GPT-6.1-Sol and Sol by GPT-6.2-Sol.</span></figcaption></figure>
 
       <p>All four curves flatten after the first few answers, and going from four answers to eight adds less than 3 points. </p>
       <p><b>Do the models know it somewhere deep inside? No.</b></p>
@@ -669,8 +669,8 @@ sitemap: false
       <p><b>Questions.</b> 100 practitioners, five per industry in 20 industries, each from one long-form interview on YouTube. We transcribed the interviews with ElevenLabs and lightly cleaned them of filler words. For each person we took five passages where they explain how something works, and wrote a question a curious user might ask, without naming the person or asking the model to play a role. We avoided “what should I do” questions. Each answer was split into three or four short rubric points, and each rubric point has a grader note saying what counts and what doesn’t.</p>
       <p><b>Models.</b> Claude Fable 5.2 and Claude Opus 5.5 in Claude Code, Gemini 4 Carbon and Gemini 4 Neon in Antigravity, GPT-6.2-Sol and GPT-6.2-Astra in Codex. Each was asked for a plain-prose answer under 180 words. The Claude models often went over (median 185 and 195 words); cutting their answers at 180 words and grading again moves Fable from 44.3% to 43.4% and Opus from 42.7% to 41.5%.</p>
       <p><b>Search.</b> All models used the same search tool, with their built-in web tools turned off. It blocked 122 domains (video and audio hosts, transcript sites and the podcasts’ own sites), all 100 source video IDs and any search that named the guest.</p>
-      <p><b>Grading.</b> GPT-6.2-Sol graded every answer against the rubric points and grader notes, and had to quote the sentence that made each rubric point; quotes were checked against the answer. Grading 1,344 verdicts a second time gave 96.6% agreement (κ = 0.92). In the sampling test, Neon’s answers were graded by GPT-6.1-Sol and Sol’s by GPT-6.2-Sol; with and without search use the same grader. With a second grading, Sol’s best-of-eight gain falls from 8.9 to 5.3 points.</p>
-      <p><b>Limits.</b> Each question has one practitioner’s answer, and other experts might weigh things differently. The grader accepts any wording, but it can still miss a rubric point made indirectly. Many interviews were public before the models were trained, so the models may have seen them. If anything, that makes the questions easier.</p>
+      <p><b>Grading.</b> GPT-6.2-Sol graded every answer against the rubric points and grader notes, and had to quote the sentence that covers each rubric point; quotes were checked against the answer. Grading 1,344 verdicts a second time gave 96.6% agreement (κ = 0.92). In the sampling test, Neon’s answers were graded by GPT-6.1-Sol and Sol’s by GPT-6.2-Sol; with and without search use the same grader. With a second grading, Sol’s best-of-eight gain falls from 8.9 to 5.3 points.</p>
+      <p><b>Limits.</b> Each question has one practitioner’s answer, and other experts might weigh things differently. The grader accepts any wording, but it can still miss a rubric point that an answer covers indirectly. Many interviews were public before the models were trained, so the models may have seen them. If anything, that makes the questions easier.</p>
 
       <div class="foot">Tony Chen · November 2026. Clips play from the original interviews on YouTube. Quotes are from our transcripts, lightly cleaned of filler words. Portraits are frames from the interviews. For nine guests whose interviews show no face, they come from other public videos or from Wikimedia Commons: Jigar Shah (U.S. Department of Energy, public domain), Jeff Currie (<a href="https://commons.wikimedia.org/wiki/File:Jeffrey_Currie.jpg">LakeSe121</a>, CC BY 4.0) and Vincent Clerc (<a href="https://commons.wikimedia.org/wiki/File:Visit_of_Wopke_Hoekstra,_European_Commissioner,_to_Denmark_(P-070377-00-05).jpg">© European Union</a>, CC BY 4.0), cropped. Model logos from Simple Icons; icons from Lucide.</div>
     </div>
@@ -741,7 +741,7 @@ function whoLine(slug, name) {
 function resultChips(bits) {
   const box = el('div', 'rc');
   bits.split('').forEach((c, j) => {
-    const ch = el('span', 'mchip ' + (c === '1' ? 'y' : 'n')); ch.title = D.labels[j] + (c === '1' ? ' made this rubric point' : ' missed this rubric point');
+    const ch = el('span', 'mchip ' + (c === '1' ? 'y' : 'n')); ch.title = D.labels[j] + (c === '1' ? ' covered this rubric point' : ' missed this rubric point');
     ch.append(logo(D.labs[j]), document.createTextNode(D.short[j]), el('span', 'mk', c === '1' ? '✓' : '✗'));
     box.appendChild(ch);
   });
@@ -937,10 +937,10 @@ let showPerson = null;
       const left = el('div'); clip(left, Q.video, Q.t0, Q.t1, Q.speaker);
       const right = el('div', 'qcol'); right.appendChild(clamped(quote(Q.guest, Q.id, cores), 300));
       g.append(left, right); detail.appendChild(g);
-      /* the rubric, with which of the six models made each point */
+      /* the rubric, with which of the six models covered each point */
       const bits = Q.points.map((_, k) => Q.models.map(m => (m.grade.points[k].ok ? '1' : '0')).join(''));
       detail.appendChild(insightList(cores, bits, null, true));
-      if (!bits.some(x => x.indexOf('1') >= 0)) { const n = el('div', 'none'); n.append(ic('i-x'), document.createTextNode('No model made any of these rubric points.')); detail.appendChild(n); }
+      if (!bits.some(x => x.indexOf('1') >= 0)) { const n = el('div', 'none'); n.append(ic('i-x'), document.createTextNode('No model covered any of these rubric points.')); detail.appendChild(n); }
       /* each model's answer, with the sentences the grader quoted for each rubric point */
       const ma = el('div', 'manswers');
       const tabs = el('div', 'tabs'), holder = el('div', 'ma-grid'); ma.append(tabs, holder); detail.appendChild(ma);
@@ -976,8 +976,8 @@ function renderExample(box, f, compact) {
   const left = el('div'); clip(left, f.v, f.t0, f.t1, f.speaker);
   const right = el('div', 'qcol'); right.appendChild(clamped(quote(f.guest || f.quote, f.id, f.r), 300));
   top.append(left, right); box.appendChild(top);
-  box.appendChild(insightList(f.r, f.p, f.speaker + '’s rubric points, and which models made them', true));
-  if (!f.p.some(b => b.indexOf('1') >= 0)) { const n = el('div', 'none'); n.append(ic('i-x'), document.createTextNode('No model made any of these rubric points.')); box.appendChild(n); }
+  box.appendChild(insightList(f.r, f.p, f.speaker + '’s rubric points, and which models covered them', true));
+  if (!f.p.some(b => b.indexOf('1') >= 0)) { const n = el('div', 'none'); n.append(ic('i-x'), document.createTextNode('No model covered any of these rubric points.')); box.appendChild(n); }
   const ml = el('div', 'mlist'); ml.appendChild(el('div', 'sl', 'What the models said'));
   const shown = compact ? [0, 1, 4] : [0, 1, 2, 3, 4, 5];
   const rows = f.lines.map((t, j) => {
@@ -1033,7 +1033,7 @@ Object.keys(D.feat).forEach(id => (D.feat[id].id = id));
   left.appendChild(whoLine(G.slug, G.speaker));
   clip(left, G.v, G.t0, G.t1, G.speaker); left.appendChild(clamped(quote(G.guest || G.quote, G.id, G.points), 230));
   const bits = G.points.map((_, i) => G.models.map(m => (m.ok[i] ? '1' : '0')).join(''));
-  const il = insightList(G.points, bits, 'Schulman’s rubric points, and which models made them'); il.style.marginTop = '24px'; left.appendChild(il);
+  const il = insightList(G.points, bits, 'Schulman’s rubric points, and which models covered them'); il.style.marginTop = '24px'; left.appendChild(il);
   const right = el('div'); right.appendChild(el('div', 'sl', 'One model’s answer. Sentences the grader matched to a rubric point are highlighted.'));
   const tabs = el('div', 'tabs'); right.appendChild(tabs);
   const holder = el('div'); right.appendChild(holder);
@@ -1121,12 +1121,12 @@ function drawUnits() {
   const box = document.querySelector('#fig-units .units-box'), cols = Array.from({ length: 7 }, () => []);
   QS.forEach(q => q.r.forEach((t, i) => {
     const k = (q.p[i].match(/1/g) || []).length;
-    cols[k].push({ title: t, body: q.s + ' · ' + q.d, foot: (k === 0 ? 'No model' : k === 6 ? 'All six models' : k + ' of 6 models') + ' made this rubric point. Click to open the question.', id: q.id });
+    cols[k].push({ title: t, body: q.s + ' · ' + q.d, foot: (k === 0 ? 'No model' : k === 6 ? 'All six models' : k + ' of 6 models') + ' covered this rubric point. Click to open the question.', id: q.id });
   }));
   const narrow = box.clientWidth < 560;
   unitChart(box, cols, { step: narrow ? 10.5 : 8.6, pad: narrow ? 2.2 : 1.8, gap: narrow ? 8 : 18,
     color: c => c === 0 ? '#0d0d0f' : c === 6 ? '#fff' : '#d5d6da', line: c => c === 6 ? '#0d0d0f' : null, strong: c => c === 0 || c === 6,
-    axis: 'Number of models (out of 6) that made the rubric point', aria: '1,691 rubric points by how many of six models made them: 723 by none, 328 by all six.' });
+    axis: 'Number of models (out of 6) that covered the rubric point', aria: '1,691 rubric points by how many of six models covered them: 723 by none, 328 by all six.' });
 }
 
 /* ---------- Claude Opus generations ---------- */
@@ -1222,7 +1222,7 @@ function drawUnits() {
     });
     const a = step('answer', 'i-quote', 'Its answer begins'); a.appendChild(el('div', 'tt2', '“' + t.answer + '”'));
     body.appendChild(tj);
-    const il = insightList(t.r, null, t.speaker + '’s rubric points, and whether Carbon’s answer made them', true);
+    const il = insightList(t.r, null, t.speaker + '’s rubric points, and whether Carbon’s answer covered them', true);
     il.querySelectorAll('.irow').forEach((row, i) => { const rc = el('div', 'rc'); const ch = el('span', 'mchip ' + (t.ok[i] ? 'y' : 'n')); ch.append(logo('Google'), document.createTextNode('Carbon 4'), el('span', 'mk', t.ok[i] ? '✓' : '✗')); rc.appendChild(ch); row.appendChild(rc); });
     body.appendChild(il);
     if (REDUCED) body.classList.add('shown'); else requestAnimationFrame(() => requestAnimationFrame(() => body.classList.add('shown')));
