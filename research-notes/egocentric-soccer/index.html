@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795754216">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795755060">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/egocentric-soccer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -294,22 +294,24 @@
 
   <h2>What you are seeing</h2>
   <div class="about"><ul>
-    <li>Six goals from 20 games of 5 minutes, 6v6 on a 60 x 39 m pitch, simulated in MuJoCo-Warp. Since November 22 the simulator
-      makes passing pay as in real football: dribbling is slower and tiring, take-ons usually fail, and ground passes are quick and
-      accurate. Both teams
+    <li>Six goals from 20 games of 5 minutes, 6v6 on a 50 x 33 m pitch with a 5 x 2 m goal, simulated in MuJoCo-Warp. Since
+      November 22 the simulator makes passing pay as in real football: dribbling is slower and tiring, take-ons usually fail, and
+      ground passes are quick and accurate. Since November 26 the goal is smaller than full size (5 x 2 m instead of
+      7.32 x 2.44 m), to fit the small pitch. Both teams
       are the same pixel-only policy (self-play). Each clip is the 22 seconds before a red goal plus 3 seconds after, at normal
       speed (use the speed button to slow it down).</li>
-    <li>How the six were picked: from the 70 red goals in those games, the ones where the ball moved from one red player to
+    <li>How the six were picked: from the 61 red goals in those games, the ones where the ball moved from one red player to
       another most often in the 20 seconds before the goal (one goal per game), ignoring quick solo runs right after a kickoff. The buttons list the red players
-      who had the ball, in order; in most clips blue also touched the ball in between (in self-play the ball changes team on
-      almost every touch). Passing is new and still rare: 19 of the 70 goals had at least one red-to-red pass in the 20 seconds
-      before the goal; the most was three (goal 1, #6 and #3 exchanging).</li>
+      who had the ball, in order; in every clip blue also touched the ball at some point (in self-play the ball still changes
+      team often). Passing is still the exception but it is growing: 26 of the 61 goals had at least one red-to-red pass in
+      the 20 seconds before the goal (23 of 70 for the model shown here before); the most was five (goals 1 and 2; in goal 1,
+      #5, #6 and #4 pass five times in a row without a blue touch).</li>
     <li>Red: a pixel-only policy trained by imitation of a full-state teacher, then reinforcement learning in 6v6 with no voice,
       against itself and a league of 24 past versions. The reward is goals scored minus goals conceded, with each goal worth 1.0
-      right after a kickoff and 0.9 after a long spell; there is no reward for passing, only an exploration bonus that keeps the
-      ball carrier trying all its options. The checkpoint shown is vision89lb (November 23), the first of our models that passes
-      in open play; on the new simulator it beat the previous best (trained on the old one) in all 64 games of 5 minutes, both
-      sides seeing only pixels. Each player runs the same network on its own camera stream.</li>
+      right after a kickoff and 0.9 after a long spell, and a conceded goal weighing 1.15 times a scored one; there is no reward
+      for passing, only an exploration bonus that keeps the ball carrier trying all its options. The checkpoint shown is
+      vision102sd2 (November 26), our current best: it beat the previous best 44-7-13 (wins-draws-losses) over 64 games of
+      5 minutes, by 1.33 goals per game, both sides seeing only pixels. Each player runs the same network on its own camera stream.</li>
     <li>The policy's eye has four nested views (wide 120 degrees down to a 4 degree fovea); only the widest is shown. Black corners
       are outside the field of view, which narrows at sprint speed.</li>
     <li>What to look for: without voice the players have to turn their heads to find the ball and teammates. Select the player
@@ -321,12 +323,12 @@
 <script>
 (function () {
   const GAMES = [
-    { id: 1, label: "Goal 1", sub: "red touches #6 → #3 → #6 → #3, #3 scores", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
-    { id: 2, label: "Goal 2", sub: "red touches #4 → #3 → #5, #5 scores", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
-    { id: 3, label: "Goal 3", sub: "red touches #3 → #5 → #1, #1 scores", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
-    { id: 4, label: "Goal 4", sub: "red touches #6 → #2 → #1 → #3, #3 scores", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
-    { id: 5, label: "Goal 5", sub: "red touches #5 → #2 → #5, #5 scores", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
-    { id: 6, label: "Goal 6", sub: "red touches #3 → #6 → #4, #4 scores", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
+    { id: 1, label: "Goal 1", sub: "red touches #5 → #6 → #5 → #6 → #5 → #4 → #5, #5 scores", src: "media/game1_web.mp4", tl: "media/game1_timeline.json", poster: "media/game1_poster.jpg" },
+    { id: 2, label: "Goal 2", sub: "red touches #2 → #1 → #6 → #1 → #6 → #1 → #6 → #1, #1 scores", src: "media/game2_web.mp4", tl: "media/game2_timeline.json", poster: "media/game2_poster.jpg" },
+    { id: 3, label: "Goal 3", sub: "red touches #4 → #5 → #4 → #1 → #2 → #5, #5 scores", src: "media/game3_web.mp4", tl: "media/game3_timeline.json", poster: "media/game3_poster.jpg" },
+    { id: 4, label: "Goal 4", sub: "red touches #5 → #1 → #2 → #1 → #2, #2 scores", src: "media/game4_web.mp4", tl: "media/game4_timeline.json", poster: "media/game4_poster.jpg" },
+    { id: 5, label: "Goal 5", sub: "red touches #5 → #6 → #5, #5 scores", src: "media/game5_web.mp4", tl: "media/game5_timeline.json", poster: "media/game5_poster.jpg" },
+    { id: 6, label: "Goal 6", sub: "red touches #1 → #2 → #3, #3 scores", src: "media/game6_web.mp4", tl: "media/game6_timeline.json", poster: "media/game6_poster.jpg" },
   ];
   const $ = (id) => document.getElementById(id);
   const video = document.createElement("video");
