@@ -267,7 +267,7 @@ sitemap: false
 .obp .who .bio:empty { display:none; }
 .obp .who .src { font-size:13px; line-height:1.4; color:var(--muted); }
 .obp .pbar .who { flex:1 1 320px; max-width:520px; }
-.obp blockquote.gq { margin:0 0 16px; padding:1px 0 1px 18px; border:0; border-left:2px solid var(--ink); border-radius:0; background:none; font-family:var(--sans); font-size:16px; font-style:normal; line-height:1.66; letter-spacing:-.005em; color:var(--text); }
+.obp blockquote.gq { margin:0 0 16px; padding:8px 0 1px 34px; border:0; border-left:0; border-radius:0; background:none; font-family:var(--sans); font-size:16px; font-style:normal; line-height:1.66; letter-spacing:-.005em; color:var(--text); }
 .obp .q { font-size:24px; font-weight:600; line-height:1.28; letter-spacing:-.024em; color:var(--ink); margin:0 0 24px; max-width:800px; }
 .obp .cat { display:inline-flex; align-items:center; gap:7px; font-size:13.5px; color:var(--muted); margin:0 0 10px; }
 .obp .cat svg.ic { width:14px; height:14px; }
@@ -510,7 +510,10 @@ sitemap: false
 .obp .lc .lh .avatar { width:36px; height:36px; }
 .obp .lc .lh .nm { font-size:14.5px; font-weight:600; color:var(--ink); }
 .obp .lc .lh .how { font-size:13px; color:var(--ink); }
-.obp .lc blockquote { margin:0; font-size:15px; line-height:1.6; color:var(--ink); }
+.obp blockquote { border:0; border-left:0; background:none; margin:0; padding:0; font-size:inherit; }
+.obp .lc blockquote { margin:0; padding:8px 0 0 34px; font-size:15px; line-height:1.6; color:var(--ink); position:relative; }
+.obp blockquote.gq, .obp .lc blockquote { position:relative; }
+.obp blockquote.gq::before, .obp .lc blockquote::before { content:'\201C'; position:absolute; left:0; top:-2px; font-family:Georgia,'Times New Roman',serif; font-size:50px; line-height:1; color:#d99a00; }
 .obp .lc mark { background:rgba(255,210,30,.45); color:inherit; padding:1px 0; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
 .obp .lc .lclip { font-size:12.5px; }
 .obp .heat { overflow-x:auto; }
@@ -617,7 +620,7 @@ sitemap: false
         <li><b>They learned by doing the work.</b> Moses Kagan found out what in-house property management costs by paying for it out of deal fees every month.</li>
         <li><b>They learned by talking to the people involved.</b> Jigar Shah heard from bankers why his deals were hard to fund, and Nima Arkani-Hamed learned from mathematicians when to be precise.</li>
       </ul>
-      <p>None of them learned it from a generic Google search like the ones the models ran. If that is where this knowledge comes from, models should struggle most in fields where little of the work reaches the public internet. The scores by industry show this.</p>
+      <p>None of them learned it from a generic Google search like the ones the models ran. How much of this kind of knowledge reaches the public internet varies by field, and so do the scores.</p>
 
       <figure class="fig reveal" id="fig-dom"><div class="fpanel"><div class="legend"></div><div class="dplot"></div></div>
         <figcaption><span class="fn">Figure 5</span><span>The share of rubric points each model covered in each industry, from five practitioners and 25 questions per industry. The black tick is the average of all six models, and industries are sorted by it. For each lab, the filled logo is the model with the higher overall score.</span></figcaption></figure>
@@ -627,10 +630,10 @@ sitemap: false
 
       <h2 id="close" data-toc="Closing the gap">Closing the gap: Welcome to the Era of Insider Information</h2>
       <p>How can we close the gap? <b>Models need to be exposed to insider information, or to the sources of it.</b> That can happen by scaling up insider observation in the pretraining data, or by putting models at test time in environments that contain such information.</p>
-      <p>Intelligence works like an engine, and insider information is its fuel. <b>The smarter the engine, the more each drop of fuel is worth.</b> A strong model can take one fact, like what loan officers are paid to care about, and carry it through a whole plan.</p>
+      <p>Intelligence works like an engine, and insider information is its fuel. <b>The smarter the engine, the more each drop of fuel is worth.</b></p>
 
       <figure class="fig narrow reveal" id="fig-engine"><div class="fpanel artp"><div class="engart"></div></div>
-        <figcaption><span class="fn">Figure 6</span><span>Intelligence as an engine that runs on insider information. Records, conversations and people go in as small drops of light. As the fuel comes in, the engine speeds up and sends out more and larger lights.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 6</span><span>Insider information in, value out.</span></figcaption></figure>
 
       <p>Exposure can take two forms, the same two ways the practitioners learned.</p>
       <ul class="bl">
@@ -960,8 +963,8 @@ let showPerson = null;
       const tabs = el('div', 'tabs'), holder = el('div', 'ma-grid'); ma.append(tabs, holder); detail.appendChild(ma);
       const answer = j => {
         const m = Q.models[j], gr = m.grade, why = gr.points.map(x => x.why); holder.textContent = ''; holder.classList.remove('on');
-        const ans = el('div'); ans.appendChild(el('div', 'sl', 'Model’s answer')); ans.appendChild(highlighted(m.answer, gr.spans, why, cores)); if (!gr.spans.length) ans.appendChild(el('div', 'snote nohl', 'The grader matched none of the rubric points in this answer, so nothing is highlighted.')); holder.appendChild(ans);
-        const vd = el('div', 'verdicts'); vd.appendChild(el('div', 'sl', 'Grader’s decision and comment'));
+        const ans = el('div'); ans.appendChild(highlighted(m.answer, gr.spans, why, cores)); if (!gr.spans.length) ans.appendChild(el('div', 'snote nohl', 'The grader matched none of the rubric points in this answer, so nothing is highlighted.')); holder.appendChild(ans);
+        const vd = el('div', 'verdicts');
         gr.points.forEach((x, k) => { const r = el('div', 'vd'); r.style.setProperty('--pc', PC[k % PC.length]); r.append(el('span', 'nb', String(k + 1)), el('span', x.ok ? 'ok' : 'no', x.ok ? '✓' : '✗'), el('span', null, x.why)); vd.appendChild(r); });
         holder.appendChild(vd);
         requestAnimationFrame(() => requestAnimationFrame(() => holder.classList.add('on')));
@@ -990,9 +993,9 @@ function renderExample(box, f, compact) {
   const left = el('div'); clip(left, f.v, f.t0, f.t1, f.speaker);
   const right = el('div', 'qcol'); right.appendChild(clamped(quote(f.guest || f.quote, f.id, f.r), 300));
   top.append(left, right); box.appendChild(top);
-  box.appendChild(insightList(f.r, f.p, f.speaker + '’s rubric points, and which models covered them', true));
+  box.appendChild(insightList(f.r, f.p, null, true));
   if (!f.p.some(b => b.indexOf('1') >= 0)) { const n = el('div', 'none'); n.append(ic('i-x'), document.createTextNode('No model covered any of these rubric points.')); box.appendChild(n); }
-  const ml = el('div', 'mlist'); ml.appendChild(el('div', 'sl', 'What the models said'));
+  const ml = el('div', 'mlist');
   const shown = compact ? [0, 1, 4] : [0, 1, 2, 3, 4, 5];
   const rows = f.lines.map((t, j) => {
     const r = el('div', 'mrow'); const n = el('div', 'mname'); n.append(logo(D.labs[j]), document.createTextNode(D.labels[j]));
@@ -1047,14 +1050,14 @@ Object.keys(D.feat).forEach(id => (D.feat[id].id = id));
   left.appendChild(whoLine(G.slug, G.speaker));
   clip(left, G.v, G.t0, G.t1, G.speaker); left.appendChild(clamped(quote(G.guest || G.quote, G.id, G.points), 230));
   const bits = G.points.map((_, i) => G.models.map(m => (m.ok[i] ? '1' : '0')).join(''));
-  const il = insightList(G.points, bits, 'Schulman’s rubric points, and which models covered them'); il.style.marginTop = '24px'; left.appendChild(il);
-  const right = el('div'); right.appendChild(el('div', 'sl', 'One model’s answer. Sentences the grader matched to a rubric point are highlighted.'));
+  const il = insightList(G.points, bits, null); il.style.marginTop = '24px'; left.appendChild(il);
+  const right = el('div'); 
   const tabs = el('div', 'tabs'); right.appendChild(tabs);
   const holder = el('div'); right.appendChild(holder);
   function show(j) {
     const m = G.models[j]; holder.textContent = '';
     holder.appendChild(highlighted(m.answer, m.spans, m.why, G.points)); if (!m.spans.length) holder.appendChild(el('div', 'snote nohl', 'The grader matched none of the rubric points in this answer, so nothing is highlighted.'));
-    const vd = el('div', 'verdicts'); vd.appendChild(el('div', 'sl', 'Grader’s decision and comment'));
+    const vd = el('div', 'verdicts');
     G.points.forEach((t, i) => { const r = el('div', 'vd'); r.style.setProperty('--pc', PC[i]); r.append(el('span', 'nb', String(i + 1)), el('span', m.ok[i] ? 'ok' : 'no', m.ok[i] ? '✓' : '✗'), el('span', null, m.why[i])); vd.appendChild(r); });
     holder.appendChild(vd);
     requestAnimationFrame(() => requestAnimationFrame(() => holder.classList.add('on')));
@@ -1236,7 +1239,7 @@ function drawUnits() {
     });
     const a = step('answer', 'i-quote', 'Its answer begins'); a.appendChild(el('div', 'tt2', '“' + t.answer + '”'));
     body.appendChild(tj);
-    const il = insightList(t.r, null, t.speaker + '’s rubric points, and whether Carbon’s answer covered them', true);
+    const il = insightList(t.r, null, null, true);
     il.querySelectorAll('.irow').forEach((row, i) => { const rc = el('div', 'rc'); const ch = el('span', 'mchip ' + (t.ok[i] ? 'y' : 'n')); ch.append(logo('Google'), document.createTextNode('Carbon 4'), el('span', 'mk', t.ok[i] ? '✓' : '✗')); rc.appendChild(ch); row.appendChild(rc); });
     body.appendChild(il);
     if (REDUCED) body.classList.add('shown'); else requestAnimationFrame(() => requestAnimationFrame(() => body.classList.add('shown')));
@@ -1258,7 +1261,7 @@ function drawUnits() {
     const c = el('div', 'lc');
     const hd = el('div', 'lh'); hd.appendChild(avatar(x.slug, x.name)); const t = el('div'); t.append(el('div', 'nm', x.name), el('div', 'how', x.how)); hd.appendChild(t); c.appendChild(hd);
     let html = esc(x.quote); x.hi.forEach(p => { html = html.replace(esc(p), '<mark>' + esc(p) + '</mark>'); });
-    const bq = el('blockquote'); bq.innerHTML = '“' + html + '”'; c.appendChild(bq);
+    const bq = el('blockquote'); bq.innerHTML = html; c.appendChild(bq);
     const row = el('div', 'lclip'); const a = el('a'); a.href = 'https://www.youtube.com/watch?v=' + x.v + '&t=' + x.t0 + 's'; a.target = '_blank'; a.rel = 'noopener';
     a.append(ic('i-play'), document.createTextNode(' Watch ' + hms(x.t0) + ' – ' + hms(x.t1))); row.appendChild(a);
     const e2 = el('a'); e2.href = 'explorer/#' + x.id; e2.target = '_blank'; e2.rel = 'noopener'; e2.textContent = 'See the question'; e2.style.marginLeft = '14px'; row.appendChild(e2);
