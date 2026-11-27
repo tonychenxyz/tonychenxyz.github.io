@@ -592,7 +592,7 @@ sitemap: false
       <div class="by">By <a href="https://tonychen.xyz/"><b>Tony Chen</b></a> · November 26, 2026</div>
       <div class="links">
         <a class="lbtn pri" href="explorer/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-compass"/></svg>Explore all 500 questions</a>
-        <a class="lbtn" href="https://huggingface.co/datasets/tonychenxyz/outsider-blindness" target="_blank" rel="noopener"><img class="hflogo" src="assets/hf-logo.svg" alt="">Insider-500 on Hugging Face</a>
+        <a class="lbtn" href="https://huggingface.co/datasets/tonychenxyz/outsider-blindness" target="_blank" rel="noopener"><img class="hflogo" src="assets/hf-logo.svg" alt="">InsiderBench on Hugging Face</a>
       </div>
     </div>
     <div class="art" id="title-art" role="img" aria-label="An eye outside a brick wall reads the papers pinned to it, while the practitioners talk on the other side."></div>
@@ -602,7 +602,7 @@ sitemap: false
     <div class="main">
 
       <div class="tldr"><div class="tt">TL;DR</div><ul class="bl">
-        <li>We built Insider-500, 500 questions and answer rubrics from long podcast interviews with 100 practitioners in 20 industries.</li>
+        <li>We built InsiderBench, 500 questions and answer rubrics from long podcast interviews with 100 practitioners in 20 industries.</li>
         <li>Six frontier models cover fewer than half of the rubric points, and 43% of the points are missed by all six. Web search barely helps.</li>
         <li>What the models miss is what practitioners learn by doing the work and talking to people. LLMs are blind outsiders.</li>
         <li>To close the gap, models need to be exposed to more insider information, in pretraining or in environments at test time. Welcome to the Era of Insider Information.</li>
@@ -612,10 +612,10 @@ sitemap: false
       <p>People say “taste matters,” and in practice domain experts still work alongside AI to get real problems solved.</p>
       <p>So where exactly is the gap? What does frontier AI still not know about how the world works?</p>
 
-      <h2 id="people" data-toc="Insider-500">Insider-500: Evaluating practitioner knowledge with podcast Q&amp;A</h2>
+      <h2 id="people" data-toc="InsiderBench">InsiderBench: Evaluating practitioner knowledge with podcast Q&amp;A</h2>
       <aside class="mnote"><div class="nt">Why podcasts?</div><div class="nbody"><p>Most of what practitioners know never gets written down, and what does goes through editors, lawyers and PR first.</p>
 <p>Long interviews draw out more. Experts skip most decision steps when they describe their own work until an interviewer prompts them (<a href="https://doi.org/10.1097/ACM.0000000000000224">Sullivan et al., 2014</a>). Relaxed guests also say more than they meant to. One court weighed a CEO’s podcast remarks over his own trial testimony (<a href="https://courts.delaware.gov/Opinions/Download.aspx?id=345390">In re Mindbody, 2023</a>).</p></div></aside>
-      <p><b>We introduce Insider-500</b>, a dataset of 500 questions from long podcast interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. Each question comes with three or four rubric points taken from the practitioner’s own answer.</p>
+      <p><b>We introduce InsiderBench</b>, a dataset of 500 questions from long podcast interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. Each question comes with three or four rubric points taken from the practitioner’s own answer.</p>
       <p>A model gets only the question, with no interview, name or other context, and writes a short answer. GPT-6.2-Sol then checks the answer against the rubric points, one at a time.</p>
 
       <figure class="fig narrow reveal" id="fig-pipe"><div class="fpanel"><div class="pipe">
@@ -709,7 +709,7 @@ sitemap: false
 
       <div class="wide reveal" style="margin-top:64px"><div class="fpanel cta">
         <div><p>Every question, every model’s answer, its searches and the grader’s verdict on each rubric point are in the explorer, with a clip of each practitioner’s answer.</p>
-          <div class="links" style="margin:0"><a class="lbtn pri" href="explorer/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-compass"/></svg>Explore all 500 questions</a><a class="lbtn" href="https://huggingface.co/datasets/tonychenxyz/outsider-blindness" target="_blank" rel="noopener"><img class="hflogo" src="assets/hf-logo.svg" alt="">Insider-500 on Hugging Face</a></div></div>
+          <div class="links" style="margin:0"><a class="lbtn pri" href="explorer/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-compass"/></svg>Explore all 500 questions</a><a class="lbtn" href="https://huggingface.co/datasets/tonychenxyz/outsider-blindness" target="_blank" rel="noopener"><img class="hflogo" src="assets/hf-logo.svg" alt="">InsiderBench on Hugging Face</a></div></div>
         <div class="faces" id="cta-faces"></div>
       </div></div>
 
@@ -739,7 +739,7 @@ sitemap: false
       <p><b>Limits.</b> Each question has one practitioner’s answer, and other experts might weigh things differently. The grader accepts any wording, but it can still miss a rubric point that an answer covers indirectly. Many interviews were public before the models were trained, so the models may have seen them. If anything, that makes the questions easier.</p>
 
       <h2 id="cite" data-plain="1" data-toc="Citation">Citation</h2>
-      <p>If you use Insider-500 or refer to this post, please cite it as</p>
+      <p>If you use InsiderBench or refer to this post, please cite it as</p>
       <p class="cite-txt">Haozhe Chen. “LLM’s Outsider Blindness: What Frontier AI Doesn’t Know About How the World Works.” November 2026. <a href="https://tonychen.xyz/research-notes/outsider-blindness/">https://tonychen.xyz/research-notes/outsider-blindness/</a></p>
       <div class="bib"><button class="obtn" type="button" id="bib-copy">Copy BibTeX</button><pre id="bib-text">@misc{chen2026outsiderblindness,
   title        = {LLM's Outsider Blindness: What Frontier AI Doesn't Know About How the World Works},
@@ -747,7 +747,7 @@ sitemap: false
   year         = {2026},
   month        = {nov},
   howpublished = {\url{https://tonychen.xyz/research-notes/outsider-blindness/}},
-  note         = {Blog post. Insider-500 dataset: \url{https://huggingface.co/datasets/tonychenxyz/outsider-blindness}}
+  note         = {Blog post. InsiderBench dataset: \url{https://huggingface.co/datasets/tonychenxyz/outsider-blindness}}
 }</pre></div>
       <div class="foot">Tony Chen · November 2026. Clips play from the original interviews on YouTube. Quotes are from our transcripts, lightly cleaned of filler words. Portraits are frames from the interviews. For nine guests whose interviews show no face, they come from other public videos or from Wikimedia Commons: Jigar Shah (U.S. Department of Energy, public domain), Jeff Currie (<a href="https://commons.wikimedia.org/wiki/File:Jeffrey_Currie.jpg">LakeSe121</a>, CC BY 4.0) and Vincent Clerc (<a href="https://commons.wikimedia.org/wiki/File:Visit_of_Wopke_Hoekstra,_European_Commissioner,_to_Denmark_(P-070377-00-05).jpg">© European Union</a>, CC BY 4.0), cropped. Model logos from Simple Icons; icons from Lucide.</div>
     </div>
