@@ -17,10 +17,10 @@ pagination:
 ---
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
-.bl2 { max-width: 1000px; margin: 0 auto 96px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; color: #0d0d0f; -webkit-font-smoothing: antialiased; }
+.bl2 { width: min(1040px, calc(100vw - 48px)); position: relative; left: 50%; transform: translateX(-50%); margin: 0 0 96px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; color: #0d0d0f; -webkit-font-smoothing: antialiased; }
 .bl2 h1 { font-size: 34px; font-weight: 700; letter-spacing: -.035em; line-height: 1.15; color: #0d0d0f; margin: 4px 0 8px; }
 .bl2 .lead { font-size: 17px; line-height: 1.55; color: #2b2c30; margin: 0 0 22px; }
-.bl2 a.item { display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 36px; align-items: center; padding: 30px 0; border-top: 1px solid #e5e6e9; color: #0d0d0f; text-decoration: none; }
+.bl2 a.item { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: 44px; align-items: center; padding: 30px 0; border-top: 1px solid #e5e6e9; color: #0d0d0f; text-decoration: none; }
 .bl2 a.item:hover { color: #0d0d0f; }
 .bl2 .pv { position: relative; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; background: #f5f5f6; box-shadow: 0 0 0 1px rgba(13,13,15,.08); }
 .bl2 .pv img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
@@ -32,6 +32,7 @@ pagination:
 .bl2 .mt .src { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; background: #f5f5f6; }
 .bl2 .mt svg { width: 13px; height: 13px; }
 @media (max-width: 860px) {
+  .bl2 { width: calc(100vw - 32px); }
   .bl2 a.item { grid-template-columns: 1fr; gap: 16px; padding: 26px 0; }
   .bl2 .tt { font-size: 22px; }
 }
