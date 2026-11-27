@@ -182,6 +182,10 @@ sitemap: false
 .obp b { font-weight:600; color:var(--ink); }
 .obp .term { font-style:italic; color:var(--ink); }
 .obp h3.sub { margin:44px 0 14px; }
+.obp .tldr { background:var(--tint); border-radius:16px; padding:22px 26px 8px; margin:0 0 40px; }
+.obp .tldr .tt { font-size:13px; font-weight:700; letter-spacing:.06em; color:var(--ink); margin:0 0 12px; }
+.obp .tldr ul.bl { font-size:16.5px; line-height:1.6; margin-bottom:12px; }
+.obp .tldr ul.bl li { margin-bottom:8px; }
 .obp .fpanel.artp { padding:0; overflow:hidden; border:0; background:#9cc0ea; }
 .obp .engart svg { display:block; width:100%; height:auto; }
 .obp .eng { position:relative; display:grid; grid-template-columns:minmax(0, 1fr) 260px; column-gap:44px; align-items:center; }
@@ -543,6 +547,13 @@ sitemap: false
     <nav class="toc" aria-label="Contents"><div class="tt">Contents</div><div class="tl"></div></nav>
     <div class="main">
 
+      <div class="tldr"><div class="tt">TL;DR</div><ul class="bl">
+        <li>We built Insider-500, 500 questions from long podcast interviews with 100 practitioners in 20 industries, each graded against what the practitioner said.</li>
+        <li>Six frontier models make fewer than half of the rubric points, and 43% of the points are missed by all six. Web search barely helps.</li>
+        <li>What the models miss is what practitioners learn by doing the work and talking to people, and little of it is written down.</li>
+        <li>Closing the gap means exposing models to insider information, in pretraining or in environments at test time.</li>
+      </ul></div>
+
       <p>AI keeps getting better at well-specified tasks. But we still can’t drop it into the open world and ask it to “make me a billion dollars” or “propose impactful research.”</p>
       <p>People say “taste matters,” and in practice domain experts still work alongside AI to get real problems solved.</p>
       <p>So where exactly is the gap? What does frontier AI still not know about how the world works?</p>
@@ -616,7 +627,7 @@ sitemap: false
       <p>Intelligence works like an engine, and insider information is its fuel. <b>The smarter the engine, the more each drop of fuel is worth.</b> A strong model can take one fact, like what loan officers are paid to care about, and carry it through a whole plan.</p>
 
       <figure class="fig narrow reveal" id="fig-engine"><div class="fpanel artp"><div class="engart"></div></div>
-        <figcaption><span class="fn">Figure 6</span><span>Intelligence as an engine that runs on insider information. Drops come in from records, databases and conversations, and a smarter engine turns each one into more value.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 6</span><span>Intelligence as an engine that runs on insider information. Records, conversations and people go in as small drops of light, and larger ones come out.</span></figcaption></figure>
 
       <p>Exposure can take two forms, the same two ways the practitioners learned.</p>
       <ul class="bl">
@@ -1268,80 +1279,92 @@ function drawUnits() {
   if (REDUCED) go(); else whenSeen(fig, go);
 })();
 
-/* ---------- closing the gap: intelligence as an engine that turns drops of insider information into larger value ---------- */
+/* ---------- closing the gap: the eye again, now inside the engine, fed by insider information ---------- */
 (function () {
   const fig = document.getElementById('fig-engine'); if (!fig) return;
   const box = fig.querySelector('.engart');
-  const W = 600, H = 300, INK = '#1f1e1d', SKY = '#9cc0ea', CREAM = '#fffdf7', BRICK = '#c96a4b', PIN = '#eb6834', GOLD = '#f6b93b';
+  const W = 600, H = 320, INK = '#1f1e1d', SKY = '#9cc0ea', CREAM = '#fffdf7', PIN = '#eb6834', IRIS = '#2a78d6', GOLD = '#f7c35f';
   const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.setAttribute('role', 'img');
-  svg.setAttribute('aria-label', 'An engine labeled Intelligence. Small drops flow in from papers, a database and two people talking, and larger glowing orbs rise out of it.');
+  svg.setAttribute('aria-label', 'Papers, conversations and people drift toward a slowly turning engine with an eye at its center. They dissolve into drops of light, and larger lights rise out of it.');
   const mk = (tag, a, p) => { const e = document.createElementNS(NS, tag); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
   const defs = mk('defs', {});
-  const blur = mk('filter', { id: 'enGlow', x: '-150%', y: '-150%', width: '400%', height: '400%' }, defs); mk('feGaussianBlur', { stdDeviation: 5 }, blur);
-  mk('rect', { x: 0, y: 0, width: W, height: H, fill: SKY });
-  /* where the fuel comes from */
-  const routes = ['M98 74 C160 74 168 182 214 184', 'M110 158 C160 158 170 186 214 187', 'M128 236 C176 236 176 192 214 190'].map(d => mk('path', { d, fill: 'none', stroke: INK, 'stroke-width': 1.4, 'stroke-dasharray': '1 7', 'stroke-linecap': 'round', opacity: .4 }));
-  [[34, 30, -7], [50, 40, 5]].forEach(([x, y, r]) => {
-    const g = mk('g', { transform: 'rotate(' + r + ' ' + (x + 27) + ' ' + (y + 34) + ')' });
-    mk('rect', { x, y, width: 54, height: 68, fill: CREAM, stroke: INK, 'stroke-width': 2.2 }, g);
-    for (let l = 0; l < 5; l++) mk('line', { x1: x + 8, x2: x + 44 - (l % 2) * 8, y1: y + 14 + l * 10, y2: y + 14 + l * 10, stroke: INK, 'stroke-width': 1.8, opacity: .5, 'stroke-linecap': 'round' }, g);
-    mk('circle', { cx: x + 27, cy: y + 4, r: 3.6, fill: PIN, stroke: INK, 'stroke-width': 1.4 }, g);
-  });
-  mk('path', { d: 'M48 136 v44 a30 9 0 0 0 60 0 v-44', fill: CREAM, stroke: INK, 'stroke-width': 2.2 });
-  mk('ellipse', { cx: 78, cy: 136, rx: 30, ry: 9, fill: CREAM, stroke: INK, 'stroke-width': 2.2 });
-  [151, 166].forEach(y => mk('path', { d: 'M48 ' + y + ' a30 9 0 0 0 60 0', fill: 'none', stroke: INK, 'stroke-width': 1.8 }));
-  [[54, 252, D.learn[0]], [100, 262, D.learn[3]]].forEach(([x, y, p], k) => {
-    const cp = mk('clipPath', { id: 'enf' + k }, defs); mk('circle', { cx: x, cy: y, r: 19 }, cp);
-    mk('circle', { cx: x, cy: y, r: 21.5, fill: INK });
-    mk('image', { href: 'heads/' + p.slug + '.jpg', x: x - 19, y: y - 19, width: 38, height: 38, 'clip-path': 'url(#enf' + k + ')', preserveAspectRatio: 'xMidYMid slice' });
-  });
-  const talk = mk('g', { transform: 'translate(86 212)' });
-  mk('path', { d: 'M-20 -12 h40 a7 7 0 0 1 7 7 v10 a7 7 0 0 1 -7 7 h-22 l-7 7 v-7 h-11 a7 7 0 0 1 -7 -7 v-10 a7 7 0 0 1 7 -7 z', fill: CREAM, stroke: INK, 'stroke-width': 2 }, talk);
-  const dots = [-9, 0, 9].map(dx => mk('circle', { cx: dx, cy: 0, r: 2.3, fill: INK }, talk));
-  /* the engine */
-  const pist = [0, 1, 2].map(i => { const x = 262 + i * 42; mk('rect', { x, y: 104, width: 34, height: 48, rx: 6, fill: CREAM, stroke: INK, 'stroke-width': 2.4 }); return mk('rect', { x: x + 6, y: 110, width: 22, height: 16, rx: 3, fill: INK }); });
-  mk('rect', { x: 398, y: 82, width: 22, height: 70, rx: 3, fill: PIN, stroke: INK, 'stroke-width': 2.4 });
-  mk('rect', { x: 393, y: 76, width: 32, height: 10, rx: 3, fill: INK });
-  mk('path', { d: 'M206 166 L242 176 L242 204 L206 214 Z', fill: CREAM, stroke: INK, 'stroke-width': 2.4, 'stroke-linejoin': 'round' });
-  mk('rect', { x: 240, y: 148, width: 196, height: 104, rx: 18, fill: BRICK, stroke: INK, 'stroke-width': 3 });
-  [[254, 162], [422, 162], [254, 238], [422, 238]].forEach(([x, y]) => mk('circle', { cx: x, cy: y, r: 3, fill: INK }));
-  const lab = mk('text', { x: 338, y: 207, 'text-anchor': 'middle', fill: CREAM, 'font-family': 'Inter, sans-serif', 'font-size': 20, 'font-weight': 600, 'letter-spacing': '-.01em' }); lab.textContent = 'Intelligence';
-  mk('rect', { x: 434, y: 194, width: 26, height: 12, fill: INK });
-  const wheel = mk('g', {});
-  mk('circle', { cx: 496, cy: 200, r: 40, fill: CREAM, stroke: INK, 'stroke-width': 3 }, wheel);
-  for (let a = 0; a < 6; a++) { const r = a * Math.PI / 3; mk('line', { x1: 496, y1: 200, x2: 496 + Math.cos(r) * 38, y2: 200 + Math.sin(r) * 38, stroke: INK, 'stroke-width': 2.2 }, wheel); }
-  mk('circle', { cx: 496, cy: 200, r: 7, fill: INK }, wheel);
+  const soft = mk('filter', { id: 'egSoft', x: '-200%', y: '-200%', width: '500%', height: '500%' }, defs); mk('feGaussianBlur', { stdDeviation: 6 }, soft);
+  const sky = mk('linearGradient', { id: 'egSky', x1: 0, y1: 0, x2: 0, y2: 1 }, defs); mk('stop', { offset: 0, 'stop-color': '#8fb5e4' }, sky); mk('stop', { offset: 1, 'stop-color': '#b3cdee' }, sky);
+  const halo = mk('radialGradient', { id: 'egHalo' }, defs); mk('stop', { offset: 0, 'stop-color': GOLD, 'stop-opacity': .75 }, halo); mk('stop', { offset: .45, 'stop-color': GOLD, 'stop-opacity': .22 }, halo); mk('stop', { offset: 1, 'stop-color': GOLD, 'stop-opacity': 0 }, halo);
+  mk('rect', { x: 0, y: 0, width: W, height: H, fill: 'url(#egSky)' });
+  /* faint stars */
+  let seed = 11; const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const stars = Array.from({ length: 22 }, () => { const x = 20 + rnd() * 560, y = 14 + rnd() * 292, s = 1.6 + rnd() * 2.4; const g = mk('path', { d: 'M' + x + ' ' + (y - s * 2) + ' Q' + x + ' ' + y + ' ' + (x + s * 2) + ' ' + y + ' Q' + x + ' ' + y + ' ' + x + ' ' + (y + s * 2) + ' Q' + x + ' ' + y + ' ' + (x - s * 2) + ' ' + y + ' Q' + x + ' ' + y + ' ' + x + ' ' + (y - s * 2) + 'Z', fill: CREAM }); return { g, ph: rnd() * 6.28, sp: .4 + rnd() * .6 }; });
+  /* the engine: two gears, and a window with the eye */
+  const gear = (cx, cy, R, n) => { let d = ''; for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2, w = Math.PI / n; [[a - w * .95, R - 9], [a - w * .55, R], [a + w * .55, R], [a + w * .95, R - 9]].forEach(([t, r], j) => { d += (i === 0 && j === 0 ? 'M' : 'L') + (cx + Math.cos(t) * r).toFixed(1) + ' ' + (cy + Math.sin(t) * r).toFixed(1) + ' '; }); } return d + 'Z'; };
+  const glow = mk('circle', { cx: 300, cy: 168, r: 150, fill: 'url(#egHalo)' });
+  const g2 = mk('g', {}); mk('path', { d: gear(397, 98, 40, 10), fill: CREAM, stroke: INK, 'stroke-width': 2.4, 'stroke-linejoin': 'round' }, g2); mk('circle', { cx: 397, cy: 98, r: 11, fill: 'none', stroke: INK, 'stroke-width': 2.2 }, g2); mk('circle', { cx: 397, cy: 98, r: 3, fill: INK }, g2);
+  const g3 = mk('g', {}); mk('path', { d: gear(220, 236, 30, 8), fill: CREAM, stroke: INK, 'stroke-width': 2.4, 'stroke-linejoin': 'round' }, g3); mk('circle', { cx: 220, cy: 236, r: 8, fill: 'none', stroke: INK, 'stroke-width': 2.2 }, g3);
+  const g1 = mk('g', {}); mk('path', { d: gear(300, 168, 78, 16), fill: CREAM, stroke: INK, 'stroke-width': 2.8, 'stroke-linejoin': 'round' }, g1);
+  for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2; mk('circle', { cx: 300 + Math.cos(a) * 58, cy: 168 + Math.sin(a) * 58, r: 4, fill: INK }, g1); }
+  mk('circle', { cx: 300, cy: 168, r: 48, fill: SKY, stroke: INK, 'stroke-width': 2.8 });
+  const ex = 300, ey = 168, hw = 36;
+  const almond = c => 'M' + (ex - hw) + ' ' + ey + ' Q' + ex + ' ' + (ey - 32) + ' ' + (ex + hw) + ' ' + ey + ' Q' + ex + ' ' + c + ' ' + (ex - hw) + ' ' + ey + ' Z';
+  mk('path', { d: almond(ey + 32), fill: CREAM, stroke: INK, 'stroke-width': 2.6 });
+  const ecp = mk('clipPath', { id: 'egEye' }, defs); mk('path', { d: almond(ey + 32) }, ecp);
+  const iris = mk('g', { 'clip-path': 'url(#egEye)' }); const ig = mk('g', {}, iris);
+  mk('circle', { cx: ex, cy: ey, r: 13, fill: IRIS, stroke: INK, 'stroke-width': 2.4 }, ig); mk('circle', { cx: ex + 1.5, cy: ey, r: 6, fill: INK }, ig); mk('circle', { cx: ex + 4.5, cy: ey - 3.5, r: 2.2, fill: CREAM }, ig);
+  const lid = mk('path', { d: almond(ey - 32), fill: SKY, stroke: INK, 'stroke-width': 2.6, 'stroke-linejoin': 'round' });
+  /* what flows in, and what rises out */
+  const lanes = ['M-30 70 C80 60 150 150 268 162', 'M-30 176 C90 186 170 170 262 168', 'M-30 282 C90 290 170 196 268 176'].map(d => mk('path', { d, fill: 'none', stroke: 'none' }));
+  const lens = lanes.map(l => l.getTotalLength());
   const fx = mk('g', {});
+  const heads = D.learn.map(c => c.slug);
+  let fid = 0;
+  const item = kind => {
+    const g = mk('g', {}, fx);
+    if (kind === 0) { mk('rect', { x: -13, y: -16, width: 26, height: 32, fill: CREAM, stroke: INK, 'stroke-width': 1.8 }, g); [-8, -3, 2, 7].forEach(y => mk('line', { x1: -8, x2: 6, y1: y, y2: y, stroke: INK, 'stroke-width': 1.4, opacity: .55 }, g)); mk('circle', { cx: 0, cy: -14, r: 2.4, fill: PIN, stroke: INK, 'stroke-width': 1 }, g); }
+    else if (kind === 1) { mk('path', { d: 'M-15 -10 h30 a6 6 0 0 1 6 6 v8 a6 6 0 0 1 -6 6 h-16 l-6 6 v-6 h-8 a6 6 0 0 1 -6 -6 v-8 a6 6 0 0 1 6 -6 z', fill: CREAM, stroke: INK, 'stroke-width': 1.8 }, g); [-7, 0, 7].forEach(x => mk('circle', { cx: x, cy: 0, r: 1.8, fill: INK }, g)); }
+    else { const id = 'egF' + (fid++); const cp = mk('clipPath', { id }, defs); mk('circle', { cx: 0, cy: 0, r: 13 }, cp); mk('circle', { r: 15, fill: INK }, g); mk('image', { href: 'heads/' + heads[fid % heads.length] + '.jpg', x: -13, y: -13, width: 26, height: 26, 'clip-path': 'url(#' + id + ')', preserveAspectRatio: 'xMidYMid slice' }, g); }
+    const m = mk('g', { opacity: 0 }, fx); mk('circle', { r: 9, fill: GOLD, opacity: .7, filter: 'url(#egSoft)' }, m); mk('circle', { r: 3.6, fill: GOLD, stroke: INK, 'stroke-width': 1.2 }, m);
+    return { g, m };
+  };
+  const light = () => { const g = mk('g', { opacity: 0 }, fx); mk('circle', { r: 12, fill: GOLD, opacity: .65, filter: 'url(#egSoft)' }, g); mk('circle', { r: 5, fill: GOLD, stroke: INK, 'stroke-width': 1.3 }, g); return g; };
   box.appendChild(svg);
 
-  /* drops in, larger orbs out */
-  const lens = routes.map(p => p.getTotalLength());
-  const ease = t => (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
-  const drops = [], orbs = [];
-  const orb = (r, o) => { const g = mk('g', { opacity: o }, fx); mk('circle', { r: r * 2.1, fill: GOLD, opacity: .55, filter: 'url(#enGlow)' }, g); mk('circle', { r, fill: GOLD, stroke: INK, 'stroke-width': 1.6 }, g); return g; };
-  let raf = 0, on = false, nextDrop = 0, k = 0;
+  const ease = t => (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2), smooth = t => t * t * (3 - 2 * t);
+  const ins = [], outs = [];
+  let raf = 0, on = false, nextIn = 0, nextOut = 0, n = 0, ix = 0, iy = 0, nextBlink = 3, blinkT = -1, pulse = 0;
   function frame(ms) {
     const t = ms / 1000;
-    if (t > nextDrop) { const i = k++ % 3; drops.push({ i, t0: t, g: orb(4.5, 1) }); nextDrop = t + .55 + Math.random() * .35; }
-    for (let j = drops.length - 1; j >= 0; j--) {
-      const d = drops[j], p = (t - d.t0) / 2.4;
-      if (p >= 1) { d.g.remove(); drops.splice(j, 1); orbs.push({ t0: t, g: orb(5, 0), w: Math.random() * 6.28, s: 13 + Math.random() * 7 }); continue; }
-      const pt = routes[d.i].getPointAtLength(ease(p) * lens[d.i]);
-      d.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ') scale(' + (p > .85 ? 1 - (p - .85) / .15 * .6 : 1).toFixed(3) + ')');
+    if (t > nextIn) { const k = n++ % 3, it = item((n * 7) % 3); ins.push({ k, t0: t, ...it, wob: Math.random() * 6.28 }); nextIn = t + 1.1 + Math.random() * .6; }
+    for (let j = ins.length - 1; j >= 0; j--) {
+      const d = ins[j], p = (t - d.t0) / 5.2;
+      if (p >= 1) { d.g.remove(); d.m.remove(); ins.splice(j, 1); pulse = 1; outs.push({ t0: t + .3, g: light(), w: Math.random() * 6.28, dx: 40 + Math.random() * 150, s: 1.6 + Math.random() * 1.6 }); continue; }
+      const pt = lanes[d.k].getPointAtLength(ease(p) * lens[d.k]), wy = Math.sin(t * 1.3 + d.wob) * 5 * (1 - p);
+      const morph = smooth(Math.min(1, Math.max(0, (p - .45) / .3)));
+      d.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + (pt.y + wy).toFixed(1) + ') rotate(' + (Math.sin(t * .9 + d.wob) * 8).toFixed(1) + ') scale(' + (1 - morph * .6).toFixed(3) + ')');
+      d.g.setAttribute('opacity', (Math.min(1, p / .08) * (1 - morph)).toFixed(3));
+      d.m.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + (pt.y + wy).toFixed(1) + ')');
+      d.m.setAttribute('opacity', (morph * (p > .92 ? 1 - (p - .92) / .08 : 1)).toFixed(3));
     }
-    for (let j = orbs.length - 1; j >= 0; j--) {
-      const o = orbs[j], p = (t - o.t0) / 3.2;
-      if (p >= 1) { o.g.remove(); orbs.splice(j, 1); continue; }
-      const e = ease(p), x = 409 + e * 160 + Math.sin(o.w + p * 5) * 6, y = 72 - e * 50 - Math.sin(p * Math.PI) * 6, s = .9 + e * (o.s / 5 - .9);
+    for (let j = outs.length - 1; j >= 0; j--) {
+      const o = outs[j], p = (t - o.t0) / 6.5;
+      if (p < 0) continue;
+      if (p >= 1) { o.g.remove(); outs.splice(j, 1); continue; }
+      const e = ease(p), x = 330 + e * o.dx + Math.sin(o.w + t * .9) * 10 * e, y = 140 - e * 150, s = .6 + e * o.s;
       o.g.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') scale(' + s.toFixed(3) + ')');
-      o.g.setAttribute('opacity', (p < .12 ? p / .12 : p > .7 ? 1 - (p - .7) / .3 : 1).toFixed(3));
+      o.g.setAttribute('opacity', (p < .15 ? p / .15 : p > .65 ? 1 - (p - .65) / .35 : 1).toFixed(3));
     }
-    pist.forEach((r, i) => r.setAttribute('y', (110 + (Math.sin(t * 5.2 + i * 2.1) + 1) * 8).toFixed(2)));
-    wheel.setAttribute('transform', 'rotate(' + ((t * 70) % 360).toFixed(2) + ' 496 200)');
-    dots.forEach((c, i) => c.setAttribute('opacity', (.35 + .65 * Math.max(0, Math.sin(t * 3 - i * .7))).toFixed(3)));
+    g1.setAttribute('transform', 'rotate(' + (t * 9 % 360).toFixed(2) + ' 300 168)');
+    g2.setAttribute('transform', 'rotate(' + (-t * 9 * 78 / 40 % 360).toFixed(2) + ' 397 98)');
+    g3.setAttribute('transform', 'rotate(' + (-t * 9 * 78 / 30 % 360).toFixed(2) + ' 220 236)');
+    pulse *= .97; const gl = .8 + .2 * Math.sin(t * 1.1) + pulse * .35;
+    glow.setAttribute('opacity', Math.min(1, gl).toFixed(3)); glow.setAttribute('r', (140 + 12 * Math.sin(t * 1.1) + pulse * 14).toFixed(1));
+    stars.forEach(s => s.g.setAttribute('opacity', (.25 + .55 * (.5 + .5 * Math.sin(t * s.sp + s.ph))).toFixed(3)));
+    const look = Math.sin(t * .45); const tx = look > .2 ? -10 : look < -.6 ? 8 : -3, ty = look > .2 ? 2 : look < -.6 ? -7 : 0;
+    ix += (tx - ix) * .04; iy += (ty - iy) * .04; ig.setAttribute('transform', 'translate(' + ix.toFixed(2) + ' ' + iy.toFixed(2) + ')');
+    if (t > nextBlink && blinkT < 0) blinkT = t;
+    let c = ey - 32; if (blinkT >= 0) { const b = (t - blinkT) / .4; if (b >= 1) { blinkT = -1; nextBlink = t + 4 + Math.random() * 3; } else c = ey - 32 + 64 * smooth(b < .45 ? b / .45 : 1 - (b - .45) / .55); }
+    lid.setAttribute('d', almond(c));
     if (on) raf = requestAnimationFrame(frame);
   }
-  if (REDUCED) { [[0, .5], [1, .3], [2, .7]].forEach(([i, p]) => { const g = orb(4.5, 1), pt = routes[i].getPointAtLength(p * lens[i]); g.setAttribute('transform', 'translate(' + pt.x + ' ' + pt.y + ')'); }); [[440, 64, 1.4], [500, 44, 2.4], [556, 28, 3.4]].forEach(([x, y, s]) => orb(5, 1).setAttribute('transform', 'translate(' + x + ' ' + y + ') scale(' + s + ')')); return; }
+  if (REDUCED) { frame(4000); return; }
   new IntersectionObserver(es => es.forEach(e => { on = e.isIntersecting; if (on) { cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); } })).observe(box);
 })();
 
