@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795747216">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795747509">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -775,7 +775,7 @@
       </ul>
 </div>
 
-      <p>AI keeps getting better at well-specified tasks. But we still can’t drop it into the open world and ask it to “make me a billion dollars” or “propose impactful research.”</p>
+      <p>AI keeps getting better at well-specified tasks. <b>But we still can’t drop it into the open world and ask it to “make me a billion dollars” or “propose impactful research.”</b></p>
       <p>People say “taste matters,” and in practice domain experts still work alongside AI to get real problems solved.</p>
       <p>So where exactly is the gap? What does frontier AI still not know about how the world works?</p>
 
@@ -818,7 +818,7 @@
         <figcaption><span class="fn">Figure 2</span><span>The share of the practitioners’ rubric points that each model covered, over all 500 questions. Lines show 95% confidence intervals.</span></figcaption></figure>
 
       <p><b>The models also miss the same things.</b> 43% of the rubric points were missed by all six, even though they come from three labs that train them separately. Picking the best of the six answers to every question would still reach only 55%.</p>
-      <p>Many of the episodes aired before the models’ knowledge cutoffs (76 of the 100 aired before 2026), so the models may have seen these interviews in training.</p>
+      <p>Many of the episodes aired before the models’ knowledge cutoffs (76 of the 100 aired before 2026). <b>The models may have seen these very interviews in training, and they still miss what the guests said.</b></p>
       <p><b>Every model could search the web, and it barely mattered.</b> On the questions where a model chose to search, search added between 1.8 and 3.3 points, and none of these gains is statistically significant. Here is what the searching looked like.</p>
 
       <figure class="fig reveal" id="fig-traj"><div class="fpanel"></div>
@@ -858,7 +858,7 @@
 </div>
         <figcaption><span class="fn">Figure 5</span><span>The share of rubric points each model covered in each industry, from five practitioners and 25 questions per industry. The black tick is the average of all six models, and industries are sorted by it. For each lab, the filled logo is the model with the higher overall score.</span></figcaption></figure>
 
-      <p>Fields that publish their reasoning, in court opinions and papers, come out on top. Fields where most of what people know stays in the work come out at the bottom, among them fintech, manufacturing, construction, investing and food. Jim Keller knows why chip companies resist rewriting an old architecture because he has led those rewrites himself. David Chang knows how a restaurant group grows into new concepts because he built one. That kind of knowledge lives in teams and kitchens, and rarely ends up in public internet data.</p>
+      <p>Fields that publish their reasoning, in court opinions and papers, come out on top. <b>Fields where most of what people know stays in the work come out at the bottom.</b> Among them are fintech, manufacturing, construction, investing and food. Jim Keller knows why chip companies resist rewriting an old architecture because he has led those rewrites himself. David Chang knows how a restaurant group grows into new concepts because he built one. That kind of knowledge lives in teams and kitchens, and rarely ends up in public internet data.</p>
       <p><b>Our numbers likely understate the gap.</b> Everything we tested was said in public, and most of what practitioners know never reaches a microphone.</p>
 
       <h2 id="close" data-toc="Closing the gap">Closing the gap: Welcome to the Era of Insider Information</h2>
@@ -866,7 +866,7 @@
       <p>Intelligence works like an engine, and insider information is its fuel. <b>The smarter the engine, the more each drop of fuel is worth.</b> A strong model can take one fact, like what loan officers are paid to care about, and carry it through a whole plan.</p>
 
       <figure class="fig narrow reveal" id="fig-engine"><div class="fpanel artp"><div class="engart"></div></div>
-        <figcaption><span class="fn">Figure 6</span><span>Intelligence as an engine that runs on insider information. Records, conversations and people go in as small drops of light, and larger ones come out.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 6</span><span>Intelligence as an engine that runs on insider information. Records, conversations and people go in as small drops of light. As the fuel comes in, the engine speeds up and sends out more and larger lights.</span></figcaption></figure>
 
       <p>Exposure can take two forms, the same two ways the practitioners learned.</p>
       <ul class="bl">
@@ -1576,13 +1576,15 @@ function drawUnits() {
 
   const ease = t => (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2), smooth = t => t * t * (3 - 2 * t);
   const ins = [], outs = [];
-  let raf = 0, on = false, nextIn = 0, nextOut = 0, n = 0, ix = 0, iy = 0, nextBlink = 3, blinkT = -1, pulse = 0;
+  let raf = 0, on = false, nextIn = 0, n = 0, ix = 0, iy = 0, nextBlink = 3, blinkT = -1, pulse = 0, ang = 0, last = 0, t0 = -1;
   function frame(ms) {
-    const t = ms / 1000;
-    if (t > nextIn) { const k = n++ % 3, it = item((n * 7) % 3); ins.push({ k, t0: t, ...it, wob: Math.random() * 6.28 }); nextIn = t + 1.1 + Math.random() * .6; }
+    const t = ms / 1000, dt = last ? Math.min(.05, t - last) : 0; last = t; if (t0 < 0) t0 = t;
+    /* the engine speeds up as fuel comes in, then settles and starts again */
+    const cyc = ((t - t0) % 16) / 16, power = cyc < .78 ? Math.pow(cyc / .78, 1.8) : 1 - smooth((cyc - .78) / .22);
+    if (t > nextIn) { const k = n++ % 3, it = item((n * 7) % 3); ins.push({ k, t0: t, ...it, wob: Math.random() * 6.28, dur: 5.2 - 2.2 * power }); nextIn = t + (1.2 - .8 * power) * (.8 + Math.random() * .4); }
     for (let j = ins.length - 1; j >= 0; j--) {
-      const d = ins[j], p = (t - d.t0) / 5.2;
-      if (p >= 1) { d.g.remove(); d.m.remove(); ins.splice(j, 1); pulse = 1; outs.push({ t0: t + .3, g: light(), w: Math.random() * 6.28, dx: 40 + Math.random() * 150, s: 1.6 + Math.random() * 1.6 }); continue; }
+      const d = ins[j], p = (t - d.t0) / d.dur;
+      if (p >= 1) { d.g.remove(); d.m.remove(); ins.splice(j, 1); pulse = 1; const many = 1 + Math.round(power * 2); for (let q = 0; q < many; q++) outs.push({ t0: t + .2 + q * .35, g: light(), w: Math.random() * 6.28, dx: 30 + Math.random() * 170, s: 1.1 + power * 2.2 + Math.random() * 1.2, dur: 6.5 - 2.5 * power }); continue; }
       const pt = lanes[d.k].getPointAtLength(ease(p) * lens[d.k]), wy = Math.sin(t * 1.3 + d.wob) * 5 * (1 - p);
       const morph = smooth(Math.min(1, Math.max(0, (p - .45) / .3)));
       d.g.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ' ' + (pt.y + wy).toFixed(1) + ') rotate(' + (Math.sin(t * .9 + d.wob) * 8).toFixed(1) + ') scale(' + (1 - morph * .6).toFixed(3) + ')');
@@ -1591,18 +1593,19 @@ function drawUnits() {
       d.m.setAttribute('opacity', (morph * (p > .92 ? 1 - (p - .92) / .08 : 1)).toFixed(3));
     }
     for (let j = outs.length - 1; j >= 0; j--) {
-      const o = outs[j], p = (t - o.t0) / 6.5;
+      const o = outs[j], p = (t - o.t0) / o.dur;
       if (p < 0) continue;
       if (p >= 1) { o.g.remove(); outs.splice(j, 1); continue; }
       const e = ease(p), x = 330 + e * o.dx + Math.sin(o.w + t * .9) * 10 * e, y = 140 - e * 150, s = .6 + e * o.s;
       o.g.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') scale(' + s.toFixed(3) + ')');
       o.g.setAttribute('opacity', (p < .15 ? p / .15 : p > .65 ? 1 - (p - .65) / .35 : 1).toFixed(3));
     }
-    g1.setAttribute('transform', 'rotate(' + (t * 9 % 360).toFixed(2) + ' 300 168)');
-    g2.setAttribute('transform', 'rotate(' + (-t * 9 * 78 / 40 % 360).toFixed(2) + ' 397 98)');
-    g3.setAttribute('transform', 'rotate(' + (-t * 9 * 78 / 30 % 360).toFixed(2) + ' 220 236)');
-    pulse *= .97; const gl = .8 + .2 * Math.sin(t * 1.1) + pulse * .35;
-    glow.setAttribute('opacity', Math.min(1, gl).toFixed(3)); glow.setAttribute('r', (140 + 12 * Math.sin(t * 1.1) + pulse * 14).toFixed(1));
+    ang += dt * (8 + 112 * power * power);
+    g1.setAttribute('transform', 'rotate(' + (ang % 360).toFixed(2) + ' 300 168)');
+    g2.setAttribute('transform', 'rotate(' + (-ang * 78 / 40 % 360).toFixed(2) + ' 397 98)');
+    g3.setAttribute('transform', 'rotate(' + (-ang * 78 / 30 % 360).toFixed(2) + ' 220 236)');
+    pulse *= .97; const gl = .55 + .45 * power + .1 * Math.sin(t * 1.1) + pulse * .3;
+    glow.setAttribute('opacity', Math.min(1, gl).toFixed(3)); glow.setAttribute('r', (120 + 60 * power + 8 * Math.sin(t * 1.1) + pulse * 14).toFixed(1));
     stars.forEach(s => s.g.setAttribute('opacity', (.25 + .55 * (.5 + .5 * Math.sin(t * s.sp + s.ph))).toFixed(3)));
     const look = Math.sin(t * .45); const tx = look > .2 ? -10 : look < -.6 ? 8 : -3, ty = look > .2 ? 2 : look < -.6 ? -7 : 0;
     ix += (tx - ix) * .04; iy += (ty - iy) * .04; ig.setAttribute('transform', 'translate(' + ix.toFixed(2) + ' ' + iy.toFixed(2) + ')');
@@ -1612,7 +1615,7 @@ function drawUnits() {
     if (on) raf = requestAnimationFrame(frame);
   }
   if (REDUCED) { frame(4000); return; }
-  new IntersectionObserver(es => es.forEach(e => { on = e.isIntersecting; if (on) { cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); } })).observe(box);
+  new IntersectionObserver(es => es.forEach(e => { on = e.isIntersecting; if (on) { last = 0; cancelAnimationFrame(raf); raf = requestAnimationFrame(frame); } })).observe(box);
 })();
 
 (function () { const f = document.getElementById('cta-faces'); D.people.forEach(p => f.appendChild(avatar(p.slug, p.name))); })();
