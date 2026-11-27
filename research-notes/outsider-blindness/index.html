@@ -199,7 +199,7 @@ sitemap: false
 .obp .plines i.h { background:rgba(111,86,232,.3); box-shadow:inset 0 -2px 0 #6f56e8; }
 .obp .plines i.s { width:58%; }
 .obp .prow { display:flex; align-items:center; gap:8px; margin-top:9px; }
-.obp .prow b { width:17px; height:17px; flex:none; border-radius:50%; background:var(--c); color:#fff; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
+.obp .prow b { width:17px; height:17px; flex:none; border-radius:50%; background:var(--ink); color:#fff; font-size:10px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; }
 .obp .prow i { flex:1; height:6px; border-radius:3px; background:var(--tint2); }
 .obp .prow.ok i { background:rgba(111,86,232,.3); }
 .obp .prow span { width:14px; text-align:center; font-size:14px; font-weight:700; color:var(--ink); }
@@ -612,19 +612,19 @@ sitemap: false
       <aside class="mnote"><div class="nt">Why podcasts?</div><div class="nbody"><p>Most of what practitioners know never gets written down, and what does goes through editors, lawyers and PR first.</p>
 <p>Long interviews draw out more. Experts skip most decision steps when they describe their own work until an interviewer prompts them (<a href="https://doi.org/10.1097/ACM.0000000000000224">Sullivan et al., 2014</a>). Relaxed guests also say more than they meant to. One court weighed a CEO’s podcast remarks over his own trial testimony (<a href="https://courts.delaware.gov/Opinions/Download.aspx?id=345390">In re Mindbody, 2023</a>).</p></div></aside>
       <p><b>We introduce Insider-500.</b> It has 500 questions from long podcast interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. Each question comes with three or four rubric points taken from the practitioner’s own answer.</p>
-      <p>A model gets only the question, with no interview, name or other context, and writes a short answer. GPT-6.2-Sol then checks the answer against the rubric points, one at a time, and has to quote the sentence that covers each one.</p>
+      <p>A model gets only the question, with no interview, name or other context, and writes a short answer. GPT-6.2-Sol then checks the answer against the rubric points, one at a time.</p>
 
       <figure class="fig narrow reveal" id="fig-pipe"><div class="fpanel"><div class="pipe">
         <div class="pcard ctx"><div class="pk">All the model sees</div><div class="ph">Question</div><div class="pq">In product growth, why does requiring an A/B test for every change backfire?</div></div>
         <div class="parr"><div class="pbadge mdl"><svg class="ic"><use href="#logo-claude"/></svg><svg class="ic"><use href="#logo-googlegemini"/></svg><svg class="ic"><use href="#logo-openai"/></svg></div><div class="pline"><i></i></div><div class="pcap">Model answers</div></div>
-        <div class="pcard"><div class="ph">Answer</div><div class="plines"><i></i><i class="h"></i><i></i><i></i><i class="s"></i></div></div>
+        <div class="pcard"><div class="ph">Answer</div><div class="plines"><i></i><i></i><i></i><i></i><i class="s"></i></div></div>
         <div class="parr"><div class="pbadge jdg"><svg class="ic"><use href="#i-scale"/></svg></div><div class="pline"><i></i></div><div class="pcap">GPT-6.2-Sol grades</div></div>
         <div class="pcard"><div class="ph"><img class="avatar" src="heads/153_elena_verna.jpg" alt="Elena Verna">Rubric points</div>
-          <div class="prow ok" style="--c:#6f56e8"><b>1</b><i></i><span>✓</span></div>
-          <div class="prow" style="--c:#d99a00"><b>2</b><i></i><span>✗</span></div>
-          <div class="prow" style="--c:#e0457f"><b>3</b><i></i><span>✗</span></div></div>
+          <div class="prow"><b>1</b><i></i><span>✓</span></div>
+          <div class="prow"><b>2</b><i></i><span>✗</span></div>
+          <div class="prow"><b>3</b><i></i><span>✗</span></div></div>
       </div></div>
-        <figcaption><span class="fn">Figure 1</span><span>How each answer is graded. The model sees only the question, and the grader quotes the sentence that covers each rubric point.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 1</span><span>How each answer is graded. The model sees only the question.</span></figcaption></figure>
 
       <p>From each interview we picked five moments where the guest explains how something works, and wrote each as a plain question without naming the guest. The questions lean toward how the world works rather than what to do. About three in five ask why something happens, and fewer than ten of the 500 ask what someone should do.</p>
 
