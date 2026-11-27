@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795749790">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795750056">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -791,7 +791,6 @@
 <p>Most of what practitioners know never gets written down, and what does goes through editors, lawyers and PR first.</p>
 <p>Long interviews draw out more. Experts skip most decision steps when they describe their own work until an interviewer prompts them (<a href="https://doi.org/10.1097/ACM.0000000000000224" rel="external nofollow noopener" target="_blank">Sullivan et al., 2014</a>). Relaxed guests also say more than they meant to. One court weighed a CEO’s podcast remarks over his own trial testimony (<a href="https://courts.delaware.gov/Opinions/Download.aspx?id=345390" rel="external nofollow noopener" target="_blank">In re Mindbody, 2023</a>).</p>
 </div></aside>
-      <p>In long podcast interviews, people who do the work explain how it actually works, with details they rarely write down.</p>
       <p><b>We introduce Insider-500.</b> We took interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. From each, we picked five moments where the guest explains how something works, wrote each as a plain question without naming the guest, and split the answer into three or four rubric points.</p>
 
       <figure class="fig reveal" id="fig-people"><div class="fpanel">
@@ -813,7 +812,7 @@
       <h2 id="results" data-toc="Results">Frontier models miss more than half of the rubric points</h2>
       <aside class="mnote"><div class="nt">How we kept models from finding the exact podcast</div>
 <div class="nbody"><p>Every model used the same search tool, with its built-in web tools turned off. The tool dropped results from 122 domains (video and audio hosts, transcript sites and each podcast’s own site) and from all 100 source videos by ID, and it refused any search that named the guest.</p></div></aside>
-      <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. GPT-6.2-Sol graded each answer one rubric point at a time, quoting the sentence that covers it.</p>
+      <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. GPT-6.2-Sol graded each answer one rubric point at a time, quoting the sentence that covers it. <b>Even the best model covers fewer than half of the rubric points.</b></p>
 
       <figure class="fig narrow reveal" id="fig-scores"><div class="fpanel">
         <div class="seg" role="group" aria-label="Web search">
@@ -825,19 +824,14 @@
 
       <p><b>The models also miss the same things.</b> 43% of the rubric points were missed by all six, even though they come from three labs that train them separately. Picking the best of the six answers to every question would still reach only 55%.</p>
       <p>Many of the episodes aired before the models’ knowledge cutoffs (76 of the 100 aired before 2026). <b>The models may have seen these very interviews in training, and they still miss what the guests said.</b></p>
-      <p><b>Every model could search the web, and it barely mattered.</b> On the questions where a model chose to search, search added between 1.8 and 3.3 points, and none of these gains is statistically significant. Here is what the searching looked like.</p>
+      <p><b>Every model could search the web, and it barely mattered.</b> Gemini 4 Carbon, Gemini 4 Neon and GPT-6.2-Sol searched often. On the questions where they searched, their answers covered 1.8 to 3.3 percentage points more of the rubric points than their answers to the same questions without search, and none of these gains is statistically significant. Here is what the searching looked like.</p>
 
       <figure class="fig reveal" id="fig-traj"><div class="fpanel"></div>
         <figcaption><span class="fn">Figure 3</span><span>How Gemini 4 Carbon, the model that searched most, worked through three questions, showing what it was thinking, what it searched for and which sites came back. None of the three answers covered any of the practitioner’s rubric points.</span></figcaption></figure>
 
-      <ul class="bl">
-        <li>
-<b>They search with generic words from the question.</b> More than half of Gemini 4 Neon’s queries take most of their words from the question. On Jigar Shah’s question, Carbon searched for “energy project finance commercial banks refuse lend new asset class pipeline bankability.”</li>
-        <li>
-<b>What comes back is secondhand.</b> Those searches returned a U.S. Commerce Department climate finance handbook, OECD guidance on blended finance and an EU legal document.</li>
-        <li>
-<b>They search for what they already believe.</b> On Gavin Baker’s question, Carbon’s second query was “fragmentation AI chip startups helps Nvidia software moat.” That became its answer.</li>
-      </ul>
+      <p><b>They search with generic words from the question.</b> More than half of Gemini 4 Neon’s queries take most of their words from the question. On Jigar Shah’s question, Carbon searched for “energy project finance commercial banks refuse lend new asset class pipeline bankability.”</p>
+      <p><b>What comes back is secondhand.</b> Those searches returned a U.S. Commerce Department climate finance handbook, OECD guidance on blended finance and an EU legal document.</p>
+      <p><b>They search for what they already believe.</b> On Gavin Baker’s question, Carbon’s second query was “fragmentation AI chip startups helps Nvidia software moat.” That became its answer.</p>
 
       <h2 id="missing" data-toc="What models miss">What are the models missing?</h2>
       <p>The models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field. What they miss is unwritten rules, unspoken incentives, and lessons learned the hard way.</p>
