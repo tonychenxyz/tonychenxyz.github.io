@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795747753">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795747843">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/explorer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -382,6 +382,32 @@
 @media (max-width:860px) { .obx .tabs { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
 .obx .tabs button, .obx .seg button, .obx .mchip, .obx .mlegend, .obx .vcap, .obx .meta, .obx .item .who, .obx .count { font-weight:500; }
 .obx .tabs button[aria-selected=true], .obx .seg button[aria-pressed=true] { font-weight:600; }
+
+/* sidebar tree: industry, then person; questions are picked by number in the main view */
+.obx .ctl { grid-template-columns:1fr; }
+.obx .count { line-height:1.45; margin:4px 4px 12px; }
+.obx .ind { margin:0 0 2px; }
+.obx .ih { all:unset; box-sizing:border-box; display:flex; align-items:center; gap:9px; width:100%; padding:9px 10px; border-radius:10px; cursor:pointer; font-size:14px; font-weight:600; color:var(--ink); }
+.obx .ih:hover { background:var(--tint); }
+.obx .ih:focus-visible, .obx .pr:focus-visible { box-shadow:inset 0 0 0 2px var(--ink); }
+.obx .ih svg.ic { width:15px; height:15px; }
+.obx .ih .nm, .obx .pr .nm { flex:1; min-width:0; }
+.obx .ih::after { content:''; width:6px; height:6px; border-right:1.6px solid var(--ink); border-bottom:1.6px solid var(--ink); transform:rotate(-45deg); margin:0 2px 0 4px; transition:transform .2s; }
+.obx .ih[aria-expanded=true]::after { transform:rotate(45deg); }
+.obx .pct { font-size:12.5px; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums; }
+.obx .ppl { padding:2px 0 10px 16px; }
+.obx .pr { all:unset; box-sizing:border-box; display:flex; align-items:center; gap:10px; width:100%; padding:6px 10px; border-radius:10px; cursor:pointer; font-size:13.5px; color:var(--ink); }
+.obx .pr:hover { background:var(--tint); }
+.obx .pr[aria-current=true] { background:var(--tint2); font-weight:600; }
+.obx .pr .avatar { width:28px; height:28px; }
+.obx .qnav { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0 0 20px; }
+.obx .qnav .ql { font-size:13.5px; font-weight:600; color:var(--ink); margin-right:6px; }
+.obx .qnav button { display:flex; flex-direction:column; align-items:center; gap:1px; min-width:54px; padding:6px 8px 5px; border-radius:10px; border:1px solid transparent; background:var(--tint); cursor:pointer; font:inherit; color:var(--ink); }
+.obx .qnav button b { font-size:14.5px; font-weight:600; }
+.obx .qnav button small { font-size:11.5px; font-weight:500; font-variant-numeric:tabular-nums; }
+.obx .qnav button:hover { background:var(--tint2); }
+.obx .qnav button[aria-pressed=true] { background:#fff; border-color:var(--ink); }
+.obx .qnav button:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-ai_infra" viewbox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect>
@@ -467,9 +493,7 @@
   <div class="wrap">
     <aside>
       <div class="ctl">
-        <input id="f-search" type="search" placeholder="Search questions, names or rubric points" aria-label="Search">
-        <select id="f-dom" aria-label="Industry"><option value="">All industries</option></select>
-        <select id="f-person" aria-label="Practitioner"><option value="">All practitioners</option></select>
+        <input id="f-search" type="search" placeholder="Search questions or names" aria-label="Search">
         <select id="f-show" aria-label="Outcome">
           <option value="">All questions</option>
           <option value="zero">No model covered any rubric point</option>
@@ -479,7 +503,6 @@
         </select>
       </div>
       <div class="count"></div>
-      <div class="mlegend"></div>
       <div class="list"></div>
     </aside>
     <main><div class="empty">Loading…</div></main>
@@ -500,7 +523,7 @@ const PC = ['#6f56e8', '#d99a00', '#e0457f', '#4f9a1d'];
 const PB = ['rgba(111,86,232,.20)', 'rgba(232,170,0,.26)', 'rgba(224,69,127,.18)', 'rgba(95,158,31,.22)'];
 const HEADS = new Set(D.heads);
 const root = document.getElementById('obx'), main = root.querySelector('main'), list = root.querySelector('.list'), tip = root.querySelector('.tip');
-const F = { s: document.getElementById('f-search'), d: document.getElementById('f-dom'), p: document.getElementById('f-person'), o: document.getElementById('f-show') };
+const F = { s: document.getElementById('f-search'), o: document.getElementById('f-show') };
 let IDX = null, MODELS = null, PROMPTS = null, rows = [], current = null;
 let BIO = {};
 fetch('../data/people.json').then(r => r.json()).then(j => { BIO = j; root.querySelectorAll('[data-bio]').forEach(e => (e.textContent = BIO[e.dataset.bio] || '')); }).catch(() => {});
@@ -627,7 +650,7 @@ function renderSamples(box, Q, S) {
 }
 
 function renderQuestion(id, modelIdx) {
-  current = id; list.querySelectorAll('.item').forEach(b => b.setAttribute('aria-current', b.dataset.id === id));
+  current = id; markPerson(id);
   main.textContent = ''; main.appendChild(el('div', 'empty', 'Loading…'));
   fetch('data/q/' + id + '.json').then(r => r.json()).then(Q => {
     if (current !== id) return;
@@ -636,6 +659,13 @@ function renderQuestion(id, modelIdx) {
     const t = el('div'); t.appendChild(el('div', 'nm', Q.speaker + ' · ' + Q.domain)); const bi = el('div', 'bio', BIO[slugOf(id)] || ''); bi.dataset.bio = slugOf(id); t.appendChild(bi);
     const src = el('div', 'src'); const a = el('a', null, Q.title); a.href = 'https://www.youtube.com/watch?v=' + Q.video + '&t=' + Q.t0 + 's'; a.target = '_blank'; a.rel = 'noopener';
     src.appendChild(a); t.appendChild(src); h.appendChild(t); main.appendChild(h);
+    const P = PEOPLE[slugOf(id)];
+    if (P) {
+      const nav = el('div', 'qnav'); nav.appendChild(el('span', 'ql', 'Question'));
+      P.qs.forEach((q, k) => { const b = el('button'); b.type = 'button'; b.setAttribute('aria-pressed', q.id === id); b.title = q.q;
+        b.append(el('b', null, String(k + 1)), el('small', null, fmt(pct(q)))); b.addEventListener('click', () => { history.replaceState(null, '', '#' + q.id); renderQuestion(q.id); }); nav.appendChild(b); });
+      main.appendChild(nav);
+    }
     main.appendChild(el('h2', 'q', Q.question));
     sec(main, Q.speaker + '’s answer', 'The clip from the interview and our transcript. Highlights mark where each rubric point is stated.');
     clip(main, Q.video, Q.t0, Q.t1, Q.speaker);
@@ -672,43 +702,62 @@ function renderQuestion(id, modelIdx) {
   }).catch(() => { main.textContent = ''; main.appendChild(el('div', 'empty', 'Could not load this question.')); });
 }
 
-function filter() {
-  const s = F.s.value.trim().toLowerCase(), d = F.d.value, p = F.p.value, o = F.o.value;
-  rows = IDX.filter(q => (!d || q.d === d) && (!p || slugOf(q.id) === p)
-    && (!o || (o === 'zero' ? q.p.every(b => b === '000000') : o === 'all' ? q.p.every(b => b === '111111') : o === 'searched' ? q.w.some(x => x > 0) : q.k8))
-    && (!s || (q.q + ' ' + q.s + ' ' + q.d).toLowerCase().includes(s)));
-  drawList();
+/* share of rubric points the six models covered, for a question or a list of them */
+function pct(qs) { let s = 0, n = 0; [].concat(qs).forEach(q => q.p.forEach(bits => { for (const c of bits) { n++; if (c === '1') s++; } })); return n ? s / n : 0; }
+const fmt = v => Math.round(v * 100) + '%';
+const indId = d => 'i-' + d.toLowerCase().replace(/[^a-z]+/g, '_');
+let PEOPLE = {}; const openInd = new Set();
+function keep(q) {
+  const s = F.s.value.trim().toLowerCase(), o = F.o.value;
+  return (!o || (o === 'zero' ? q.p.every(b => b === '000000') : o === 'all' ? q.p.every(b => b === '111111') : o === 'searched' ? q.w.some(x => x > 0) : q.k8))
+    && (!s || (q.q + ' ' + q.s + ' ' + q.d).toLowerCase().includes(s));
 }
+function filter() { drawList(); }
 function drawList() {
-  list.textContent = ''; root.querySelector('.count').textContent = rows.length + (rows.length === 1 ? ' question' : ' questions');
-  const lg = root.querySelector('.mlegend'); if (lg && !lg.firstChild) { lg.appendChild(el('span', 'lt', 'Bars: share of rubric points each model covered')); MODELS.forEach((m, j) => { const s = el('span'); const k = el('i'); k.style.background = COLOR[m.lab]; s.append(k, logo(m.lab), document.createTextNode(D.short[j])); lg.appendChild(s); }); }
-  const frag = document.createDocumentFragment();
-  rows.forEach(q => {
-    const b = el('button', 'item'); b.type = 'button'; b.dataset.id = q.id; b.setAttribute('aria-current', q.id === current);
-    b.appendChild(avatar(slugOf(q.id), q.s));
-    const t = el('div'); t.appendChild(el('div', 'who', q.s + ' · ' + q.d)); t.appendChild(el('div', 'qq', q.q)); b.appendChild(t);
-    const mini = el('div', 'mini'); MODELS.forEach((m, j) => { const sc = q.p.reduce((a, bits) => a + (bits[j] === '1' ? 1 : 0), 0) / q.p.length; const i = el('i', sc === 0 ? 'z' : ''); i.style.setProperty('--c', COLOR[m.lab]); i.style.height = Math.max(2, sc * 22) + 'px'; mini.appendChild(i); });
-    mini.title = MODELS.map((m, j) => D.short[j] + ': ' + q.p.filter(bits => bits[j] === '1').length + ' of ' + q.p.length).join(', ');
-    b.appendChild(mini);
-    b.addEventListener('click', () => { history.replaceState(null, '', '#' + q.id); renderQuestion(q.id); if (innerWidth < 860) main.scrollIntoView({ behavior: 'smooth' }); });
-    frag.appendChild(b);
+  list.textContent = '';
+  const filtering = !!(F.s.value.trim() || F.o.value), byInd = {};
+  let nq = 0, np = 0;
+  Object.values(PEOPLE).forEach(P => { const qs = P.qs.filter(keep); if (qs.length) { (byInd[P.d] = byInd[P.d] || []).push(P); nq += qs.length; np++; } });
+  root.querySelector('.count').textContent = (filtering ? nq + (nq === 1 ? ' question' : ' questions') + ' from ' + np + (np === 1 ? ' person' : ' people') : '20 industries, 100 people, 500 questions') + '. Percentages are the share of rubric points the six models covered.';
+  Object.keys(byInd).sort().forEach(d => {
+    const g = el('div', 'ind'), open = filtering || openInd.has(d);
+    const hb = el('button', 'ih'); hb.type = 'button'; hb.setAttribute('aria-expanded', open);
+    hb.append(ic(indId(d)), el('span', 'nm', d), el('span', 'pct', fmt(pct(IDX.filter(q => q.d === d)))));
+    hb.addEventListener('click', () => { if (openInd.has(d)) openInd.delete(d); else openInd.add(d); drawList(); });
+    g.appendChild(hb);
+    if (open) {
+      const box = el('div', 'ppl');
+      byInd[d].sort((x, y) => x.name.localeCompare(y.name)).forEach(P => {
+        const b = el('button', 'pr'); b.type = 'button'; b.dataset.slug = P.slug; b.setAttribute('aria-current', !!current && slugOf(current) === P.slug);
+        b.append(avatar(P.slug, P.name), el('span', 'nm', P.name), el('span', 'pct', fmt(pct(P.qs))));
+        b.addEventListener('click', () => { const q = P.qs.find(keep) || P.qs[0]; history.replaceState(null, '', '#' + q.id); renderQuestion(q.id); if (innerWidth < 860) main.scrollIntoView({ behavior: 'smooth' }); });
+        box.appendChild(b);
+      });
+      g.appendChild(box);
+    }
+    list.appendChild(g);
   });
-  list.appendChild(frag);
+}
+function markPerson(id) {
+  const d = (IDX.find(q => q.id === id) || {}).d;
+  if (d && !openInd.has(d)) { openInd.add(d); drawList(); }
+  list.querySelectorAll('.pr').forEach(b => b.setAttribute('aria-current', b.dataset.slug === slugOf(id)));
+  const it = list.querySelector('.pr[aria-current=true]'), as = root.querySelector('aside');
+  if (it) { const r = it.getBoundingClientRect(), ra = (getComputedStyle(as).position === 'sticky' ? as : list).getBoundingClientRect(); if (r.top < ra.top + 60 || r.bottom > ra.bottom - 20) (getComputedStyle(as).position === 'sticky' ? as : list).scrollTop += r.top - ra.top - 160; }
 }
 function fromHash() {
   const h = decodeURIComponent(location.hash.slice(1));
-  if (h.startsWith('p=')) { F.s.value = ''; F.d.value = ''; F.o.value = ''; F.p.value = h.slice(2); filter(); if (rows[0]) renderQuestion(rows[0].id); return; }
+  if (h.startsWith('p=')) { const P = PEOPLE[h.slice(2)]; if (P) { renderQuestion(P.qs[0].id); return; } }
   const [id, mi] = h.split('/');
-  if (id && IDX.some(q => q.id === id)) { renderQuestion(id, mi ? +mi : 0); const it = list.querySelector('[data-id="' + id + '"]'); if (it) { const as = root.querySelector('aside'), r = it.getBoundingClientRect(), ra = as.getBoundingClientRect(); if (getComputedStyle(as).position === 'sticky') as.scrollTop += r.top - ra.top - 180; else { const ls = list; ls.scrollTop += r.top - ls.getBoundingClientRect().top - 60; } } return; }
-  if (rows[0]) renderQuestion(rows[0].id);
+  if (id && IDX.some(q => q.id === id)) { renderQuestion(id, mi ? +mi : 0); return; }
+  renderQuestion(IDX.slice().sort((a, b) => a.d.localeCompare(b.d) || a.s.localeCompare(b.s) || a.id.localeCompare(b.id))[0].id);
 }
 fetch('data/index.json').then(r => r.json()).then(j => {
   IDX = j.questions; MODELS = j.models; PROMPTS = j.prompts;
-  Array.from(new Set(IDX.map(q => q.d))).sort().forEach(d => { const o = el('option', null, d); o.value = d; F.d.appendChild(o); });
-  const ppl = {}; IDX.forEach(q => (ppl[slugOf(q.id)] = q.s));
-  Object.entries(ppl).sort((a, b) => a[1].localeCompare(b[1])).forEach(([sl, n]) => { const o = el('option', null, n); o.value = sl; F.p.appendChild(o); });
-  [F.d, F.p, F.o].forEach(x => x.addEventListener('change', filter)); F.s.addEventListener('input', filter);
-  filter(); fromHash();
+  IDX.forEach(q => { const sl = slugOf(q.id); (PEOPLE[sl] = PEOPLE[sl] || { slug: sl, name: q.s, d: q.d, qs: [] }).qs.push(q); });
+  Object.values(PEOPLE).forEach(P => P.qs.sort((a, b) => a.id.localeCompare(b.id)));
+  F.o.addEventListener('change', filter); F.s.addEventListener('input', filter);
+  drawList(); fromHash();
   window.addEventListener('hashchange', fromHash);
   document.getElementById('prompts-link').addEventListener('click', ev => { ev.preventDefault(); const pd = document.getElementById('prompts'); if (pd) { pd.open = true; pd.scrollIntoView({ behavior: 'smooth' }); } });
 });
