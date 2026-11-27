@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795749545">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795749790">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -579,6 +579,8 @@
 .obp .bgrid em { position:absolute; bottom:-22px; transform:translateX(-50%); font-size:11.5px; font-style:normal; color:var(--muted); font-variant-numeric:tabular-nums; }
 .obp .bar { position:absolute; left:0; top:6px; height:14px; width:0; border-radius:0 3px 3px 0; transition:width 1s cubic-bezier(.2,.75,.2,1); }
 .obp .bci { position:absolute; top:12.25px; height:1.5px; background:rgba(13,13,15,.6); transition:left 1s cubic-bezier(.2,.75,.2,1), width 1s cubic-bezier(.2,.75,.2,1); }
+.obp .bci::before, .obp .bci::after { content:''; position:absolute; top:-4px; width:1.5px; height:9.5px; background:inherit; }
+.obp .bci::before { left:0; } .obp .bci::after { right:0; }
 .obp .bval { position:absolute; top:3px; font-size:13.5px; font-weight:600; color:var(--ink); transition:left 1s cubic-bezier(.2,.75,.2,1); white-space:nowrap; font-variant-numeric:tabular-nums; }
 .obp .bval small { font-weight:400; color:var(--muted); margin-left:6px; font-size:12px; }
 .obp .baxis { height:26px; }
@@ -772,10 +774,10 @@
       <div class="tldr">
 <div class="tt">TL;DR</div>
 <ul class="bl">
-        <li>We built Insider-500, 500 questions from long podcast interviews with 100 practitioners in 20 industries, each graded against what the practitioner said.</li>
+        <li>We built Insider-500, 500 questions and answer rubrics from long podcast interviews with 100 practitioners in 20 industries.</li>
         <li>Six frontier models cover fewer than half of the rubric points, and 43% of the points are missed by all six. Web search barely helps.</li>
         <li>What the models miss is what practitioners learn by doing the work and talking to people. LLMs are blind outsiders.</li>
-        <li>Closing the gap means exposing models to insider information, in pretraining or in environments at test time. Welcome to the Era of Insider Information.</li>
+        <li>To close the gap, models need to be exposed to more insider information, in pretraining or in environments at test time. Welcome to the Era of Insider Information.</li>
       </ul>
 </div>
 
@@ -813,7 +815,7 @@
 <div class="nbody"><p>Every model used the same search tool, with its built-in web tools turned off. The tool dropped results from 122 domains (video and audio hosts, transcript sites and each podcast’s own site) and from all 100 source videos by ID, and it refused any search that named the guest.</p></div></aside>
       <p>We asked six frontier models from Anthropic, Google and OpenAI every question, with answers capped at about 180 words. GPT-6.2-Sol graded each answer one rubric point at a time, quoting the sentence that covers it.</p>
 
-      <figure class="fig reveal" id="fig-scores"><div class="fpanel">
+      <figure class="fig narrow reveal" id="fig-scores"><div class="fpanel">
         <div class="seg" role="group" aria-label="Web search">
 <button aria-pressed="true" data-web="1" type="button">With web search</button><button aria-pressed="false" data-web="0" type="button">Without web search</button>
 </div>
@@ -925,11 +927,11 @@
 
       <h2 id="cite" data-plain="1" data-toc="Citation">Citation</h2>
       <p>If you use Insider-500 or refer to this post, please cite it as</p>
-      <p class="cite-txt">Tony Chen. “LLM’s Outsider Blindness: What Frontier AI Doesn’t Know About How the World Works.” November 2026. <a href="https://tonychen.xyz/research-notes/outsider-blindness/" rel="external nofollow noopener" target="_blank">https://tonychen.xyz/research-notes/outsider-blindness/</a></p>
+      <p class="cite-txt">Haozhe Chen. “LLM’s Outsider Blindness: What Frontier AI Doesn’t Know About How the World Works.” November 2026. <a href="https://tonychen.xyz/research-notes/outsider-blindness/" rel="external nofollow noopener" target="_blank">https://tonychen.xyz/research-notes/outsider-blindness/</a></p>
       <div class="bib">
 <button class="obtn" type="button" id="bib-copy">Copy BibTeX</button><pre id="bib-text">@misc{chen2026outsiderblindness,
   title        = {LLM's Outsider Blindness: What Frontier AI Doesn't Know About How the World Works},
-  author       = {Chen, Tony},
+  author       = {Chen, Haozhe},
   year         = {2026},
   month        = {nov},
   howpublished = {\url{https://tonychen.xyz/research-notes/outsider-blindness/}},
