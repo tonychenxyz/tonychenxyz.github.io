@@ -96,7 +96,21 @@ sitemap: false
   <path d="M19.967 17.482a4 4 0 11-7.967.517 4 4 0 11-7.967-.517" />
   <path d="M6 18a4 4 0 01-2-7.465" />
   <path d="M6.004 5.125a4 4 0 00-2.526 5.77" /></g></symbol><symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 21-4.34-4.34" />
-  <circle cx="11" cy="11" r="8" /></g></symbol></svg>
+  <circle cx="11" cy="11" r="8" /></g></symbol><symbol id="i-book-open" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16" />
+  <path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z" /></g></symbol><symbol id="i-eye" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" />
+  <circle cx="12" cy="12" r="3" /></g></symbol><symbol id="i-map-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+  <circle cx="12" cy="10" r="3" /></g></symbol><symbol id="i-handshake" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3" />
+  <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" />
+  <path d="m21 3 1 11h-2" />
+  <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" />
+  <path d="M3 4h8" /></g></symbol><symbol id="i-activity" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" /></g></symbol><symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+  <path d="M16 3.128a4 4 0 0 1 0 7.744" />
+  <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+  <circle cx="9" cy="7" r="4" /></g></symbol><symbol id="i-radio" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16.247 7.761a6 6 0 0 1 0 8.478" />
+  <path d="M19.075 4.933a10 10 0 0 1 0 14.134" />
+  <path d="M4.925 19.067a10 10 0 0 1 0-14.134" />
+  <path d="M7.753 16.239a6 6 0 0 1 0-8.478" />
+  <circle cx="12" cy="12" r="2" /></g></symbol></svg>
 <style>
 .obp { --bg:#fff; --ink:#0d0d0f; --text:#2b2c30; --muted:#696b71; --faint:#8a8c92; --line:#e5e6e9; --tint:#f5f5f6; --tint2:#ebecee; --anth:#eb6834; --goog:#2a78d6; --oai:#1baf7a; --navh:57px;
   --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif; --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -134,6 +148,7 @@ sitemap: false
 .obp .main { width:946px; min-width:0; }
 .obp .main > * { max-width:660px; }
 .obp .main > .fig, .obp .main > .wide { max-width:none; clear:both; }
+.obp .main > .fig.narrow { max-width:660px; }
 .obp .toc { position:sticky; top:calc(var(--navh) + 30px); align-self:start; font-size:13px; line-height:1.35; max-height:calc(100vh - var(--navh) - 50px); overflow:auto; scrollbar-width:none; }
 .obp .toc::-webkit-scrollbar { display:none; }
 .obp .toc .tt { font-size:12.5px; font-weight:600; color:var(--ink); margin:4px 0 12px; }
@@ -152,6 +167,32 @@ sitemap: false
 .obp ul.bl li::before { content:''; position:absolute; left:8px; top:.74em; width:6px; height:6px; border-radius:50%; background:var(--ink); }
 .obp b { font-weight:600; color:var(--ink); }
 .obp .term { font-style:italic; color:var(--ink); }
+.obp .routes { position:relative; display:grid; grid-template-columns:128px minmax(0, 1fr) 108px; column-gap:64px; row-gap:30px; align-items:center; padding:8px 0; }
+.obp .rsrc { grid-column:1; grid-row:1 / span 2; text-align:center; position:relative; z-index:1; }
+.obp .rmodel { grid-column:3; grid-row:1 / span 2; text-align:center; position:relative; z-index:1; }
+.obp .rlane { grid-column:2; position:relative; z-index:1; }
+.obp .rfaces { display:grid; grid-template-columns:repeat(3, 34px); gap:6px; justify-content:center; }
+.obp .rfaces .avatar { width:34px; height:34px; }
+.obp .rlab { font-size:13px; font-weight:600; color:var(--ink); margin-top:12px; line-height:1.3; }
+.obp .rnode { width:80px; height:80px; margin:0 auto; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 0 0 8px var(--tint), 0 0 0 9px var(--line); }
+.obp .rnode svg.ic { width:34px; height:34px; }
+.obp .rcard { background:#fff; border:1px solid var(--ink); border-radius:14px; padding:14px 18px 15px; }
+.obp .rk { display:flex; align-items:center; gap:7px; font-size:11.5px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:var(--ink); }
+.obp .rk svg.ic { width:15px; height:15px; }
+.obp .rt { font-size:19px; font-weight:600; color:var(--ink); margin-top:6px; letter-spacing:-.012em; line-height:1.25; }
+.obp .rd { font-size:14px; color:var(--text); margin-top:3px; }
+.obp .rsub { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; padding-left:16px; }
+.obp .rsub span { display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--ink); background:var(--tint); border-radius:999px; padding:4px 11px 4px 9px; }
+.obp .rsub span.key { background:var(--ink); color:#fff; }
+.obp .rsub svg.ic { width:14px; height:14px; }
+.obp .rwires { position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible; pointer-events:none; z-index:0; }
+.obp .rwires path { fill:none; stroke:var(--ink); stroke-width:1.6; stroke-linecap:round; stroke-dasharray:1 7; animation:rflow 1.1s linear infinite; }
+.obp .rwires circle { fill:var(--ink); }
+@keyframes rflow { to { stroke-dashoffset:-16; } }
+@media (prefers-reduced-motion: reduce) { .obp .rwires path { animation:none; } }
+@media (max-width:760px) { .obp .routes { grid-template-columns:1fr; row-gap:18px; } .obp .rsrc, .obp .rmodel, .obp .rlane { grid-column:1; grid-row:auto; } .obp .rsrc { display:flex; align-items:center; justify-content:center; gap:12px; } .obp .rsrc .rlab, .obp .rmodel .rlab { margin:0; } .obp .rfaces { grid-template-columns:repeat(6, 30px); } .obp .rfaces .avatar { width:30px; height:30px; } .obp .rmodel { display:flex; align-items:center; justify-content:center; gap:14px; } .obp .rnode { width:56px; height:56px; margin:0; } .obp .rnode svg.ic { width:24px; height:24px; } .obp .rwires { display:none; } .obp .rsub { padding-left:0; } }
+.obp .apx { margin:104px 0 0; padding-top:22px; border-top:1px solid var(--line); font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }
+.obp .apx + h2 { margin-top:18px; }
 .obp h2 { font-family:var(--sans); font-weight:600; font-size:32px; line-height:1.15; letter-spacing:-.03em; color:var(--ink); margin:92px 0 20px; scroll-margin-top:calc(var(--navh) + 26px); }
 .obp h3 { font-family:var(--sans); font-weight:600; font-size:23px; line-height:1.25; letter-spacing:-.022em; color:var(--ink); margin:0 0 8px; }
 
@@ -206,6 +247,7 @@ sitemap: false
 .obp .none svg.ic { width:14px; height:14px; }
 
 /* figure 1: people by industry */
+.obp .ptop { display:flex; justify-content:flex-end; margin:-6px 0 14px; }
 .obp .groups { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:8px; }
 .obp .grp { background:var(--tint); border-radius:12px; padding:12px 14px 14px; }
 .obp .grp .gh { display:flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; color:var(--ink); margin:0 0 10px; }
@@ -327,6 +369,8 @@ sitemap: false
 .obp .dtrack::before { content:''; position:absolute; left:0; right:0; top:50%; border-top:1px solid var(--line); }
 .obp .lm { position:absolute; top:50%; width:18px; height:18px; margin:-9px 0 0 -9px; border-radius:50%; background:#fff; box-shadow:0 0 0 1px var(--line); display:flex; align-items:center; justify-content:center; transition:left 1s cubic-bezier(.2,.75,.2,1); }
 .obp .lm svg.ic { width:12px; height:12px; }
+.obp .lm.f { box-shadow:0 0 0 1.5px #fff; }
+.obp .legend .lm { position:static; margin:0; transition:none; flex:none; }
 .obp .mean { position:absolute; top:50%; width:2px; height:18px; margin:-9px 0 0 -1px; background:var(--ink); border-radius:1px; transition:left 1s cubic-bezier(.2,.75,.2,1); }
 .obp .dval { font-size:13px; font-weight:600; text-align:right; font-variant-numeric:tabular-nums; }
 .obp .daxis { display:grid; grid-template-columns:150px 110px 1fr 48px; gap:12px; font-size:11.5px; color:var(--muted); margin-top:4px; }
@@ -450,6 +494,9 @@ sitemap: false
 .obp .more .mlab { font-weight:600; color:var(--ink); margin-right:4px; }
 .obp .more a.mlink { display:inline-flex; align-items:center; gap:7px; text-decoration:none; color:var(--ink); background:#fff; border:1px solid var(--line); border-radius:999px; padding:3px 12px 3px 3px; }
 .obp .more a.mlink:hover { border-color:var(--ink); }
+.obp .more a.mlink { border-bottom:1px solid var(--line) !important; }
+.obp .more a.mlink:hover { border-bottom-color:var(--ink) !important; }
+.obp .more a.mlink:focus:not(:focus-visible) { outline:none; }
 .obp .more a.mlink .avatar { width:24px; height:24px; }
 
 .obp svg.opus { width:100%; height:auto; display:block; overflow:visible; }
@@ -482,14 +529,15 @@ sitemap: false
       <aside class="mnote"><div class="nt">Why podcasts?</div><div class="nbody"><p>Most of what practitioners know never gets written down, and what does goes through editors, lawyers and PR first.</p>
 <p>Long interviews draw out more. Experts skip most decision steps when they describe their own work until an interviewer prompts them (<a href="https://doi.org/10.1097/ACM.0000000000000224">Sullivan et al., 2014</a>). Relaxed guests also say more than they meant to. One court weighed a CEO’s podcast remarks over his own trial testimony (<a href="https://courts.delaware.gov/Opinions/Download.aspx?id=345390">In re Mindbody, 2023</a>).</p></div></aside>
       <p>In long podcast interviews, people who do the work explain how it actually works, with details they rarely write down.</p>
-      <p>We took interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. From each, we picked five moments where the guest explains how something works, wrote each as a plain question without naming the guest, and split the answer into three or four rubric points. <b>We call the 500 questions Insider-500.</b></p>
+      <p><b>We introduce Insider-500.</b> We took interviews with 100 practitioners in 20 industries, from bankers and chip designers to chefs and physicists. From each, we picked five moments where the guest explains how something works, wrote each as a plain question without naming the guest, and split the answer into three or four rubric points.</p>
 
       <figure class="fig reveal" id="fig-people"><div class="fpanel">
+        <div class="ptop"><button class="obtn" type="button" id="p-rand"><svg class="ic"><use href="#i-shuffle"/></svg>Random question</button></div>
         <div class="groups"></div>
         <div class="hint"><svg class="ic"><use href="#i-arrow-up-right"/></svg>Click any face to see that person’s five questions below.</div>
         <div class="pbar">
           <div class="who" id="p-who" style="margin:0"></div>
-          <div class="nav"><span>Question</span><div class="seg" id="p-qs" role="group" aria-label="Question"></div><button class="obtn" type="button" id="p-rand"><svg class="ic"><use href="#i-shuffle"/></svg>Random question</button></div>
+          <div class="nav"><span>Question</span><div class="seg" id="p-qs" role="group" aria-label="Question"></div></div>
         </div>
         <div class="pdetail" id="p-detail"></div>
       </div>
@@ -506,6 +554,7 @@ sitemap: false
         <figcaption><span class="fn">Figure 2</span><span>The share of the practitioners’ rubric points that each model made, over all 500 questions. Lines show 95% confidence intervals.</span></figcaption></figure>
 
       <p><b>The models also miss the same things.</b> 43% of the rubric points were missed by all six, even though they come from three labs that train them separately. Picking the best of the six answers to every question would still reach only 55%.</p>
+      <p>Many of the episodes aired before the models’ knowledge cutoffs (76 of the 100 aired before 2026), so the models may have seen these interviews in training.</p>
       <p><b>Every model could search the web, and it barely mattered.</b> On the questions where a model chose to search, search added between 1.8 and 3.3 points, and none of these gains is statistically significant. Here is what the searching looked like.</p>
 
       <figure class="fig reveal" id="fig-traj"><div class="fpanel"></div>
@@ -517,57 +566,58 @@ sitemap: false
         <li><b>They search with generic words from the question.</b> More than half of Gemini 4 Neon’s queries take most of their words from the question. What comes back is news, papers, filings and Wikipedia, written about the field from outside.</li>
       </ul>
 
-      <h2 id="newer" data-toc="Improvement over generations">Have the models gotten better?</h2>
-      <p>We ran five generations of Claude Opus, from 4.6 to 5.5, on a fixed set of 100 questions, five from each industry.</p>
-
-      <figure class="fig reveal" id="fig-opus"><div class="fpanel"><div class="opus-box"></div></div>
-        <figcaption><span class="fn">Figure 4</span><span>The share of rubric points each Claude Opus generation made on the same 100 questions, with 95% confidence intervals. All were graded by GPT-6.2-Sol, with web search available and searches naming the guest refused.</span></figcaption></figure>
-
-      <p><b>Have the models gotten better? Yes, but slowly.</b></p>
-
-      <h2 id="inside" data-toc="Is it in the model?">Do the models know it somewhere deep inside?</h2>
-      <p>Maybe the models know these things but don’t say them, and reinforcement learning could sharpen them out. We haven’t run RL, but if the knowledge is in the model, it should show up across many samples. We sampled eight answers to 50 questions from Gemini 4 Neon and GPT-6.2-Sol, with and without web search.</p>
-
-      <figure class="fig reveal" id="fig-k8"><div class="fpanel"><div class="lines-box"></div></div>
-        <figcaption><span class="fn">Figure 5</span><span>The share of rubric points made when we keep the best of N answers to each of 50 questions. Solid lines are with web search and dashed lines without. Neon was graded by GPT-6.1-Sol and Sol by GPT-6.2-Sol.</span></figcaption></figure>
-
-      <ul class="bl">
-        <li><b>74 of the 168 rubric points never appeared</b> in any of Neon’s eight answers, and 97 never appeared in Sol’s.</li>
-        <li>About 40% of Sol’s best-of-eight gain was grader noise. It went away when we graded the same answers a second time.</li>
-      </ul>
-      <p><b>For most rubric points, the answer is no.</b> Sampling doesn’t reach them. Nor is the length limit to blame, since eight answers run past a thousand words.</p>
-
       <h2 id="missing" data-toc="What models miss">What are the models missing?</h2>
-      <p>The models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field without ever working in it. <b>We call this <span class="term">outsider blindness</span>.</b> The misses fall into a few patterns, all about how things work.</p>
+      <p>The models’ answers are reasonable. They read like what a smart person would write after reading everything published about a field. What they miss is what insiders know from doing the work, such as which constraint actually decides the outcome and what the people involved are paid to care about.</p>
+      <p><b>LLMs are blind outsiders.</b> Below are a few example patterns of <b>LLM’s <span class="term">outsider blindness</span></b>.</p>
       <div class="wide" id="patterns-box"></div>
       <p style="margin-top:56px">Some of the models’ answers are also true. Software compatibility does make chip rewrites hard, and cheap steel does help shipyards. A rubric built from one person’s answer isn’t the only right answer. But the practitioners are rarely adding one more item to a list. They say which factor decides the outcome, and often name the common explanation and set it aside, as Nima does. That judgment is what we set out to measure.</p>
 
       <h2 id="learn" data-toc="How experts learned">How did the practitioners learn these things?</h2>
-      <p><b>Not from reading.</b> In their answers, they often say where it came from.</p>
+      <p>Many of them mention it in the answers we graded against.</p>
 
       <figure class="fig reveal" id="fig-learn"><div class="fpanel"><div class="learn"></div></div>
-        <figcaption><span class="fn">Figure 6</span><span>Practitioners describing where a rubric point came from, in the answers we graded against. The highlights mark the experience they point to.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 4</span><span>Practitioners describing where a rubric point came from, in the answers we graded against. The highlights mark the experience they point to.</span></figcaption></figure>
 
-      <p>They learned by doing the work and talking to the people involved, and little of that gets written down. What does get said in public is outnumbered by text written from the outside, which is what pretraining and search see. The scores by industry fit this picture.</p>
+      <ul class="bl">
+        <li><b>They learned by doing the work.</b> Moses Kagan found out what in-house property management costs by paying for it out of deal fees every month.</li>
+        <li><b>They learned by talking to the people involved.</b> Jigar Shah heard from bankers why his deals were hard to fund, and Nima Arkani-Hamed learned from mathematicians when to be precise.</li>
+      </ul>
+      <p>Little of that gets written down. What does get said in public is outnumbered by text written from the outside, which is what pretraining and search see. The scores by industry fit this picture.</p>
 
-      <figure class="fig reveal" id="fig-dom"><div class="fpanel"><div class="heat"></div></div>
-        <figcaption><span class="fn">Figure 7</span><span>The share of rubric points each model made in each industry, from five practitioners and 25 questions per industry. Industries are sorted by the average of all six models.</span></figcaption></figure>
+      <figure class="fig reveal" id="fig-dom"><div class="fpanel"><div class="legend"></div><div class="dplot"></div></div>
+        <figcaption><span class="fn">Figure 5</span><span>The share of rubric points each model made in each industry, from five practitioners and 25 questions per industry. The black tick is the average of all six models, and industries are sorted by it. For each lab, the filled logo is the model with the higher overall score.</span></figcaption></figure>
 
       <p>Fields that publish their reasoning, in court opinions and papers, come out on top. Fields where most of what people know stays in the work come out at the bottom.</p>
       <p><b>Our numbers likely understate the gap.</b> Everything we tested was said in public, and most of what practitioners know never reaches a microphone.</p>
 
       <h2 id="close" data-toc="Closing the gap">How do we close the gap?</h2>
+      <p><b>We are in the era of insider observation.</b> Models have read most of what is written about the world from the outside. What they are missing has to come from inside the work.</p>
+
+      <figure class="fig reveal" id="fig-close"><div class="fpanel"><div class="routes">
+        <div class="rsrc"><div class="rfaces"></div><div class="rlab">What practitioners know</div></div>
+        <div class="rlane">
+          <div class="rcard"><div class="rk"><svg class="ic"><use href="#i-book-open"/></svg>Route 1</div><div class="rt">Better priors</div><div class="rd">More and better pretraining and midtraining data</div></div>
+          <div class="rsub"><span><svg class="ic"><use href="#i-map-pin"/></svg>Local to each expert</span><span><svg class="ic"><use href="#i-handshake"/></svg>How do we get experts to share it?</span></div>
+        </div>
+        <div class="rlane">
+          <div class="rcard"><div class="rk"><svg class="ic"><use href="#i-eye"/></svg>Route 2</div><div class="rt">Learning from observation</div><div class="rd">Models go and get it themselves, in real environments</div></div>
+          <div class="rsub"><span><svg class="ic"><use href="#i-activity"/></svg>Raw observations</span><span class="key"><svg class="ic"><use href="#i-users"/></svg>People, great context aggregators</span><span><svg class="ic"><use href="#i-radio"/></svg>Real-time infrastructure</span></div>
+        </div>
+        <div class="rmodel"><div class="rnode"><svg class="ic"><use href="#i-brain"/></svg></div><div class="rlab">The model</div></div>
+        <svg class="rwires" aria-hidden="true"></svg>
+      </div></div>
+        <figcaption><span class="fn">Figure 6</span><span>Two routes for getting what practitioners know into a model. Route 1 writes it into the training data. Route 2 trains the model to go and get it, from raw observations of the world and from people.</span></figcaption></figure>
       <ul class="bl">
-        <li><b>Better priors.</b> Put more of how the world actually works into pretraining and midtraining, so a model starts out closer to the practitioner.
+        <li><b>Better priors.</b> Pretrain and midtrain on more and better data about how the world works, so models start from a better prior.
           <ul>
-            <li>Paying experts to write it down runs into incentives. For the best practitioners, this knowledge is what makes them valuable, and an hourly rate is little reason to hand it over.</li>
-            <li>Much of it is local and goes out of date fast.</li>
+            <li>Much of this knowledge is local and lives in an expert’s own context. Paying experts $100 an hour to write down what keeps them employed won’t get it. How do we give them a reason to share it?</li>
           </ul></li>
-        <li><b>Learning from people.</b> Let models learn it the way practitioners do, inside real environments.
+        <li><b>Learning from observation.</b> Train models to go out and acquire this information, and put them in environments where they can.
           <ul>
-            <li>People compress years of local experience into a few sentences, as these podcasts show.</li>
-            <li>A model has to know what to ask the loan officer or the shipyard manager, and notice when the answer contradicts what it believed.</li>
-            <li>That also takes infrastructure for talking with people in real time.</li>
+            <li>One way is to give models more raw observations of the world, so raw observations become valuable data.
+              <ul>
+                <li>A crucial source is people. <b>People are great context aggregators.</b> They compress years of local experience into a few sentences, as these podcasts show. Models need to get better at talking with people, and we need better infrastructure for models that work in real time.</li>
+              </ul></li>
           </ul></li>
       </ul>
 
@@ -577,11 +627,30 @@ sitemap: false
         <div class="faces" id="cta-faces"></div>
       </div></div>
 
-      <details class="aside" style="margin-top:44px"><summary>How we built and graded the test</summary><div class="in"><p><b>Questions.</b> 100 practitioners, five per industry in 20 industries, each from one long-form interview on YouTube. We transcribed the interviews with ElevenLabs and lightly cleaned them of filler words. For each person we took five passages where they explain how something works, and wrote a question a curious user might ask, without naming the person or asking the model to play a role. We avoided “what should I do” questions. Each answer was split into three or four short rubric points, and each rubric point has a grader note saying what counts and what doesn’t.</p>
-<p><b>Models.</b> Claude Fable 5.2 and Claude Opus 5.5 in Claude Code, Gemini 4 Carbon and Gemini 4 Neon in Antigravity, GPT-6.2-Sol and GPT-6.2-Astra in Codex. Each was asked for a plain-prose answer under 180 words. The Claude models often went over (median 185 and 195 words); cutting their answers at 180 words and grading again moves Fable from 44.3% to 43.4% and Opus from 42.7% to 41.5%.</p>
-<p><b>Search.</b> All models used the same search tool, with their built-in web tools turned off. It blocked 122 domains (video and audio hosts, transcript sites and the podcasts’ own sites) and all 100 source video IDs. It also refused any search that named the guest.</p>
-<p><b>Grading.</b> GPT-6.2-Sol graded every answer against the rubric points and grader notes, and had to quote the sentence that made each rubric point; quotes were checked against the answer. Grading 1,344 verdicts a second time gave 96.6% agreement (κ = 0.92). In the sampling test, Neon’s answers were graded by GPT-6.1-Sol and Sol’s by GPT-6.2-Sol; with and without search use the same grader. With a second grading, Sol’s best-of-eight gain falls from 8.9 to 5.3 points.</p>
-<p><b>Limits.</b> Each question has one practitioner’s answer, and other experts might weigh things differently. The grader accepts any wording, but it can still miss a rubric point made indirectly. Many interviews were public before the models were trained, so the models may have seen them. If anything, that makes the test easier.</p></div></details>
+      <div class="apx">Appendix</div>
+      <h2 id="newer" data-num="A" data-toc="Improvement over generations">Have the models gotten better?</h2>
+      <p>We ran five generations of Claude Opus, from 4.6 to 5.5, on a fixed set of 100 questions, five from each industry.</p>
+
+      <figure class="fig narrow reveal" id="fig-opus"><div class="fpanel"><div class="opus-box"></div></div>
+        <figcaption><span class="fn">Figure 7</span><span>The share of rubric points each Claude Opus generation made on the same 100 questions, with 95% confidence intervals. All were graded by GPT-6.2-Sol, with web search available and searches naming the guest refused.</span></figcaption></figure>
+
+      <p><b>Have the models gotten better? Yes, but slowly.</b></p>
+
+      <h2 id="inside" data-num="B" data-toc="Is it in the model?">Do the models know it somewhere deep inside?</h2>
+      <p>Maybe the models know these things but don’t say them, and reinforcement learning could sharpen them out. We haven’t run RL, but if the knowledge is in the model, it should show up across many samples. We sampled eight answers to 50 questions from Gemini 4 Neon and GPT-6.2-Sol, with and without web search.</p>
+
+      <figure class="fig narrow reveal" id="fig-k8"><div class="fpanel"><div class="lines-box"></div></div>
+        <figcaption><span class="fn">Figure 8</span><span>The share of rubric points made when we keep the best of N answers to each of 50 questions. Solid lines are with web search and dashed lines without. Neon was graded by GPT-6.1-Sol and Sol by GPT-6.2-Sol.</span></figcaption></figure>
+
+      <p>All four curves flatten after the first few answers, and going from four answers to eight adds less than 3 points. <b>For most rubric points, the answer is no.</b> More sampling doesn’t reach them, and the length limit isn’t the reason either, since eight answers together run past a thousand words.</p>
+
+      <h2 id="methods" data-num="C" data-toc="Methods">How we built and graded the test</h2>
+      <p><b>Questions.</b> 100 practitioners, five per industry in 20 industries, each from one long-form interview on YouTube. We transcribed the interviews with ElevenLabs and lightly cleaned them of filler words. For each person we took five passages where they explain how something works, and wrote a question a curious user might ask, without naming the person or asking the model to play a role. We avoided “what should I do” questions. Each answer was split into three or four short rubric points, and each rubric point has a grader note saying what counts and what doesn’t.</p>
+      <p><b>Models.</b> Claude Fable 5.2 and Claude Opus 5.5 in Claude Code, Gemini 4 Carbon and Gemini 4 Neon in Antigravity, GPT-6.2-Sol and GPT-6.2-Astra in Codex. Each was asked for a plain-prose answer under 180 words. The Claude models often went over (median 185 and 195 words); cutting their answers at 180 words and grading again moves Fable from 44.3% to 43.4% and Opus from 42.7% to 41.5%.</p>
+      <p><b>Search.</b> All models used the same search tool, with their built-in web tools turned off. It blocked 122 domains (video and audio hosts, transcript sites and the podcasts’ own sites), all 100 source video IDs and any search that named the guest.</p>
+      <p><b>Grading.</b> GPT-6.2-Sol graded every answer against the rubric points and grader notes, and had to quote the sentence that made each rubric point; quotes were checked against the answer. Grading 1,344 verdicts a second time gave 96.6% agreement (κ = 0.92). In the sampling test, Neon’s answers were graded by GPT-6.1-Sol and Sol’s by GPT-6.2-Sol; with and without search use the same grader. With a second grading, Sol’s best-of-eight gain falls from 8.9 to 5.3 points.</p>
+      <p><b>Limits.</b> Each question has one practitioner’s answer, and other experts might weigh things differently. The grader accepts any wording, but it can still miss a rubric point made indirectly. Many interviews were public before the models were trained, so the models may have seen them. If anything, that makes the test easier.</p>
+
       <div class="foot">Tony Chen · November 2026. Clips play from the original interviews on YouTube. Quotes are from our transcripts, lightly cleaned of filler words. Portraits are frames from the interviews. For nine guests whose interviews show no face, they come from other public videos or from Wikimedia Commons: Jigar Shah (U.S. Department of Energy, public domain), Jeff Currie (<a href="https://commons.wikimedia.org/wiki/File:Jeffrey_Currie.jpg">LakeSe121</a>, CC BY 4.0) and Vincent Clerc (<a href="https://commons.wikimedia.org/wiki/File:Visit_of_Wopke_Hoekstra,_European_Commissioner,_to_Denmark_(P-070377-00-05).jpg">© European Union</a>, CC BY 4.0), cropped. Model logos from Simple Icons; icons from Lucide.</div>
     </div>
   </div>
@@ -755,7 +824,7 @@ let showPerson = null;
   const toc = root.querySelector('.toc'), list = toc.querySelector('.tl'), hs = Array.from(root.querySelectorAll('.main h2[id]')), links = [];
   hs.forEach((h, k) => {
     const a = el('a'); a.href = '#' + h.id; a.title = h.textContent;
-    a.append(el('i', null, String(k + 1)), el('span', null, h.dataset.toc || h.textContent));
+    a.append(el('i', null, h.dataset.num || String(k + 1)), el('span', null, h.dataset.toc || h.textContent));
     list.appendChild(a); links.push([h, a]);
   });
   /* the site header is fixed and wraps to two lines on phones, so measure it instead of assuming a height */
@@ -1004,7 +1073,7 @@ function drawUnits() {
 /* ---------- Claude Opus generations ---------- */
 (function () {
   const box = document.querySelector('#fig-opus .opus-box'); if (!box) return;
-  const W = 860, H = 356, L = 56, R = 40, T = 42, B = 48, lo = 20, hi = 50, n = D.opus.length;
+  const W = 600, H = 330, L = 50, R = 30, T = 42, B = 48, lo = 20, hi = 50, n = D.opus.length;
   const X = i => L + i / (n - 1) * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
   const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('class', 'opus'); svg.setAttribute('role', 'img');
   svg.setAttribute('aria-label', 'Share of rubric points by Claude Opus generation: ' + D.opus.map(o => o.label + ' ' + o.score + '%').join(', ') + '.');
@@ -1032,7 +1101,7 @@ function drawUnits() {
 /* ---------- best of N curves ---------- */
 (function () {
   const box = document.querySelector('#fig-k8 .lines-box');
-  const W = 860, H = 380, L = 56, R = 210, T = 20, B = 44, lo = 25, hi = 60;
+  const W = 600, H = 360, L = 50, R = 176, T = 20, B = 44, lo = 25, hi = 60;
   const X = n => L + (n - 1) / 7 * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
   const svg = document.createElementNS(NS, 'svg'); svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.setAttribute('class', 'lines'); svg.setAttribute('role', 'img');
   svg.setAttribute('aria-label', 'Best-of-N share of rubric points from 1 to 8 answers. Gemini 4 Neon: 45.5% to 55.5% with search, 45.2% to 55.3% without. GPT-6.2-Sol: 32.7% to 39.8% with search, 31.0% to 40.3% without.');
@@ -1049,7 +1118,7 @@ function drawUnits() {
       const end = pts[pts.length - 1];
       const fo = document.createElementNS(NS, 'foreignObject'); fo.setAttribute('x', end[0] + 12); fo.setAttribute('y', end[1] - 12); fo.setAttribute('width', R - 16); fo.setAttribute('height', 64);
       const lab = el('div'); lab.style.cssText = 'font-family:var(--sans);font-size:13px;line-height:1.3;display:flex;gap:6px;align-items:flex-start;color:var(--ink)';
-      const tx = el('div'); tx.append(el('div', null, s.name), el('div', null, s.v[0].toFixed(1) + '% → ' + s.v[7].toFixed(1) + '% with search'));
+      const tx = el('div'); tx.append(el('div', null, s.name), el('div', null, s.v[0].toFixed(1) + '% → ' + s.v[7].toFixed(1) + '%'), el('div', null, 'with search'));
       lab.append(logo(s.lab), tx); fo.appendChild(lab); svg.appendChild(fo);
     }
     return { path, s };
@@ -1120,26 +1189,53 @@ function drawUnits() {
   });
 })();
 
-/* ---------- industries by model ---------- */
+/* ---------- industries by model: one logo per model on a line ---------- */
 (function () {
   const fig = document.getElementById('fig-dom'); if (!fig) return;
-  const box = fig.querySelector('.heat'), tb = el('table'), thead = el('thead'), hr = el('tr');
-  hr.appendChild(el('th'));
-  D.labels.forEach((l, j) => { const th = el('th'); const d = el('div', 'mh'); d.append(logo(D.labs[j]), document.createTextNode(D.short[j])); th.appendChild(d); hr.appendChild(th); });
-  const ha = el('th'); ha.appendChild(el('div', 'mh', 'All six')); hr.appendChild(ha); thead.appendChild(hr); tb.appendChild(thead);
-  const lo = 15, hi = 60;
-  const shade = v => { const t = Math.max(0, Math.min(1, (v - lo) / (hi - lo))); const c0 = [235, 242, 252], c1 = [24, 79, 149]; const c = c0.map((x, i) => Math.round(x + (c1[i] - x) * t)); return ['rgb(' + c.join(',') + ')', t > .55 ? '#fff' : '#0d0d0f']; };
-  const tbody = el('tbody');
+  const box = fig.querySelector('.dplot'), lg = fig.querySelector('.legend');
+  const FILLED = [true, true, false, false, true, false];
+  const mark = j => { const m = el('div', 'lm' + (FILLED[j] ? ' f' : '')); if (FILLED[j]) m.style.background = COLOR[D.labs[j]]; m.appendChild(ic(LOGO[D.labs[j]], FILLED[j] ? '#fff' : COLOR[D.labs[j]], 'logo')); return m; };
+  [0, 2, 1, 3, 4, 5].forEach(j => { const s = el('span'); s.append(mark(j), document.createTextNode(D.short[j])); lg.appendChild(s); });
+  const ms = el('span'); const tk = el('i'); tk.style.cssText = 'display:inline-block;width:2px;height:14px;background:var(--ink)'; ms.append(tk, document.createTextNode('All six models')); lg.appendChild(ms);
+  const lo = 15, hi = 60, X = v => ((v - lo) / (hi - lo) * 100) + '%', moves = [];
   D.heat.forEach(r => {
-    const tr = el('tr'); const dn = el('td', 'dn'); dn.append(indIcon(r.d), document.createTextNode(r.d)); tr.appendChild(dn);
-    r.v.concat([r.mean]).forEach((v, j) => {
-      const td = el('td', j === 6 ? 'avg' : '', Math.round(v) + '%'); const [bg, fg] = shade(v); td.style.background = bg; td.style.color = fg;
-      td.addEventListener('pointermove', ev => showTip(ev, (j === 6 ? 'All six models' : D.labels[j]) + ' · ' + v.toFixed(1) + '%', r.d + ', 25 questions.')); td.addEventListener('pointerleave', hideTip);
-      tr.appendChild(td);
-    });
-    tbody.appendChild(tr);
+    const row = el('div', 'drow'); const dn = el('div', 'dname'); dn.append(indIcon(r.d), document.createTextNode(r.d)); row.appendChild(dn);
+    const hs = el('div', 'dheads'); D.people.filter(p => p.d === r.d).forEach(p => hs.appendChild(avatar(p.slug, p.name))); row.appendChild(hs);
+    const t = el('div', 'dtrack'); const mean = el('div', 'mean'); mean.style.left = X(lo); t.appendChild(mean); moves.push([mean, X(r.mean)]);
+    [5, 3, 2, 4, 1, 0].forEach(j => { const m = mark(j); m.style.left = X(lo); t.appendChild(m); moves.push([m, X(r.v[j])]); });
+    row.appendChild(t); row.appendChild(el('div', 'dval', r.mean.toFixed(1) + '%'));
+    const ppl = D.people.filter(p => p.d === r.d).map(p => p.name).join(', ');
+    row.addEventListener('pointermove', ev => showTip(ev, r.d + ' · ' + r.mean.toFixed(1) + '%', [0, 2, 1, 3, 4, 5].map(j => D.short[j] + ' ' + r.v[j].toFixed(1) + '%').join(', ') + '.', ppl));
+    row.addEventListener('pointerleave', hideTip);
+    box.appendChild(row);
   });
-  tb.appendChild(tbody); box.appendChild(tb);
+  const ax = el('div', 'daxis'); ax.append(el('div'), el('div')); const a = el('div');
+  [20, 30, 40, 50, 60].forEach(v => { const e = el('em', null, v + '%'); e.style.left = X(v); a.appendChild(e); });
+  ax.append(a, el('div')); box.appendChild(ax);
+  const go = () => moves.forEach(([n, x]) => (n.style.left = x));
+  if (REDUCED) go(); else whenSeen(fig, go);
+})();
+
+/* ---------- closing the gap: two routes into the model ---------- */
+(function () {
+  const fig = document.getElementById('fig-close'); if (!fig) return;
+  const box = fig.querySelector('.routes'), svg = box.querySelector('.rwires'), faces = box.querySelector('.rfaces');
+  D.learn.forEach(c => faces.appendChild(avatar(c.slug, c.name)));
+  const draw = () => {
+    if (getComputedStyle(svg).display === 'none') return;
+    const B = box.getBoundingClientRect(), R = e => e.getBoundingClientRect();
+    const src = R(faces), node = R(box.querySelector('.rnode'));
+    const sx = src.right - B.left + 14, sy = src.top + src.height / 2 - B.top;
+    const mx = node.left - B.left - 16, my = node.top + node.height / 2 - B.top;
+    let d = '';
+    box.querySelectorAll('.rcard').forEach(c => {
+      const q = R(c), y = q.top + q.height / 2 - B.top, x0 = q.left - B.left - 6, x1 = q.right - B.left + 6, c0 = (sx + x0) / 2, c1 = (x1 + mx) / 2;
+      d += 'M' + sx + ',' + sy + 'C' + c0 + ',' + sy + ' ' + c0 + ',' + y + ' ' + x0 + ',' + y + 'M' + x1 + ',' + y + 'C' + c1 + ',' + y + ' ' + c1 + ',' + my + ' ' + mx + ',' + my;
+    });
+    svg.setAttribute('viewBox', '0 0 ' + B.width + ' ' + B.height);
+    svg.innerHTML = '<path d="' + d + '"/><circle cx="' + mx + '" cy="' + my + '" r="3"/>';
+  };
+  draw(); window.addEventListener('resize', draw); if (document.fonts) document.fonts.ready.then(draw); window.addEventListener('load', draw);
 })();
 
 (function () { const f = document.getElementById('cta-faces'); D.people.forEach(p => f.appendChild(avatar(p.slug, p.name))); })();
