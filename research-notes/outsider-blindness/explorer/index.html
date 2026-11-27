@@ -203,6 +203,26 @@ sitemap: false
 .obx .qnav button:hover { background:var(--tint2); }
 .obx .qnav button[aria-pressed=true] { background:#fff; border-color:var(--ink); }
 .obx .qnav button:focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+/* refinement pass: reading measure, clip beside the quote on wide screens, steadier grids */
+.obx main { max-width:960px; }
+.obx h2.q { max-width:820px; text-wrap:balance; }
+.obx .sec p, .obx .ref, .obx .pt { max-width:760px; }
+.obx .ref { text-wrap:pretty; }
+.obx .refgrid .video { max-width:none; }
+@media (min-width:1240px) {
+  .obx .refgrid { display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1.08fr); gap:34px; align-items:start; }
+  .obx .refgrid .ref { font-size:15.5px; margin:0; max-height:420px; overflow-y:auto; scrollbar-width:thin; padding-right:8px; }
+}
+@media (max-width:1239px) { .obx .refgrid .video { max-width:640px; } }
+.obx .rc { display:grid; grid-template-columns:repeat(3, max-content); gap:4px; }
+@media (min-width:1240px) { .obx .rc { grid-template-columns:repeat(6, max-content); } }
+@media (max-width:1180px) { .obx .wrap { grid-template-columns:320px minmax(0, 1fr); } .obx main { padding:30px 32px 110px; } .obx .tabs { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
+@media (max-width:860px) { .obx .wrap { grid-template-columns:minmax(0, 1fr); } .obx main { padding:26px 18px 100px; } }
+@media (max-width:520px) {
+  .obx .qnav { gap:5px; } .obx .qnav .ql { width:100%; margin:0 0 2px; }
+  .obx .qnav button { flex:1; min-width:0; }
+  .obx .rc { grid-template-columns:repeat(3, max-content); }
+}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-ai_infra" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
@@ -462,8 +482,8 @@ function renderQuestion(id, modelIdx) {
     }
     main.appendChild(el('h2', 'q', Q.question));
     sec(main, Q.speaker + '’s answer', 'The clip from the interview and our transcript. Highlights mark where each rubric point is stated.');
-    clip(main, Q.video, Q.t0, Q.t1, Q.speaker);
-    const ref = el('div', 'ref'); REF = [ref, Q]; fillRef(); main.appendChild(ref);
+    const rg = el('div', 'refgrid'), lv = el('div'); clip(lv, Q.video, Q.t0, Q.t1, Q.speaker);
+    const ref = el('div', 'ref'); REF = [ref, Q]; fillRef(); rg.append(lv, ref); main.appendChild(rg);
     sec(main, 'Rubric points', 'What the grader checks each answer for, and which models covered each one.');
     Q.points.forEach((p, i) => {
       const r = el('div', 'pt'); r.style.setProperty('--pc', PC[i]); r.appendChild(el('span', 'nb', String(i + 1)));
