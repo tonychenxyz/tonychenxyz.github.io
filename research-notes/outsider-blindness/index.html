@@ -75,7 +75,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795755229">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795755782">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -383,6 +383,7 @@
 .obp .main > * { max-width:660px; }
 .obp .main > .fig, .obp .main > .wide { max-width:none; clear:both; }
 .obp .main > .fig.narrow { max-width:660px; clear:none; }
+@media (max-width:1009px) { .obp .main > .fig.narrow { max-width:none; } }
 .obp .toc { position:sticky; top:calc(var(--navh) + 30px); align-self:start; font-size:13px; line-height:1.35; max-height:calc(100vh - var(--navh) - 50px); overflow:auto; scrollbar-width:none; }
 .obp .toc::-webkit-scrollbar { display:none; }
 .obp .toc .tt { font-size:12.5px; font-weight:600; color:var(--ink); margin:4px 0 12px; }
@@ -813,6 +814,7 @@
   .obp .manswers .tabs button { white-space:nowrap; flex:none; }
   .obp .st .tts { display:none; }
   .obp .st .doms span:nth-child(n+4) { display:none; }
+  .obp .bval { font-size:12.5px; } .obp .bval small { font-size:11px; margin-left:4px; }
   .obp .tj { max-height:560px; overflow-y:auto; scrollbar-width:thin; padding-right:6px; -webkit-mask-image:linear-gradient(to bottom, #000 88%, transparent); mask-image:linear-gradient(to bottom, #000 88%, transparent); }
 }
 </style>
@@ -927,7 +929,7 @@
 </div>
         <div class="bars"></div>
 </div>
-        <figcaption><span class="fn">Figure 3</span><span>The share of the practitioners’ rubric points that each model covered, over all 500 questions. Lines show 95% confidence intervals.</span></figcaption></figure>
+        <figcaption><span class="fn">Figure 3</span><span>The share of the practitioners’ rubric points that each model covered, over all 500 questions. Lines show 95% confidence intervals. Without web search, the small number is the change from the score with search.</span></figcaption></figure>
 
       <p><b>The models also miss the same things.</b> 43% of the rubric points were missed by all six, even though they come from three labs that train them separately. Picking the best of the six answers to every question would still reach only 55%.</p>
       <p>Many of the episodes aired before the models’ knowledge cutoffs (76 of the 100 aired before 2026). <b>The models may have seen these very interviews in training, and they still miss what the guests said.</b></p>
@@ -1456,7 +1458,7 @@ Object.keys(D.feat).forEach(id => (D.feat[id].id = id));
       b.style.width = (s / MAX * 100) + '%'; ci.style.left = (c[0] / MAX * 100) + '%'; ci.style.width = ((c[1] - c[0]) / MAX * 100) + '%';
       v.style.left = 'calc(' + (c[1] / MAX * 100) + '% + 8px)'; v.textContent = pct(s);
       const d = Math.round((m.score - m.score_noweb) * 10) / 10;
-      if (!web) v.appendChild(el('small', null, (d >= 0 ? '−' : '+') + Math.abs(d).toFixed(1) + ' without search'));
+      if (!web) v.appendChild(el('small', null, d === 0 ? '±0.0' : (d > 0 ? '−' : '+') + Math.abs(d).toFixed(1)));
     });
   }
   fig.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => { fig.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(b.dataset.web === '1'); }));
@@ -1521,7 +1523,7 @@ function drawUnits() {
   const path = mk('path', { d: 'M' + D.opus.map((o, i) => X(i) + ' ' + Y(o.score)).join(' L'), class: 'ln', stroke: COLOR.Anthropic });
   D.opus.forEach((o, i) => {
     mk('circle', { cx: X(i), cy: Y(o.score), r: 5, fill: COLOR.Anthropic, stroke: '#fff', 'stroke-width': 2 });
-    const t = mk('text', { x: X(i), y: Y(o.score) - 12, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 600 }); t.textContent = o.score.toFixed(1) + '%';
+    const t = mk('text', { x: X(i), y: Y(o.score) - 12, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 600, stroke: '#fff', 'stroke-width': 4, 'stroke-linejoin': 'round', 'paint-order': 'stroke' }); t.textContent = o.score.toFixed(1) + '%';
     const hit = mk('rect', { x: X(i) - 40, y: T, width: 80, height: H - T - B, fill: 'transparent' });
     hit.addEventListener('pointermove', ev => showTip(ev, 'Claude ' + o.label + ' · ' + o.score.toFixed(1) + '%', '95% CI ' + o.ci.join('–') + '%. Same 100 questions for every generation.'));
     hit.addEventListener('pointerleave', hideTip);
