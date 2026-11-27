@@ -12,7 +12,7 @@ footer_text: >
   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: princeton-favicon-32x32.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: dog-favicon.png # Apple’s dog emoji (🐶) as an image, so every system shows the same dog; /favicon.ico is the same image for pages without the site head
 
 url: https://tonychenxyz.github.io # the base hostname & protocol for your site
 baseurl:  # the subpath of your site, e.g. /blog/. Leave blank for root
