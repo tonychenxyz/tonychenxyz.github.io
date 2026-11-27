@@ -60,7 +60,7 @@
 
   <link rel="shortcut icon" href="/assets/img/princeton-favicon-32x32.png?4125606498418b0e00aacf74cff6ea1a">
 
-<link rel="stylesheet" href="/assets/css/main.css?v=1795744295">
+<link rel="stylesheet" href="/assets/css/main.css?v=1795745093">
 <link rel="canonical" href="https://tonychenxyz.github.io/research-notes/outsider-blindness/explorer/">
 
 <!-- Light mode only: tell browsers not to darken the site (including automatic dark modes) -->
@@ -289,7 +289,7 @@
 .obx .mchip.n svg.ic { color:var(--faint) !important; }
 
 /* model answers */
-.obx .tabs { display:flex; flex-wrap:wrap; gap:2px 22px; border-bottom:1px solid var(--line); margin:0 0 20px; }
+.obx .tabs.old { display:flex; flex-wrap:wrap; gap:2px 22px; border-bottom:1px solid var(--line); margin:0 0 20px; }
 .obx .tabs button { font-size:13.5px; color:var(--muted); background:none; border:0; border-bottom:2px solid transparent; padding:0 0 10px; margin-bottom:-1px; cursor:pointer; display:inline-flex; gap:7px; align-items:center; transition:color .15s; }
 .obx .tabs button:hover { color:var(--ink); }
 .obx .tabs button[aria-selected=true] { color:var(--ink); border-bottom-color:var(--ink); font-weight:600; }
@@ -360,6 +360,26 @@
   .obx .list { max-height:46vh; overflow:auto; } .obx main { padding:26px 18px 100px; scroll-margin-top:var(--navh); }
   .obx h2.q { font-size:24px; } .obx .k8 { grid-template-columns:repeat(4, 1fr); } .obx .atext { padding:16px; } .obx .credits { padding:16px 18px 40px; }
 }
+
+/* hierarchy: sections, model picker, list legend */
+.obx .sec { margin:56px 0 18px; padding-top:26px; border-top:1px solid var(--line); }
+.obx h2.q + .sec { margin-top:0; padding-top:0; border-top:0; }
+.obx .sec h3 { font-family:var(--sans); font-size:20px; font-weight:600; line-height:1.25; letter-spacing:-.02em; color:var(--ink); margin:0 0 4px; }
+.obx .sec p { font-size:14px; line-height:1.5; color:var(--text); margin:0; }
+.obx .lbl { font-size:14px; }
+.obx .tabs { display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:6px; margin:0 0 18px; }
+.obx .tabs button { display:flex; align-items:center; gap:7px; font-size:13.5px; color:var(--ink); background:var(--tint); border:1px solid transparent; border-radius:10px; padding:9px 12px; cursor:pointer; text-align:left; }
+.obx .tabs button:hover { background:var(--tint2); }
+.obx .tabs button[aria-selected=true] { background:#fff; border-color:var(--ink); font-weight:600; }
+.obx .tabs button svg.ic { width:14px; height:14px; }
+.obx .tabs button small { margin-left:auto; font-size:12px; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums; }
+.obx .mlegend { display:flex; flex-wrap:wrap; gap:4px 10px; font-size:11.5px; color:var(--ink); margin:0 4px 10px; }
+.obx .mlegend .lt { width:100%; font-weight:600; }
+.obx .mlegend span { display:inline-flex; align-items:center; gap:4px; }
+.obx .mlegend i { width:5px; height:12px; border-radius:2px 2px 0 0; }
+.obx .mlegend svg.ic { width:11px; height:11px; }
+.obx .mini { cursor:default; }
+@media (max-width:860px) { .obx .tabs { grid-template-columns:repeat(2, minmax(0, 1fr)); } }
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-ai_infra" viewbox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"></rect>
@@ -457,6 +477,7 @@
         </select>
       </div>
       <div class="count"></div>
+      <div class="mlegend"></div>
       <div class="list"></div>
     </aside>
     <main><div class="empty">Loading…</div></main>
@@ -483,6 +504,7 @@ let BIO = {};
 fetch('../data/people.json').then(r => r.json()).then(j => { BIO = j; root.querySelectorAll('[data-bio]').forEach(e => (e.textContent = BIO[e.dataset.bio] || '')); }).catch(() => {});
 (function () { const nav = document.querySelector('header nav'); const clear = () => { if (nav && getComputedStyle(nav).position === 'fixed') root.style.setProperty('--navh', Math.round(nav.getBoundingClientRect().height) + 'px'); }; clear(); window.addEventListener('resize', clear); window.addEventListener('load', clear); })();
 
+function sec(box, title, desc) { const s = el('div', 'sec'); s.appendChild(el('h3', null, title)); if (desc) s.appendChild(el('p', null, desc)); box.appendChild(s); }
 function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 function hms(s) { s = Math.max(0, Math.round(s)); const hh = Math.floor(s / 3600), mm = Math.floor(s % 3600 / 60), ss = String(s % 60).padStart(2, '0'); return hh ? hh + ':' + String(mm).padStart(2, '0') + ':' + ss : mm + ':' + ss; }
 function mmss(s) { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
@@ -527,6 +549,7 @@ let REF = null;
 function fillRef() { if (!REF) return; const node = REF[0], Q = REF[1]; node.textContent = ''; marks(node, Q.guest, guestSpans(Q.guest, Q.id), pi => ['Rubric point ' + (pi + 1), Q.points[pi].core]); }
 fetch('../data/guest_quotes.json').then(r => r.json()).then(j => { GQ = j; if (REF && REF[0].isConnected) fillRef(); }).catch(() => {});
 function highlighted(text, spans, points, verdicts) {
+  text = text.replace(/^(\s*)[-–*](?=\s)/gm, '$1•');
   return marks(el('div', 'atext'), text, spans, (pi, cover) => ['Rubric point ' + (pi + 1) + (cover.length > 1 ? ' (also ' + cover.filter(x => x !== pi).map(x => x + 1).join(', ') + ')' : ''), points[pi].core + ' Grader: ' + verdicts[pi].why]);
 }
 function verdictList(points, grade) {
@@ -565,7 +588,7 @@ function renderModel(box, Q, m) {
   box.textContent = '';
   let mode = 'web';
   const seg = el('div', 'seg');
-  const views = [['web', 'With search']].concat(m.noweb ? [['noweb', 'Rerun without search']] : []);
+  const views = [['web', 'With search']].concat(m.noweb ? [['noweb', 'Without search']] : []);
   if (views.length > 1) views.forEach(([k, l]) => { const b = el('button', null, l); b.type = 'button'; b.setAttribute('aria-pressed', k === mode); b.addEventListener('click', () => { mode = k; seg.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); draw(); }); seg.appendChild(b); });
   box.appendChild(seg);
   const body = el('div'); box.appendChild(body);
@@ -612,10 +635,10 @@ function renderQuestion(id, modelIdx) {
     const src = el('div', 'src'); const a = el('a', null, Q.title); a.href = 'https://www.youtube.com/watch?v=' + Q.video + '&t=' + Q.t0 + 's'; a.target = '_blank'; a.rel = 'noopener';
     src.appendChild(a); t.appendChild(src); h.appendChild(t); main.appendChild(h);
     main.appendChild(el('h2', 'q', Q.question));
-    main.appendChild(el('div', 'lbl', 'What ' + Q.speaker + ' said (reference answer)'));
+    sec(main, Q.speaker + '’s answer', 'The clip from the interview and our transcript. Highlights mark where each rubric point is stated.');
     clip(main, Q.video, Q.t0, Q.t1, Q.speaker);
     const ref = el('div', 'ref'); REF = [ref, Q]; fillRef(); main.appendChild(ref);
-    main.appendChild(el('div', 'lbl', 'The rubric points, and which models made them'));
+    sec(main, 'Rubric points', 'What the grader checks each answer for, and which models made each one.');
     Q.points.forEach((p, i) => {
       const r = el('div', 'pt'); r.style.setProperty('--pc', PC[i]); r.appendChild(el('span', 'nb', String(i + 1)));
       const c = el('div', null, p.core); const rc = el('div', 'rc');
@@ -624,7 +647,7 @@ function renderQuestion(id, modelIdx) {
       const det = el('details'); det.appendChild(el('summary', null, 'Grader note')); det.appendChild(el('div', 'gnote', p.note)); c.appendChild(det); r.appendChild(c);
       main.appendChild(r);
     });
-    main.appendChild(el('div', 'lbl', 'Model answers. Sentences the grader matched to a rubric point are highlighted.'));
+    sec(main, 'Model answers', 'Pick a model. Highlighted sentences are where the grader found a rubric point.');
     const tabs = el('div', 'tabs'), mbox = el('div'); main.append(tabs, mbox);
     Q.models.forEach((m, j) => {
       const b = el('button'); b.type = 'button';
@@ -635,7 +658,7 @@ function renderQuestion(id, modelIdx) {
     });
     renderModel(mbox, Q, Q.models[modelIdx || 0]);
     if (Q.samples && Object.keys(Q.samples).length) {
-      const det = el('details', 'box'); det.appendChild(el('summary', null, 'Eight sampled answers (sampling test)'));
+      const det = el('details', 'box'); det.appendChild(el('summary', null, 'Eight sampled answers to this question'));
       const sb = el('div'); det.appendChild(sb); main.appendChild(det); det.addEventListener('toggle', () => { if (det.open && !sb.firstChild) renderSamples(sb, Q, Q.samples); });
     }
     const pd = el('details', 'box'); pd.id = 'prompts'; pd.appendChild(el('summary', null, 'Prompts used for answering and grading'));
@@ -656,12 +679,14 @@ function filter() {
 }
 function drawList() {
   list.textContent = ''; root.querySelector('.count').textContent = rows.length + (rows.length === 1 ? ' question' : ' questions');
+  const lg = root.querySelector('.mlegend'); if (lg && !lg.firstChild) { lg.appendChild(el('span', 'lt', 'Bars: share of rubric points each model made')); MODELS.forEach((m, j) => { const s = el('span'); const k = el('i'); k.style.background = COLOR[m.lab]; s.append(k, logo(m.lab), document.createTextNode(D.short[j])); lg.appendChild(s); }); }
   const frag = document.createDocumentFragment();
   rows.forEach(q => {
     const b = el('button', 'item'); b.type = 'button'; b.dataset.id = q.id; b.setAttribute('aria-current', q.id === current);
     b.appendChild(avatar(slugOf(q.id), q.s));
     const t = el('div'); t.appendChild(el('div', 'who', q.s + ' · ' + q.d)); t.appendChild(el('div', 'qq', q.q)); b.appendChild(t);
     const mini = el('div', 'mini'); MODELS.forEach((m, j) => { const sc = q.p.reduce((a, bits) => a + (bits[j] === '1' ? 1 : 0), 0) / q.p.length; const i = el('i', sc === 0 ? 'z' : ''); i.style.setProperty('--c', COLOR[m.lab]); i.style.height = Math.max(2, sc * 22) + 'px'; mini.appendChild(i); });
+    mini.title = MODELS.map((m, j) => D.short[j] + ': ' + q.p.filter(bits => bits[j] === '1').length + ' of ' + q.p.length).join(', ');
     b.appendChild(mini);
     b.addEventListener('click', () => { history.replaceState(null, '', '#' + q.id); renderQuestion(q.id); if (innerWidth < 860) main.scrollIntoView({ behavior: 'smooth' }); });
     frag.appendChild(b);
@@ -672,7 +697,7 @@ function fromHash() {
   const h = decodeURIComponent(location.hash.slice(1));
   if (h.startsWith('p=')) { F.s.value = ''; F.d.value = ''; F.o.value = ''; F.p.value = h.slice(2); filter(); if (rows[0]) renderQuestion(rows[0].id); return; }
   const [id, mi] = h.split('/');
-  if (id && IDX.some(q => q.id === id)) { renderQuestion(id, mi ? +mi : 0); const it = list.querySelector('[data-id="' + id + '"]'); if (it) it.scrollIntoView({ block: 'nearest' }); return; }
+  if (id && IDX.some(q => q.id === id)) { renderQuestion(id, mi ? +mi : 0); const it = list.querySelector('[data-id="' + id + '"]'); if (it) { const as = root.querySelector('aside'), r = it.getBoundingClientRect(), ra = as.getBoundingClientRect(); if (getComputedStyle(as).position === 'sticky') as.scrollTop += r.top - ra.top - 180; else { const ls = list; ls.scrollTop += r.top - ls.getBoundingClientRect().top - 60; } } return; }
   if (rows[0]) renderQuestion(rows[0].id);
 }
 fetch('data/index.json').then(r => r.json()).then(j => {
