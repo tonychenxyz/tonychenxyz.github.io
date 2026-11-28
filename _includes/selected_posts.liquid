@@ -1,0 +1,21 @@
+<div class="selected-posts">
+  {% assign selected_posts = site.posts | where: 'selected', true %}
+  {% for post in selected_posts %}
+    {% if post.redirect contains '://' %}
+      {% assign post_href = post.redirect %}
+    {% elsif post.redirect %}
+      {% assign post_href = post.redirect | relative_url %}
+    {% else %}
+      {% assign post_href = post.url | relative_url %}
+    {% endif %}
+    <a class="selected-post" href="{{ post_href }}">
+      <div class="thumb">
+        {% if post.thumbnail %}<img src="{{ post.thumbnail | relative_url }}" alt="" loading="lazy">{% endif %}
+      </div>
+      <div class="text">
+        <div class="title">{{ post.title }}</div>
+        <div class="date">{{ post.date | date: '%B %-d, %Y' }}</div>
+      </div>
+    </a>
+  {% endfor %}
+</div>

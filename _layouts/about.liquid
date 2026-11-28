@@ -79,12 +79,23 @@ layout: default
     </section>
   {% endif %}
 
+  <!-- Blog -->
+  {% if page.selected_posts %}
+    <section class="panel panel-flush">
+      <div class="panel-header">
+        <span class="panel-icon"><i class="fa-regular fa-comment"></i></span>
+        <span class="panel-title">blog</span>
+      </div>
+      <div class="panel-body">{% include selected_posts.liquid %}</div>
+    </section>
+  {% endif %}
+
   <!-- Publications -->
   {% if page.selected_papers %}
     <section class="panel panel-flush">
       <div class="panel-header">
         <span class="panel-icon"><i class="fa-regular fa-bookmark"></i></span>
-        <span class="panel-title">publications</span>
+        <span class="panel-title">selected publications</span>
       </div>
       <div class="panel-body">{% include selected_papers.liquid %}</div>
     </section>

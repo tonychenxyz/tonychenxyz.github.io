@@ -38,7 +38,7 @@ repo_trophies:
 # will use title and url fields
 # Take a look to https://github.com/jekyll/jekyll-feed for more customization
 
-rss_icon: true
+rss_icon: false
 
 # -----------------------------------------------------------------------------
 # Layout
@@ -98,7 +98,7 @@ dblp_url: # your DBLP profile url
 kaggle_id: tonychenxyz
 spotify_id: # your spotify id
 unsplash_id: # your unsplash id
-instagram_id: bark.bark.bark.bark.bark.bark
+instagram_id: # your instagram id
 facebook_id: # your facebook id
 youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username

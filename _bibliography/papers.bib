@@ -2,6 +2,23 @@
 ---
 
 
+@article{parallel-agent-teams,
+  abbr={arXiv},
+  title={Test-Time Compute Scales Better with Parallel Agent Teams},
+  author={Wang*, Junlin and Chen*, Haozhe and Li, Ang and Chalamala, Rahul and Liu, Zhuang},
+  equal_contrib={1,2},
+  abstract={Test-time scaling improves the performance of a fixed model by spending more computation at inference. There are two common ways to spend it on agents when a verifier can score every attempt. Best-of-N sampling runs many independent agents and keeps the best result but saturates quickly. One large team of collaborating agents can score higher but stops improving as it grows. Can we get the best of both? Our method, parallel agent teams, does so by sampling many small teams in parallel and keeping the best team's result. We test it on 12 long-horizon tasks from GPU kernels and formal proofs to exploit development. With a 27B model and a budget of 100 agents, parallel teams of ten beat parallel agents on 10 of 12 tasks and beat one team of 100 on all four tasks where we ran such large teams. At equal dollar cost the same parallel teams beat a frontier model on half the tasks. A simple statistical model shows that individual agents lose because their many samples have a low mean and that one large team loses because a single sample gets no gain from variance. Sampling many small teams in parallel balances a high mean with the gain from variance. Parallel agent teams thus offer a more effective way to scale test-time compute.},
+  journal={arXiv preprint},
+  year={2026},
+  month={Nov},
+  selected={true},
+  preview={parallel-agent-teams.png},
+  arxiv={2611.09798},
+  pdf={https://arxiv.org/pdf/2611.09798},
+  code={https://github.com/modal-projects/parallel-agent-teams-scaling}
+}
+
+
 @article{sweeperbench,
   abbr={arXiv},
   title={SWEeper-Bench: Can Agents Discover Bugs in Interactive Software?},
@@ -65,7 +82,6 @@
   year={2024},
   month={Oct},
   dimensions={true},
-  selected={true},
   preview={qgym.png},
   code={https://github.com/namkoong-lab/QGym},
   arxiv={2410.06170}
@@ -98,7 +114,6 @@
   year={2024},
   month={Jun},
   dimensions={true},
-  selected={true},
   preview={hug.png},
   pdf={https://www.cs.columbia.edu/speech/PaperFiles/2024/interspeech24_empathy_paper.pdf},
   poaster={https://www.cs.columbia.edu/speech/PaperFiles/2024/interspeech24_empathy_poster.pdf}
@@ -114,7 +129,6 @@
   year={2024},
   month={Jan},
   dimensions={true},
-  selected={true},
   arxiv={2310.10591},
   preview={textexplain.gif}
 }
